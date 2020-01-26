@@ -1,0 +1,6 @@
+1,main
+0,person0,happy,Nice morning we have here
+0,person0,sad,UwU what's this??
+0,person1,happy,My name is {person1.name}!
+2,person1,happy,23,-20
+3,Where should we go?,To Linus,matsal1,Not to Linus,matsal2
