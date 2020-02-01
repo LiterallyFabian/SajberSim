@@ -6,6 +6,8 @@ using static PersonClass;
 
 public class GameManager : MonoBehaviour
 {
+    public int shown = -1;
+    public int hidden = 1;
     public bool dialogdone = true;
     public static int dialogpos = 0;
     public GameObject textbox;
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
 
         Character sam = new Character("Sam","Sammy", "favthing", "brown", "favcolor", 17, samsad, samneutral, samhappy);
         Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18, fabinasad, fabinaneutral, fabinahappy);
-        Character[] persons = { sam };
+        Character[] persons = { sam, fabina };
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         if (dialogdone)
         {
-            string[] line = story[dialogpos].Split('|');
+            string[] line = story[dialogpos].Split(',');
             if(line[0] == "0") //textbox
             {
 
@@ -52,11 +54,23 @@ public class GameManager : MonoBehaviour
             {
                  
             }
+            else if (line[0] == "3") //question
+            {
+
+            }
+            else if (line[0] == "4") //open script (no question)
+            {
+
+            }
+            else if (line[0] == "5") //thinkbox
+            {
+
+            }
         }
     }
     IEnumerator SpawnTextBox(Character talker, string mood, string text)
     {
-        textbox.transform.position = new Vector3(0, -3.5f, -1); //tar fram textboxen (z = -1)
+        textbox.transform.position = new Vector3(0, -3.5f, shown); 
         dialogdone = false; //ifall funktionen är klar. är denna false kan inte en ny startas
         dialogpos++; //vilken rad vi är på i dialogen
         string written = text[0].ToString(); //written = det som står, text = target

@@ -196,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043428673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: -0.1}
+  m_LocalPosition: {x: 0, y: -3.5, z: -1}
   m_LocalScale: {x: 0.65183103, y: 0.5291334, z: 0.76686}
   m_Children: []
   m_Father: {fileID: 0}
@@ -379,6 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c15755759f320419d871b87284da9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shown: 0
+  hidden: 0
   dialogdone: 1
   textbox: {fileID: 1043428673}
   background: {fileID: 1250003089}

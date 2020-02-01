@@ -1,0 +1,5 @@
+2,0,happy,10,-15
+2,2,happy,15,-9
+0,0,happy,God morgon {2.Name}!
+0,2,sad,Oh nej# inte {0.Name} igen...
+4,kommasent
