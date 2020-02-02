@@ -16,11 +16,11 @@ public class PersonClass : MonoBehaviour
 
 
 
-        public Sprite sad;  //"characters/samsad.png"
-        public Sprite neutral;
-        public Sprite happy;
+        public string sad;  //"characters/samsad.png"
+        public string neutral;
+        public string happy;
 
-        public Character(string name, string cutenick, string favthing, string haircolor, string favcolor, int age, Sprite sadpath, Sprite neutralpath, Sprite happypath)
+        public Character(string name, string cutenick, string favthing, string haircolor, string favcolor, int age)
         {
             this.name = name;
             this.cutenick = cutenick;
@@ -28,10 +28,6 @@ public class PersonClass : MonoBehaviour
             this.haircolor = haircolor;
             this.favcolor = favcolor;
             this.age = age;
-
-            this.sad = sadpath;
-            this.neutral = neutralpath;
-            this.happy = happypath;
         }
     }
 

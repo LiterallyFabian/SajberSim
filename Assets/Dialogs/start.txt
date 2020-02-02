@@ -1,5 +1,5 @@
-1,hemma
+1,sajbermatsal
 2,0,happy,23,20
-0,person0,happy,God morgon!
-0,person0,happy,Vad ska jag ta till frukost?
+0,0,happy,God morgon ya yeet!
+0,0,happy,Vad ska jag ta till frukost?
 3,Vad ska {0.Name} ta till frukost?,Ost,ost,Skinka,skinka
