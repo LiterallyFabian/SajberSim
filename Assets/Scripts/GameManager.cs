@@ -10,15 +10,19 @@ public class GameManager : MonoBehaviour
 {
     public int shown = -1;
     public int hidden = 1;
-    public bool dialogdone = true;
+    public bool ready = true;
+    public bool dialogdone = false;
     public static int dialogpos = 0;
     public GameObject textbox;
+    public Text posobj;
     public GameObject alertbox;
+    public GameObject portrait;
     public Text comment;
     public Text personname;
     public GameObject background;
     public string[] story;
-    public Character[] people = new Character[2];
+    public Coroutine co;
+    public static Character[] people = new Character[2];
 
 
 
@@ -37,7 +41,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dialogdone)
+        posobj.text = $"pos: {dialogpos}\nready = {ready}";
+        if (ready)
         {
             string[] line = story[dialogpos].Split(','); //line = nuvarande raden
             if (line[0] == "0") //textbox
@@ -46,7 +51,8 @@ public class GameManager : MonoBehaviour
                 string mood = line[2];
                 string text = line[3];
                 Debug.Log($"{talker.name} says: {text}");
-                StartCoroutine(SpawnTextBox(talker, mood, text));
+                ready = false;
+                co = StartCoroutine(SpawnTextBox(talker, mood, text));
             }
             else if (line[0] == "1") //new background
             {
@@ -70,33 +76,44 @@ public class GameManager : MonoBehaviour
             {
                 dialogpos++;
             }
-            else if (line[0] == "5") //general box
+            else if (line[0] == "6") //general box
             {
                 dialogpos++;
             }
         }
+        else if(dialogdone && !ready)
+        {
+            if (Input.GetKeyUp("space"))
+            {
+                StopCoroutine(co);
+                ready = true;
+                dialogpos++;
+            }
+        }
     }
-    IEnumerator SpawnTextBox(Character talker, string mood, string text) //ID 0
+    IEnumerator SpawnTextBox(Character talker, string mood, string target) //ID 0
     {
         textbox.SetActive(true);
-        dialogdone = false; //ifall funktionen är klar. är denna false kan inte en ny startas
-        dialogpos++; //vilken rad vi är på i dialogen
+        WWW www = new WWW($"file://{Application.dataPath}/characters/{talker.name.ToLower()}port.png");
+        yield return www;
+        portrait.GetComponent<Image>().sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0.5f, 0.5f));
         personname.text = talker.name;
-        string written = text[0].ToString(); //written = det som står, text = target
-        for (int i = 1; i < text.Length; i++)
+        string written = target[0].ToString(); //written = det som står hittills
+
+        for (int i = 1; i < target.Length; i++)
         {
-            written = written + text[i];
+            written = written + target[i];
             yield return new WaitForSeconds(0.04f);
-            if (Input.GetKey("space") || Input.GetKeyDown("space")) //avbryt och skriv hela
+            if (Input.GetKeyUp("space")) //avbryt och skriv hela
             {
-                comment.text = text;
-                break;
+                comment.text = target;
+                dialogdone = true;
             }
             comment.text = written;
         }
-        //while(true)
-        //    if(Input.GetKeyDown("space"))
-        //        dialogdone = true;
+        comment.text = target;
+        dialogdone = true;
+        Debug.LogError("text done");
     }
 
     IEnumerator ChangeBackground(string bg) //ID 1
@@ -111,5 +128,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"New story loaded: {story}");
         return File.ReadAllLines($"{Application.dataPath}/Dialogs/{story}.txt");
+    }
+    void ReplaceSprite(GameObject obj, string path)
+    {
+
     }
 }

@@ -1,5 +1,6 @@
 1,sajbermatsal
 2,0,happy,23,20
-0,0,happy,God morgon ya yeet!
-0,0,happy,Vad ska jag ta till frukost?
+0,0,happy,{people[0].name]} Det spelar inte så stor roll vad jag skriver här men det bör vara långt aaaaaaa yeeeeet swag uwu TEEEEEEXT SAMUEL SWAG OWOOOO YEED
+0,0,happy,Vad ska jag ta till frukost? Detta meddelande bör också vara rätt långt så jag hinner testa saker
+0,0,happy,Meddelande tre!
 3,Vad ska {0.Name} ta till frukost?,Ost,ost,Skinka,skinka
