@@ -1,4 +1,5 @@
-1,skola
+1,main
+0,0,happy,yup
 5,0,happy,Vacker dag det är idag!
 2,2,happy,23,20
 3,Bör jag hälsa på {2.Name} som står där?,Ja,hälsa,Nej,ignorera
