@@ -1,8 +1,46 @@
-1,matsal
+1,main
 2,0,happy,-3.98,-2.26,1
-0,0,Detta är en textbox# som ska innehålla namnet på karaktär 1# dvs {1.Name}
-5,Detta är en infobox som inte kommer från någon specifik karaktär
+0,0,Detta är en textbox# jag är inte helt säker på vad som ska stå här så vi går vidare till matsalen
+1,matsal
+PLAYMUSIC,jam
+2,1,happy,3.98,-2.26,-1
 WAIT,1
-0,1,detta kommer från karaktär 1
-0,0,och nu är karaktär 0 tillbaka :D
-0,1,Inte länge till
+0,1,welcome to this epic party sam!
+0,0,holy heck this is epic
+0,1,Indeed man
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4
+2,1,happy,3,-2.26,-1
+WAIT,0.4
+2,1,happy,4,-2.26,-1
+WAIT,0.4

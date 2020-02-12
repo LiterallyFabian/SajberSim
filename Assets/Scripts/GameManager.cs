@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         string path = Application.dataPath;
         Character sam = new Character("Sam", "Sammy", "favthing", "brown", "favcolor", 17);
         Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18);
-        story = File.ReadAllLines($"{path}/Dialogs/start.txt");
+        story = File.ReadAllLines($"{path}/Dialogs/{PlayerPrefs.GetString("script","start")}.txt");
         people[0] = sam;
         people[1] = fabina;
         
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         string[] line = story[dialogpos].Split(','); //line = nuvarande raden
         if (ready)
         {
+            #region checks & run function
             if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
             {
                 dialogpos++;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "4") //open new story (no question)
             {
+                PlayerPrefs.SetString("script",line[1]); 
                 ToggleTextbox(false, 3);
                 story = LoadStory(line[1]);
                 dialogpos = 0; //återställ positionen - ny story!
@@ -108,12 +110,19 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(PlayMusic(line[1]));
                 dialogpos++;
             }
+            else if(line[0] == "STOPSOUNDS")
+            {
+                StopSounds();
+                dialogpos++;
+            }
             else if (line[0] == "PLAYSFX")
             {
                 ToggleTextbox(false, 3);
                 StartCoroutine(PlaySoundEffect(line[1]));
                 dialogpos++;
             }
+            #endregion
+
         }
         else if (!dialogdone && !ready && Input.GetKeyUp("space"))
         {
@@ -263,6 +272,11 @@ public class GameManager : MonoBehaviour
             camitem.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
             camitem.GetComponent<AudioSource>().Play();
         }
+    }
+    void StopSounds()
+    {
+        background.GetComponent<AudioSource>().Stop();
+        camitem.GetComponent<AudioSource>().Stop();
     }
     void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ELSE EVERYTHING
     {
