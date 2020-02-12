@@ -1,25 +1,8 @@
-1,main
+1,matsal
 2,0,happy,-3.98,-2.26,1
-0,0,It's time...
-PLAYMUSIC,keem
+0,0,Detta är en textbox# som ska innehålla namnet på karaktär 1# dvs {1.Name}
+5,Detta är en infobox som inte kommer från någon specifik karaktär
 WAIT,1
-0,0,Yo# what up party people?
-0,0,It's your boy Keemstar!
-2,1,happy,3.98,-2.26,-1
-0,1,Wtf
-0,0,I gotta tell you this story...
-0,0,Yeah
-0,0,Yeah
-0,0,Here we go!
-0,0,Walked in the woods
-0,1,Found a dollar# found a# found a dollar
-0,0,Walked in the woods
-0,1,Found a do-do-dollar# found a do-dollar
-0,0,Found a dollar in the woods
-0,1,Found a dollar in the woods
-0,0,I was in the woods# found a dollar
-0,1,Should I give your mom a motherfucking holler?
-0,0,Found a dollar in the woods
-0,0,And I'm feeling so goddamn good!
-0,0,Found a dollar in the woods
-0,0,And I'm feeling so goddamn good
+0,1,detta kommer från karaktär 1
+0,0,och nu är karaktär 0 tillbaka :D
+0,1,Inte länge till

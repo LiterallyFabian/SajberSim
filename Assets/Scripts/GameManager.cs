@@ -6,13 +6,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using static PersonClass;
+using System.Text.RegularExpressions;
 
 public class GameManager : MonoBehaviour
 {
     public bool ready = true; //Om skriptet är redo att gå till nästa rad
     public bool dialogdone = false; //Om någon dialog håller på att skrivas ut är denna false
     public static int dialogpos = 0;
-    public GameObject textbox; 
+    public GameObject textbox;
     public GameObject alertbox;
     public GameObject portrait;
     public GameObject background;
@@ -20,10 +21,10 @@ public class GameManager : MonoBehaviour
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
-    public string[] story; 
+    public Text alert;
+    public string[] story;
     public Coroutine co;
     public static Character[] people = new Character[2];
-
 
 
     // Start is called before the first frame update
@@ -44,10 +45,16 @@ public class GameManager : MonoBehaviour
         string[] line = story[dialogpos].Split(','); //line = nuvarande raden
         if (ready)
         {
-            if (line[0] == "0") //textbox
+            if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
+            {
+                dialogpos++;
+            }
+
+            else if (line[0] == "0") //textbox
             {
                 Character talker = people[int.Parse(line[1])];
                 string text = line[2].Replace("#", ",");
+                text = FillVars(text);
                 Debug.Log($"{talker.name} says: {text}");
                 ready = false;
                 co = StartCoroutine(SpawnTextBox(talker, text));
@@ -57,19 +64,17 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ChangeBackground(line[1]));
                 dialogpos++;
 
-                if (line.Length>2)
+                if (line.Length > 2)
                     RemoveCharacters();
-                Debug.LogError(line.Length);
             }
             else if (line[0] == "2") //move or create character
             {
-                Debug.Log("yes");
                 int id = int.Parse(line[1]);
                 string mood = line[2];
                 float x = (float)Convert.ToDouble(line[3]);
                 float y = (float)Convert.ToDouble(line[4]);
                 int align = int.Parse(line[5]);
-                StartCoroutine(CreateCharacter(id,mood,x,y,align));
+                StartCoroutine(CreateCharacter(id, mood, x, y, align));
                 dialogpos++;
             }
             else if (line[0] == "3") //question
@@ -78,32 +83,34 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "4") //open new story (no question)
             {
+                ToggleTextbox(false, 3);
                 story = LoadStory(line[1]);
                 dialogpos = 0; //återställ positionen - ny story!
                 if (line.Length > 2)
                     RemoveCharacters();
             }
-            else if (line[0] == "5") //thinkbox
+            else if (line[0] == "5") //general box
             {
-                dialogpos++;
-            }
-            else if (line[0] == "6") //general box
-            {
-                dialogpos++;
+                string text = line[1].Replace("#", ",");
+                Debug.Log($"Alert: {text}");
+                ready = false;
+                StartCoroutine(SpawnAlert(text));
             }
             else if (line[0] == "WAIT") //delay
             {
-                ToggleTextbox(false);
+                ToggleTextbox(false, 3);
                 ready = false;
                 StartCoroutine(Delay(float.Parse(line[1])));
             }
             else if (line[0] == "PLAYMUSIC")
             {
+                ToggleTextbox(false, 3);
                 StartCoroutine(PlayMusic(line[1]));
                 dialogpos++;
             }
             else if (line[0] == "PLAYSFX")
             {
+                ToggleTextbox(false, 3);
                 StartCoroutine(PlaySoundEffect(line[1]));
                 dialogpos++;
             }
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && Input.GetKeyUp("space"))
+        else if (dialogdone && !ready && Input.GetKeyUp("space")) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
@@ -131,7 +138,8 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnTextBox(Character talker, string target) //ID 0
     {
         dialogdone = false;
-        ToggleTextbox(true);
+        ToggleTextbox(true, 1);
+        ToggleTextbox(false, 0);
         UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/characters/{talker.name.ToLower()}port.png");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
@@ -154,18 +162,39 @@ public class GameManager : MonoBehaviour
         comment.text = target;
         dialogdone = true;
     }
+    IEnumerator SpawnAlert(string target) //ID 0
+    {
+        dialogdone = false;
+        ToggleTextbox(false, 1);
+        ToggleTextbox(true, 0);
+        string written = target[0].ToString(); //written = det som står hittills
+
+        for (int i = 1; i < target.Length; i++)
+        {
+            written = written + target[i];
+            yield return new WaitForSeconds(0.04f);
+            if (dialogdone) //avbryt och skriv hela
+            {
+                alert.text = target;
+                dialogdone = true;
+                break;
+            }
+            alert.text = written;
+        }
+        alert.text = target;
+        dialogdone = true;
+    }
     void RemoveCharacters()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
 
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
-        Debug.LogError("sh");
     }
 
     IEnumerator ChangeBackground(string bg) //ID 1
     {
-        ToggleTextbox(false);
+        ToggleTextbox(false,3);
         ready = false;
         Debug.Log($"New background loaded: {bg}");
         UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Backgrounds/{bg}.png");
@@ -177,10 +206,11 @@ public class GameManager : MonoBehaviour
 
     string[] LoadStory(string story) //ID 4
     {
-        ToggleTextbox(false);
+        ToggleTextbox(false,3);
         Debug.Log($"New story loaded: {story}");
         return File.ReadAllLines($"{Application.dataPath}/Dialogs/{story}.txt");
     }
+
     IEnumerator CreateCharacter(int id, string mood, float x, float y, int align) //ID 2
     {
         if(GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
@@ -234,10 +264,34 @@ public class GameManager : MonoBehaviour
             camitem.GetComponent<AudioSource>().Play();
         }
     }
-    void ToggleTextbox(bool shown)
+    void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ELSE EVERYTHING
     {
-        textbox.SetActive(shown);
-        if (!shown) //om man tar bort textboxen så försvinner texten
+        if(id == 0)
+            alertbox.SetActive(shown);
+        else if (id == 1)
+            textbox.SetActive(shown);
+        else
+        {
+            textbox.SetActive(shown);
+            alertbox.SetActive(shown);
+        }
+        if (!shown)
+        {
+            //om man tar bort textboxen så försvinner texten
             comment.text = "";
+            alert.text = "";
+        }
+    }
+    string FillVars(string text)
+    {
+        MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}");
+
+        foreach (Match match in matches)
+        {
+            //if (match.Groups[2].Value == "name")
+
+        }
+
+        return text;
     }
 }
