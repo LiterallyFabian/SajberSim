@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
         string path = Application.dataPath;
         Character sam = new Character("Sam", "Sammy", "favthing", "brown", "favcolor", 17);
         Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18);
@@ -159,7 +160,7 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i < target.Length; i++)
         {
             written = written + target[i];
-            yield return new WaitForSeconds(0.04f);
+            yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
             if (dialogdone) //avbryt och skriv hela
             {
                 comment.text = target;
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i < target.Length; i++)
         {
             written = written + target[i];
-            yield return new WaitForSeconds(0.04f);
+            yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
             if (dialogdone) //avbryt och skriv hela
             {
                 alert.text = target;
