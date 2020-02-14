@@ -11,8 +11,13 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject Logo;
     public GameObject Settings;
     public Button ContinueButton;
+    public Toggle uwu;
+    public Slider Speed;
+    public Slider Volume;
     public Text SpeedText;
     public Text VolumeText;
+    public Text UwuText;
+    public GameObject BehindSettings;
 
 
     public void Start()
@@ -22,8 +27,17 @@ public class ButtonCtrl : MonoBehaviour
         else
             ContinueButton.interactable = false;
 
-        SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 40) * 1000)}ms";
+        SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
         VolumeText.text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f) * 100)}%";
+
+        if (PlayerPrefs.GetInt("uwu", 0) == 1)
+        {
+            uwu.SetIsOnWithoutNotify(true);
+            UwuText.text = "(◠‿◠✿)";
+        }
+        
+        Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
+        Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
     }
     public void StartNew()
@@ -54,11 +68,13 @@ public class ButtonCtrl : MonoBehaviour
     {
         Settings.SetActive(true);
         Logo.SetActive(false);
+        BehindSettings.SetActive(true);
     }
     public void CloseSettings()
     {
         Settings.SetActive(false);
         Logo.SetActive(true);
+        BehindSettings.SetActive(false);
     }
     public void QuitGame()
     {
@@ -71,13 +87,26 @@ public class ButtonCtrl : MonoBehaviour
     public void ChangeSpeed(float value)
     {
         PlayerPrefs.SetFloat("delay", value);
-        SpeedText.text = $"{Math.Round(value*1000)}ms";
+        SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay",0.04f)*1000)}ms";
     }
     public void ChangeVolume(float newVolume)
     {
         PlayerPrefs.SetFloat("volume", newVolume);
         AudioListener.volume = PlayerPrefs.GetFloat("volume",1f);
         VolumeText.text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f)*100)}%";
+    }
+    public void UwUToggle(bool uwu)
+    {
+        if (uwu)
+        {
+            UwuText.text = "(◠‿◠✿)";
+            PlayerPrefs.SetInt("uwu", 1);
+        }
+        else //disable / false
+        {
+            UwuText.text = "";
+            PlayerPrefs.SetInt("uwu", 0);
+        }
     }
 
 }

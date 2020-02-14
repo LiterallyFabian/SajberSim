@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject portrait;
     public GameObject background;
     public GameObject camitem;
+    public GameObject uwuwarning;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -43,6 +44,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
+        else uwuwarning.SetActive(false);
+
         string[] line = story[dialogpos].Split(','); //line = nuvarande raden
         if (ready)
         {
@@ -59,7 +63,7 @@ public class GameManager : MonoBehaviour
                 text = FillVars(text);
                 Debug.Log($"{talker.name} says: {text}");
                 ready = false;
-                co = StartCoroutine(SpawnTextBox(talker, text));
+                co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             }
             else if (line[0] == "1") //new background
             {
@@ -97,7 +101,7 @@ public class GameManager : MonoBehaviour
                 string text = line[1].Replace("#", ",");
                 Debug.Log($"Alert: {text}");
                 ready = false;
-                StartCoroutine(SpawnAlert(text));
+                StartCoroutine(SpawnAlert(UwUTranslator(text)));
             }
             else if (line[0] == "WAIT") //delay
             {
@@ -155,20 +159,25 @@ public class GameManager : MonoBehaviour
         var texture = DownloadHandlerTexture.GetContent(uwr);
         portrait.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         personname.text = talker.name;
-        string written = target[0].ToString(); //written = det som står hittills
 
-        for (int i = 1; i < target.Length; i++)
+        if(PlayerPrefs.GetFloat("delay",0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
         {
-            written = written + target[i];
-            yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
-            if (dialogdone) //avbryt och skriv hela
+            string written = target[0].ToString(); //written = det som står hittills
+
+            for (int i = 1; i < target.Length; i++)
             {
-                comment.text = target;
-                dialogdone = true;
-                break;
+                written = written + target[i];
+                yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
+                if (dialogdone) //avbryt och skriv hela
+                {
+                    comment.text = target;
+                    dialogdone = true;
+                    break;
+                }
+                comment.text = written;
             }
-            comment.text = written;
         }
+        
         comment.text = target;
         dialogdone = true;
     }
@@ -200,6 +209,18 @@ public class GameManager : MonoBehaviour
 
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
+    }
+    public string UwUTranslator(string text)
+    {
+        if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
+        else
+        {
+            text = text.Replace('l', 'w');
+            text = text.Replace('r', 'w');
+            text = text.Replace(" f", " f-f");
+            if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
+        }
+        return text;
     }
 
     IEnumerator ChangeBackground(string bg) //ID 1
