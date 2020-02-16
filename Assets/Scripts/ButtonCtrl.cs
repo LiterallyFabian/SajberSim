@@ -60,10 +60,6 @@ public class ButtonCtrl : MonoBehaviour
     {
         OverwriteAlert.SetActive(false);
     }
-    public void Continue()
-    {
-
-    }
     public void OpenSettings()
     {
         Settings.SetActive(true);

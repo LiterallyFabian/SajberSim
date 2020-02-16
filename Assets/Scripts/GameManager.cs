@@ -218,6 +218,9 @@ public class GameManager : MonoBehaviour
             text = text.Replace('l', 'w');
             text = text.Replace('r', 'w');
             text = text.Replace(" f", " f-f");
+            text = text.Replace('L', 'W');
+            text = text.Replace('R', 'W');
+            text = text.Replace(" F", " F-F");
             if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
         }
         return text;
