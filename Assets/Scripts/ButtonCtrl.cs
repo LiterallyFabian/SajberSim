@@ -22,7 +22,7 @@ public class ButtonCtrl : MonoBehaviour
 
     public void Start()
     {
-        if (PlayerPrefs.GetInt("hasplayed", 0) == 1) //ifall man inte har spelat tidigare kan man inte använda den knappen
+        if (PlayerPrefs.GetString("story", "start") != "start") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = true;
         else
             ContinueButton.interactable = false;
@@ -42,18 +42,19 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void StartNew()
     {
-        if(PlayerPrefs.GetInt("hasplayed", 0) == 1)
-        {
+        if(PlayerPrefs.GetString("story", "start") != "start") //story som inte är start hittad
             OverwriteAlert.SetActive(true);
-        }
         else
-        {
-            PlayerPrefs.SetInt("hasplayed", 1);
             SceneManager.LoadScene("game");
-        }
     }
-    public void StartNewConfirmed()
+    public void StartNewConfirmed() 
     {
+        PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
+        SceneManager.LoadScene("game");
+    }
+    public void Continue()
+    {
+        PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
         SceneManager.LoadScene("game");
     }
     public void CancelNew()

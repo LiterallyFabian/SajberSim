@@ -19,10 +19,16 @@ public class GameManager : MonoBehaviour
     public GameObject background;
     public GameObject camitem;
     public GameObject uwuwarning;
+    public GameObject questionbox;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
     public Text alert;
+    public Text question;
+    public Text alt1t;
+    public Text alt2t;
+    public string story1;
+    public string story2;
     public string[] story;
     public Coroutine co;
     public static Character[] people = new Character[2];
@@ -35,7 +41,7 @@ public class GameManager : MonoBehaviour
         string path = Application.dataPath;
         Character sam = new Character("Sam", "Sammy", "favthing", "brown", "favcolor", 17);
         Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18);
-        story = File.ReadAllLines($"{path}/Dialogs/{PlayerPrefs.GetString("script","start")}.txt");
+        story = File.ReadAllLines($"{path}/Dialogs/{PlayerPrefs.GetString("story","start")}.txt");
         people[0] = sam;
         people[1] = fabina;
         
@@ -85,11 +91,18 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "3") //question
             {
-                dialogpos++;
+                dialogpos = 0;
+                ready = false;
+                string quest = line[1];
+                string alt1 = line[2];
+                story1 = line[3];
+                string alt2 = line[4];
+                story2 = line[5];
+                Question(quest, alt1, story1, alt2, story2);
             }
             else if (line[0] == "4") //open new story (no question)
             {
-                PlayerPrefs.SetString("script",line[1]); 
+                PlayerPrefs.SetString("story",line[1]); 
                 ToggleTextbox(false, 3);
                 story = LoadStory(line[1]);
                 dialogpos = 0; //återställ positionen - ny story!
@@ -180,6 +193,22 @@ public class GameManager : MonoBehaviour
         
         comment.text = target;
         dialogdone = true;
+    }
+    void Question(string text, string alt1, string story1, string alt2, string story2)
+    {
+        dialogdone = false;
+        ToggleTextbox(true, 2);
+        ToggleTextbox(false, 1);
+        ToggleTextbox(false, 0);
+        question.text = text;
+        alt1t.text = alt1;
+        alt2t.text = alt2;
+    }
+    public void AnswerQuestion(int id)
+    {
+        string[] stories = { story1, story2 };
+        LoadStory(stories[id]);
+        ready = true;
     }
     IEnumerator SpawnAlert(string target) //ID 0
     {
@@ -305,12 +334,15 @@ public class GameManager : MonoBehaviour
     }
     void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ELSE EVERYTHING
     {
-        if(id == 0)
+        if (id == 0)
             alertbox.SetActive(shown);
         else if (id == 1)
             textbox.SetActive(shown);
+        else if (id == 2)
+            questionbox.SetActive(shown);
         else
         {
+            questionbox.SetActive(shown);
             textbox.SetActive(shown);
             alertbox.SetActive(shown);
         }
@@ -319,6 +351,9 @@ public class GameManager : MonoBehaviour
             //om man tar bort textboxen så försvinner texten
             comment.text = "";
             alert.text = "";
+            question.text = "";
+            alt1t.text = "";
+            alt2t.text = "";
         }
     }
     string FillVars(string text)
