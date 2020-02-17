@@ -2,7 +2,7 @@
 
 PLAYMUSIC,ameno
 1,matsal
-2,0,sad,-3.5,-2.7,1
+2,0,neutral,-3.5,-2.7,1
 0,0,Oh this day is nice
 WAIT,1
 2,1,sad,3,-2,-1

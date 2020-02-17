@@ -37,11 +37,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
         Character sam = new Character("Sam", "Sammy", "favthing", "brown", "favcolor", 17);
         Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18);
-        story = File.ReadAllLines($"{path}/Dialogs/{PlayerPrefs.GetString("story","start")}.txt");
+
+        story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story","start")}.txt");
         people[0] = sam;
         people[1] = fabina;
         
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
 
-        string[] line = story[dialogpos].Split(','); //line = nuvarande raden
+        string[] line = story[dialogpos].Split('|'); //line = nuvarande raden
         if (ready)
         {
             #region checks & run function
@@ -166,7 +167,7 @@ public class GameManager : MonoBehaviour
         dialogdone = false;
         ToggleTextbox(true, 1);
         ToggleTextbox(false, 0);
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/characters/{talker.name.ToLower()}port.png");
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{talker.name.ToLower()}port.png");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
         portrait.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -271,7 +272,7 @@ public class GameManager : MonoBehaviour
         ToggleTextbox(false,3);
         Debug.Log($"New story loaded: {story}");
         PlayerPrefs.SetString("story", story);
-        return File.ReadAllLines($"{Application.dataPath}/Dialogs/{story}.txt");
+        return File.ReadAllLines($"{Application.dataPath}/Dialogues/{story}.txt");
     }
 
     IEnumerator CreateCharacter(int id, string mood, float x, float y, int align) //ID 2
@@ -279,7 +280,7 @@ public class GameManager : MonoBehaviour
         if(GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
         {
             //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
 
@@ -301,7 +302,7 @@ public class GameManager : MonoBehaviour
             character.transform.localScale = new Vector3(0.58f*align, 0.58f, 0.6f);
 
             //ändra mood
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
