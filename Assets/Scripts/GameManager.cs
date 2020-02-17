@@ -102,7 +102,6 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "4") //open new story (no question)
             {
-                PlayerPrefs.SetString("story",line[1]); 
                 ToggleTextbox(false, 3);
                 story = LoadStory(line[1]);
                 dialogpos = 0; //återställ positionen - ny story!
@@ -271,6 +270,7 @@ public class GameManager : MonoBehaviour
     {
         ToggleTextbox(false,3);
         Debug.Log($"New story loaded: {story}");
+        PlayerPrefs.SetString("story", story);
         return File.ReadAllLines($"{Application.dataPath}/Dialogs/{story}.txt");
     }
 

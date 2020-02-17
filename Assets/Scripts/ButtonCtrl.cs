@@ -54,7 +54,6 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Continue()
     {
-        PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
         SceneManager.LoadScene("game");
     }
     public void CancelNew()
