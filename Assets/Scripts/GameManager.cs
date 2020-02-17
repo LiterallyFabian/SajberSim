@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject alertbox;
     public GameObject portrait;
     public GameObject background;
-    public GameObject camitem;
+    public GameObject music;
     public GameObject uwuwarning;
     public GameObject questionbox;
     public Text posobj; //Debug meny i canvas > dev
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
                 story1 = line[3];
                 string alt2 = line[4];
                 story2 = line[5];
-                Question(quest, alt1, story1, alt2, story2);
+                Question(quest, alt1, alt2);
             }
             else if (line[0] == "4") //open new story (no question)
             {
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         }
             
         //debug info
-        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\n\n{story[dialogpos]}";
+        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("story","start")}\n\n{story[dialogpos]}";
     }
     IEnumerator Delay(float time) //ID 7
     {
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
         comment.text = target;
         dialogdone = true;
     }
-    void Question(string text, string alt1, string story1, string alt2, string story2)
+    void Question(string text, string alt1, string alt2)
     {
         dialogdone = false;
         ToggleTextbox(true, 2);
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
     public void AnswerQuestion(int id)
     {
         string[] stories = { story1, story2 };
-        LoadStory(stories[id]);
+        story = LoadStory(stories[id-1]);
         ready = true;
     }
     IEnumerator SpawnAlert(string target) //ID 0
@@ -323,14 +323,14 @@ public class GameManager : MonoBehaviour
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
             yield return uwr.SendWebRequest();
-            camitem.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
-            camitem.GetComponent<AudioSource>().Play();
+            music.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
+            music.GetComponent<AudioSource>().Play();
         }
     }
     void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();
-        camitem.GetComponent<AudioSource>().Stop();
+        music.GetComponent<AudioSource>().Stop();
     }
     void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ELSE EVERYTHING
     {
