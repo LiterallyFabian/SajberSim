@@ -4,7 +4,7 @@
 
 ## Nerladdning
 
-Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det här :)
+Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det här
 
 
 
