@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +12,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject OverwriteAlert;
     public GameObject Logo;
     public GameObject Settings;
+    public GameObject Modding;
     public Button ContinueButton;
     public Toggle uwu;
     public Slider Speed;
@@ -60,17 +63,20 @@ public class ButtonCtrl : MonoBehaviour
     {
         OverwriteAlert.SetActive(false);
     }
-    public void OpenSettings()
+    public void OpenMenu(GameObject menu)
     {
-        Settings.SetActive(true);
+        menu.SetActive(true);
         Logo.SetActive(false);
         BehindSettings.SetActive(true);
     }
+
     public void CloseSettings()
     {
         Settings.SetActive(false);
         Logo.SetActive(true);
         BehindSettings.SetActive(false);
+        Modding.SetActive(false);
+        
     }
     public void QuitGame()
     {
@@ -104,5 +110,13 @@ public class ButtonCtrl : MonoBehaviour
             PlayerPrefs.SetInt("uwu", 0);
         }
     }
-
+    public void OpenFolder(string path)
+    {
+    Process.Start("explorer.exe", $@"{Application.dataPath}/{path}/".Replace("/", "\\"));
+        UnityEngine.Debug.Log($"{Application.dataPath}/{path}/".Replace("/", "\\"));
+    }
+    public void OpenLink(string link)
+    {
+        Process.Start(link);
+    }
 }
