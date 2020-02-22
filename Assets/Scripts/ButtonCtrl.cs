@@ -113,7 +113,6 @@ public class ButtonCtrl : MonoBehaviour
     public void OpenFolder(string path)
     {
     Process.Start("explorer.exe", $@"{Application.dataPath}/{path}/".Replace("/", "\\"));
-        UnityEngine.Debug.Log($"{Application.dataPath}/{path}/".Replace("/", "\\"));
     }
     public void OpenLink(string link)
     {

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using static PersonClass;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,26 +32,32 @@ public class GameManager : MonoBehaviour
     public string story2;
     public string[] story;
     public Coroutine co;
-    public static Character[] people = new Character[2];
+    public static Character[] people = new Character[4];
 
 
     // Start is called before the first frame update
     void Start()
     {
+        System.Random rnd = new System.Random();
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
-        Character sam = new Character("Sam", "Sammy", "favthing", "brown", "favcolor", 17);
-        Character fabina = new Character("Fabina", "Fabi", "bread", "blonde", "purple", 18);
+        string[] config = File.ReadAllLines($"{path}/Characters/characterconfig.txt");
+
+        for (int i = 0; i < config.Length; i++)
+        {
+            people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1]);
+        }
+        people = people.OrderBy(x => rnd.Next()).ToArray();
 
         story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story","start")}.txt");
-        people[0] = sam;
-        people[1] = fabina;
+
         
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
 
@@ -363,7 +370,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Match match in matches)
         {
-            //if (match.Groups[2].Value == "name")
+            Debug.Log(match);
 
         }
 

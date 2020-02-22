@@ -46,9 +46,9 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
   
 
-- 4 - Startar ny dialog utan att fråga. Precis som med bakgrundsbytet så rensas bara karaktärer om argument 3 finns.
+- 4 - Startar ny dialog utan att fråga. Precis som med bakgrundsbytet så rensas bara karaktärer om argument 3 finns. Dialog-argumentet ska vara namnet på en textfil i `Dialogues/` utan ".txt".
 
-  `4,dialognamn,rensakaraktärer`
+  `4|dialog|rensakaraktärer`
 
   
 
@@ -81,3 +81,25 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 ## Frågor?
 
 Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har allmänna frågor kan du antingen mejla (fabian.lindgren@elev.cybergymnasiet.se) eller skriva på Discord (Fabian#1540). 
+
+
+
+### To-do
+
+- [ ] implement story
+
+- [ ] main menu sounds
+
+- [ ] updated UI buttons
+
+- [ ] story list tester
+
+- [ ] story debugger
+
+- [ ] updated dev mode
+
+- [ ] implement minigame menu
+
+- [ ] save characters globally when creating new game only
+
+  

@@ -1,2 +1,2 @@
-0,1,Hey
-3,Vad vill du göra?,Gå till lego city,legocity,Party!,partytestidk
+0|1|Hey
+3|Vad vill du göra?|Gå till lego city|legocity|Party!|partytestidk

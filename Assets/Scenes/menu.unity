@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_Text: "Ifall du vill l\xE4gga in egna stories eller redigera v\xE5r i SajberSim
     s\xE5 har du kommit r\xE4tt! Du beh\xF6ver inga nya program f\xF6r detta, du
     beh\xF6ver bara redigera textfilerna du hittar med Dialog-knappen nedanf\xF6r.
-    Instruktioner finns p\xE5 GitHub."
+    Instruktioner & k\xE4llkod finns p\xE5 GitHub."
 --- !u!222 &410652028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8160,7 +8160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1288605317
 RectTransform:
   m_ObjectHideFlags: 0
