@@ -1,0 +1,15 @@
+H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\legocity.txt 
+--------------------------------------
+
+Rad 4: Denna rad verkar vara för kort, förväntad längd: 3
+0|1
+
+Rad 5: Bakgrunden "finnsej" verkar inte finnas.
+1|finnsej
+
+H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\partytestidk.txt 
+--------------------------------------
+
+H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\start.txt 
+--------------------------------------
+
