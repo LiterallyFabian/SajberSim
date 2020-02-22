@@ -47,7 +47,7 @@ public class ButtonCtrl : MonoBehaviour
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
     }
-    public void StartNew() 
+    public void StartNew() //Just checks if a new story should be started
     {
         if (PlayerPrefs.GetString("story", "start") != "start") //story som inte är start hittad
             OverwriteAlert.SetActive(true);
@@ -65,24 +65,24 @@ public class ButtonCtrl : MonoBehaviour
     {
         System.Random rnd = new System.Random();
         string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
-        people = new Character[config.Length]; //change size to amount of ppl
-        PlayerPrefs.SetInt("characters", config.Length);
 
-        for (int i = 0; i < config.Length; i++) //fill array
+        people = new Character[config.Length]; //change size to amount of ppl
+        PlayerPrefs.SetInt("characters", config.Length); //amount of characters
+
+        for (int i = 0; i < config.Length; i++) //fill array from file
             people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1], i);
 
         people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
 
-        for (int i = 0; i < people.Length; i++)
-        {
+        for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
             PlayerPrefs.SetInt($"character{i}",people[i].ID);
-        }
     }
     private void LoadCharacters() //Loads characters from playerprefs
     {
         string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
         people = new Character[PlayerPrefs.GetInt("characters", 1)];
-        for (int i = 0; i < people.Length; i++)
+
+        for (int i = 0; i < people.Length; i++) //fill array from save
         {
             int tempID = PlayerPrefs.GetInt($"character{i}", 0);
             people[i] = new Character(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
@@ -93,18 +93,18 @@ public class ButtonCtrl : MonoBehaviour
         LoadCharacters();
         SceneManager.LoadScene("game");
     }
-    public void CancelNew()
+    public void CancelNew() //closes the new game alert
     {
         OverwriteAlert.SetActive(false);
     }
-    public void OpenMenu(GameObject menu)
+    public void OpenMenu(GameObject menu) //opens a menu, like settings or modding
     {
         menu.SetActive(true);
         Logo.SetActive(false);
         BehindSettings.SetActive(true);
     }
 
-    public void CloseSettings()
+    public void CloseSettings() //closes a menu
     {
         Settings.SetActive(false);
         Logo.SetActive(true);
@@ -112,15 +112,15 @@ public class ButtonCtrl : MonoBehaviour
         Modding.SetActive(false);
         
     }
-    public void QuitGame()
+    public void QuitGame() //nuff' said
     {
         Application.Quit();
     }
-    public void ResetAll()
+    public void ResetAll() //fucking nukes all the stats like the US during 1945
     {
         PlayerPrefs.DeleteAll();
     }
-    public void ChangeSpeed(float value)
+    public void ChangeSpeed(float value) //runs when the speed slider is changed
     {
         PlayerPrefs.SetFloat("delay", value);
         SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay",0.04f)*1000)}ms";
