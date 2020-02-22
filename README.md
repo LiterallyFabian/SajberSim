@@ -87,19 +87,11 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 ### To-do
 
 - [ ] implement story
-
 - [ ] main menu sounds
-
 - [ ] updated UI buttons
-
 - [ ] story list tester
-
 - [ ] story debugger
-
 - [ ] updated dev mode
-
 - [ ] implement minigame menu
-
 - [ ] save characters globally when creating new game only
-
-  
+- [ ] ingame pause menu

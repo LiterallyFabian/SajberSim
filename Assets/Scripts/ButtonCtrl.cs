@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static PersonClass;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -21,6 +24,7 @@ public class ButtonCtrl : MonoBehaviour
     public Text VolumeText;
     public Text UwuText;
     public GameObject BehindSettings;
+    public static Character[] people = new Character[4];
 
 
     public void Start()
@@ -43,20 +47,50 @@ public class ButtonCtrl : MonoBehaviour
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
     }
-    public void StartNew()
+    public void StartNew() 
     {
-        if(PlayerPrefs.GetString("story", "start") != "start") //story som inte är start hittad
+        if (PlayerPrefs.GetString("story", "start") != "start") //story som inte är start hittad
             OverwriteAlert.SetActive(true);
         else
-            SceneManager.LoadScene("game");
+            StartNewConfirmed();
     }
-    public void StartNewConfirmed() 
+    public void StartNewConfirmed() //starts a NEW story
     {
         PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
+        CreateCharacters();
         SceneManager.LoadScene("game");
+        UnityEngine.Debug.Log("New game created.");
     }
-    public void Continue()
+    private void CreateCharacters()
     {
+        System.Random rnd = new System.Random();
+        string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
+        people = new Character[config.Length]; //change size to amount of ppl
+        PlayerPrefs.SetInt("characters", config.Length);
+
+        for (int i = 0; i < config.Length; i++) //fill array
+            people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1], i);
+
+        people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
+
+        for (int i = 0; i < people.Length; i++)
+        {
+            PlayerPrefs.SetInt($"character{i}",people[i].ID);
+        }
+    }
+    private void LoadCharacters() //Loads characters from playerprefs
+    {
+        string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
+        people = new Character[PlayerPrefs.GetInt("characters", 1)];
+        for (int i = 0; i < people.Length; i++)
+        {
+            int tempID = PlayerPrefs.GetInt($"character{i}", 0);
+            people[i] = new Character(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
+        }
+    }
+    public void Continue() //just opens everything SAVED
+    {
+        LoadCharacters();
         SceneManager.LoadScene("game");
     }
     public void CancelNew()

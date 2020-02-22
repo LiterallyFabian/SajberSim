@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     public string story2;
     public string[] story;
     public Coroutine co;
-    public static Character[] people = new Character[4];
+    public Character[] people = ButtonCtrl.people;
+    
 
 
     // Start is called before the first frame update
@@ -41,13 +42,7 @@ public class GameManager : MonoBehaviour
         System.Random rnd = new System.Random();
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
-        string[] config = File.ReadAllLines($"{path}/Characters/characterconfig.txt");
-
-        for (int i = 0; i < config.Length; i++)
-        {
-            people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1]);
-        }
-        people = people.OrderBy(x => rnd.Next()).ToArray();
+        
 
         story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story","start")}.txt");
 
