@@ -10,7 +10,7 @@ Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det hä
 
 ## Modding intro
 
-När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spelet så vi kan lägga till och redigera våra bakgrunder, karaktärer, dialoger etc smidigt. Detta gjorde vi genom att implementera ett eget mänskligt läsbart filformat som gör det mycket lättare för oss att redigera storyn. Med detta format så blir det inte bara lättare för oss dock, utan för alla med spelet nerladdat! Läs vidare ifall du är intresserad av att skapa en ny story eller redigera vår!
+När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spelet så vi kan lägga till och redigera våra bakgrunder, karaktärer, dialoger etc smidigt. Detta gjorde vi genom att implementera ett eget mänskligt läsbart filformat som gör det mycket lättare för oss att redigera storyn, tillsammans med verktyg för att effektivt testa storyn. Med detta format så blir det inte bara lättare för oss dock, utan för alla med spelet nerladdat! Läs vidare ifall du är intresserad av att skapa en ny story eller redigera vår!
 
 
 
@@ -22,7 +22,7 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
 ## Funktioner
 
-- 0 - Skapar en textbox med någons ikon
+- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}`
 
   `0|person|text`
 
@@ -34,7 +34,7 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
   
 
-- 2 - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Om argumentet "flip" existerar spegelvänds karaktären. Person-argumentet ska vara namnet på en bild i `Characters/` utan ".png"
+- 2 - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Om argumentet "flip" existerar spegelvänds karaktären. Person-argumentet ska vara personen ID. Våra humör är happy, neutral eller sad, men du kan skapa egna (info under "Karaktär-setup")!
 
   `2|person|humör|x|y|flip`
 
@@ -78,6 +78,14 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
 
 
+## Karaktär-setup
+
+Alla karaktärer har ett namn & smeknamn som sparas i `Characters/characterconfig.txt`, och 2 bilder var, ett porträtt som används i textrutorna och en pose som används när du skapar karaktären i scenen. För att länka bilder med karaktärer så döper du bara bilden till karaktärens namn i små bokstäver och sedan namnet på posen, till exempel happy/sad/neutral som vi har använt.  
+
+När ett nytt spel skapas så får alla karaktärer ett unikt nummer (börjar på 0), om du har 3 karaktärer till exempel så kan du då använda ID 0, 1 och 2 i dialoger
+
+
+
 ## Frågor?
 
 Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har allmänna frågor kan du antingen mejla (fabian.lindgren@elev.cybergymnasiet.se) eller skriva på Discord (Fabian#1540). 
@@ -93,5 +101,5 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] story debugger
 - [ ] updated dev mode
 - [ ] implement minigame menu
-- [ ] save characters globally when creating new game only
+- [x] save characters globally when creating new game only
 - [ ] ingame pause menu

@@ -8,11 +8,12 @@ using UnityEngine.Networking;
 using static PersonClass;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool ready = true; //Om skriptet är redo att gå till nästa rad
-    public bool dialogdone = false; //Om någon dialog håller på att skrivas ut är denna false
+    public static bool ready = true; //Om skriptet är redo att gå till nästa rad
+    public static bool dialogdone = false; //Om någon dialog håller på att skrivas ut är denna false
     public static int dialogpos = 0;
     public GameObject textbox;
     public GameObject alertbox;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     public Text alt2t;
     public string story1;
     public string story2;
-    public string[] story;
+    public static string[] story;
     public Coroutine co;
     public Character[] people = ButtonCtrl.people;
     
@@ -43,10 +44,22 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
         
+        if(SceneManager.GetActiveScene().name == "game")
+        {
+            story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story", "start")}.txt");
+            PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
+        }
+            
+        if (SceneManager.GetActiveScene().name == "dev")
+        {
+            story = File.ReadAllLines($"{path}/Dialogues/start.txt");
+            PlayerPrefs.SetString("tempstory", "start");
 
-        story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story","start")}.txt");
+        }
+            
 
-        
+
+
     }
 
     // Update is called once per frame
@@ -70,7 +83,7 @@ public class GameManager : MonoBehaviour
                 Character talker = people[int.Parse(line[1])];
                 string text = line[2].Replace("#", ",");
                 text = FillVars(text);
-                Debug.Log($"{talker.name} says: {text}");
+                UnityEngine.Debug.Log($"{talker.name} says: {text}");
                 ready = false;
                 co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             }
@@ -94,7 +107,6 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "3") //question
             {
-                dialogpos = 0;
                 ready = false;
                 string quest = line[1];
                 string alt1 = line[2];
@@ -156,7 +168,7 @@ public class GameManager : MonoBehaviour
         }
             
         //debug info
-        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("story","start")}\n\n{story[dialogpos]}";
+        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory","start")}\n\n{story[dialogpos]}";
     }
     IEnumerator Delay(float time) //ID 7
     {
@@ -208,6 +220,7 @@ public class GameManager : MonoBehaviour
     }
     public void AnswerQuestion(int id)
     {
+        dialogpos = 0;
         string[] stories = { story1, story2 };
         story = LoadStory(stories[id-1]);
         ready = true;
@@ -234,7 +247,7 @@ public class GameManager : MonoBehaviour
         alert.text = target;
         dialogdone = true;
     }
-    void RemoveCharacters()
+    public static void RemoveCharacters()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
 
@@ -274,6 +287,7 @@ public class GameManager : MonoBehaviour
         ToggleTextbox(false,3);
         Debug.Log($"New story loaded: {story}");
         PlayerPrefs.SetString("story", story);
+        PlayerPrefs.SetString("tempstory", story);
         return File.ReadAllLines($"{Application.dataPath}/Dialogues/{story}.txt");
     }
 
@@ -330,7 +344,7 @@ public class GameManager : MonoBehaviour
             music.GetComponent<AudioSource>().Play();
         }
     }
-    void StopSounds()
+    public void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
