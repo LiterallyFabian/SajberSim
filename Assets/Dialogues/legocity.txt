@@ -2,8 +2,6 @@
 
 PLAYMUSIC|ameno
 1|matsal
-0|1
-1|finnsej
 2|0|neutral|-3.5|-2.7|1
 0|0|Oh this day is nice
 WAIT|1

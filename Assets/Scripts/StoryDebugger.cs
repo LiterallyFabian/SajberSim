@@ -10,25 +10,37 @@ public class StoryDebugger : MonoBehaviour
         using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/debug.txt"))
         {
             string fixedpath = $@"{Application.dataPath}/Dialogues/".Replace("/", "\\");
+            string audioPath = $@"{Application.dataPath}/Audio/".Replace("/", "\\");
+            string[] storyPaths = Directory.GetFiles(fixedpath, "*.txt");
+            string[] audioPaths = Directory.GetFiles(audioPath, "*.ogg");
+
+            List<string> allmusic = new List<string>(); //list with all music
+            List<string> allstories = new List<string>(); //list with all stories
+
+            for (int i = 0; i < storyPaths.Length; i++)
+                allstories.Add(storyPaths[i].Replace(fixedpath, "").Replace(".txt", ""));
+            
+            for (int i = 0; i < audioPaths.Length; i++)
+                allmusic.Add(audioPaths[i].Replace(audioPath, "").Replace(".ogg", ""));
+
             foreach (string file in Directory.GetFiles(fixedpath, "*.txt"))
             {
                 write.WriteLine($"{file} \n--------------------------------------\n");
                 string[] story = File.ReadAllLines(file);
 
-
                 for (int pos = 0; pos < story.Length; pos++)
                 {
                     string[] line = story[pos].Split('|');
 
-                    if (line[0] == "0") //textbox write.WriteLine($"Rad {pos}: \"\n{story[pos]}\n");
+                    if (line[0] == "0") //textbox write.WriteLine($"Rad {pos + 1}: \"\n{story[pos]}\n");
                     {
                         if (!int.TryParse(line[1], out int i))
                         {
-                            write.WriteLine($"Rad {pos}: Person \"{line[1]}\" är inte en gilltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
+                            write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" är inte en giltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
                         }
-                        if(line.Length != 3)
+                        if (line.Length != 3)
                         {
-                            write.WriteLine($"Rad {pos}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
+                            write.WriteLine($"Rad {pos + 1}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
                         }
                     }
                     else if (line[0] == "1") //new background
@@ -42,66 +54,50 @@ public class StoryDebugger : MonoBehaviour
                                 success = true;
                             }
                         }
-                        if(!success) write.WriteLine($"Rad {pos}: Bakgrunden \"{line[1]}\" verkar inte finnas.\n{story[pos]}\n");
+                        if (!success) write.WriteLine($"Rad {pos + 1}: Bakgrunden \"{line[1]}\" verkar inte finnas.\n{story[pos]}\n");
                     }
 
                     else if (line[0] == "2") //move or create character
                     {
-                        if(!int.TryParse(line[1], out int i))
-                            write.WriteLine($"Rad {pos}: Person \"{line[1]}\" är inte en gilltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
-                        if (!int.TryParse(line[3], out int j))
-                            write.WriteLine($"Rad {pos}: {line[3]} är inte en gilltig koordinat\n{story[pos]}\n");
-                        if (!int.TryParse(line[4], out int g))
-                            write.WriteLine($"Rad {pos}: {line[4]} är inte en gilltig koordinat\n{story[pos]}\n");
+                        if (!double.TryParse(line[1], out double xd))
+                            write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" är inte en giltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
+                        if (!double.TryParse(line[3], out double j))
+                            write.WriteLine($"Rad {pos + 1}: {line[3]} är inte en giltig koordinat\n{story[pos]}\n");
+                        if (!double.TryParse(line[4], out double g))
+                            write.WriteLine($"Rad {pos + 1}: {line[4]} är inte en giltig koordinat\n{story[pos]}\n");
                     }
                     else if (line[0] == "3") //question
                     {
-                        ready = false;
-                        string quest = line[1];
-                        string alt1 = line[2];
-                        story1 = line[3];
-                        string alt2 = line[4];
-                        story2 = line[5];
-                        Question(quest, alt1, alt2);
+                        if (line.Length != 6)
+                            write.WriteLine($"Rad {pos+1}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
+                        if (!allstories.Contains(line[3]))
+                            write.WriteLine($"Rad {pos + 1}: Alternativet \"{line[3]}\" har ingen story\n{story[pos]}\n");
+                        if (!allstories.Contains(line[5]))
+                            write.WriteLine($"Rad {pos + 1}: Alternativet \"{line[5]}\" har ingen story\n{story[pos]}\n");
+
                     }
                     else if (line[0] == "4") //open new story (no question)
                     {
-                        ToggleTextbox(false, 3);
-                        story = LoadStory(line[1]);
-                        pos = 0; //återställ positionen - ny story!
-                        if (line.Length > 2)
-                            RemoveCharacters();
+                        if (!allstories.Contains(line[1]))
+                            write.WriteLine($"Rad {pos + 1}: Storyn \"{line[3]}\" existerar inte\n{story[pos]}\n");
                     }
                     else if (line[0] == "5") //general box
                     {
-                        string text = line[1].Replace("#", ",");
-                        Debug.Log($"Alert: {text}");
-                        ready = false;
-                        StartCoroutine(SpawnAlert(UwUTranslator(text)));
+                        if (line.Length == 1)
+                            write.WriteLine($"Rad {pos + 1}: Denna rad saknar text\n{story[pos]}\n");
                     }
                     else if (line[0] == "WAIT") //delay
                     {
-                        ToggleTextbox(false, 3);
-                        ready = false;
-                        StartCoroutine(Delay(float.Parse(line[1])));
+                        if (line[1].Contains(","))
+                            write.WriteLine($"Rad {pos + 1}: Du måste använda punkter för decimaler, inte kommatecken. (6.9 istället för 6,9 etc)\n{story[pos]}\n");
                     }
-                    else if (line[0] == "PLAYMUSIC")
+                    else if (line[0] == "PLAYMUSIC" || line[0] == "PLAYSFX")
                     {
-                        ToggleTextbox(false, 3);
-                        StartCoroutine(PlayMusic(line[1]));
-                        pos++;
+                        if (!allmusic.Contains(line[1]))
+                            write.WriteLine($"Rad {pos + 1}: Det verkar som ljudet \"{line[1]}\" inte existerar\n{story[pos]}\n");
                     }
-                    else if (line[0] == "STOPSOUNDS")
-                    {
-                        StopSounds();
-                        pos++;
-                    }
-                    else if (line[0] == "PLAYSFX")
-                    {
-                        ToggleTextbox(false, 3);
-                        StartCoroutine(PlaySoundEffect(line[1]));
-                        pos++;
-                    }
+                    else if (!story[pos].StartsWith("//") && story[pos] != "")
+                        write.WriteLine($"Rad {pos + 1}: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //\n{story[pos]}\n");
                 }
             }
         }

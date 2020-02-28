@@ -1,11 +1,17 @@
-H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\legocity.txt 
+H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\fuckedstory.txt 
 --------------------------------------
 
-Rad 4: Denna rad verkar vara för kort, förväntad längd: 3
-0|1
+Rad 2: Det verkar som ljudet "rickroll" inte existerar
+PLAYMUSIC|rickroll
 
-Rad 5: Bakgrunden "finnsej" verkar inte finnas.
-1|finnsej
+Rad 3: x är inte en gilltig koordinat
+2|1|happy|x|2|1
+
+Rad 4: Alternativet "nonexistent" har ingen story
+3|Vad vill du göra?|Gå till lego city|nonexistent|Party!|partytestidk
+
+H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\legocity.txt 
+--------------------------------------
 
 H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\partytestidk.txt 
 --------------------------------------
