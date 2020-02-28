@@ -100,7 +100,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!allmusic.Contains(line[1]))
                             write.WriteLine($"Rad {pos + 1}: Det verkar som ljudet \"{line[1]}\" inte existerar\n{story[pos]}\n");
                     }
-                    else if (!story[pos].StartsWith("//") && story[pos] != "")
+                    else if (!story[pos].StartsWith("//") && story[pos] != "" && !story[pos].StartsWith("OPENSCENE|"))
                         write.WriteLine($"Rad {pos + 1}: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //\n{story[pos]}\n");
                 }
             }
