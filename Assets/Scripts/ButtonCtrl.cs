@@ -17,6 +17,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject Settings;
     public GameObject Modding;
     public Button ContinueButton;
+    public Button DebugButton;
     public Toggle uwu;
     public Slider Speed;
     public Slider Volume;
@@ -169,5 +170,17 @@ public class ButtonCtrl : MonoBehaviour
     public void OpenLink(string link)
     {
         Process.Start(link);
+    }
+    public void Debug()
+    {
+        StoryDebugger.DebugStory();
+        StartCoroutine(ToggleDebug());
+        
+    }
+    IEnumerator ToggleDebug()
+    {
+        DebugButton.interactable = false;
+        yield return new WaitForSeconds(2f);
+        DebugButton.interactable = true;
     }
 }

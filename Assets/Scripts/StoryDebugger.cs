@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class StoryDebugger : MonoBehaviour
 {
-    void Start()
+    public static void DebugStory()
     {
         using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/debug.txt"))
         {
@@ -101,5 +105,6 @@ public class StoryDebugger : MonoBehaviour
                 }
             }
         }
+        Process.Start($@"{Application.dataPath}/debug.txt");
     }
 }

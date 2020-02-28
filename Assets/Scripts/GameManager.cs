@@ -130,6 +130,10 @@ public class GameManager : MonoBehaviour
                 ready = false;
                 StartCoroutine(SpawnAlert(UwUTranslator(text)));
             }
+            else if (line[0] == "OPENSCENE") //delay
+            {
+                SceneManager.LoadScene(line[1]);
+            }
             else if (line[0] == "WAIT") //delay
             {
                 ToggleTextbox(false, 3);

@@ -4,7 +4,7 @@ H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\fuckedstory.txt
 Rad 2: Det verkar som ljudet "rickroll" inte existerar
 PLAYMUSIC|rickroll
 
-Rad 3: x är inte en gilltig koordinat
+Rad 3: x är inte en giltig koordinat
 2|1|happy|x|2|1
 
 Rad 4: Alternativet "nonexistent" har ingen story

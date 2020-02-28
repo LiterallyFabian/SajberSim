@@ -76,6 +76,12 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
 - STOPSOUNDS - Tar bort alla ljud.
 
+  
+
+- OPENSCENE - Öppnar en scen, som ett minigame eller credits. För att lägga till egna scener så måste du göra det i Unity med koden
+
+  `OPENSCENE|scen`
+
 
 
 ## Karaktär-setup
@@ -97,9 +103,10 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] implement story
 - [ ] main menu sounds
 - [ ] updated UI buttons
-- [ ] story list tester
-- [ ] story debugger
+- [x] story list tester
+- [x] story debugger
 - [ ] updated dev mode
 - [ ] implement minigame menu
 - [x] save characters globally when creating new game only
 - [ ] ingame pause menu
+- [x] credits
