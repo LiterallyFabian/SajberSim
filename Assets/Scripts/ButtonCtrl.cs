@@ -16,6 +16,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject Logo;
     public GameObject Settings;
     public GameObject Modding;
+    public GameObject CreditsButton;
     public Button ContinueButton;
     public Button DebugButton;
     public Toggle uwu;
@@ -26,10 +27,14 @@ public class ButtonCtrl : MonoBehaviour
     public Text UwuText;
     public GameObject BehindSettings;
     public static Character[] people = new Character[4];
+    public GameObject fadeimage;
+    public AudioSource music;
+
 
 
     public void Start()
     {
+        Cursor.visible = true;
         if (PlayerPrefs.GetString("story", "start") != "start") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = true;
         else
@@ -115,6 +120,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         menu.SetActive(true);
         Logo.SetActive(false);
+        CreditsButton.SetActive(false);
         BehindSettings.SetActive(true);
     }
 
@@ -122,6 +128,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         Settings.SetActive(false);
         Logo.SetActive(true);
+        CreditsButton.SetActive(true);
         BehindSettings.SetActive(false);
         Modding.SetActive(false);
         
@@ -177,10 +184,29 @@ public class ButtonCtrl : MonoBehaviour
         StartCoroutine(ToggleDebug());
         
     }
-    IEnumerator ToggleDebug()
+    IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
     {
         DebugButton.interactable = false;
         yield return new WaitForSeconds(2f);
         DebugButton.interactable = true;
+    }
+    public void StartCreditsCoroutine() //seems like i couldn't start coroutines with buttons
+    {
+        StartCoroutine(StartCredits());
+    }
+    public IEnumerator StartCredits()
+    {
+        StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
+
+        fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
+
+        for (float i = 0; i <= 1; i += Time.deltaTime/1.5f) //Starts fade, load scene when done
+        {
+            fadeimage.GetComponent<Image>().color = new Color(0, 0, 0, i);
+            if (i > 0.5f) Cursor.visible = false;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("credits");
     }
 }
