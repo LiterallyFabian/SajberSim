@@ -102,11 +102,12 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 
 - [ ] implement story
 - [ ] main menu sounds
-- [ ] updated UI buttons
+- [x] updated UI buttons
 - [x] story list tester
 - [x] story debugger
-- [ ] updated dev mode
+- [x] updated dev mode
 - [ ] implement minigame menu
 - [x] save characters globally when creating new game only
 - [ ] ingame pause menu
 - [x] credits
+- [ ] let story use variables (regex/)

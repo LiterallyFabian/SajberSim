@@ -19,6 +19,3 @@ H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\partytestidk.txt
 H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\start.txt 
 --------------------------------------
 
-Rad 3: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-OPENSCENE|credits
-
