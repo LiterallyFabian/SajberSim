@@ -44,3 +44,5 @@ WAIT|0.4
 WAIT|0.4
 2|1|neutral|4|-2.26|-1
 WAIT|0.4
+0|3|Nu är det dags att säga hejdå :(
+FINISHGAME

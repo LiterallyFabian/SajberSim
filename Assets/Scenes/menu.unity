@@ -1252,7 +1252,7 @@ MonoBehaviour:
   Logo: {fileID: 863821243}
   Settings: {fileID: 1665366694}
   Modding: {fileID: 1288605316}
-  CreditsButton: {fileID: 0}
+  CreditsButton: {fileID: 290548648}
   ContinueButton: {fileID: 1089985357}
   DebugButton: {fileID: 565091647}
   uwu: {fileID: 581435910}
@@ -1263,6 +1263,7 @@ MonoBehaviour:
   UwuText: {fileID: 2124576862}
   BehindSettings: {fileID: 1292243164}
   fadeimage: {fileID: 329098048}
+  music: {fileID: 0}
 --- !u!4 &371701550
 Transform:
   m_ObjectHideFlags: 0

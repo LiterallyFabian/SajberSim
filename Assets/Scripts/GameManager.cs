@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject music;
     public GameObject uwuwarning;
     public GameObject questionbox;
+    public GameObject fadeimage;
+    public AudioSource musicsource;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -157,6 +159,10 @@ public class GameManager : MonoBehaviour
                 ToggleTextbox(false, 3);
                 StartCoroutine(PlaySoundEffect(line[1]));
                 dialogpos++;
+            }
+            else if (line[0] == "FINISHGAME")
+            {
+              StartCoroutine(StartCredits());
             }
             #endregion
 
@@ -377,6 +383,22 @@ public class GameManager : MonoBehaviour
             alt1t.text = "";
             alt2t.text = "";
         }
+    }
+    public IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
+    {
+        StartCoroutine(AudioFadeOut.FadeOut(musicsource, 1.55f));
+        PlayerPrefs.DeleteKey("story");
+
+        fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
+
+        for (float i = 0; i <= 1; i += Time.deltaTime / 1.5f) //Starts fade, load scene when done
+        {
+            fadeimage.GetComponent<Image>().color = new Color(0, 0, 0, i);
+            if (i > 0.5f) Cursor.visible = false;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("credits");
     }
     string FillVars(string text)
     {

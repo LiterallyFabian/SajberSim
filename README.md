@@ -78,9 +78,13 @@ Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och
 
   
 
-- OPENSCENE - Öppnar en scen, som ett minigame eller credits. För att lägga till egna scener så måste du göra det i Unity med koden
+- OPENSCENE - Öppnar ett minigame. För att lägga till egna scener så måste du göra det i Unity med källkoden
 
   `OPENSCENE|scen`
+  
+  
+  
+- FINISHGAME - Markerar spelet som avklarat och startar credits. Om man kör denna så kommer ens sparfil tas bort och nästa gång man startar spelet börjar man från början med nya slumpade karaktärer.
 
 
 
@@ -111,3 +115,5 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] ingame pause menu
 - [x] credits
 - [ ] let story use variables (regex/)
+- [ ] finishgame argument
+- [ ] preload stuff

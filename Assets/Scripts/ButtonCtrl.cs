@@ -83,13 +83,12 @@ public class ButtonCtrl : MonoBehaviour
         for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
             PlayerPrefs.SetInt($"character{i}",people[i].ID);
     }
-    private void CreateDevCharacters()
+    private void CreateDevCharacters() //skapar nya karaktärer, men sparar dem ej
     {
         System.Random rnd = new System.Random();
         string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
 
         people = new Character[config.Length]; //change size to amount of ppl
-        PlayerPrefs.SetInt("characters", config.Length); //amount of characters
 
         for (int i = 0; i < config.Length; i++) //fill array from file
             people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1], i);
