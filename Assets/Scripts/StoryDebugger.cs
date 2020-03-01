@@ -29,8 +29,9 @@ public class StoryDebugger : MonoBehaviour
 
             foreach (string file in Directory.GetFiles(fixedpath, "*.txt"))
             {
-                write.WriteLine($"{file} \n--------------------------------------\n");
+                write.WriteLine($"{file} \n--------------------------------------");
                 string[] story = File.ReadAllLines(file);
+                if (!story[story.Length - 1].StartsWith("FINISHGAME") && !story[story.Length - 1].StartsWith("3") && !story[story.Length - 1].StartsWith("4")) write.WriteLine("Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga\n"); else write.WriteLine("\n");
 
                 for (int pos = 0; pos < story.Length; pos++)
                 {
@@ -100,7 +101,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!allmusic.Contains(line[1]))
                             write.WriteLine($"Rad {pos + 1}: Det verkar som ljudet \"{line[1]}\" inte existerar\n{story[pos]}\n");
                     }
-                    else if (!story[pos].StartsWith("//") && story[pos] != "" && !story[pos].StartsWith("OPENSCENE|"))
+                    else if (!story[pos].StartsWith("//") && story[pos] != "" && !story[pos].StartsWith("OPENSCENE|") && !story[pos].StartsWith("FINISHGAME"))
                         write.WriteLine($"Rad {pos + 1}: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //\n{story[pos]}\n");
                 }
             }

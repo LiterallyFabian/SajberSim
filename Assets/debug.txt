@@ -1,12 +1,12 @@
 H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\legocity.txt 
 --------------------------------------
+Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga
 
 H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\partytestidk.txt 
 --------------------------------------
 
-Rad 48: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-FINISHGAME
 
 H:\School code stuff\CyberSim\CyberSim\Assets\Dialogues\start.txt 
 --------------------------------------
+
 

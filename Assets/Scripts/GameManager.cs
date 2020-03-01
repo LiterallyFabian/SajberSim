@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public GameObject uwuwarning;
     public GameObject questionbox;
     public GameObject fadeimage;
-    public AudioSource musicsource;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour
     public static string[] story;
     public Coroutine co;
     public Character[] people = ButtonCtrl.people;
-    
+
 
 
     // Start is called before the first frame update
@@ -46,20 +45,20 @@ public class GameManager : MonoBehaviour
         System.Random rnd = new System.Random();
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
-        
-        if(SceneManager.GetActiveScene().name == "game")
+
+        if (SceneManager.GetActiveScene().name == "game")
         {
             story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story", "start")}.txt");
             PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
         }
-            
+
         if (SceneManager.GetActiveScene().name == "dev")
         {
             story = File.ReadAllLines($"{path}/Dialogues/start.txt");
             PlayerPrefs.SetString("tempstory", "start");
 
         }
-            
+
 
 
 
@@ -149,7 +148,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(PlayMusic(line[1]));
                 dialogpos++;
             }
-            else if(line[0] == "STOPSOUNDS")
+            else if (line[0] == "STOPSOUNDS")
             {
                 StopSounds();
                 dialogpos++;
@@ -162,7 +161,7 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "FINISHGAME")
             {
-              StartCoroutine(StartCredits());
+                StartCoroutine(StartCredits());
             }
             #endregion
 
@@ -171,15 +170,15 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && Input.GetKeyUp("space") && line[0] == "0") //gå vidare från dialog
+        else if (dialogdone && !ready && Input.GetKeyUp("space") && (line[0] == "0" || line[0] == "5")) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
             ready = true;
         }
-            
+
         //debug info
-        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory","start")}\n\n{story[dialogpos]}";
+        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
     IEnumerator Delay(float time) //ID 7
     {
@@ -198,7 +197,7 @@ public class GameManager : MonoBehaviour
         portrait.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         personname.text = talker.name;
 
-        if(PlayerPrefs.GetFloat("delay",0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
+        if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
         {
             string written = target[0].ToString(); //written = det som står hittills
 
@@ -215,7 +214,7 @@ public class GameManager : MonoBehaviour
                 comment.text = written;
             }
         }
-        
+
         comment.text = target;
         dialogdone = true;
     }
@@ -233,7 +232,7 @@ public class GameManager : MonoBehaviour
     {
         dialogpos = 0;
         string[] stories = { story1, story2 };
-        story = LoadStory(stories[id-1]);
+        story = LoadStory(stories[id - 1]);
         ready = true;
     }
     IEnumerator SpawnAlert(string target) //ID 0
@@ -283,7 +282,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ChangeBackground(string bg) //ID 1
     {
-        ToggleTextbox(false,3);
+        ToggleTextbox(false, 3);
         ready = false;
         Debug.Log($"New background loaded: {bg}");
         UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Backgrounds/{bg}.png");
@@ -295,7 +294,7 @@ public class GameManager : MonoBehaviour
 
     string[] LoadStory(string story) //ID 4
     {
-        ToggleTextbox(false,3);
+        ToggleTextbox(false, 3);
         Debug.Log($"New story loaded: {story}");
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("tempstory", story);
@@ -304,7 +303,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CreateCharacter(int id, string mood, float x, float y, int align) //ID 2
     {
-        if(GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
+        if (GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
         {
             //ladda in filen som texture
             UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
@@ -319,14 +318,14 @@ public class GameManager : MonoBehaviour
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(0.58f*align, 0.58f, 0.6f);
+            character.transform.localScale = new Vector3(0.58f * align, 0.58f, 0.6f);
         }
         else //karaktär finns
         {
             //ändra pos
             GameObject character = GameObject.Find($"{people[id].name.ToLower()}");
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(0.58f*align, 0.58f, 0.6f);
+            character.transform.localScale = new Vector3(0.58f * align, 0.58f, 0.6f);
 
             //ändra mood
             UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
@@ -334,7 +333,7 @@ public class GameManager : MonoBehaviour
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
-        
+
 
     }
     IEnumerator PlayMusic(string sound) //Musik ligger på bakgrunden
@@ -386,7 +385,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
-        StartCoroutine(AudioFadeOut.FadeOut(musicsource, 1f));
+        StartCoroutine(FadeOut(background.GetComponent<AudioSource>(), 1.3f, 0));
         PlayerPrefs.DeleteKey("story");
 
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
@@ -400,7 +399,20 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene("credits");
     }
-    string FillVars(string text)
+    public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
+    }
+string FillVars(string text)
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}");
 
