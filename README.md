@@ -112,7 +112,7 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] updated dev mode
 - [ ] implement minigame menu
 - [x] save characters globally when creating new game only
-- [ ] ingame pause menu
+- [x] ingame pause menu
 - [x] credits
 - [ ] let story use variables (regex/)
 - [x] finishgame argument
@@ -122,3 +122,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] working pause
 - [x] bug: double space fucks up the game
 - [ ] fix installer
+- [ ] bug: esc works in main
