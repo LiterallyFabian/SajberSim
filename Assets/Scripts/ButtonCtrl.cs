@@ -30,6 +30,12 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject fadeimage;
     public AudioSource music;
 
+    //pause stuff ingame
+    public static bool paused = false;
+    public GameObject PauseMenuGame;
+    public GameObject SettingsMenuGame;
+
+
 
 
     public void Start()
@@ -52,6 +58,26 @@ public class ButtonCtrl : MonoBehaviour
         Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
+    }
+    public void Update()
+    {
+        if (Input.GetKeyUp("escape"))
+            TogglePause();
+    }
+    public void TogglePause()
+    {
+        if (!paused)
+        {
+            paused = true;
+            OpenMenu(PauseMenuGame);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            CloseSettings();
+            paused = false;
+            Time.timeScale = 1;
+        }
     }
     public void StartNew() //Just checks if a new story should be started
     {
@@ -122,6 +148,10 @@ public class ButtonCtrl : MonoBehaviour
         CreditsButton.SetActive(false);
         BehindSettings.SetActive(true);
     }
+    public void GoBack()
+    {
+        SettingsMenuGame.SetActive(false);
+    }
 
     public void CloseSettings() //closes a menu
     {
@@ -130,6 +160,8 @@ public class ButtonCtrl : MonoBehaviour
         CreditsButton.SetActive(true);
         BehindSettings.SetActive(false);
         Modding.SetActive(false);
+        PauseMenuGame.SetActive(false);
+        SettingsMenuGame.SetActive(false);
         
     }
     public void QuitGame() //nuff' said
@@ -182,6 +214,15 @@ public class ButtonCtrl : MonoBehaviour
         StoryDebugger.DebugStory();
         StartCoroutine(ToggleDebug());
         
+    }
+    public void GAMEOpenSettings()
+    {
+        PauseMenuGame.SetActive(false);
+        SettingsMenuGame.SetActive(true);
+    }
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
     IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
     {

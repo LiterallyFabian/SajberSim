@@ -115,5 +115,9 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] ingame pause menu
 - [x] credits
 - [ ] let story use variables (regex/)
-- [ ] finishgame argument
+- [x] finishgame argument
 - [ ] preload stuff
+- [ ] fix the audio channel mess
+- [ ] info when game saved
+- [x] working pause
+- [x] bug: double space fucks up the game

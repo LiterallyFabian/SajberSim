@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && Input.GetKeyUp("space")) //gå vidare från dialog
+        else if (dialogdone && !ready && Input.GetKeyUp("space") && line[0] == "0") //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
@@ -386,7 +386,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
-        StartCoroutine(AudioFadeOut.FadeOut(musicsource, 1.55f));
+        StartCoroutine(AudioFadeOut.FadeOut(musicsource, 1f));
         PlayerPrefs.DeleteKey("story");
 
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
