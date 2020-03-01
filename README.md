@@ -121,3 +121,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] info when game saved
 - [x] working pause
 - [x] bug: double space fucks up the game
+- [ ] fix installer

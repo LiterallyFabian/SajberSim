@@ -726,7 +726,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
-  m_Text: Detta ska vara en alert?
+  m_Text: "Detta \xE4r en alert. I och f\xF6r sig s\xE5 ska denna text f\xF6rsvinna
+    n\xE4r denna textruta faktiskt anv\xE4nds, but here we are. Svara g\xE4rna p\xE5
+    SajberSim-mejlet och ber\xE4tta att du s\xE5g denna, f\xF6rhoppningsvis fungerar
+    resten av spelet I guess? /Fabian"
 --- !u!222 &176187049
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1148,7 +1151,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: settings
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3260014644483953728, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
 --- !u!1 &400989036
 GameObject:
@@ -1261,7 +1265,6 @@ MonoBehaviour:
   uwuwarning: {fileID: 912574182}
   questionbox: {fileID: 1854069909}
   fadeimage: {fileID: 400989036}
-  musicsource: {fileID: 1250003092}
   posobj: {fileID: 163766600}
   comment: {fileID: 1581312854}
   personname: {fileID: 815056377}
@@ -1639,8 +1642,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 1aa67067b6c04484492231c88a581618, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2206,7 +2209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 422655722}
         m_MethodName: UwUToggle
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2811,9 +2814,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.59369516, g: 0.41295835, b: 0.6037736, a: 0.35686275}
-    m_HighlightedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.49019608}
-    m_PressedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.48235294}
-    m_SelectedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.4745098}
+    m_HighlightedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.36078432}
+    m_PressedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.36078432}
+    m_SelectedColor: {r: 0.59607846, g: 0.41568628, b: 0.6039216, a: 0.36078432}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3636,7 +3639,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: swag test 123
+  m_Text: alt1 text
 --- !u!222 &1472527521
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3793,7 +3796,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: back
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3260014644483953728, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
 --- !u!1 &1574713974
 GameObject:
@@ -3938,11 +3942,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
   m_Text: "Ifall du kan l\xE4sa detta utanf\xF6r Unity s\xE5 har n\xE5got f\xF6rmodligen
-    g\xE5tt fel, du kan \xE4ven se Mr. Default till h\xF6ger h\xE4r.\n\nBlame Fabian!Ifall
-    du kan l\xE4sa detta utanf\xF6r Unity s\xE5 har n\xE5got f\xF6rmodligen g\xE5tt
-    fel, du kan \xE4ven se Mr. Default till h\xF6ger h\xE4r.\n\nBlame Fabian!'\nIfall
-    du kan l\xE4sa detta utanf\xF6r Unity s\xE5 har n\xE5got f\xF6rmodligen g\xE5tt
-    fel, du kan \xE4ven se Mr. Default till h\xF6ger h\xE4r.\n\nBlame Fabian!"
+    g\xE5tt fel, Blame Fabian!\n\nSvara g\xE4rna p\xE5 announcement mejlet och ber\xE4tta
+    hur du hittade denna, tack :)"
 --- !u!222 &1581312855
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4075,7 +4076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9893518, b: 0.9669811, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4508,8 +4509,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
-  m_Text: "Detta \xE4r en fr\xE5ga. Du b\xF6r inte kunna l\xE4sa denna text utanf\xF6r
-    Unity, but here we are!"
+  m_Text: "Denna text b\xF6r inte kunna l\xE4sas utanf\xF6r Unity, but here we are.
+    Svara g\xE4rna p\xE5 mejlet ifall du kan se detta & hur"
 --- !u!222 &1724962230
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5580,8 +5581,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 1aa67067b6c04484492231c88a581618, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5766,7 +5767,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: continue
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3260014644483953728, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 22307201b1199bb4e80ba9b20b08ea24, type: 3}
 --- !u!1 &2049320993
 GameObject:
