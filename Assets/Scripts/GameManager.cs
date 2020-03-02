@@ -428,7 +428,7 @@ public class GameManager : MonoBehaviour
             if (match.Groups[2].Value == "nick")
                 replace = people[int.Parse(match.Groups[1].Value)].nick;
 
-            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace,1);
+            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace,1); //Byter 
         }
 
         return text;
