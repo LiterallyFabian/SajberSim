@@ -126,8 +126,8 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] credits
 - [ ] let story use variables (regex/)
 - [x] finishgame argument
-- [ ] preload stuff
-- [ ] fix the audio channel mess
+- [ ] ~~preload stuff~~
+- [x] fix the audio channel mess
 - [x] info when game saved
 - [x] working pause
 - [x] bug: double space fucks up the game

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject questionbox;
     public GameObject fadeimage;
     public GameObject saveinfo;
+    public GameObject SFX;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -181,6 +182,19 @@ public class GameManager : MonoBehaviour
         //debug info
         posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
+    void LoadNext(string item)
+    {
+        bool found = false;
+        for (int i = dialogpos; i < story.Length; i++)
+        {
+            string[] line = story[dialogpos].Split('|');
+            if (line[0] == "PLAYMUSIC")
+            {
+
+            }
+        }
+
+    }
     IEnumerator Delay(float time) //ID 7
     {
         yield return new WaitForSeconds(time);
@@ -219,6 +233,7 @@ public class GameManager : MonoBehaviour
         comment.text = target;
         dialogdone = true;
     }
+
     void Question(string text, string alt1, string alt2)
     {
         dialogdone = false;
@@ -338,22 +353,22 @@ public class GameManager : MonoBehaviour
 
 
     }
-    IEnumerator PlayMusic(string sound) //Musik ligger på bakgrunden
-    {
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
-        {
-            yield return uwr.SendWebRequest();
-            background.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
-            background.GetComponent<AudioSource>().Play();
-        }
-    }
-    IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på kameran
+    IEnumerator PlayMusic(string sound) //Musik ligger på "music"
     {
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
             yield return uwr.SendWebRequest();
             music.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
             music.GetComponent<AudioSource>().Play();
+        }
+    }
+    IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
+    {
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
+        {
+            yield return uwr.SendWebRequest();
+            SFX.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
+            SFX.GetComponent<AudioSource>().Play();
         }
     }
     public void StopSounds()
