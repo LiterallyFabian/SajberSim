@@ -1,2 +1,4 @@
-0|1|Hey, detta är en box. nice {1.name}
+0|1|Hey, I'm {1.name}!
+0|2|I'm {2.name}!
+0|0|Cool, i'm {0.name} {1.name} {2.name} {3.nick} 
 3|Detta är en fråga! vad gör vi?|PARTY YAAAS|partytestidk|Lego?|legocity

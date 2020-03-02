@@ -416,19 +416,24 @@ public class GameManager : MonoBehaviour
         }
         yield break;
     }
-    string FillVars(string text) //Changes {1.name} to the name of person 1
+    string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
     {
-        MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}");
+        MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
 
         foreach (Match match in matches)
         {
-            
+            string replace ="";
+            if (match.Groups[2].Value == "name")
+                replace = people[int.Parse(match.Groups[1].Value)].name;
+            if (match.Groups[2].Value == "nick")
+                replace = people[int.Parse(match.Groups[1].Value)].nick;
 
+            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace,1);
         }
 
         return text;
     }
-    public IEnumerator SaveInfo()
+    public IEnumerator SaveInfo() //just shows the user that the game got saved. simple huh?
     {
         saveinfo.SetActive(true);
         yield return new WaitForSeconds(2.5f);
