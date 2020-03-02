@@ -232,6 +232,8 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void ReturnToMain()
     {
+        CloseSettings();
+        Time.timeScale = 1;
         StartCoroutine(FadeToScene("menu"));
     }
     public IEnumerator FadeToScene(string scene)

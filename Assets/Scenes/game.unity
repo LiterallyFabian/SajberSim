@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 400989039}
   - component: {fileID: 400989038}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1315,7 +1315,7 @@ MonoBehaviour:
   VolumeText: {fileID: 2134494692}
   UwuText: {fileID: 1316555988}
   BehindSettings: {fileID: 979750588}
-  fadeimage: {fileID: 540176319}
+  fadeimage: {fileID: 400989036}
   music: {fileID: 540176320}
   PauseMenuGame: {fileID: 1883442097}
   SettingsMenuGame: {fileID: 105514704}

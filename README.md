@@ -16,7 +16,9 @@ När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spe
 
 För att göra egna stories behöver du inte använda källkoden här, du kan redigera spelfilerna direkt. 
 
-Spelet läser in allting från 4 mappar som finns i `SajberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Detta är funktionerna du kan använda, se vår färdiga story för exempel: 
+Spelet läser in allting från 4 mappar som finns i `SajberSim/SajberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Det finns en mängd olika funktioner som du kan anropa från din story, och du kan se vår färdiga story för exempel.
+
+Alla kommande filvägar utgår ifrån `C:\Program Files (x86)\SajberSim\SajberSim_Data\Modding\`, ifall du har ändrat installationsmappen så vet du förmodligen själv vart filerna finns. I spelet kan du komma åt filerna från Huvudmenyn > Modding.
 
 
 
@@ -96,6 +98,14 @@ När ett nytt spel skapas så får alla karaktärer ett unikt nummer (börjar p�
 
 
 
+## Debugging
+
+För att hitta problem i din story så kan du köra vår story-debugger som du hittar via huvudmenyn > Modding > Felsök. Den läser igenom alla textfiler i rätt mapp och om returnerar en textfil med alla potentiella fel den hittade. Du kan även gå in i devmode som låter dig hoppa runt mellan stories och visa lite extra information.
+
+Ett allmännt tips kan vara att avsluta alla stories med en fråga eller funktion 4 som går vidare direkt till ett skript. Om storyn är spelets sista skriver du FINISHGAME.
+
+
+
 ## Frågor?
 
 Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har allmänna frågor kan du antingen mejla (fabian.lindgren@elev.cybergymnasiet.se) eller skriva på Discord (Fabian#1540). 
@@ -118,7 +128,7 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] finishgame argument
 - [ ] preload stuff
 - [ ] fix the audio channel mess
-- [ ] info when game saved
+- [x] info when game saved
 - [x] working pause
 - [x] bug: double space fucks up the game
 - [ ] fix installer

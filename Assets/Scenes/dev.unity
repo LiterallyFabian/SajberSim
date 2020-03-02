@@ -1083,6 +1083,7 @@ MonoBehaviour:
   uwuwarning: {fileID: 912574182}
   questionbox: {fileID: 1854069909}
   fadeimage: {fileID: 1760491236}
+  saveinfo: {fileID: 0}
   posobj: {fileID: 163766600}
   comment: {fileID: 1581312854}
   personname: {fileID: 815056377}
@@ -1240,7 +1241,7 @@ MonoBehaviour:
   VolumeText: {fileID: 1808957376}
   UwuText: {fileID: 564105248}
   BehindSettings: {fileID: 1233702315}
-  fadeimage: {fileID: 1179249649}
+  fadeimage: {fileID: 1760491236}
   music: {fileID: 1179249650}
   PauseMenuGame: {fileID: 1714422169}
   SettingsMenuGame: {fileID: 1749718972}

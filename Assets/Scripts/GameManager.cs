@@ -414,13 +414,13 @@ public class GameManager : MonoBehaviour
         }
         yield break;
     }
-string FillVars(string text)
+    string FillVars(string text) //Changes {1.name} to the name of person 1
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}");
 
         foreach (Match match in matches)
         {
-            Debug.Log(match);
+            
 
         }
 
