@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject uwuwarning;
     public GameObject questionbox;
     public GameObject fadeimage;
+    public GameObject saveinfo;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -298,6 +299,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"New story loaded: {story}");
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("tempstory", story);
+        StartCoroutine(SaveInfo());
         return File.ReadAllLines($"{Application.dataPath}/Dialogues/{story}.txt");
     }
 
@@ -423,5 +425,11 @@ string FillVars(string text)
         }
 
         return text;
+    }
+    public IEnumerator SaveInfo()
+    {
+        saveinfo.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        saveinfo.SetActive(false);
     }
 }

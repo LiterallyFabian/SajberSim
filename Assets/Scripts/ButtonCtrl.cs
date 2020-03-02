@@ -90,7 +90,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
         CreateCharacters();
-        SceneManager.LoadScene("game");
+        StartCoroutine(FadeToScene("game"));
         UnityEngine.Debug.Log("New game created.");
     }
     private void CreateCharacters()
@@ -135,7 +135,7 @@ public class ButtonCtrl : MonoBehaviour
     public void Continue() //just opens everything SAVED
     {
         LoadCharacters();
-        SceneManager.LoadScene("game");
+        StartCoroutine(FadeToScene("game"));
     }
     public void CancelNew() //closes the new game alert
     {
@@ -171,7 +171,7 @@ public class ButtonCtrl : MonoBehaviour
     public void OpenDev()
     {
         CreateDevCharacters();
-        SceneManager.LoadScene("dev");
+        StartCoroutine(FadeToScene("dev"));
     }
     public void ResetAll() //fucking nukes all the stats like the US during 1945
     {
@@ -220,10 +220,6 @@ public class ButtonCtrl : MonoBehaviour
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(true);
     }
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
     IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
     {
         DebugButton.interactable = false;
@@ -232,9 +228,13 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void StartCreditsCoroutine() //seems like i couldn't start coroutines with buttons
     {
-        StartCoroutine(StartCredits());
+        StartCoroutine(FadeToScene("credits"));
     }
-    public IEnumerator StartCredits()
+    public void ReturnToMain()
+    {
+        StartCoroutine(FadeToScene("menu"));
+    }
+    public IEnumerator FadeToScene(string scene)
     {
         StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
 
@@ -247,6 +247,6 @@ public class ButtonCtrl : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene("credits");
+        SceneManager.LoadScene(scene);
     }
 }
