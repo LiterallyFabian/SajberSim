@@ -182,19 +182,6 @@ public class GameManager : MonoBehaviour
         //debug info
         posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
-    void LoadNext(string item)
-    {
-        bool found = false;
-        for (int i = dialogpos; i < story.Length; i++)
-        {
-            string[] line = story[dialogpos].Split('|');
-            if (line[0] == "PLAYMUSIC")
-            {
-
-            }
-        }
-
-    }
     IEnumerator Delay(float time) //ID 7
     {
         yield return new WaitForSeconds(time);
