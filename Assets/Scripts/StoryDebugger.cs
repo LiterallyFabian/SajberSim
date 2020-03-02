@@ -11,10 +11,10 @@ public class StoryDebugger : MonoBehaviour
 {
     public static void DebugStory()
     {
-        using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/debug.txt"))
+        using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/Modding/debug.txt"))
         {
-            string fixedpath = $@"{Application.dataPath}/Dialogues/".Replace("/", "\\");
-            string audioPath = $@"{Application.dataPath}/Audio/".Replace("/", "\\");
+            string fixedpath = $@"{Application.dataPath}/Modding/Dialogues/".Replace("/", "\\");
+            string audioPath = $@"{Application.dataPath}/Modding/Audio/".Replace("/", "\\");
             string[] storyPaths = Directory.GetFiles(fixedpath, "*.txt");
             string[] audioPaths = Directory.GetFiles(audioPath, "*.ogg");
 
@@ -51,7 +51,7 @@ public class StoryDebugger : MonoBehaviour
                     else if (line[0] == "1") //new background
                     {
                         bool success = false;
-                        string path = $@"{Application.dataPath}/Backgrounds/".Replace("/", "\\");
+                        string path = $@"{Application.dataPath}/Modding/Backgrounds/".Replace("/", "\\");
                         foreach (string img in Directory.EnumerateFiles(path, "*.png"))
                         {
                             if (img == $"{path}{line[1]}.png")
@@ -106,6 +106,6 @@ public class StoryDebugger : MonoBehaviour
                 }
             }
         }
-        Process.Start($@"{Application.dataPath}/debug.txt");
+        Process.Start($@"{Application.dataPath}/Modding/debug.txt");
     }
 }

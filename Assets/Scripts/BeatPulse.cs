@@ -15,7 +15,7 @@ public class BeatPulse : MonoBehaviour
     }
     void Update()
     {
-        var baseValue = Mathf.Cos(((Time.time * Mathf.PI) * (BPM / 60f)) % Mathf.PI);
+        var baseValue = Mathf.Cos(Time.time * Mathf.PI * (BPM / 60f) % Mathf.PI);
         if(ready)
         this.transform.localScale = Vector3.Lerp(new Vector3(1f, 1f, 1), new Vector3(1.04f,1.04f,1), baseValue);
     }

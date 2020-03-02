@@ -16,7 +16,7 @@ När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spe
 
 För att göra egna stories behöver du inte använda källkoden här, du kan redigera spelfilerna direkt. 
 
-Spelet läser in allting från 4 mappar som finns i `CyberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Detta är funktionerna du kan använda, se vår färdiga story för exempel: 
+Spelet läser in allting från 4 mappar som finns i `SajberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Detta är funktionerna du kan använda, se vår färdiga story för exempel: 
 
 
 
@@ -122,4 +122,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] working pause
 - [x] bug: double space fucks up the game
 - [ ] fix installer
-- [ ] bug: esc works in main
+- [x] bug: esc works in main

@@ -61,7 +61,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyUp("escape"))
+        if (Input.GetKeyUp("escape") && SceneManager.GetActiveScene().name != "menu")
             TogglePause();
     }
     public void TogglePause()
@@ -96,7 +96,7 @@ public class ButtonCtrl : MonoBehaviour
     private void CreateCharacters()
     {
         System.Random rnd = new System.Random();
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
+        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
 
         people = new Character[config.Length]; //change size to amount of ppl
         PlayerPrefs.SetInt("characters", config.Length); //amount of characters
@@ -123,7 +123,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     private void LoadCharacters() //Loads characters from playerprefs
     {
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
+        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
         people = new Character[PlayerPrefs.GetInt("characters", 1)];
 
         for (int i = 0; i < people.Length; i++) //fill array from save
@@ -203,7 +203,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenFolder(string path)
     {
-    Process.Start("explorer.exe", $@"{Application.dataPath}/{path}/".Replace("/", "\\"));
+    Process.Start("explorer.exe", $@"{Application.dataPath}/Modding/{path}/".Replace("/", "\\"));
     }
     public void OpenLink(string link)
     {

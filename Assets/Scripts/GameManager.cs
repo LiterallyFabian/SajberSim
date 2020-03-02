@@ -49,13 +49,13 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "game")
         {
-            story = File.ReadAllLines($"{path}/Dialogues/{PlayerPrefs.GetString("story", "start")}.txt");
+            story = File.ReadAllLines($"{path}/Modding/Dialogues/{PlayerPrefs.GetString("story", "start")}.txt");
             PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
         }
 
         if (SceneManager.GetActiveScene().name == "dev")
         {
-            story = File.ReadAllLines($"{path}/Dialogues/start.txt");
+            story = File.ReadAllLines($"{path}/Modding/Dialogues/start.txt");
             PlayerPrefs.SetString("tempstory", "start");
 
         }
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
         dialogdone = false;
         ToggleTextbox(true, 1);
         ToggleTextbox(false, 0);
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{talker.name.ToLower()}port.png");
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
         portrait.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -286,7 +286,7 @@ public class GameManager : MonoBehaviour
         ToggleTextbox(false, 3);
         ready = false;
         Debug.Log($"New background loaded: {bg}");
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Backgrounds/{bg}.png");
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
         background.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("tempstory", story);
         StartCoroutine(SaveInfo());
-        return File.ReadAllLines($"{Application.dataPath}/Dialogues/{story}.txt");
+        return File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{story}.txt");
     }
 
     IEnumerator CreateCharacter(int id, string mood, float x, float y, int align) //ID 2
@@ -308,7 +308,7 @@ public class GameManager : MonoBehaviour
         if (GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
         {
             //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{people[id].name.ToLower()}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
 
@@ -330,7 +330,7 @@ public class GameManager : MonoBehaviour
             character.transform.localScale = new Vector3(0.58f * align, 0.58f, 0.6f);
 
             //ändra mood
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{people[id].name.ToLower()}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -340,7 +340,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator PlayMusic(string sound) //Musik ligger på bakgrunden
     {
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Audio/{sound}.ogg", AudioType.OGGVORBIS))
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
             yield return uwr.SendWebRequest();
             background.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
@@ -349,7 +349,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på kameran
     {
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Audio/{sound}.ogg", AudioType.OGGVORBIS))
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
             yield return uwr.SendWebRequest();
             music.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);

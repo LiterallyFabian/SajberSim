@@ -9,7 +9,7 @@ public class DevCtrl : MonoBehaviour
     public GameObject music;
     public void ChangeStory(string input)
     {
-        GameManager.story = File.ReadAllLines($"{Application.dataPath}/Dialogues/{input}.txt");
+        GameManager.story = File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{input}.txt");
         GameManager.dialogdone = false;
         GameManager.ready = true;
         GameManager.dialogpos = 0;
