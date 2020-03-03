@@ -9,6 +9,7 @@ using static PersonClass;
 using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour
 {
@@ -233,6 +234,7 @@ public class GameManager : MonoBehaviour
     }
     public void AnswerQuestion(int id)
     {
+        DataTracker.ReportQuestion(question.text, id);
         dialogpos = 0;
         string[] stories = { story1, story2 };
         story = LoadStory(stories[id - 1]);

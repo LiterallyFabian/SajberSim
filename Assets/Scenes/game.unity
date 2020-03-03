@@ -1238,6 +1238,7 @@ GameObject:
   - component: {fileID: 422655721}
   - component: {fileID: 422655720}
   - component: {fileID: 422655722}
+  - component: {fileID: 422655723}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1266,6 +1267,7 @@ MonoBehaviour:
   questionbox: {fileID: 1854069909}
   fadeimage: {fileID: 400989036}
   saveinfo: {fileID: 1547354982}
+  SFX: {fileID: 0}
   posobj: {fileID: 163766600}
   comment: {fileID: 1581312854}
   personname: {fileID: 815056377}
@@ -1319,6 +1321,18 @@ MonoBehaviour:
   music: {fileID: 540176320}
   PauseMenuGame: {fileID: 1883442097}
   SettingsMenuGame: {fileID: 105514704}
+--- !u!114 &422655723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422655719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa56cb3b68a291e4bacbee082d791903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &438577798 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3260014644483953788, guid: 22307201b1199bb4e80ba9b20b08ea24,

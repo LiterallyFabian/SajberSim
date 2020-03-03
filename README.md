@@ -36,13 +36,13 @@ Alla kommande filvägar utgår ifrån `C:\Program Files (x86)\SajberSim\SajberSi
 
   
 
-- 2 - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Om argumentet "flip" existerar spegelvänds karaktären. Person-argumentet ska vara personen ID. Våra humör är happy, neutral eller sad, men du kan skapa egna (info under "Karaktär-setup")!
+- 2 - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Om argumentet "flip" existerar spegelvänds karaktären. Person-argumentet ska vara personens ID. Våra humör är happy, neutral eller sad, men du kan skapa egna! Info för IDs och humör finns under "Karaktär-setup".
 
   `2|person|humör|x|y|flip`
 
   
 
-- 3 - Skapar en fråga & startar ny dialog. Dialog-argumenten ska vara namnet på en textfil i `Dialogues/` utan ".txt".
+- 3 - Skapar en fråga & startar ny dialog. Dialog-argumenten ska vara namnet på en textfil i `Dialogues/` utan ".txt", och alt1 & alt2 är texten som kommer upp på knappen
 
   `3|fråga|alt1|dialog1|alt2|dialog2`
 

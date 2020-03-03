@@ -1,4 +1,4 @@
-Sam,Sammy
+Sam,sammy
 Fabina,Fabi
-Fabian,Affie
+Fabian,Fabi
 Axel,Axie

@@ -647,10 +647,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: f40f65d2-82a4-4655-94cc-783e8f07082f
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: SajberSim
+  organizationId: lindgrenfabian
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
