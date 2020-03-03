@@ -144,8 +144,6 @@ public class ButtonCtrl : MonoBehaviour
     public void OpenMenu(GameObject menu) //opens a menu, like settings or modding
     {
         menu.SetActive(true);
-        Logo.SetActive(false);
-        CreditsButton.SetActive(false);
         BehindSettings.SetActive(true);
     }
     public void GoBack()
@@ -153,11 +151,9 @@ public class ButtonCtrl : MonoBehaviour
         SettingsMenuGame.SetActive(false);
     }
 
-    public void CloseSettings() //closes a menu
+    public void CloseSettings() //closes all menus
     {
         Settings.SetActive(false);
-        Logo.SetActive(true);
-        CreditsButton.SetActive(true);
         BehindSettings.SetActive(false);
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);

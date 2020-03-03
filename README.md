@@ -124,9 +124,9 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] save characters globally when creating new game only
 - [x] ingame pause menu
 - [x] credits
-- [ ] let story use variables (regex/)
+- [x] let story use variables (regex/)
 - [x] finishgame argument
-- [ ] ~~preload stuff~~
+- [x] ~~preload stuff~~
 - [x] fix the audio channel mess
 - [x] info when game saved
 - [x] working pause
