@@ -112,7 +112,7 @@ public class ButtonCtrl : MonoBehaviour
     private void CreateDevCharacters() //skapar nya karaktärer, men sparar dem ej
     {
         System.Random rnd = new System.Random();
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Characters/characterconfig.txt");
+        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
 
         people = new Character[config.Length]; //change size to amount of ppl
 

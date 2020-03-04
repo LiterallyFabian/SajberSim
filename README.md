@@ -133,3 +133,6 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [x] bug: double space fucks up the game
 - [ ] fix installer
 - [x] bug: esc works in main
+- [ ] stats
+- [ ] rich presance
+- [ ] character preview mode
