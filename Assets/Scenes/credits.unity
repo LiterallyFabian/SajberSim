@@ -571,7 +571,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Story\n\nMinigames\n\n\nRamverk/modding\n\nBakgrunder\n\nKarakt\xE4rer\n\nSprites"
+  m_Text: "Story\n\nMinigames\n\n\nRamverk/modding\n\nBakgrunder\n\nKarakt\xE4rer\n\n"
 --- !u!222 &608685307
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
   m_Text: "Och h\xE4r kan vi skriva n\xE5got cute uwu\nthanks for playing we love
-    u\n\nt h a n o s c a r"
+    u\n\nt h a n o s c a r\n\n"
 --- !u!222 &614869960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -785,25 +785,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: 'Alfred P. Ankarstrand
-
-
-    Samuel Eriksson
-
-    Fabian Lindgren
-
-
-    Fabian
-    Lindgren
-
-
-    Alexander Pernebring
-
-
-    Samuel Eriksson
-
-
-    Fabian Lindgren'
+  m_Text: "Alfred P. Ankarstrand\n\nSamuel Eriksson\nFabian Lindgren\n\nFabian Lindgren\n\nAlexander
+    Pernebring\n\nLumi \n\n"
 --- !u!222 &947418089
 CanvasRenderer:
   m_ObjectHideFlags: 0

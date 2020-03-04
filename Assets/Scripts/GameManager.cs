@@ -169,11 +169,11 @@ public class GameManager : MonoBehaviour
             #endregion
 
         }
-        else if (!dialogdone && !ready && Input.GetKeyUp("space"))
+        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp("enter")))
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && Input.GetKeyUp("space") && (line[0] == "0" || line[0] == "5")) //gå vidare från dialog
+        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp("enter")) && (line[0] == "0" || line[0] == "5")) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
