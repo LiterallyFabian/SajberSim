@@ -1,4 +1,8 @@
 0|1|Hey, I'm {1.name}!
+2|0|happy|-2.07|-2.37|1
+2|0|happy|6.05|-2.66|1
+2|0|happy|-6.29|-2.69|1
+2|0|happy|2.07|-0.74|1
 0|2|I'm {2.name}!
 0|0|Cool, i'm {0.name} {1.name} {2.name} {3.nick} 
-3|Detta är en fråga! vad gör vi?|PARTY YAAAS|partytestidk|Lego?|legocity
+3|Detta är en fråga! vad gör vi?|PARTY YAAAS|partytest0k|Lego?|legocity

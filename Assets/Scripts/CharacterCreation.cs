@@ -1,20 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharacterCreation : MonoBehaviour
 {
-    private Vector3 screenPoint;
-    private Vector3 offset;
-    private GameObject target;
-    public bool isMouseDrag;
-    private Vector3 screenPosition;
 
+    private float startPosX;
+    private float startPosY;
+    private bool isHeld = false;
+    private string[] backgroundpaths;
+    private int currentbg = 0;
+    public GameObject fadeimage;
+    public InputField code;
     void Start()
     {
-
+        Cursor.visible = true;
+        string path = $@"{Application.dataPath}/Modding/Backgrounds/".Replace("/", "\\");
+        backgroundpaths = Directory.GetFiles(path, "*.png");
+        NextBG();
     }
     public void ClearCharacters()
     {
@@ -29,7 +37,7 @@ public class CharacterCreation : MonoBehaviour
         string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
         string[] charpaths = Directory.GetFiles(charPath, "*neutral.png");
         //ladda in filen som texture
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[Random.Range(0, charpaths.Length)]}");
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Length)]}");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
 
@@ -42,50 +50,77 @@ public class CharacterCreation : MonoBehaviour
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
         character.transform.localScale = new Vector3(0.58f, 0.58f, 0.6f);
+        character.AddComponent<BoxCollider2D>();
+        character.AddComponent<CharacterCreation>();
     }
-    GameObject ReturnClickedObject(out RaycastHit hit)
+    public void RemoveCharacters()
     {
-        GameObject target = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
+        GameManager.RemoveCharacters();
+    }
+    IEnumerator ChangeBackground(string bg) //ID 1
+    {
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{bg}");
+        yield return uwr.SendWebRequest();
+        var texture = DownloadHandlerTexture.GetContent(uwr);
+        GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    }
+    public void NextBG()
+    {
+        if (currentbg == backgroundpaths.Length) currentbg = 0;
+        StartCoroutine(ChangeBackground(backgroundpaths[currentbg]));
+        currentbg++;
+    }
+    private void Update()
+    {
+        
+        if (isHeld)
         {
-            target = hit.collider.gameObject;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
         }
-        return target;
-    }
-    void Update()
-    {
 
-        if (Input.GetMouseButtonDown(0))
+        if(gameObject.name == "GameObject")
         {
-            RaycastHit hitInfo;
-            target = ReturnClickedObject(out hitInfo);
-            if (target != null)
+            string codetext = "";
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
+            foreach (GameObject character in gameObjects)
             {
-                isMouseDrag = true;
-                Debug.Log("target position :" + target.transform.position);
-                //Convert world position to screen position.
-                screenPosition = Camera.main.WorldToScreenPoint(target.transform.position);
-                offset = target.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
+                codetext += $"2|ID|mood|{Math.Round(character.transform.position.x, 2)}|{Math.Round(character.transform.position.y, 2)}|1\n";
             }
+            code.text = (codetext);
         }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            isMouseDrag = false;
-        }
-
-        if (isMouseDrag)
-        {
-            //track mouse position.
-            Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z);
-
-            //convert screen position to world position with offset changes.
-            Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenSpace) + offset;
-
-            //It will update target gameobject's current postion.
-            target.transform.position = currentPosition;
-        }
-
     }
+    private void OnMouseDown()
+    {
+        if (Input.GetMouseButton(1)) Debug.LogError("ye");
+        if (!Input.GetMouseButtonDown(0)) return;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        startPosX = mousePos.x - transform.localPosition.x;
+        startPosY = mousePos.y - transform.localPosition.y;
+        isHeld = true;
+    }
+    private void OnMouseUp()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mousePos.x < -7.8 && mousePos.y > 3.8) Destroy(gameObject);
+        isHeld = false;
+    }
+    public void ReturnToMain()
+    {
+        StartCoroutine(FadeToScene("menu"));
+    }
+    public IEnumerator FadeToScene(string scene)
+    {
+        fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
+
+        for (float i = 0; i <= 1; i += Time.deltaTime / 1.5f) //Starts fade, load scene when done
+        {
+            fadeimage.GetComponent<Image>().color = new Color(0, 0, 0, i);
+            if (i > 0.5f) Cursor.visible = false;
+            yield return null;
+        }
+        SceneManager.LoadScene(scene);
+    }
+
 }

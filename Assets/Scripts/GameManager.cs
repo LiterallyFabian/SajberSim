@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "1") //new background
             {
-                StartCoroutine(ChangeBackground(line[1]));
+                StartCoroutine(ChangeBackground(line[1], background));
                 dialogpos++;
 
                 if (line.Length > 2)
@@ -285,7 +285,7 @@ public class GameManager : MonoBehaviour
         return text;
     }
 
-    IEnumerator ChangeBackground(string bg) //ID 1
+    IEnumerator ChangeBackground(string bg, GameObject item) //ID 1
     {
         ToggleTextbox(false, 3);
         ready = false;
@@ -293,7 +293,7 @@ public class GameManager : MonoBehaviour
         UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
         yield return uwr.SendWebRequest();
         var texture = DownloadHandlerTexture.GetContent(uwr);
-        background.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        item.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         ready = true;
     }
 

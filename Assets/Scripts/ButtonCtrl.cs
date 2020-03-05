@@ -59,7 +59,8 @@ public class ButtonCtrl : MonoBehaviour
         Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
-        StartCoroutine(UpdateCharacter());
+        //använd vid launch bara
+       // StartCoroutine(UpdateCharacter());
 
     }
     public void Update()
@@ -237,9 +238,9 @@ public class ButtonCtrl : MonoBehaviour
         yield return new WaitForSeconds(2f);
         DebugButton.interactable = true;
     }
-    public void StartCreditsCoroutine() //seems like i couldn't start coroutines with buttons
+    public void StartScene(string scene) //seems like i couldn't start coroutines with buttons
     {
-        StartCoroutine(FadeToScene("credits"));
+        StartCoroutine(FadeToScene(scene));
     }
     public void ReturnToMain()
     {
