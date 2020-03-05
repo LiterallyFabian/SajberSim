@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static PersonClass;
@@ -58,11 +59,25 @@ public class ButtonCtrl : MonoBehaviour
         Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
+        StartCoroutine(UpdateCharacter());
+
     }
     public void Update()
     {
         if (Input.GetKeyUp("escape") && SceneManager.GetActiveScene().name != "menu")
             TogglePause();
+    }
+    IEnumerator UpdateCharacter()
+    {
+        string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
+        var charpaths = new List<string>();
+       // charpaths.AddRange(Directory.GetFiles(charPath, "*neutral.png"));
+        charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
+        //ladda in filen som texture
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
+        yield return uwr.SendWebRequest();
+        var texture = DownloadHandlerTexture.GetContent(uwr);
+        GameObject.Find("Character").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
     public void TogglePause()
     {
