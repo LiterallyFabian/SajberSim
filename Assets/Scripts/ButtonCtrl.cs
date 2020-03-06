@@ -260,7 +260,6 @@ public class ButtonCtrl : MonoBehaviour
             if (i > 0.5f) Cursor.visible = false;
             yield return null;
         }
-
         SceneManager.LoadScene(scene);
     }
 }

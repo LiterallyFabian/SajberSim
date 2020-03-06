@@ -22,7 +22,6 @@ public class CharacterCreation : MonoBehaviour
         Cursor.visible = true;
         string path = $@"{Application.dataPath}/Modding/Backgrounds/".Replace("/", "\\");
         backgroundpaths = Directory.GetFiles(path, "*.png");
-        NextBG();
     }
     public void ClearCharacters()
     {
@@ -66,9 +65,9 @@ public class CharacterCreation : MonoBehaviour
     }
     public void NextBG()
     {
+        currentbg++;
         if (currentbg == backgroundpaths.Length) currentbg = 0;
         StartCoroutine(ChangeBackground(backgroundpaths[currentbg]));
-        currentbg++;
     }
     private void Update()
     {
@@ -122,5 +121,4 @@ public class CharacterCreation : MonoBehaviour
         }
         SceneManager.LoadScene(scene);
     }
-
 }
