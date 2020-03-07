@@ -92,7 +92,14 @@ public class GameManager : MonoBehaviour
                 ready = false;
                 co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             }
-            else if (line[0] == "1") //new background
+            else if (line[0] == "1") //general box
+            {
+                string text = line[1].Replace("#", ",");
+                Debug.Log($"Alert: {text}");
+                ready = false;
+                StartCoroutine(SpawnAlert(UwUTranslator(text)));
+            }
+            else if (line[0] == "BG") //new background
             {
                 StartCoroutine(ChangeBackground(line[1], background));
                 dialogpos++;
@@ -100,7 +107,7 @@ public class GameManager : MonoBehaviour
                 if (line.Length > 2)
                     RemoveCharacters();
             }
-            else if (line[0] == "2") //move or create character
+            else if (line[0] == "CHAR") //move or create character
             {
                 int id = int.Parse(line[1]);
                 string mood = line[2];
@@ -110,7 +117,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(CreateCharacter(id, mood, x, y, align));
                 dialogpos++;
             }
-            else if (line[0] == "3") //question
+            else if (line[0] == "QUESTION") //question
             {
                 ready = false;
                 string quest = line[1];
@@ -120,20 +127,13 @@ public class GameManager : MonoBehaviour
                 story2 = line[5];
                 Question(quest, alt1, alt2);
             }
-            else if (line[0] == "4") //open new story (no question)
+            else if (line[0] == "LOADSTORY") //open new story (no question)
             {
                 ToggleTextbox(false, 3);
                 story = LoadStory(line[1]);
                 dialogpos = 0; //återställ positionen - ny story!
                 if (line.Length > 2)
                     RemoveCharacters();
-            }
-            else if (line[0] == "5") //general box
-            {
-                string text = line[1].Replace("#", ",");
-                Debug.Log($"Alert: {text}");
-                ready = false;
-                StartCoroutine(SpawnAlert(UwUTranslator(text)));
             }
             else if (line[0] == "OPENSCENE") //delay
             {
@@ -169,11 +169,11 @@ public class GameManager : MonoBehaviour
             #endregion
 
         }
-        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp("enter")))
+        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)))
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp("enter")) && (line[0] == "0" || line[0] == "5")) //gå vidare från dialog
+        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)) && (line[0] == "0" || line[0] == "1")) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;

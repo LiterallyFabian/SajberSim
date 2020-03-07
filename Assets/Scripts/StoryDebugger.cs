@@ -31,7 +31,7 @@ public class StoryDebugger : MonoBehaviour
             {
                 write.WriteLine($"{file} \n--------------------------------------");
                 string[] story = File.ReadAllLines(file);
-                if (!story[story.Length - 1].StartsWith("FINISHGAME") && !story[story.Length - 1].StartsWith("3") && !story[story.Length - 1].StartsWith("4")) write.WriteLine("Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga\n"); else write.WriteLine("\n");
+                if (!story[story.Length - 1].StartsWith("FINISHGAME") && !story[story.Length - 1].StartsWith("QUESTION") && !story[story.Length - 1].StartsWith("LOADSTORY")) write.WriteLine("Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga\n"); else write.WriteLine("\n");
 
                 for (int pos = 0; pos < story.Length; pos++)
                 {
@@ -48,7 +48,7 @@ public class StoryDebugger : MonoBehaviour
                             write.WriteLine($"Rad {pos + 1}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
                         }
                     }
-                    else if (line[0] == "1") //new background
+                    else if (line[0] == "BG") //new background
                     {
                         bool success = false;
                         string path = $@"{Application.dataPath}/Modding/Backgrounds/".Replace("/", "\\");
@@ -62,7 +62,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!success) write.WriteLine($"Rad {pos + 1}: Bakgrunden \"{line[1]}\" verkar inte finnas.\n{story[pos]}\n");
                     }
 
-                    else if (line[0] == "2") //move or create character
+                    else if (line[0] == "CHAR") //move or create character
                     {
                         if (!double.TryParse(line[1], out double xd))
                             write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" är inte en giltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
@@ -71,7 +71,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!double.TryParse(line[4], out double g))
                             write.WriteLine($"Rad {pos + 1}: {line[4]} är inte en giltig koordinat\n{story[pos]}\n");
                     }
-                    else if (line[0] == "3") //question
+                    else if (line[0] == "QUESTION") //question
                     {
                         if (line.Length != 6)
                             write.WriteLine($"Rad {pos+1}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
@@ -81,12 +81,12 @@ public class StoryDebugger : MonoBehaviour
                             write.WriteLine($"Rad {pos + 1}: Alternativet \"{line[5]}\" har ingen story\n{story[pos]}\n");
 
                     }
-                    else if (line[0] == "4") //open new story (no question)
+                    else if (line[0] == "LOADSTORY") //open new story (no question)
                     {
                         if (!allstories.Contains(line[1]))
                             write.WriteLine($"Rad {pos + 1}: Storyn \"{line[3]}\" existerar inte\n{story[pos]}\n");
                     }
-                    else if (line[0] == "5") //general box
+                    else if (line[0] == "1") //general box
                     {
                         if (line.Length == 1)
                             write.WriteLine($"Rad {pos + 1}: Denna rad saknar text\n{story[pos]}\n");

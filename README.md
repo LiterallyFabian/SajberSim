@@ -24,41 +24,39 @@ Alla kommande filvägar utgår ifrån `C:\Program Files (x86)\SajberSim\SajberSi
 
 ## Funktioner
 
-- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}`
+- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}``
 
-  `0|person|text`
-
-  
-
-- 1 - Byter bakgrund. Ifall argument 3 saknas så rensas ingen bort. Bakgrunds-argumentet ska vara namnet på en bild i `Backgrounds/` utan ".png"
-
-  `1|bakgrund|rensakaraktärer`
+  `0|personID|text`
 
   
 
-- 2 - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Flip är antingen 1, eller -1 för att spegelvända karaktären. Person-argumentet ska vara personens ID. Våra humör är happy, neutral eller sad, men du kan skapa egna! Info för IDs och humör finns under "Karaktär-setup".
+- 1 - Skapar en textbox utan någon ikon.
+
+  `1|text`
+
+- BG - Byter bakgrund. Ifall argument 3 saknas så rensas ingen bort. Bakgrunds-argumentet ska vara namnet på en bild i `Backgrounds/` utan ".png"
+
+  `BG|bakgrund|rensakaraktärer`
+
+  
+
+- CHAR - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Flip är antingen 1, eller -1 för att spegelvända karaktären. Person-argumentet ska vara personens ID. Våra humör är happy, neutral eller sad, men du kan skapa egna! Info för IDs och humör finns under "Karaktär-setup".
 
   För att få fram positioner enklare kan du använda vårat verktyg du hittar via Main > Modding > Kraktär-Setup.
 
-  `2|person|humör|x|y|flip`
+  `CHAR|person|humör|x|y|flip`
 
   
 
-- 3 - Skapar en fråga & startar ny dialog. Dialog-argumenten ska vara namnet på en textfil i `Dialogues/` utan ".txt", och alt1 & alt2 är texten som kommer upp på knappen
+- QUESTION - Skapar en fråga & startar ny dialog. Dialog-argumenten ska vara namnet på en textfil i `Dialogues/` utan ".txt", och alt1 & alt2 är texten som kommer upp på knappen
 
-  `3|fråga|alt1|dialog1|alt2|dialog2`
-
-  
-
-- 4 - Startar ny dialog utan att fråga. Precis som med bakgrundsbytet så rensas bara karaktärer om argument 3 finns. Dialog-argumentet ska vara namnet på en textfil i `Dialogues/` utan ".txt".
-
-  `4|dialog|rensakaraktärer`
+  `QUESTION|fråga|alt1|dialog1|alt2|dialog2`
 
   
 
-- 5 - Skapar en textbox utan någon ikon.
+- LOADSTORY - Startar ny dialog utan att fråga. Precis som med bakgrundsbytet så rensas bara karaktärer om argument 3 finns. Dialog-argumentet ska vara namnet på en textfil i `Dialogues/` utan ".txt".
 
-  `5|text`
+  `LOADSTORY|dialog|rensakaraktärer`
 
   
 
