@@ -84,7 +84,7 @@ public class CharacterCreation : MonoBehaviour
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
             foreach (GameObject character in gameObjects)
             {
-                codetext += $"2|ID|mood|{Math.Round(character.transform.position.x, 2)}|{Math.Round(character.transform.position.y, 2)}|1\n";
+                codetext += $"CHAR|ID|mood|{Math.Round(character.transform.position.x, 2)}|{Math.Round(character.transform.position.y, 2)}|1\n";
             }
             code.text = (codetext);
         }
