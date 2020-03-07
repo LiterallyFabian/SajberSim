@@ -91,7 +91,6 @@ public class CharacterCreation : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (Input.GetMouseButton(1)) Debug.LogError("ye");
         if (!Input.GetMouseButtonDown(0)) return;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

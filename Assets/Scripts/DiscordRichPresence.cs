@@ -9,40 +9,45 @@ using Discord;
 public class DiscordRichPresence : MonoBehaviour
 {
 
-	public Discord.Discord discord;
-	public static DiscordRichPresence discordPresence = new DiscordRichPresence();
-	void Start()
-	{
-		discord = new Discord.Discord(684504383618285590, (System.UInt64)Discord.CreateFlags.Default);
-		var activityManager = discord.GetActivityManager();
-		var activity = new Discord.Activity
-		{
-			State = "i'm just testing stuff y u reading dis",
-			Details = "Playing SajberSim",
-			
+    public Discord.Discord discord;
+    Discord.Presence yeet = new Presence();
+    public static DiscordRichPresence discordPresence = new DiscordRichPresence();
+    void Start()
+    {
+        DateTimeOffset dto = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
+        string smallimg;
+        string smallimgname;
 
-	};
-		activityManager.UpdateActivity(activity, (res) =>
-		{
-			if (res == Discord.Result.Ok)
-			{
-				Debug.LogError("Everything is fine!");
-			}
-		});
-	}
+        discord = new Discord.Discord(684504383618285590, (System.UInt64)Discord.CreateFlags.Default);
+        var activityManager = discord.GetActivityManager();
+        var activity = new Discord.Activity
+        {
+            Details = "Playing SajberSim",
+            Assets = new ActivityAssets
+            {
+                LargeImage = "main",
+                //   SmallImage = smallimg,
 
-	// Update is called once per frame
-	void Update()
-	{
-		discord.RunCallbacks();
-		var activity = new Discord.Activity
-		{
-			State = "i'm just testing stuff y u reading dis",
+            },
+            Timestamps = new ActivityTimestamps
+            {
+                Start = dto.ToUnixTimeSeconds(),
+            }
+        };
+        activityManager.UpdateActivity(activity, (res) =>
+        {
+            if (res == Discord.Result.Ok)
+            {
+                Debug.Log($"Discord connected.");
+            }
+        });
+    }
 
-
-
-		};
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        discord.RunCallbacks();
+    }
 
 
 

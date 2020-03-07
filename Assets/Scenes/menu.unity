@@ -3664,7 +3664,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 7
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3770,7 +3770,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -3781,21 +3781,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
+          value: 0.8108099
+          inSlope: -0.88103753
+          outSlope: -0.88103753
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.07669181
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -5143,11 +5143,12 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    influenceFilter: 0
+    influenceFilter: 1
     influenceMask:
       serializedVersion: 2
       m_Bits: 4294967295
-    influenceList: []
+    influenceList:
+    - {fileID: 0}
   ClampVelocityModule:
     enabled: 0
     x:
@@ -9163,7 +9164,6 @@ GameObject:
   - component: {fileID: 1288605317}
   - component: {fileID: 1288605320}
   - component: {fileID: 1288605319}
-  - component: {fileID: 1288605318}
   - component: {fileID: 1288605321}
   m_Layer: 5
   m_Name: ModMenu
@@ -9202,21 +9202,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -1.75}
   m_SizeDelta: {x: -601.8, y: -256.7}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1288605318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288605316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pz: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: -1
 --- !u!114 &1288605319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11037,7 +11022,6 @@ GameObject:
   - component: {fileID: 1665366695}
   - component: {fileID: 1665366697}
   - component: {fileID: 1665366696}
-  - component: {fileID: 1665366698}
   - component: {fileID: 1665366699}
   m_Layer: 5
   m_Name: Settings
@@ -11106,21 +11090,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665366694}
   m_CullTransparentMesh: 0
---- !u!114 &1665366698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665366694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pz: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: -1
 --- !u!95 &1665366699
 Animator:
   serializedVersion: 3
@@ -12071,7 +12040,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 7
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -12177,7 +12146,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -12188,21 +12157,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
+          value: 0.8108099
+          inSlope: -0.88103753
+          outSlope: -0.88103753
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.07669181
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -13550,11 +13519,12 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    influenceFilter: 0
+    influenceFilter: 1
     influenceMask:
       serializedVersion: 2
       m_Bits: 4294967295
-    influenceList: []
+    influenceList:
+    - {fileID: 0}
   ClampVelocityModule:
     enabled: 0
     x:
@@ -16980,7 +16950,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 7
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -17086,7 +17056,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -17097,21 +17067,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
+          value: 0.8108099
+          inSlope: -0.88103753
+          outSlope: -0.88103753
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.07669181
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -18459,11 +18429,12 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    influenceFilter: 0
+    influenceFilter: 1
     influenceMask:
       serializedVersion: 2
       m_Bits: 4294967295
-    influenceList: []
+    influenceList:
+    - {fileID: 0}
   ClampVelocityModule:
     enabled: 0
     x:
@@ -26579,7 +26550,6 @@ GameObject:
   - component: {fileID: 2096447801}
   - component: {fileID: 2096447805}
   - component: {fileID: 2096447804}
-  - component: {fileID: 2096447803}
   - component: {fileID: 2096447802}
   m_Layer: 5
   m_Name: GameMenu
@@ -26628,21 +26598,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2096447803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096447800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pz: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: -1
 --- !u!114 &2096447804
 MonoBehaviour:
   m_ObjectHideFlags: 0
