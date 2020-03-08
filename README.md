@@ -12,19 +12,21 @@ Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det hä
 
 När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spelet så vi kan lägga till och redigera våra bakgrunder, karaktärer, dialoger etc smidigt. Detta gjorde vi genom att implementera ett eget mänskligt läsbart filformat som gör det mycket lättare för oss att redigera storyn, tillsammans med verktyg för att effektivt testa storyn. Med detta format så blir det inte bara lättare för oss dock, utan för alla med spelet nerladdat! Läs vidare ifall du är intresserad av att skapa en ny story eller redigera vår!
 
-
-
 För att göra egna stories behöver du inte använda källkoden här, du kan redigera spelfilerna direkt. 
-
-Spelet läser in allting från 4 mappar som finns i `SajberSim/SajberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Det finns en mängd olika funktioner som du kan anropa från din story, och du kan se vår färdiga story för exempel.
 
 Alla kommande filvägar utgår ifrån `C:\Program Files (x86)\SajberSim\SajberSim_Data\Modding\`, ifall du har ändrat installationsmappen så vet du förmodligen själv vart filerna finns. I spelet kan du komma åt filerna från Huvudmenyn > Modding.
 
 
 
+Spelet läser in allting från 4 mappar som finns i `SajberSim/SajberSim_Data/Modding`, och det är i "Dialogues" som du skriver storyn. Varje textfil är en del utav storyn, och spelet går vidare till nästa via alternativ i spelet. Det varje textfil gör är att starta färdiga funktioner som anges med en siffra och tar in argument delat med ett vertikalstreck `|`. Det finns en mängd olika funktioner som du kan anropa från din story, och du kan se vår färdiga story för exempel. 
+
+Ett nytt spel börjar alltid på "start" som är en tutorial och går sedan vidare till "intro", båda dessa är hårdkodade för tillfället men går enkelt att komma undan med LOADSTORY funktionen.
+
+
+
 ## Funktioner
 
-- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}``
+- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}`
 
   `0|personID|text`
 
@@ -136,3 +138,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] stats
 - [ ] rich presance
 - [x] character preview mode
+- [ ] tutorial

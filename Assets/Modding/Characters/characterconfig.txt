@@ -1,3 +1,4 @@
 Sam,sammy
 Fabian,Fabi
 Axel,Axie
+Lumi,Lumi

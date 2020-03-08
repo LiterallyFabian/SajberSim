@@ -10,7 +10,6 @@ public class DiscordRichPresence : MonoBehaviour
 {
 
     public Discord.Discord discord;
-    Discord.Presence yeet = new Presence();
     public static DiscordRichPresence discordPresence = new DiscordRichPresence();
     void Start()
     {

@@ -48,7 +48,7 @@ public class CharacterCreation : MonoBehaviour
 
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
-        character.transform.localScale = new Vector3(0.58f, 0.58f, 0.6f);
+        character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
         character.AddComponent<BoxCollider2D>();
         character.AddComponent<CharacterCreation>();
     }

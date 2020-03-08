@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static bool ready = true; //Om skriptet är redo att gå till nästa rad
     public static bool dialogdone = false; //Om någon dialog håller på att skrivas ut är denna false
     public static int dialogpos = 0;
+    public static float charsize = 0.8f;
     public GameObject textbox;
     public GameObject alertbox;
     public GameObject portrait;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject fadeimage;
     public GameObject saveinfo;
     public GameObject SFX;
+    public GameObject skiptutorial;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -44,6 +46,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dialogpos = 0;
+        ready = true;
+        dialogdone = false;
         Cursor.visible = true;
         System.Random rnd = new System.Random();
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
@@ -70,6 +75,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //fixes tutorial buttonweird
+        if (SceneManager.GetActiveScene().name == "game")
+            if (PlayerPrefs.GetString("story", "start") == "start")
+                skiptutorial.SetActive(true);
+            else skiptutorial.SetActive(false);
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
@@ -85,19 +95,35 @@ public class GameManager : MonoBehaviour
 
             else if (line[0] == "0") //textbox
             {
+                
                 Character talker = people[int.Parse(line[1])];
-                string text = line[2].Replace("#", ",");
-                text = FillVars(text);
+                string text = FillVars(line[2]);
                 UnityEngine.Debug.Log($"{talker.name} says: {text}");
                 ready = false;
                 co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             }
             else if (line[0] == "1") //general box
             {
-                string text = line[1].Replace("#", ",");
+                string text = FillVars(line[1]);
                 Debug.Log($"Alert: {text}");
                 ready = false;
                 StartCoroutine(SpawnAlert(UwUTranslator(text)));
+            }
+            else if (line[0] == "2") //Lumi textbox
+            {
+                Character talker = new Character("Lumi", "Lumi", 0);
+                string text = FillVars(line[1]);
+                UnityEngine.Debug.Log($"{talker.name} says: {text}");
+                ready = false;
+                co = StartCoroutine(SpawnTextBox(talker, text));
+            }
+            else if (line[0] == "3") //Lumi char
+            {
+                string mood = line[1];
+                float x = (float)Convert.ToDouble(line[2]);
+                float y = (float)Convert.ToDouble(line[3]);
+                StartCoroutine(CreateLumi(mood, x, y));
+                dialogpos++;
             }
             else if (line[0] == "BG") //new background
             {
@@ -173,7 +199,7 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)) && (line[0] == "0" || line[0] == "1")) //gå vidare från dialog
+        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)) && (line[0] == "0" || line[0] == "1" || line[0] == "2")) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
@@ -182,6 +208,14 @@ public class GameManager : MonoBehaviour
 
         //debug info
         posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
+    }
+    
+    public void SkipTutorial()
+    {
+        story = LoadStory("intro");
+        dialogpos = 0;
+        dialogdone = false;
+        ready = true;
     }
     IEnumerator Delay(float time) //ID 7
     {
@@ -324,17 +358,52 @@ public class GameManager : MonoBehaviour
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(0.58f * align, 0.58f, 0.6f);
+            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
         }
         else //karaktär finns
         {
             //ändra pos
             GameObject character = GameObject.Find($"{people[id].name.ToLower()}");
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(0.58f * align, 0.58f, 0.6f);
+            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
 
             //ändra mood
             UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{people[id].name.ToLower()}{mood}.png");
+            yield return uwr.SendWebRequest();
+            var texture = DownloadHandlerTexture.GetContent(uwr);
+            character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
+
+
+    }
+    IEnumerator CreateLumi(string mood, float x, float y) //ID 2
+    {
+        if (GameObject.Find($"lumi") == null) //karaktär finns ej
+        {
+            //ladda in filen som texture
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/lumi{mood}.png");
+            yield return uwr.SendWebRequest();
+            var texture = DownloadHandlerTexture.GetContent(uwr);
+
+            //skapa gameobj
+            GameObject character = new GameObject($"lumi");
+            character.gameObject.tag = "character";
+            SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
+            renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+            //sätt size + pos
+            character.transform.position = new Vector3(x, y, -1f);
+            character.transform.localScale = new Vector3(charsize, charsize, 0.6f);
+        }
+        else //karaktär finns
+        {
+            //ändra pos
+            GameObject character = GameObject.Find($"lumi");
+            character.transform.position = new Vector3(x, y, -1f);
+            character.transform.localScale = new Vector3(charsize, charsize, 0.6f);
+
+            //ändra mood
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/lumi{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
