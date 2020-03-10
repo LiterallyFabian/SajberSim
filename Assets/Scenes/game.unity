@@ -497,7 +497,6 @@ GameObject:
   - component: {fileID: 105514705}
   - component: {fileID: 105514708}
   - component: {fileID: 105514707}
-  - component: {fileID: 105514706}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -528,21 +527,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 59.519653, y: 90.71869}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &105514706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105514704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pz: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: -1
 --- !u!114 &105514707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 422655719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c15755759f320419d871b87284da9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6b49883e951ef43a3f7e26572ccbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textbox: {fileID: 553735958}
@@ -1276,8 +1260,8 @@ MonoBehaviour:
   question: {fileID: 1724962229}
   alt1t: {fileID: 1472527520}
   alt2t: {fileID: 19070919}
-  story1: s
-  story2: s
+  story1: 
+  story2: 
 --- !u!4 &422655721
 Transform:
   m_ObjectHideFlags: 0
@@ -1301,7 +1285,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 422655719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebd4346552641e4b845a51367320ca9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cf632fc35e577647bf852e2a5d93eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OverwriteAlert: {fileID: 540176319}
@@ -1319,7 +1303,7 @@ MonoBehaviour:
   UwuText: {fileID: 1316555988}
   BehindSettings: {fileID: 979750588}
   fadeimage: {fileID: 400989036}
-  music: {fileID: 540176320}
+  music: {fileID: 837362669}
   PauseMenuGame: {fileID: 1883442097}
   SettingsMenuGame: {fileID: 105514704}
 --- !u!114 &422655723
@@ -1331,7 +1315,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 422655719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa56cb3b68a291e4bacbee082d791903, type: 3}
+  m_Script: {fileID: 11500000, guid: ee2cc7ce9c2335f4c8bbf3a90f0ff6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &438577798 stripped
@@ -3058,12 +3042,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 422655722}
+        m_MethodName: CloseSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5500,7 +5484,6 @@ GameObject:
   - component: {fileID: 1883442098}
   - component: {fileID: 1883442101}
   - component: {fileID: 1883442100}
-  - component: {fileID: 1883442099}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -5531,21 +5514,6 @@ RectTransform:
   m_AnchoredPosition: {x: -4, y: 5.9456787}
   m_SizeDelta: {x: -226.8, y: -78.2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1883442099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883442097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pz: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: -1
 --- !u!114 &1883442100
 MonoBehaviour:
   m_ObjectHideFlags: 0

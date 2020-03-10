@@ -216,9 +216,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3260014644483953789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c3f05b60c5d9d418dd6a8265decb8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 975ededf0527c644c8c83bd48573ef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pz: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
-  moveModifier: 2
+  moveModifier: 0

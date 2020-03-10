@@ -1,3 +1,4 @@
 3|happy|3.36|-0.17
 2|Välkommen till SajberSim!
 2|SajberGymnasiet har snart funnits i 20 år, and i'm way too lazy to continue this at the moment
+4|intro
