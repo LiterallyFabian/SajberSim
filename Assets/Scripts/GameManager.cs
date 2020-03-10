@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject saveinfo;
     public GameObject SFX;
     public GameObject skiptutorial;
+    public static bool paused = false;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        paused = false;
         dialogpos = 0;
         ready = true;
         dialogdone = false;
@@ -199,7 +201,7 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)) && (line[0] == "0" || line[0] == "1" || line[0] == "2")) //gå vidare från dialog
+        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)) && (line[0] == "0" || line[0] == "1" || line[0] == "2") && !paused) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;

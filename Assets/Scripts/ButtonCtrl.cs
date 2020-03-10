@@ -174,6 +174,7 @@ public class ButtonCtrl : MonoBehaviour
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(false);
+        GameManager.paused = false;
         
     }
     public void QuitGame() //nuff' said
@@ -231,6 +232,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(true);
+        GameManager.paused = true;
     }
     IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
     {
