@@ -1,4 +1,6 @@
+BG|main
 3|happy|3.36|-0.17
 2|Välkommen till SajberSim!
-2|SajberGymnasiet har snart funnits i 20 år, and i'm way too lazy to continue this at the moment
-4|intro
+2|CyberGymnasiet har snart funnits i 20 år, och har i nuläget omkring 1100 elever.
+2|Just nu är vi utanför utanför huvudingången som ligger mittemot Ica på Vanadisvägen, men 
+LOADSTORY|intro

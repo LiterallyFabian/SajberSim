@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
             #endregion
 
         }
-        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonUp(0)))
+        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             dialogdone = true;
         }

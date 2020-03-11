@@ -17,9 +17,11 @@ public class BeatPulse : MonoBehaviour
     void Update()
     {
         var baseValue = Mathf.Cos(Time.time * Mathf.PI * (BPM / 60f) % Mathf.PI);
-        if (ready) 
-        this.transform.localScale = Vector3.Lerp(new Vector3(1f, 1f, 1), new Vector3(1.04f,1.04f,1), baseValue);
         ray.transform.Rotate(0, 0, 30 * Time.deltaTime);
+        if (!ready) return;
+        this.transform.localScale = Vector3.Lerp(new Vector3(1f, 1f, 1), new Vector3(1.04f,1.04f,1), baseValue);
+        ray.transform.localScale = Vector3.Lerp(new Vector3(1f, 1f, 1), new Vector3(1.08f, 1.08f, 1), baseValue);
+
 
     }
     public IEnumerator Wait1s()
