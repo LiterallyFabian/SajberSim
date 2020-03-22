@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
+using System.Globalization;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,12 +42,16 @@ public class GameManager : MonoBehaviour
     public static string[] story;
     public Coroutine co;
     public Character[] people = ButtonCtrl.people;
+    NumberFormatInfo lang = new NumberFormatInfo();
+    
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        lang.NumberDecimalSeparator = "."; 
+
         paused = false;
         dialogpos = 0;
         ready = true;
@@ -122,8 +127,8 @@ public class GameManager : MonoBehaviour
             else if (line[0] == "3") //Lumi char
             {
                 string mood = line[1];
-                float x = (float)Convert.ToDouble(line[2]);
-                float y = (float)Convert.ToDouble(line[3]);
+                float x = (float)double.Parse(line[2], lang);
+                float y = (float)double.Parse(line[3], lang);
                 StartCoroutine(CreateLumi(mood, x, y));
                 dialogpos++;
             }
@@ -139,8 +144,8 @@ public class GameManager : MonoBehaviour
             {
                 int id = int.Parse(line[1]);
                 string mood = line[2];
-                float x = (float)Convert.ToDouble(line[3]);
-                float y = (float)Convert.ToDouble(line[4]);
+                float x = (float)Convert.ToDouble(line[3], lang);
+                float y = (float)Convert.ToDouble(line[4], lang);
                 int align = int.Parse(line[5]);
                 StartCoroutine(CreateCharacter(id, mood, x, y, align));
                 dialogpos++;

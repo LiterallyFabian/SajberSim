@@ -1,8 +1,8 @@
-E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\intro.txt 
+H:\SajberSim Build\SajberSim_Data\Modding\Dialogues\intro.txt 
 --------------------------------------
 
 
-E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\legocity.txt 
+H:\SajberSim Build\SajberSim_Data\Modding\Dialogues\legocity.txt 
 --------------------------------------
 Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga
 
@@ -12,11 +12,14 @@ BG|ogiltigbakgrund
 Rad 10: Person "Lumi" är inte en giltig person, kom ihåg att använda personens ID.
 0|Lumi|Detta party är episkt, {2.name}! Men vart är {1.name}?
 
-E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\partytestidk.txt 
+H:\SajberSim Build\SajberSim_Data\Modding\Dialogues\partytestidk.txt 
 --------------------------------------
 
 
-E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\start.txt 
+H:\SajberSim Build\SajberSim_Data\Modding\Dialogues\start.txt 
 --------------------------------------
 
+
+Rad 2: Det verkar som ljudet "ogiltig" inte existerar
+PLAYMUSIC|ogiltig
 

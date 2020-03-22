@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -9,8 +10,20 @@ using UnityEngine;
 
 public class StoryDebugger : MonoBehaviour
 {
-    public static void DebugStory()
+
+
+
+
+
+    // Start is called before the first frame update
+    void Start()
     {
+
+    }
+        public static void DebugStory()
+    { 
+        NumberFormatInfo lang = new NumberFormatInfo();
+        lang.NumberDecimalSeparator = ".";
         using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/Modding/debug.txt"))
         {
             string fixedpath = $@"{Application.dataPath}/Modding/Dialogues/".Replace("/", "\\");
@@ -64,11 +77,11 @@ public class StoryDebugger : MonoBehaviour
 
                     else if (line[0] == "CHAR") //move or create character
                     {
-                        if (!double.TryParse(line[1], out double xd))
+                        if (!double.TryParse(line[1], NumberStyles.Number, lang, out double xd))
                             write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" är inte en giltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
-                        if (!double.TryParse(line[3], out double j))
+                        if (!double.TryParse(line[3], NumberStyles.Number, lang, out double j))
                             write.WriteLine($"Rad {pos + 1}: {line[3]} är inte en giltig koordinat\n{story[pos]}\n");
-                        if (!double.TryParse(line[4], out double g))
+                        if (!double.TryParse(line[4], NumberStyles.Number, lang, out double g))
                             write.WriteLine($"Rad {pos + 1}: {line[4]} är inte en giltig koordinat\n{story[pos]}\n");
                     }
                     else if (line[0] == "QUESTION") //question

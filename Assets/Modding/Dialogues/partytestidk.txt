@@ -1,22 +1,16 @@
-BG|main
-3|happy|1000|0|1
-CHAR|0|neutral|-5|-0.2|1
-0|0|Detta är en textbox, jag är inte helt säker på vad som ska stå här så vi går vidare till matsalen
+BG|haga|x
+CHAR|0|neutral|-5|-0.2|-1
+0|0|Konstigt, jag var så säker på att Lumi var här.
+0|0|Jag går till matsalen istället, kanske åtminstone {2.name} är där?
 BG|matsal
 PLAYMUSIC|jam
 CHAR|2|neutral|6|-0.50|1
 WAIT|1
-0|2|welcome to this epic party {0.name}!
-0|0|Detta party är episkt, {2.name}! Men vart är {1.name}?
+0|2|Welcome to this epic party {0.name}!
+0|0|Damn, detta party är episkt, {2.name}! Men vart är {1.name}?
 CHAR|1|happy|0|-0.5|1
-0|1|Tjena!
-CHAR|2|neutral|6|-0.50|1
-WAIT|0.4
-CHAR|2|neutral|6|-0.50|1
-WAIT|0.4
-CHAR|2|neutral|6|-0.50|1
-WAIT|0.4
-CHAR|2|neutral|5.5|-0.50|1
+0|1|A wild {1.name} appears, tjena!
+0|0|Där är du!
 WAIT|0.4
 CHAR|2|neutral|6|-0.50|1
 WAIT|0.4
@@ -46,5 +40,10 @@ CHAR|2|neutral|6|-0.50|1
 WAIT|0.4
 CHAR|2|neutral|5.5|-0.50|1
 WAIT|0.4
-0|2|Nu är det dags att säga hejdå :(
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|angry|6|-0.50|1
+0|2|Verkar som att Edgardo kommer så jag tror festen är fett över, spring!
 FINISHGAME

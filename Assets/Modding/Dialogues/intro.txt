@@ -1,1 +1,1 @@
-QUESTION|Detta är en fråga med två alternativ|Alternativ 1!|partytestidk|Alternativ 2. boooo|partytestidk
+QUESTION|Detta är en fråga med två alternativ, vad gör vi?|Gå till matsalen|partytestidk|Party!|partytestidk
