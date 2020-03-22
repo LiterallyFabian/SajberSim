@@ -323,13 +323,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ChangeBackground(string bg, GameObject item) //ID 1
     {
+        Texture2D texture;
         ToggleTextbox(false, 3);
         ready = false;
         Debug.Log($"New background loaded: {bg}");
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-        item.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png"))
+        {
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError)
+            {
+                Debug.LogError("Kunde ej ladda ner bakgrund");
+            }
+            else
+            {
+                texture = DownloadHandlerTexture.GetContent(uwr);
+                item.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            }
+            
+        }
+        
         ready = true;
     }
 

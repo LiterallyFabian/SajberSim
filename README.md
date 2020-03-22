@@ -94,7 +94,7 @@ Ett nytt spel börjar alltid på "start" som är en tutorial och går sedan vida
 
 ## Karaktär-setup
 
-Alla karaktärer har ett namn & smeknamn som sparas i `Characters/characterconfig.txt`, och 2 bilder var, ett porträtt som används i textrutorna och en pose som används när du skapar karaktären i scenen. För att länka bilder med karaktärer så döper du bara bilden till karaktärens namn i små bokstäver och sedan namnet på posen, till exempel happy/sad/neutral som vi har använt.  
+Alla karaktärer har ett namn & smeknamn som sparas i `Characters/characterconfig.txt`, och 2 bilder var, ett porträtt som används i textrutorna och en pose som används när du skapar karaktären i scenen. För att länka bilder med karaktärer så döper du bara bilden till karaktärens namn i små bokstäver och sedan namnet på posen, till exempel happy/angry/blush/neutral som vi har använt.  
 
 När ett nytt spel skapas så får alla karaktärer ett unikt nummer (börjar på 0), om du har 3 karaktärer till exempel så kan du då använda ID 0, 1 och 2 i dialoger
 

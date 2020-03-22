@@ -1,4 +1,3 @@
-Sam,sammy
-Fabian,Fabi
-Axel,Axie
-Lumi,Lumi
+Fabina,Fabi
+Lumi,Louie
+Melwin,Melwin

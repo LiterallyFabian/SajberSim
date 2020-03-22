@@ -1,40 +1,22 @@
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\intro.txt 
+E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\intro.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\legocity.txt 
---------------------------------------
-Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga
-
-Rad 5: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-2|0|neutral|-3.5|-2.7|1
-
-Rad 8: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-2|1|sad|3|-2|-1
-
-Rad 11: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-5|HEY!
-
-Rad 15: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-5|THE NEW EMERGENCY COLLECTION FROM LEGO CITY
-
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\partytestidk.txt 
---------------------------------------
-
-
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\start.txt 
+E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\legocity.txt 
 --------------------------------------
 Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga
 
-Rad 1: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-3|happy|3.36|-0.17
+Rad 5: Bakgrunden "ogiltigbakgrund" verkar inte finnas.
+BG|ogiltigbakgrund
 
-Rad 2: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-2|Välkommen till SajberSim!
+Rad 10: Person "Lumi" är inte en giltig person, kom ihåg att använda personens ID.
+0|Lumi|Detta party är episkt, {2.name}! Men vart är {1.name}?
 
-Rad 3: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-2|SajberGymnasiet har snart funnits i 20 år, and i'm way too lazy to continue this at the moment
+E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\partytestidk.txt 
+--------------------------------------
 
-Rad 4: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //
-4|intro
+
+E:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\start.txt 
+--------------------------------------
+
 

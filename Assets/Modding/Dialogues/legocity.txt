@@ -1,15 +1,49 @@
-//im not sure why im making this. but hey why not
-
-PLAYMUSIC|ameno
-1|matsal
-2|0|neutral|-3.5|-2.7|1
-0|0|Oh this day is nice
+BG|main
+3|happy|1000|0|1
+CHAR|0|neutral|-5.2|-0.2|1
+0|0|Detta är en textbox, jag är inte helt säker på vad som ska stå här så vi går vidare till matsalen
+BG|ogiltigbakgrund
+PLAYMUSIC|jam
+CHAR|2|neutral|6|-0.50|1
 WAIT|1
-2|1|sad|3|-2|-1
-0|1|A MAN HAS FALLEN INTO THE RIVER IN LEGO CITY
-0|0|WHAT?? START THE RESCUE HELICOPTER
-5|HEY!
-0|1|BUILD THE HELICOPTER, AND OFF TO THE RESCUE
-0|1|PREPARE THE LIFELINE
-0|1|LOWER THE STRETCHER, AND MAKE THE RESCUE
-5|THE NEW EMERGENCY COLLECTION FROM LEGO CITY
+0|2|welcome to this epic party {0.name}!
+0|Lumi|Detta party är episkt, {2.name}! Men vart är {1.name}?
+CHAR|1|happy|0|-0.5|1
+0|1|Tjena!
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|6|-0.50|1
+WAIT|0.4
+CHAR|2|neutral|5.5|-0.50|1
+WAIT|0.4
+0|2|Nu är det dags att säga hejdå :(
