@@ -138,4 +138,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] stats
 - [ ] rich presance
 - [x] character preview mode
-- [ ] tutorial
+- [ ] fix wait func
