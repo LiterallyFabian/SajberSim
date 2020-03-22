@@ -59,8 +59,7 @@ public class ButtonCtrl : MonoBehaviour
         Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
-        //använd vid launch bara
-       // StartCoroutine(UpdateCharacter());
+       StartCoroutine(UpdateCharacter());
 
     }
     public void Update()
