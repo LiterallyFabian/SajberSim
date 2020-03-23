@@ -12,6 +12,8 @@ ScriptsOnlyBuild:
     - Parallax
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -196,7 +198,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13178}
     - Class: 114
-      Script: {instanceID: 16740}
+      Script: {instanceID: 18820}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128

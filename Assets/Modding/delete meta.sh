@@ -1,0 +1,1 @@
+find . -name "*.meta" -type f -delete
