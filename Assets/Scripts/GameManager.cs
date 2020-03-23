@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
             {
                 ToggleTextbox(false, 3);
                 ready = false;
-                StartCoroutine(Delay(float.Parse(line[1])));
+                StartCoroutine(Delay((float)Convert.ToDouble(line[1])));
             }
             else if (line[0] == "PLAYMUSIC")
             {
