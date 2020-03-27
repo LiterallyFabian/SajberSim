@@ -141,6 +141,15 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(CreateCharacter(name.ToLower(), mood, x, y, align));
                 dialogpos++;
             }
+            else if(line[0] == "DEL") //delete character
+            {
+                string name = "";
+                if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+                else name = line[1];
+
+                StartCoroutine(CreateCharacter(name.ToLower(), "neutral", 0, 200, 1));
+                dialogpos++;
+            }
             else if (line[0] == "QUESTION") //question
             {
                 ready = false;

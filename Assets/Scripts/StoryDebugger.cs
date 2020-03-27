@@ -28,17 +28,23 @@ public class StoryDebugger : MonoBehaviour
         {
             string fixedpath = $@"{Application.dataPath}/Modding/Dialogues/".Replace("/", "\\");
             string audioPath = $@"{Application.dataPath}/Modding/Audio/".Replace("/", "\\");
+            string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
             string[] storyPaths = Directory.GetFiles(fixedpath, "*.txt");
             string[] audioPaths = Directory.GetFiles(audioPath, "*.ogg");
+            string[] charPaths = Directory.GetFiles(charPath, "*neutral.png");
 
             List<string> allmusic = new List<string>(); //list with all music
             List<string> allstories = new List<string>(); //list with all stories
+            List<string> allchars = new List<string>(); //list with all characters
 
             for (int i = 0; i < storyPaths.Length; i++)
                 allstories.Add(storyPaths[i].Replace(fixedpath, "").Replace(".txt", ""));
             
             for (int i = 0; i < audioPaths.Length; i++)
                 allmusic.Add(audioPaths[i].Replace(audioPath, "").Replace(".ogg", ""));
+
+            for (int i = 0; i < charPaths.Length; i++)
+                allchars.Add(charPaths[i].Replace(charPath, "").Replace("neutral.png", ""));
 
             foreach (string file in Directory.GetFiles(fixedpath, "*.txt"))
             {
@@ -50,7 +56,7 @@ public class StoryDebugger : MonoBehaviour
                 {
                     string[] line = story[pos].Split('|');
 
-                    if (line[0] == "0") //textbox write.WriteLine($"Rad {pos + 1}: \"\n{story[pos]}\n");
+                    if (line[0] == "T") //textbox write.WriteLine($"Rad {pos + 1}: \"\n{story[pos]}\n");
                     {
                         if (!int.TryParse(line[1], out int i))
                         {
@@ -77,8 +83,14 @@ public class StoryDebugger : MonoBehaviour
 
                     else if (line[0] == "CHAR") //move or create character
                     {
-                        if (!double.TryParse(line[1], NumberStyles.Number, lang, out double xd))
-                            write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" är inte en giltig person, kom ihåg att använda personens ID.\n{story[pos]}\n");
+                        bool success = false;
+                        for (int i = 0; i < allchars.Count; i++)
+                        {
+                            if (line[0] == allchars[i])
+                                success = true;
+                        }
+                        if (!double.TryParse(line[1], NumberStyles.Number, lang, out double xd) && !success)
+                            write.WriteLine($"Rad {pos + 1}: Person \"{line[1]}\" verkar inte finnas\n{story[pos]}\n");
                         if (!double.TryParse(line[3], NumberStyles.Number, lang, out double j))
                             write.WriteLine($"Rad {pos + 1}: {line[3]} är inte en giltig koordinat\n{story[pos]}\n");
                         if (!double.TryParse(line[4], NumberStyles.Number, lang, out double g))
@@ -87,7 +99,7 @@ public class StoryDebugger : MonoBehaviour
                     else if (line[0] == "QUESTION") //question
                     {
                         if (line.Length != 6)
-                            write.WriteLine($"Rad {pos+1}: Denna rad verkar vara för kort, förväntad längd: 3\n{story[pos]}\n");
+                            write.WriteLine($"Rad {pos+1}: Denna rad saknar något argument, förväntad längd: 6\n{story[pos]}\n");
                         if (!allstories.Contains(line[3]))
                             write.WriteLine($"Rad {pos + 1}: Alternativet \"{line[3]}\" har ingen story\n{story[pos]}\n");
                         if (!allstories.Contains(line[5]))
@@ -99,7 +111,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!allstories.Contains(line[1]))
                             write.WriteLine($"Rad {pos + 1}: Storyn \"{line[3]}\" existerar inte\n{story[pos]}\n");
                     }
-                    else if (line[0] == "1") //general box
+                    else if (line[0] == "ALERT") //general box
                     {
                         if (line.Length == 1)
                             write.WriteLine($"Rad {pos + 1}: Denna rad saknar text\n{story[pos]}\n");
@@ -114,7 +126,7 @@ public class StoryDebugger : MonoBehaviour
                         if (!allmusic.Contains(line[1]))
                             write.WriteLine($"Rad {pos + 1}: Det verkar som ljudet \"{line[1]}\" inte existerar\n{story[pos]}\n");
                     }
-                    else if (!story[pos].StartsWith("//") && story[pos] != "" && !story[pos].StartsWith("OPENSCENE|") && !story[pos].StartsWith("FINISHGAME") && !story[pos].StartsWith("2") && !story[pos].StartsWith("3"))
+                    else if (!story[pos].StartsWith("//") && story[pos] != "" && !story[pos].StartsWith("OPENSCENE|") && !story[pos].StartsWith("FINISHGAME"))
                         write.WriteLine($"Rad {pos + 1}: Denna rad verkar ogiltig. Du kan kommentera genom att börja en rad med //\n{story[pos]}\n");
                 }
             }

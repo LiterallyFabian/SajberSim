@@ -24,17 +24,29 @@ Ett nytt spel börjar alltid på "start" som är en tutorial och går sedan vida
 
 
 
+## Karaktär-setup
+
+I SajberSim finns det två olika typer av karaktärer, slumpmässiga och bestämda. Alla slumpmässiga karaktärer har ett namn & smeknamn som sparas i `Characters/characterconfig.txt`, och dessa använder du via ett ID.  När ett nytt spel skapas så får alla karaktärer ett unikt nummer (börjar på 0), dvs om du har 3 karaktärer till exempel kan du då använda ID 0, 1 och 2 i dialoger. Detta kan vara användbart ifall du har flera karaktärer med liknande pose och vill ha mer variation enkelt.
+
+Ifall du inte vill använda ID-systemet så går det bra att använda namnet direkt när du skapar karaktären, men ett tips isåfall kan vara att inte lägga in karaktärer du skapar med namn i characterconfig, då de kan förekomma dubbelt.
+
+I `Characters/` sparas alla bilder, och dem ska ha formatet `(namn)(mood).png`, till exempel `fabinahappy.png`.  Det är viktigt att alla slumpmässiga karaktärer har samma humör och att alla har ett porträtt som används när personen talar `(namn)port.png`.
+
+
+
 ## Funktioner
 
-- 0 - Skapar en textbox med någons ikon. Person-argumentet är personens ID, som du kan läsa om under "Karaktär-setup". För att använda karaktärens namn eller smeknamn i storyn, använd `{ID.name}` eller `{ID.nick}`
+- T - Skapar en textbox med någons ikon. Person-argumentet är antingen personens ID eller namn, beroende på hur du väljer att göra.
 
-  `0|personID|text`
+  `T|person|text`
 
   
 
-- 1 - Skapar en textbox utan någon ikon.
+- ALERT - Skapar en textbox utan någon ikon.
 
-  `1|text`
+  `ALERT|text`
+
+  
 
 - BG - Byter bakgrund. Ifall argument 3 saknas så rensas ingen bort. Bakgrunds-argumentet ska vara namnet på en bild i `Backgrounds/` utan ".png"
 
@@ -42,11 +54,17 @@ Ett nytt spel börjar alltid på "start" som är en tutorial och går sedan vida
 
   
 
-- CHAR - Skapar eller flyttar en karaktär. För att ta bort kan du sätta x till 100. Flip är antingen 1, eller -1 för att spegelvända karaktären. Person-argumentet ska vara personens ID. Våra humör är happy, neutral eller sad, men du kan skapa egna! Info för IDs och humör finns under "Karaktär-setup".
+- CHAR - Skapar eller flyttar en karaktär. Flip är antingen 1, eller -1 för att spegelvända karaktären. Våra humör är happy, neutral, angry eller blush, men du kan skapa egna! Precis som med textboxar så är person-argumentet namn eller ID.
 
   För att få fram positioner enklare kan du använda vårat verktyg du hittar via Main > Modding > Kraktär-Setup.
 
   `CHAR|person|humör|x|y|flip`
+
+  
+
+- DEL - Ta bort en karaktär med ID eller namn
+
+  `DEL|person`
 
   
 
@@ -89,14 +107,6 @@ Ett nytt spel börjar alltid på "start" som är en tutorial och går sedan vida
   
   
 - FINISHGAME - Markerar spelet som avklarat och startar credits. Om man kör denna så kommer ens sparfil tas bort och nästa gång man startar spelet börjar man från början med nya slumpade karaktärer.
-
-
-
-## Karaktär-setup
-
-Alla karaktärer har ett namn & smeknamn som sparas i `Characters/characterconfig.txt`, och 2 bilder var, ett porträtt som används i textrutorna och en pose som används när du skapar karaktären i scenen. För att länka bilder med karaktärer så döper du bara bilden till karaktärens namn i små bokstäver och sedan namnet på posen, till exempel happy/angry/blush/neutral som vi har använt.  
-
-När ett nytt spel skapas så får alla karaktärer ett unikt nummer (börjar på 0), om du har 3 karaktärer till exempel så kan du då använda ID 0, 1 och 2 i dialoger
 
 
 
