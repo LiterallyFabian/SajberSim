@@ -1,20 +1,20 @@
 BG|main
 PLAYMUSIC|takeyourpick
-3|happy|3.36|-0.17
-2|Välkommen till SajberSim!
-2|CyberGymnasiet har snart funnits i 20 år, och har i nuläget omkring 1100 elever.
-2|Just nu är vi utanför huvudingången som ligger mittemot Ica på Vanadisvägen, men skolan har även en ingång som..
-3|blush|3.36|-0.17
-CHAR|4|neutral|-2|-0.2|1
+CHAR|Lumi|happy|3.36|-0.17|1
+T|Lumi|Välkommen till SajberSim!
+T|Lumi|CyberGymnasiet har snart funnits i 20 år, och har i nuläget omkring 1100 elever.
+T|Lumi|Just nu är vi utanför huvudingången som ligger mittemot Ica på Vanadisvägen, men skolan har även en ingång som..
+CHAR|Lumi|blush|3.36|-0.17|1
+CHAR|4|neutral|-2|-0.5|1
 WAIT|0.5
-1|När Lumi såg {4.name} kom hon helt av sig...
-CHAR|4|happy|-2|-0.2|-1
-0|4|Hej Lumi, hur är det?
-2|...
-2|...Vi går vidare
-CHAR|4|happy|200|-0.2|-1
+ALERT|När Lumi såg {4.name} kom hon helt av sig...
+CHAR|4|happy|-2|-0.5|-1
+T|4|Hej Lumi, hur är det?
+T|Lumi|...
+T|Lumi|...Vi går vidare
+CHAR|4|happy|200|-0.5|-1|1
 BG|haga
-3|neutral|3.36|-0.17
-2|Jag är förmodligen säker här... eh...
-2|I'm out!
+CHAR|Lumi|neutral|3.36|-0.17|1
+T|Lumi|Jag är förmodligen säker här... eh...
+T|Lumi|I'm out!
 LOADSTORY|intro

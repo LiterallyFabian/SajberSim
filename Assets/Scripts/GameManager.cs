@@ -100,37 +100,25 @@ public class GameManager : MonoBehaviour
                 dialogpos++;
             }
 
-            else if (line[0] == "0") //textbox
+            else if (line[0] == "T") //textbox
             {
-                
-                Character talker = people[int.Parse(line[1])];
-                string text = FillVars(line[2]);
-                UnityEngine.Debug.Log($"{talker.name} says: {text}");
-                ready = false;
-                co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
+                Character talker = people[0];
+                if (int.TryParse(line[1], out int x))
+                    talker = people[int.Parse(line[1])];
+                else
+                    talker = new Character(line[1], "", 0);
+
+                    string text = FillVars(line[2]);
+                    UnityEngine.Debug.Log($"{talker.name} says: {text}");
+                    ready = false;
+                    co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             }
-            else if (line[0] == "1") //general box
+            else if (line[0] == "ALERT") //general box
             {
                 string text = FillVars(line[1]);
                 Debug.Log($"Alert: {text}");
                 ready = false;
                 StartCoroutine(SpawnAlert(UwUTranslator(text)));
-            }
-            else if (line[0] == "2") //Lumi textbox
-            {
-                Character talker = new Character("Lumi", "Lumi", 0);
-                string text = FillVars(line[1]);
-                UnityEngine.Debug.Log($"{talker.name} says: {text}");
-                ready = false;
-                co = StartCoroutine(SpawnTextBox(talker, text));
-            }
-            else if (line[0] == "3") //Lumi char
-            {
-                string mood = line[1];
-                float x = (float)double.Parse(line[2], lang);
-                float y = (float)double.Parse(line[3], lang);
-                StartCoroutine(CreateLumi(mood, x, y));
-                dialogpos++;
             }
             else if (line[0] == "BG") //new background
             {
@@ -142,12 +130,15 @@ public class GameManager : MonoBehaviour
             }
             else if (line[0] == "CHAR") //move or create character
             {
-                int id = int.Parse(line[1]);
+                string name = "";
+                if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+                else name = line[1];
+
                 string mood = line[2];
                 float x = (float)Convert.ToDouble(line[3], lang);
                 float y = (float)Convert.ToDouble(line[4], lang);
                 int align = int.Parse(line[5]);
-                StartCoroutine(CreateCharacter(id, mood, x, y, align));
+                StartCoroutine(CreateCharacter(name.ToLower(), mood, x, y, align));
                 dialogpos++;
             }
             else if (line[0] == "QUESTION") //question
@@ -206,7 +197,7 @@ public class GameManager : MonoBehaviour
         {
             dialogdone = true;
         }
-        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)) && (line[0] == "0" || line[0] == "1" || line[0] == "2") && !paused) //gå vidare från dialog
+        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)) && (line[0] == "ALERT" || line[0] == "T") && !paused) //gå vidare från dialog
         {
             StopCoroutine(co);
             dialogpos++;
@@ -360,17 +351,17 @@ public class GameManager : MonoBehaviour
         return File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{story}.txt");
     }
 
-    IEnumerator CreateCharacter(int id, string mood, float x, float y, int align) //ID 2
+    IEnumerator CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
     {
-        if (GameObject.Find($"{people[id].name.ToLower()}") == null) //karaktär finns ej
+        if (GameObject.Find(name) == null) //karaktär finns ej
         {
             //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
 
             //skapa gameobj
-            GameObject character = new GameObject($"{people[id].name.ToLower()}");
+            GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
             renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -382,12 +373,12 @@ public class GameManager : MonoBehaviour
         else //karaktär finns
         {
             //ändra pos
-            GameObject character = GameObject.Find($"{people[id].name.ToLower()}");
+            GameObject character = GameObject.Find(name);
             character.transform.position = new Vector3(x, y, -1f);
             character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
 
             //ändra mood
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{people[id].name.ToLower()}{mood}.png");
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
             yield return uwr.SendWebRequest();
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
