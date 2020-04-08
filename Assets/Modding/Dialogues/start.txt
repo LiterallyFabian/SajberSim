@@ -1,5 +1,6 @@
 //Filen "start.txt" kommer man alltid till när man startar ett nytt spel. Om man skippar denna, kommer man till "intro.txt" där spelarna får välja program
 
+QUESTION|oi this is a question with a fuck ton of alternatives uwu|text1|te_info_start|text2|te_info_start|text3|te_info_start|text3 but cool|te_info_start|text5|te_info_start
 BG|main
 PLAYMUSIC|takeyourpick
 CHAR|Lumi|neutral|3.36|-0.17|1

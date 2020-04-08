@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public GameObject saveinfo;
     public GameObject SFX;
     public GameObject skiptutorial;
+    public GameObject dropdownObject;
+    public GameObject dropdownMenu;
     public static bool paused = false;
     public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
     public Text question;
     public Text alt1t;
     public Text alt2t;
+    public Text dropdownQ;
     public string story1;
     public string story2;
     public static string[] story;
@@ -153,12 +156,19 @@ public class GameManager : MonoBehaviour
             else if (line[0] == "QUESTION") //question
             {
                 ready = false;
-                string quest = line[1];
-                string alt1 = line[2];
-                story1 = line[3];
-                string alt2 = line[4];
-                story2 = line[5];
-                Question(quest, alt1, alt2);
+                if(line.Length == 6) //Normal 2 alt questions
+                {
+                    string quest = line[1];
+                    string alt1 = line[2];
+                    story1 = line[3];
+                    string alt2 = line[4];
+                    story2 = line[5];
+                    Question(quest, alt1, alt2);
+                }
+                else //More questions - dropdown menu
+                {
+                    QuestionDD(line);
+                }
             }
             else if (line[0] == "LOADSTORY") //open new story (no question)
             {
@@ -216,7 +226,31 @@ public class GameManager : MonoBehaviour
         //debug info
         posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
-    
+    public void QuestionDD(string[] line)
+    {
+        List<string> options = new List<string>();
+        for (int i = 2; i < line.Length; i = i+2) 
+        {
+            options.Add(line[i]);
+        }
+        dropdownQ.text = line[1];
+        dropdownObject.GetComponent<Dropdown>().AddOptions(options);
+        dropdownMenu.SetActive(true);
+    }
+    public void ChangeStoryFromDD(int select)
+    {
+        string[] line = story[dialogpos].Split('|');
+        List<string> options = new List<string>();
+        for (int i = 3; i < line.Length; i = i + 2)
+        {
+            options.Add(line[i]);
+        }
+        
+        story = LoadStory(options[select]);
+        dialogpos = 0;
+        dropdownMenu.SetActive(false);
+        ready = true;
+    }
     public void SkipTutorial()
     {
         story = LoadStory("intro");
