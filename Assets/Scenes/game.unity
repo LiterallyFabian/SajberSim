@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1aa67067b6c04484492231c88a581618, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a86135378ac481b4d8807d7df80203e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4887,7 +4887,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
+  m_AnchoredPosition: {x: -0, y: 10.7}
   m_SizeDelta: {x: 370.9, y: 59.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1724962229
@@ -4909,20 +4909,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 28735291373dec547a55636b10d27ea2, type: 3}
-    m_FontSize: 11
+    m_Font: {fileID: 12800000, guid: ccabe4857bfa493479eefd0125b0ce2f, type: 3}
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 11
-    m_Alignment: 1
+    m_MinSize: 1
+    m_MaxSize: 12
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
   m_Text: "Denna text b\xF6r inte kunna l\xE4sas utanf\xF6r Unity, but here we are.
-    Svara g\xE4rna p\xE5 mejlet ifall du kan se detta & hur"
+    Mejla g\xE4rna fabian.lindgren@elev.cybergymnasiet.se\nifall du har n\xE5gon
+    id\xE9 om vad som kan g\xE5tt fel, tack :D\n"
 --- !u!222 &1724962230
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5977,7 +5978,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1aa67067b6c04484492231c88a581618, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a86135378ac481b4d8807d7df80203e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

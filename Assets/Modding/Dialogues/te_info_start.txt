@@ -1,0 +1,31 @@
+BG|matsal|x
+PLAYMUSIC|ambient corp
+CHAR|0|happy|-4.14|-0.17|-1
+T|0|Välkommen till Teknik: Informations- och mediateknik!
+T|0|Just nu är vi i matsalen, men jag lovar att vi har klassrum!
+T|0|Jag heter {0.name}, och jag ska prata om hur programmet ser ut, vad vi gör under dagarna, och allt möjligt du kanske undrar!
+CHAR|0|angry|-4.14|-0.17|-1
+T|0|Min kompis {1.name} skulle vara med, men missade tunnelbanan och blir lite sen...
+WAIT|0.5
+CHAR|0|happy|-4.14|-0.17|-1
+T|0|Vi sätter igång!
+T|0|Som ni säkert redan vet så finns det tre inriktningar i teknikprogrammet: Info & media, design & produktutveckling, och samhällsbyggande & miljö.
+T|0|Denna inriktning fokuserar främst på programmering och design inom spelvärlden, men med kunskaperna du får kan du göra väldigt mycket mer än bara spel!
+T|0|Vi har bland annat Webbutveckling 1 där vi lär oss att göra hemsidor ifrån grunden, hur webbhotell fungerar och hur säkerhet & hot online fungerar.
+T|0|Ifall du gillar Webbutveckling 1 så kan man lägga till Webbutveckling 2 i trean! 
+T|0|Vi har även Teknik 1, där man får lära sig om olika materials för/nackdelar, hur man startar upp större projekt (som SajberSim!), teknikens historia etc.
+T|0|Den sista kursen som är unik till info & media är Dator- och nätverksteknik. 
+T|0|Här lär vi oss om hur datorer och nätverk fungerar helt enkelt: hur man installerar hård- och mjukvara, konfigurering av datorer och nätverk, prestanda för olika lagringsmedia etc.
+CHAR|0|neutral|-2.34|-0.17|1
+CHAR|1|neutral|-7.14|-0.17|-1
+T|1|Hej {0.name}! Hoppas jag inte blev för sen...
+CHAR|0|happy|-2.34|-0.17|1
+T|0|Nejdå! Jag har dragit en kort introduktion om kurserna vi har, du kan börja prata om hur dagarna ser ut innan vi går in på kurserna mer noga.
+T|1|Alright!
+CHAR|1|happy|-4.4|-0.17|-1
+CHAR|0|happy|4.6|-0.17|1
+T|1|Våra scheman skiljer sig väldigt mycket från klass till klass, men generellt så är våra dagar mellan 9-15, plus minus en timme. 
+T|1|Vi har alltid 5-20 minuter rast mellan lektionerna, med en lunchrast på ungefär 45 minuter någon gång när matsalen är öppen, dvs 10:30-13:30.
+T|1|Teknikprogrammet håller sig främst i Hagahuset, som man kan komma åt via en glasgång i trapphuset på våning 5.
+T|1|Idrott har vi hela första året, och den sker i Hagaparken 10 minuter ifrån skolan när vädret tillåter det,
+T|1|men ifall det är dåligt väder är vi antingen i Frescatihallen 20 minuter ifrån skolan, eller i vår danssal på våning 4.

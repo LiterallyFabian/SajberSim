@@ -1,1 +1,1 @@
-QUESTION|Detta är en fråga med två alternativ, vad gör vi?|Gå till matsalen|partytestidk|Party!|partytestidk
+QUESTION|Såhär ser frågor ut förresten, och dessa kan användas i din introduktion. Båda alternativen i denna demo tar dig dock till teknik...|Låter bra!|te_info_start|Alternativ 2|te_info_start

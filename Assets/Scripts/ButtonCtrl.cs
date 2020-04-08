@@ -69,15 +69,18 @@ public class ButtonCtrl : MonoBehaviour
     }
     IEnumerator UpdateCharacter()
     {
-        string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
-        var charpaths = new List<string>();
-       // charpaths.AddRange(Directory.GetFiles(charPath, "*neutral.png"));
-        charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
-        //ladda in filen som texture
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-        GameObject.Find("Character").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        if (SceneManager.GetActiveScene().name == "menu")
+        {
+            string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
+            var charpaths = new List<string>();
+            // charpaths.AddRange(Directory.GetFiles(charPath, "*neutral.png"));
+            charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
+            //ladda in filen som texture
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
+            yield return uwr.SendWebRequest();
+            var texture = DownloadHandlerTexture.GetContent(uwr);
+            GameObject.Find("Character").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
     }
     public void TogglePause()
     {
