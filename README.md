@@ -68,9 +68,11 @@ I `Characters/` sparas alla bilder, och dem ska ha formatet `(namn)(mood).png`, 
 
   
 
-- QUESTION - Skapar en fråga & startar ny dialog. Dialog-argumenten ska vara namnet på en textfil i `Dialogues/` utan ".txt", och alt1 & alt2 är texten som kommer upp på knappen
+- QUESTION - Skapar en fråga & startar ny dialog. `Text` är vad som ska stå på knappen eller i listan, och `dialog` är namnet på en dialog som kommer öppnas när man väljer alternativet. Du kan ha 2 eller fler alternativ, där 3+ blir en dropdown-lista istället för knappar 
 
-  `QUESTION|fråga|alt1|dialog1|alt2|dialog2`
+  `QUESTION|fråga|text1|dialog1|text2|dialog2` //Knappar 
+
+  `QUESTION|fråga|text1|dialog1|text2|dialog2|text3|dialog3|text4|dialog4` //Lista
 
   
 

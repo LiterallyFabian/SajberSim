@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public static string[] story;
     public Coroutine co;
     public Character[] people = ButtonCtrl.people;
+    public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
     
 
@@ -228,6 +229,9 @@ public class GameManager : MonoBehaviour
     }
     public void QuestionDD(string[] line)
     {
+        dropdownObject.GetComponent<Dropdown>().ClearOptions();
+        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "});
+        ToggleTextbox(false,3);
         List<string> options = new List<string>();
         for (int i = 2; i < line.Length; i = i+2) 
         {
@@ -245,8 +249,13 @@ public class GameManager : MonoBehaviour
         {
             options.Add(line[i]);
         }
-        
-        story = LoadStory(options[select]);
+        #region openhouse
+        Analytics.CustomEvent("program_picked", new Dictionary<string, object>
+        {
+            { "program", options[select-1] }
+        });
+        #endregion openhouse
+        story = LoadStory(options[select-1]);
         dialogpos = 0;
         dropdownMenu.SetActive(false);
         ready = true;
@@ -313,6 +322,12 @@ public class GameManager : MonoBehaviour
         dialogpos = 0;
         string[] stories = { story1, story2 };
         story = LoadStory(stories[id - 1]);
+        #region openhouse
+        Analytics.CustomEvent("program_picked", new Dictionary<string, object>
+        {
+            { "program", stories[id-1] }
+        });
+        #endregion openhouse
         ready = true;
     }
     IEnumerator SpawnAlert(string target) //ID 0
@@ -466,11 +481,13 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator PlayMusic(string sound) //Musik ligger på "music"
     {
+        if (musicplaying != sound) //spela om den inte redan körs
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
             yield return uwr.SendWebRequest();
             music.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
             music.GetComponent<AudioSource>().Play();
+            musicplaying = sound;
         }
     }
     IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
@@ -486,8 +503,9 @@ public class GameManager : MonoBehaviour
     {
         background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
+        musicplaying = "none";
     }
-    void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ELSE EVERYTHING
+    void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ID2 QUESTION, ELSE EVERYTHING
     {
         if (id == 0)
             alertbox.SetActive(shown);

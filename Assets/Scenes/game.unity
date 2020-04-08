@@ -1520,6 +1520,7 @@ MonoBehaviour:
   dropdownQ: {fileID: 1343774802}
   story1: 
   story2: 
+  musicplaying: 
 --- !u!4 &422655721
 Transform:
   m_ObjectHideFlags: 0
@@ -2861,7 +2862,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4482,18 +4483,20 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ccabe4857bfa493479eefd0125b0ce2f, type: 3}
-    m_FontSize: 12
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "Detta \xE4r en fr\xE5getext f\xF6r dropdown menyer. jag m\xE5ste skriva
+    r\xE4tt mycket f\xF6r att testa hur mycket som f\xE5r plats, du b\xF6r ej kunna
+    se detta...."
 --- !u!222 &1343774803
 CanvasRenderer:
   m_ObjectHideFlags: 0

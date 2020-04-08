@@ -1,0 +1,31 @@
+BG|matsal
+PLAYMUSIC|ambient corp
+CHAR|1|happy|-4.4|-0.17|-1
+CHAR|0|neutral|4.6|-0.17|1
+T|1|Webbutveckling, alright!
+T|1|Jag tror att {2.name} gärna skulle vilja gå igenom den kursen, en sekund!
+DEL|1
+T|0|...
+WAIT|1.4
+CHAR|2|neutral|-3.4|-0.17|-1
+CHAR|1|neutral|-8.4|-0.17|-1
+T|2|Hej {0.name}! Det var ni som ville ha en genomgång på webbutveckling om jag hörde rätt?
+T|0|Det stämmer!
+T|2|Bra, vi kör! 
+T|2|Precis som med alla andra datakurser på Cybergymnasiet behöver man inga tidigare erfarenheter inom webbutveckling för att klara av denna kurs, vi kör allt från grunden.
+T|2|I webbutveckling 1 som ingår i Teknik: info & media som man läser hela sitt andra år arbetar vi med att göra hemsidor, och vi lär oss om säkerhet och hot på webben. 
+T|2|Webbutveckling 2 ingår inte i programmet, men om man tycker att kursen är rolig kan man lägga till den till sista året.
+T|2|När vi skapar hemsidor använder och lär vi oss främst HTML och CSS, men vi går även igenom lite JavaScript.
+CHAR|2|happy|-3.4|-0.17|-1
+T|2|Det jag nämnde nyss är tre programmeringsspråk som främst används till hemsidor, ifall du inte hört begreppen tidigare är det okej.
+T|2|I webbutveckling 1 gör vi två hemsidor: en som följer en videoguide rätt noga för att komma igång, och sen en helt egen idé.
+T|2|Första hemsidan som följer videoguiden har en 
+T|2|Den egna idén kan vara ett CV, en hemsida till ett band/företag, en portfolio etc, det är upp till dig!
+T|0|Tack {2.name}!
+T|2|Tack för att ni lyssnat, nu måste jag skynda tillbaka!
+CHAR|1|neutral|-3.4|-0.17|-1
+CHAR|2|neutral|-8.4|-0.17|-1
+WAIT|0.5
+DEL|2
+T|1|Då kanske du vill lära dig om något nytt?
+QUESTION|Vad vill du lära dig mer om?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik

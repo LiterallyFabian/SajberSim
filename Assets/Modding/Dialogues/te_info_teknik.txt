@@ -1,0 +1,15 @@
+BG|matsal
+PLAYMUSIC|ambient corp
+CHAR|1|happy|-4.4|-0.17|-1
+CHAR|0|neutral|4.6|-0.17|1
+T|1|Teknik 1 är en utav de längsta kurserna vi har på skolan, hela 150 poäng, under ett och ett halvt läsår.
+T|1|Tidigt i kursen lär oss mycket om teknikhistoria; hur saker har utvecklats, när produkter och idéer kom till etc.
+T|1|Vi har även två projekt, ett mindre under några få veckor, och ett större som pågår i omkring 3 månader.
+T|1|Under projekten lär vi oss hur man skapar en budget, planering, kollar upp lämpliga patent och liknande.
+T|0|Glöm inte att SajberSim främst skapades under projektmomentet i teknik!
+T|1|Nej precis, tack {0.name}!
+T|1|Ett annat moment vi har i kursen teknik 1 är ritteknik, där vi ritar och använder programmet Solidworks CAD för att göra ritningar på simpla objekt.
+T|1|Det sista momentet är materiallära och hållfasthetslära.
+T|1|Där får vi lära oss hur olika material skiljer sig åt, för/nackdelar med dem, hur man kollar om något kommer hålla innan man bygger det etc.
+QUESTION|Vill du ha mer information om något annat?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik
+
