@@ -614,8 +614,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000095367, y: -608}
-  m_SizeDelta: {x: 525.2, y: 460.1}
+  m_AnchoredPosition: {x: 0, y: -602}
+  m_SizeDelta: {x: 580.9, y: 460.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614869959
 MonoBehaviour:
@@ -648,8 +648,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Och h\xE4r kan vi skriva n\xE5got cute uwu\nthanks for playing we love
-    u\n\nt h a n o s c a r\n\n"
+  m_Text: "Tack f\xF6r att du har spelat, vi hoppas att det har varit roligt och
+    att vi ser dig p\xE5 skolan i h\xF6st!\n"
 --- !u!222 &614869960
 CanvasRenderer:
   m_ObjectHideFlags: 0

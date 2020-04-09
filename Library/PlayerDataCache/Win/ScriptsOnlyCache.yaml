@@ -30,12 +30,17 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
@@ -176,11 +181,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11348}
     - Class: 114
+      Script: {instanceID: 11350}
+    - Class: 114
       Script: {instanceID: 11388}
     - Class: 114
       Script: {instanceID: 11450}
     - Class: 114
+      Script: {instanceID: 11710}
+    - Class: 114
       Script: {instanceID: 11816}
+    - Class: 114
+      Script: {instanceID: 12018}
     - Class: 114
       Script: {instanceID: 12216}
     - Class: 114
@@ -192,13 +203,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12840}
     - Class: 114
+      Script: {instanceID: 13136}
+    - Class: 114
       Script: {instanceID: 13148}
     - Class: 114
       Script: {instanceID: 13164}
     - Class: 114
       Script: {instanceID: 13180}
     - Class: 114
-      Script: {instanceID: 16740}
+      Script: {instanceID: 29748}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -241,9 +254,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11348}
     - Class: 114
+      Script: {instanceID: 11350}
+    - Class: 114
       Script: {instanceID: 11388}
     - Class: 114
+      Script: {instanceID: 11710}
+    - Class: 114
       Script: {instanceID: 11816}
+    - Class: 114
+      Script: {instanceID: 12018}
     - Class: 114
       Script: {instanceID: 12216}
     - Class: 114
@@ -254,6 +273,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12840}
     - Class: 114
       Script: {instanceID: 13080}
+    - Class: 114
+      Script: {instanceID: 13136}
     - Class: 114
       Script: {instanceID: 13148}
     - Class: 114
@@ -323,6 +344,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12840}
     - Class: 114
       Script: {instanceID: 13038}
+    - Class: 114
+      Script: {instanceID: 13108}
     - Class: 114
       Script: {instanceID: 13148}
     - Class: 114
@@ -602,7 +625,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 2ea368768ab240c3bea0ac9847db9080
+      Hash: 80323b1f35cf52f4792e847c8393e2c4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
