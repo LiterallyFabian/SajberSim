@@ -176,6 +176,7 @@ public class ButtonCtrl : MonoBehaviour
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(false);
+        OverwriteAlert.SetActive(false);
         GameManager.paused = false;
         
     }
