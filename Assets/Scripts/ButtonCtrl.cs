@@ -225,6 +225,10 @@ public class ButtonCtrl : MonoBehaviour
     {
         Process.Start(link);
     }
+    public void OpenLogfile()
+    {
+        Process.Start($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\"));
+    }
     public void Debug()
     {
         StoryDebugger.DebugStory();
@@ -266,5 +270,13 @@ public class ButtonCtrl : MonoBehaviour
             yield return null;
         }
         SceneManager.LoadScene(scene);
+    }
+    private void OnApplicationQuit()
+    {
+        DateTime now = DateTime.Now;
+        string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\");
+        string destFile = $@"{Application.dataPath}/Logs/Log {now.Day}-{now.Month-1} {now.Hour}:{now.Minute}:{now.Second}.txt".Replace("/", "\\");
+        System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
+        System.IO.File.Copy(sourceFile, destFile, true);
     }
 }
