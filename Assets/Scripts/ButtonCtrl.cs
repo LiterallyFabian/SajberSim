@@ -273,7 +273,9 @@ public class ButtonCtrl : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        if (Application.isEditor) return;
+        DiscordRpc.Shutdown(); //Stänger Discord RPC
+
+        if (Application.isEditor) return; //Skapar loggfil
         DateTime now = DateTime.Now;
         string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\");
         string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
