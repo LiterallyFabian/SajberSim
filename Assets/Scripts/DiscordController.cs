@@ -80,17 +80,18 @@ public class DiscordController : MonoBehaviour
 
     void Start()
     {
+        
+        presence.largeImageKey = "mainwfade";
+        if (SceneManager.GetActiveScene().name == "menu") presence.details = "In main menu";
+        else if (SceneManager.GetActiveScene().name == "credits") presence.details = "Watching credits";
+	else presence.details = "Ingame";
+	DiscordRpc.UpdatePresence(presence);
     }
 
     void Update()
     {
-            DiscordRpc.RunCallbacks();
-            DiscordRpc.UpdatePresence(presence);
-        presence.largeImageKey = "mainwfade";
-        if (SceneManager.GetActiveScene().name == "game") presence.details = "Ingame";
-        else if (SceneManager.GetActiveScene().name == "menu") presence.details = "In main menu";
-        else if (SceneManager.GetActiveScene().name == "credits") presence.details = "Watching credits";
-
+        DiscordRpc.RunCallbacks();
+        
     }
 
     void OnEnable()
@@ -108,8 +109,7 @@ public class DiscordController : MonoBehaviour
 
     void OnDisable()
     {
-        Debug.Log("Discord: shutdown");
-        DiscordRpc.Shutdown();
+
     }
 
     void OnDestroy()
