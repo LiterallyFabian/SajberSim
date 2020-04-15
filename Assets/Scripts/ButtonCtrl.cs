@@ -58,8 +58,9 @@ public class ButtonCtrl : MonoBehaviour
         
         Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
+        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
 
-       StartCoroutine(UpdateCharacter());
+        StartCoroutine(UpdateCharacter());
 
     }
     public void Update()
