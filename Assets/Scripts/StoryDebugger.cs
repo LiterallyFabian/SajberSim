@@ -10,16 +10,6 @@ using UnityEngine;
 
 public class StoryDebugger : MonoBehaviour
 {
-
-
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
         public static void DebugStory()
     { 
         NumberFormatInfo lang = new NumberFormatInfo();
@@ -46,13 +36,13 @@ public class StoryDebugger : MonoBehaviour
             for (int i = 0; i < charPaths.Length; i++)
                 allchars.Add(charPaths[i].Replace(charPath, "").Replace("neutral.png", ""));
 
-            foreach (string file in Directory.GetFiles(fixedpath, "*.txt"))
+            foreach (string file in Directory.GetFiles(fixedpath, "*.txt")) //kollar igenom alla FILER
             {
                 write.WriteLine($"{file} \n--------------------------------------");
                 string[] story = File.ReadAllLines(file);
                 if (!story[story.Length - 1].StartsWith("FINISHGAME") && !story[story.Length - 1].StartsWith("QUESTION") && !story[story.Length - 1].StartsWith("LOADSTORY")) write.WriteLine("Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga\n"); else write.WriteLine("\n");
 
-                for (int pos = 0; pos < story.Length; pos++)
+                for (int pos = 0; pos < story.Length; pos++) //kollar igenom alla RADER
                 {
                     string[] line = story[pos].Split('|');
 

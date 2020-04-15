@@ -23,7 +23,6 @@ public class Parallax : MonoBehaviour
         Vector3 pz = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         pz.z = 0;
         gameObject.transform.position = pz;
-        //Debug.Log("Mouse Position: " + pz);
 
         transform.position = new Vector3(StartPos.x + (pz.x * moveModifier), StartPos.y + (pz.y * moveModifier), 0);
     }

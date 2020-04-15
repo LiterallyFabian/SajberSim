@@ -12,4 +12,3 @@ T|1|Ett annat moment vi har i kursen teknik 1 är ritteknik, där vi ritar och a
 T|1|Det sista momentet är materiallära och hållfasthetslära.
 T|1|Där får vi lära oss hur olika material skiljer sig åt, för/nackdelar med dem, hur man kollar om något kommer hålla innan man bygger det etc.
 QUESTION|Vill du ha mer information om något annat?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik
-
