@@ -275,7 +275,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         DiscordRpc.Shutdown(); //Stänger Discord RPC
 
-        if (Application.isEditor) return; //Skapar loggfil
+        if (Application.isEditor) return; //Skapar loggfil utanför Unity
         DateTime now = DateTime.Now;
         string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\");
         string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
