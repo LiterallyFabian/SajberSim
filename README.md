@@ -10,7 +10,9 @@ Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det hä
 
 ## Modding intro
 
-När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spelet så vi kan lägga till och redigera våra bakgrunder, karaktärer, dialoger etc smidigt. Detta gjorde vi genom att implementera ett eget mänskligt läsbart filformat som gör det mycket lättare för oss att redigera storyn, tillsammans med verktyg för att effektivt testa storyn. Med detta format så blir det inte bara lättare för oss dock, utan för alla med spelet nerladdat! Läs vidare ifall du är intresserad av att skapa en ny story eller redigera vår!
+*I nuläget används detta spel för CyberGymnasiet och modding kommer färdigställas i framtiden. Du får gärna testa göra något eget, men verktygen arbetas fortfarande på*
+
+~~När vi gjorde SajberSim behövde vi ett enkelt sätt att lägga in storyn i spelet så vi kan lägga till och redigera våra bakgrunder, karaktärer, dialoger etc smidigt. Detta gjorde vi genom att implementera ett eget mänskligt läsbart filformat som gör det mycket lättare för oss att redigera storyn, tillsammans med verktyg för att effektivt testa storyn. Med detta format så blir det inte bara lättare för oss dock, utan för alla med spelet nerladdat! Läs vidare ifall du är intresserad av att skapa en ny story eller redigera vår!~~
 
 För att göra egna stories behöver du inte använda källkoden här, du kan redigera spelfilerna direkt. 
 

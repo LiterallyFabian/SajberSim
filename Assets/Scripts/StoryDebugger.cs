@@ -16,9 +16,9 @@ public class StoryDebugger : MonoBehaviour
         lang.NumberDecimalSeparator = ".";
         using (StreamWriter write = new StreamWriter($@"{Application.dataPath}/Modding/debug.txt"))
         {
-            string fixedpath = $@"{Application.dataPath}/Modding/Dialogues/".Replace("/", "\\");
-            string audioPath = $@"{Application.dataPath}/Modding/Audio/".Replace("/", "\\");
-            string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
+            string fixedpath = $@"{Application.dataPath}/Modding/Dialogues/";
+            string audioPath = $@"{Application.dataPath}/Modding/Audio/";
+            string charPath = $@"{Application.dataPath}/Modding/Characters/";
             string[] storyPaths = Directory.GetFiles(fixedpath, "*.txt");
             string[] audioPaths = Directory.GetFiles(audioPath, "*.ogg");
             string[] charPaths = Directory.GetFiles(charPath, "*neutral.png");

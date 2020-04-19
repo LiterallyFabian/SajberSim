@@ -1,28 +1,28 @@
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\intro.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/intro.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\quit.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/quit.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\start.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/start.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\te_info_spel.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/te_info_spel.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\te_info_start.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/te_info_start.txt 
 --------------------------------------
 
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\te_info_teknik.txt 
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/te_info_teknik.txt 
 --------------------------------------
-Denna story leder ingenstans. Ifall det är spelets sista del avslutar du med FINSIHGAME, annars en fråga
 
-H:\School code stuff\CyberSim\CyberSim\Assets\Modding\Dialogues\te_info_web.txt 
+
+H:/School code stuff/CyberSim/CyberSim/Assets/Modding\Dialogues/te_info_web.txt 
 --------------------------------------
 
 
