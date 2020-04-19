@@ -90,13 +90,13 @@ I `Characters/` sparas alla bilder, och dem ska ha formatet `(namn)(mood).png`, 
 
   
 
-- PLAYMUSIC - Spelar en ljudfil. Ljud-argumentet ska vara namnet på en OGG-fil i `Audio/` utan ".ogg".  Ifall du har [FFmpeg](https://www.ffmpeg.org/) installerat så kan du konvertera alla MP3s i mappen med shell-skriptet som ligger i mappen.
+- PLAYMUSIC - Spelar en ljudfil. Ljud-argumentet ska vara namnet på en OGG-fil i `Audio/` utan ".ogg".  Ifall du har [FFmpeg](https://www.ffmpeg.org/) installerat så kan du konvertera alla MP3s i mappen med shell-skriptet som ligger i mappen. 
 
   `PLAYMUSIC|ljud`   
 
 
 
-- PLAYSFX - Spelar en ljudfil som ovan, fast på ett annat objekt.
+- PLAYSFX - Spelar en ljudfil som ovan, fast på ett annat objekt. Till skillnad från musiken som loopar så kommer ljudeffekter bara spelas en gång.
 
 
 

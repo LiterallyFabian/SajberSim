@@ -20,7 +20,7 @@ public class CharacterCreation : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-        string path = $@"{Application.dataPath}/Modding/Backgrounds/".Replace("/", "\\");
+        string path = $@"{Application.dataPath}/Modding/Backgrounds/";
         backgroundpaths = Directory.GetFiles(path, "*.png");
     }
     public void ClearCharacters()
@@ -33,7 +33,7 @@ public class CharacterCreation : MonoBehaviour
     }
     IEnumerator CreateCharacter() //ID 2
     {
-        string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
+        string charPath = $@"{Application.dataPath}/Modding/Characters/";
         string[] charpaths = Directory.GetFiles(charPath, "*neutral.png");
         //ladda in filen som texture
         UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Length)]}");
@@ -86,7 +86,7 @@ public class CharacterCreation : MonoBehaviour
             {
                 codetext += $"CHAR|ID|mood|{Math.Round(character.transform.position.x, 2)}|{Math.Round(character.transform.position.y, 2)}|1\n";
             }
-            code.text = (codetext);
+            code.text = codetext;
         }
     }
     private void OnMouseDown()
