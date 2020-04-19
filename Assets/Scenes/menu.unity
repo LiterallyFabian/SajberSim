@@ -303,6 +303,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Discord
       objectReference: {fileID: 0}
+    - target: {fileID: 2641443005569688461, guid: 0734aa79d6f39d240b06c322735d3818,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2641443005569688462, guid: 0734aa79d6f39d240b06c322735d3818,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1993,10 +1998,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: "Ifall du vill l\xE4gga in egna stories eller redigera v\xE5r i SajberSim
-    s\xE5 har du kommit r\xE4tt! Du beh\xF6ver inga nya program f\xF6r detta, du
-    beh\xF6ver bara redigera textfilerna du hittar med Dialog-knappen nedanf\xF6r.
-    Instruktioner & k\xE4llkod finns p\xE5 GitHub."
+  m_Text: "Ifall du vill l\xE4gga in egna stories i SajberSim s\xE5 har du kommit
+    r\xE4tt! Du beh\xF6ver inga nya program f\xF6r detta, du beh\xF6ver bara redigera
+    textfilerna du hittar med Dialog-knappen nedanf\xF6r. Instruktioner & k\xE4llkod
+    finns p\xE5 GitHub."
 --- !u!222 &410652028
 CanvasRenderer:
   m_ObjectHideFlags: 0
