@@ -19,7 +19,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: 60, z: -20}
+        value: {x: 0, y: 60, z: -34}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -56,21 +56,21 @@ AnimationClip:
         outWeight: 0.14877097
       - serializedVersion: 3
         time: 1
-        value: 233
-        inSlope: 132.12138
-        outSlope: 132.12138
+        value: 231.3776
+        inSlope: 174.91736
+        outSlope: 174.91736
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.09295797
+        inWeight: 0.035533488
         outWeight: 0.63662773
       - serializedVersion: 3
         time: 1.1333333
         value: 233
-        inSlope: -289.0372
-        outSlope: -289.0372
+        inSlope: -348.87076
+        outSlope: -348.87076
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.5692462
+        inWeight: 0.15936078
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -286,21 +286,21 @@ AnimationClip:
         outWeight: 0.14877097
       - serializedVersion: 3
         time: 1
-        value: 233
-        inSlope: 132.12138
-        outSlope: 132.12138
+        value: 231.3776
+        inSlope: 174.91736
+        outSlope: 174.91736
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.09295797
+        inWeight: 0.035533488
         outWeight: 0.63662773
       - serializedVersion: 3
         time: 1.1333333
         value: 233
-        inSlope: -289.0372
-        outSlope: -289.0372
+        inSlope: -348.87076
+        outSlope: -348.87076
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.5692462
+        inWeight: 0.15936078
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -491,7 +491,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -20
+        value: -34
         inSlope: 0
         outSlope: 0
         tangentMode: 136

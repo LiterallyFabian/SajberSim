@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class SetupManager : MonoBehaviour
 
     List<string> allmusic = new List<string>(); //list with all music
     List<string> allstories = new List<string>(); //list with all stories
+    List<string> allcharsU = new List<string>(); //list with all Characters
     List<string> allchars = new List<string>(); //list with all characters
     List<string> allbacks = new List<string>(); //list with all backgrounds
 
@@ -94,16 +96,23 @@ public class SetupManager : MonoBehaviour
         //Fills lists
         for (int i = 0; i < storyPaths.Length; i++)
             allstories.Add(storyPaths[i].Replace(dialoguePath, "").Replace(".txt", ""));
+
         for (int i = 0; i < audioPaths.Length; i++)
             allmusic.Add(audioPaths[i].Replace(audioPath, "").Replace(".ogg", ""));
+
         for (int i = 0; i < charPaths.Length; i++)
-            allchars.Add(charPaths[i].Replace(charPath, "").Replace("neutral.png", ""));
+        {
+            string name = charPaths[i].Replace(charPath, "").Replace("neutral.png", "");
+            allcharsU.Add(Char.ToUpper(name[0]) + name.Remove(0, 1));
+            allchars.Add(name);
+        }
+
         for (int i = 0; i < backgroundPaths.Length; i++)
             allbacks.Add(backgroundPaths[i].Replace(backgroundPath, "").Replace(".png", ""));
 
         //Fills dropdowns
         DDbackground.AddOptions(allbacks);
-        DDcreatechar.AddOptions(allchars);
+        DDcreatechar.AddOptions(allcharsU);
         DDplaymusic.AddOptions(allmusic);
         DDplaysound.AddOptions(allmusic);
         DDstories.AddOptions(allstories);
@@ -146,5 +155,34 @@ public class SetupManager : MonoBehaviour
     public void SetStory(int ID)
     {
 
+    }
+    public void UpdateName(string input) //När man uppdaterar namn i textbox
+    {
+        GameObject port = GameObject.Find("/Canvas/Textbox/Portrait");
+        if (allchars.Contains(input.ToLower()))
+        {
+            StartCoroutine(UpdateSprite($"file://{Application.dataPath}/Modding/Characters/{input.ToLower()}port.png", port));
+            GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
+
+        }
+        else if(IsNum(input))
+        {
+            StartCoroutine(UpdateSprite($"file://{Application.dataPath}/Modding/Characters/unknown.png", port));
+            GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
+        }
+        else
+            GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(90, 23, 23, 255);
+    }
+    private bool IsNum(string input)
+    {
+        if (int.TryParse(input, out int n)) return true;
+        else return false;
+    }
+    IEnumerator UpdateSprite(string path, GameObject item)
+    {
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path);
+        yield return uwr.SendWebRequest();
+        var texture = DownloadHandlerTexture.GetContent(uwr);
+        item.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 }

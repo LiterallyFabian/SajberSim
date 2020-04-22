@@ -444,41 +444,6 @@ public class GameManager : MonoBehaviour
 
 
     }
-    IEnumerator CreateLumi(string mood, float x, float y) //ID 2
-    {
-        if (GameObject.Find($"lumi") == null) //karaktär finns ej
-        {
-            //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/lumi{mood}.png");
-            yield return uwr.SendWebRequest();
-            var texture = DownloadHandlerTexture.GetContent(uwr);
-
-            //skapa gameobj
-            GameObject character = new GameObject($"lumi");
-            character.gameObject.tag = "character";
-            SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-            renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-
-            //sätt size + pos
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize, charsize, 0.6f);
-        }
-        else //karaktär finns
-        {
-            //ändra pos
-            GameObject character = GameObject.Find($"lumi");
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize, charsize, 0.6f);
-
-            //ändra mood
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/lumi{mood}.png");
-            yield return uwr.SendWebRequest();
-            var texture = DownloadHandlerTexture.GetContent(uwr);
-            character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        }
-
-
-    }
     IEnumerator PlayMusic(string sound) //Musik ligger på "music"
     {
         if (musicplaying != sound) //spela om den inte redan körs
