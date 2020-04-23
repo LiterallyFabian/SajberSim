@@ -105,6 +105,7 @@ public class SetupManager : MonoBehaviour
         for (int i = 0; i < audioPaths.Length; i++)
             allmusic.Add(audioPaths[i].Replace(audioPath, "").Replace(".ogg", ""));
 
+        allcharsU.Add("");
         for (int i = 0; i < charPaths.Length; i++)
         {
             string name = charPaths[i].Replace(charPath, "").Replace("neutral.png", "");
@@ -123,10 +124,15 @@ public class SetupManager : MonoBehaviour
         allstories[index] = temp;
 
         //Fills dropdowns
+        DDbackground.ClearOptions();
         DDbackground.AddOptions(allbacks);
+        DDcreatechar.ClearOptions();
         DDcreatechar.AddOptions(allcharsU);
+        DDplaymusic.ClearOptions();
         DDplaymusic.AddOptions(allmusic);
+        DDplaysound.ClearOptions();
         DDplaysound.AddOptions(allmusic);
+        DDstories.ClearOptions();
         DDstories.AddOptions(allstories);
     }
     public void ToggleMenu(string id)
@@ -193,17 +199,44 @@ public class SetupManager : MonoBehaviour
         GameObject port = GameObject.Find("/Canvas/Textbox/Portrait");
         if (allchars.Contains(input.ToLower()))
         {
-            StartCoroutine(UpdateSprite($"file://{Application.dataPath}/Modding/Characters/{input.ToLower()}port.png", port));
+            StartCoroutine(UpdateSprite($"file://{path}/Modding/Characters/{input.ToLower()}port.png", port));
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
 
         }
         else if(IsNum(input))
         {
-            StartCoroutine(UpdateSprite($"file://{Application.dataPath}/Modding/Characters/unknown.png", port));
+            StartCoroutine(UpdateSprite($"file://{path}/Modding/Characters/unknown.png", port));
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
         }
         else
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(90, 23, 23, 255);
+    }
+    public void SubmitCharacter(int id) //input from dropdown
+    {
+        if (id == 0) return;
+        string character = allcharsU[id];
+        allspawned.Add(character);
+        StartCoroutine(CreateCharacter(character));
+        FillLists();
+    }
+    IEnumerator CreateCharacter(string id) //creates the character
+    {
+        //ladda in filen som texture
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{path}/Modding/Characters/{id.ToLower()}neutral.png");
+        yield return uwr.SendWebRequest();
+        var texture = DownloadHandlerTexture.GetContent(uwr);
+
+        //skapa gameobj
+        GameObject character = new GameObject($"{id.ToLower()}");
+        character.gameObject.tag = "character";
+        SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
+        renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+        //sätt size + pos
+        character.transform.position = new Vector3(0, 0, -1f);
+        character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
+        character.AddComponent<PolygonCollider2D>();
+        character.AddComponent<CharacterCreation>();
     }
     private bool IsNum(string input)
     {
