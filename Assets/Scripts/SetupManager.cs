@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class SetupManager : MonoBehaviour
 {
     string LatestEdit; //Latest edited or selected action
+    string CurrentStory = "start"; //Name of .txt file
     string[] story; //Array with a full textfile
     string[] line; //Array with current action
     int dialogpos = 0; 
@@ -16,9 +18,10 @@ public class SetupManager : MonoBehaviour
 
     List<string> allmusic = new List<string>(); //list with all music
     List<string> allstories = new List<string>(); //list with all stories
-    List<string> allcharsU = new List<string>(); //list with all Characters
+    List<string> allcharsU = new List<string>(); //list with all Characters in uppercase
     List<string> allchars = new List<string>(); //list with all characters
     List<string> allbacks = new List<string>(); //list with all backgrounds
+    List<string> allspawned = new List<string>(); //list with all currently spawned characters
 
     public GameObject background;
 
@@ -40,13 +43,15 @@ public class SetupManager : MonoBehaviour
     public Dropdown DDplaymusic;
     public Dropdown DDstories;
 
+    private string LastName = ""; // Last name used in a textbox
+
 
 
 
     void Start()
     {
         path = Application.dataPath;
-        story = File.ReadAllLines($"{path}/Modding/Dialogues/start.txt");
+        story = File.ReadAllLines($"{path}/Modding/Dialogues/{CurrentStory}.txt");
         while (true) 
         {
             if (story[dialogpos].StartsWith("//") || story[dialogpos] == "")
@@ -106,9 +111,16 @@ public class SetupManager : MonoBehaviour
             allcharsU.Add(Char.ToUpper(name[0]) + name.Remove(0, 1));
             allchars.Add(name);
         }
+        allcharsU = allcharsU.Except(allspawned).ToList(); //remove already spawned characters
 
         for (int i = 0; i < backgroundPaths.Length; i++)
             allbacks.Add(backgroundPaths[i].Replace(backgroundPath, "").Replace(".png", ""));
+
+        //Put current story first
+        string temp = allstories[0];
+        int index = allstories.FindIndex(x => x.StartsWith(CurrentStory));
+        allstories[0] = allstories[index];
+        allstories[index] = temp;
 
         //Fills dropdowns
         DDbackground.AddOptions(allbacks);
@@ -126,12 +138,14 @@ public class SetupManager : MonoBehaviour
                 charmenu.GetComponent<RectTransform>().offsetMax = new Vector2(0, -425); //-right, -top
                 charmenu.GetComponent<RectTransform>().offsetMin = new Vector2(649, -182); //left, bottom
                 charmenutitle.text = " Karaktärmeny";
+                GameObject.Find("/Canvas/CharPanel/ToggleCharMenu").GetComponent<Transform>().rotation = new Quaternion(0, 0, 90, 0);
             }
             else //open menu
             {
                 charmenu.GetComponent<RectTransform>().offsetMax = new Vector2(0, -241);
                 charmenu.GetComponent<RectTransform>().offsetMin = new Vector2(649, 0);
                 charmenutitle.text = " Skapa karaktär";
+                GameObject.Find("/Canvas/CharPanel/ToggleCharMenu").GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
             }
             charmenuopen = !charmenuopen;
         }
@@ -142,12 +156,14 @@ public class SetupManager : MonoBehaviour
                 lookmenu.GetComponent<RectTransform>().offsetMax = new Vector2(-652, -426); //-right, -top
                 lookmenu.GetComponent<RectTransform>().offsetMin = new Vector2(0, -230); //left, bottom
                 lookmenutitle.text = " Utseendemeny";
+                GameObject.Find("/Canvas/LookPanel/ToggleLookMenu").GetComponent<Transform>().rotation = new Quaternion(0, 0, 90, 0);
             }
             else //open menu
             {
                 lookmenu.GetComponent<RectTransform>().offsetMax = new Vector2(-652, -195); //-right, -top
                 lookmenu.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0); //left, bottom
                 lookmenutitle.text = " Byt bakgrund";
+                GameObject.Find("/Canvas/LookPanel/ToggleLookMenu").GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
             }
             lookmenuopen = !lookmenuopen;
         }
@@ -156,8 +172,24 @@ public class SetupManager : MonoBehaviour
     {
 
     }
+    public void SubmitTextbox()
+    {
+        string name = GameObject.Find("/Canvas/Textbox/NameInput").GetComponent<InputField>().text;
+        string msg = GameObject.Find("/Canvas/Textbox/TextInput").GetComponent<InputField>().text;
+        AddLine($"T|{name}|{msg}");
+    }
+    private void AddLine(string line)
+    {
+        LatestEdit = line.Split('|')[0];
+        using (StreamWriter sw = new StreamWriter($"{path}/Modding/Dialogues/{CurrentStory}.txt", true))
+        {
+            sw.Write($"\n{line}");
+        }
+        dialogpos++;
+    }
     public void UpdateName(string input) //När man uppdaterar namn i textbox
     {
+        LastName = input;
         GameObject port = GameObject.Find("/Canvas/Textbox/Portrait");
         if (allchars.Contains(input.ToLower()))
         {
