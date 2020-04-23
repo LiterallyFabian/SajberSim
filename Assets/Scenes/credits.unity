@@ -640,7 +640,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Story\n\nMinigames\n\n\nRamverk/modding\n\nBakgrunder\n\nKarakt\xE4rer\n\n"
+  m_Text: "Texter\n\nKarakt\xE4rer\n\n\nBakgrunder\n\nRamverk\n"
 --- !u!222 &608685307
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -854,8 +854,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Alfred P. Ankarstrand\n\nSamuel Eriksson\nFabian Lindgren\n\nFabian Lindgren\n\nAlexander
-    Pernebring\n\nLumi \n\n"
+  m_Text: 'Fabian Lindgren
+
+
+    Lumi
+
+    Emelie Grabne
+
+
+    Alexander Pernebring
+
+
+    Fabian
+    Lindgren
+
+'
 --- !u!222 &947418089
 CanvasRenderer:
   m_ObjectHideFlags: 0
