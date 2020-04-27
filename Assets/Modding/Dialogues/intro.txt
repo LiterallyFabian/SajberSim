@@ -1,4 +1,1 @@
-CHAR|Fabina|happy|-3.33|-0.18|-1
-BG|haga
-PLAYMUSIC|takeyourpick
-QUESTION|Såhär ser frågor ut förresten, och dessa kan användas i din introduktion. Båda alternativen i denna demo tar dig dock till teknik...|Låter bra!|te_info_start|Alternativ 2|te_info_start
+QUESTION|Tills dess att spelet blir klart kan du få lite information om Teknik: Info- och medieteknik, annars får du nog bäst hjälp i samtalen med våra ambassadörer! :)|Info & media|te_info_start|Avsluta|quit

@@ -4,24 +4,6 @@ BG|main
 PLAYMUSIC|takeyourpick
 CHAR|Lumi|neutral|3.36|-0.17|1
 T|Lumi|Välkommen till SajberSim, och CyberGymnasiets virtuella öppna hus!
-T|Lumi|CyberGymnasiet har snart funnits i 20 år, och har i nuläget omkring 1100 elever.
-CHAR|Lumi|happy|3.36|-0.17|1
-T|Lumi|Just nu är vi utanför huvudingången som ligger mittemot Ica på Vanadisvägen, och eftersom du förmodligen är en ambassadör så vet du redan om detta.
-T|Lumi|Jag tänkte att vi kunde ha någon introduktion när man startar spelet där vi visar info om skolan, hur platser ser ut etc.
-T|Lumi|Vi tar detta vid Hagaingången istället!
-CHAR|Lumi|happy|2.36|-0.17|1
-BG|haga
-CHAR|Fabina|neutral|-5.33|-0.18|-1
-T|Lumi|Hej Fabina!
-T|Fabina|Hej Lumi! Jag tar över härifrån.
-CHAR|Lumi|angry|2.36|-0.17|1
-T|Lumi|Jaha, okej...
-DEL|Lumi
-CHAR|Fabina|happy|-3.33|-0.18|-1
-T|Fabina|Planen är att låta gästerna på öppna huset (och folk som är intresserade av Cyber!) spela detta, och kunna välja vilket program/inriktning de är intresserade av.
-T|Fabina|För att kunna erbjuda den bästa upplevelsen kommer vi behöva en scen med varje program som innehåller information om programmet, vad man gör, etc
-T|Fabina|Detta intro tänkte jag kunde vara för mer allmän information, och sedan får man välja ett program man vill ha info om.
-T|Fabina|I nuläget har vi 6 karaktärer, och bakgrunder för huvudingången, Haga där vi är nu, och matsalen, 
-T|Fabina|men det skulle vara bra ifall några frivilliga hjälpte till att rita några viktiga platser såsom en labbsal, korridor, frisörsalen, aulan, caféet etc.
-T|Fabina|Mer info om hur vi gör detta kommer förmodligen stå i mejlet du fick spelet i, nu tycker jag vi går vidare till Teknik: Informations- och mediateknik!
+T|Lumi|När detta spel är klart inför hösten kommer du kunna få reda på information om skolan, alla program och mycket mer!
+T|Lumi|Ifall du är en ambassadör som laddat ner spelet och vill hjälpa till med något kan du kontakta fabian.lindgren@elev.cybergymnasiet.se :)
 LOADSTORY|intro

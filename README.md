@@ -150,6 +150,10 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] fix installer
 - [x] bug: esc works in main
 - [ ] stats
-- [ ] rich presance
+- [x] rich presance
 - [x] character preview mode
 - [x] fix wait func
+- [ ] redo button framework
+- [ ] fix storysetup menu
+- [ ] redo skip function
+- [ ] more fluent UI
