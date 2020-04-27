@@ -1,5 +1,5 @@
 #define MyAppName "SajberSim"
-#define MyAppVersion "1.6"
+#define MyAppVersion "0.1"
 #define MyAppPublisher "Fabian Lindgren @ CyberGymnasiet"
 #define MyAppURL "http://sajber.me"
 #define MyAppExeName "SajberSim.exe"
@@ -23,7 +23,7 @@ UsedUserAreasWarning=no
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=H:\
-OutputBaseFilename=SajberSim v1 Installer 
+OutputBaseFilename=SajberSim v{#MyAppVersion} Installer 
 SetupIconFile=H:\School code stuff\CyberSim\CyberSim\Assets\Sprites\install.ico
 Compression=lzma
 SolidCompression=yes
