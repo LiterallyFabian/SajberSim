@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static PersonClass;
+using SajberSim.Chararcter;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -278,7 +278,7 @@ public class ButtonCtrl : MonoBehaviour
 
         if (Application.isEditor) return; //Skapar loggfil utanför Unity
         DateTime now = DateTime.Now;
-        string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\");
+        string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
         string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
         System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
         System.IO.File.Copy(sourceFile, destFile, true);
