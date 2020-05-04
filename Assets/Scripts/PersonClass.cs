@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PersonClass : MonoBehaviour
+namespace SajberSim.Chararcter
 {
 
     public class Character
