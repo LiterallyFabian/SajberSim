@@ -5,12 +5,13 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-using static PersonClass;
 using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 using System.Globalization;
+using SajberSim.Web;
+using SajberSim.Chararcter;
 
 public class GameManager : MonoBehaviour
 {
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-
+        RunNext();
 
     }
 
@@ -94,143 +95,135 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
-
-        string[] line = story[dialogpos].Split('|'); //line = nuvarande raden
-        if (ready)
+        Debug.LogWarning("Position: " + dialogpos);
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//"))
         {
-            #region checks & run function
-            if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
-            {
-                dialogpos++;
-            }
-
-            else if (line[0] == "T") //textbox
-            {
-                Character talker = people[0];
-                if (int.TryParse(line[1], out int x))
-                    talker = people[int.Parse(line[1])];
-                else
-                    talker = new Character(line[1], "", 0);
-
-                    string text = FillVars(line[2]);
-                    UnityEngine.Debug.Log($"{talker.name} says: {text}");
-                    ready = false;
-                    co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
-            }
-            else if (line[0] == "ALERT") //general box
-            {
-                string text = FillVars(line[1]);
-                Debug.Log($"Alert: {text}");
-                ready = false;
-                StartCoroutine(SpawnAlert(UwUTranslator(text)));
-            }
-            else if (line[0] == "BG") //new background
-            {
-                StartCoroutine(ChangeBackground(line[1], background));
-                dialogpos++;
-
-                if (line.Length > 2)
-                    RemoveCharacters();
-            }
-            else if (line[0] == "CHAR") //move or create character
-            {
-                string name = "";
-                if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
-                else name = line[1];
-
-                string mood = line[2];
-                float x = (float)Convert.ToDouble(line[3], lang);
-                float y = (float)Convert.ToDouble(line[4], lang);
-                int align = int.Parse(line[5]);
-                StartCoroutine(CreateCharacter(name.ToLower(), mood, x, y, align));
-                dialogpos++;
-            }
-            else if(line[0] == "DEL") //delete character
-            {
-                string name = "";
-                if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
-                else name = line[1];
-
-                StartCoroutine(CreateCharacter(name.ToLower(), "neutral", 0, 200, 1));
-                dialogpos++;
-            }
-            else if (line[0] == "QUESTION") //question
-            {
-                ready = false;
-                if(line.Length == 6) //Normal 2 alt questions
-                {
-                    string quest = line[1];
-                    string alt1 = line[2];
-                    story1 = line[3];
-                    string alt2 = line[4];
-                    story2 = line[5];
-                    Question(quest, alt1, alt2);
-                }
-                else //More questions - dropdown menu
-                {
-                    QuestionDD(line);
-                }
-            }
-            else if (line[0] == "LOADSTORY") //open new story (no question)
-            {
-                ToggleTextbox(false, 3);
-                story = LoadStory(line[1]);
-                dialogpos = 0; //återställ positionen - ny story!
-                if (line.Length > 2)
-                    RemoveCharacters();
-            }
-            else if (line[0] == "OPENSCENE") //delay
-            {
-                SceneManager.LoadScene(line[1]);
-            }
-            else if (line[0] == "WAIT") //delay
-            {
-                ToggleTextbox(false, 3);
-                ready = false;
-                StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
-            }
-            else if (line[0] == "PLAYMUSIC")
-            {
-                ToggleTextbox(false, 3);
-                StartCoroutine(PlayMusic(line[1]));
-                dialogpos++;
-            }
-            else if (line[0] == "STOPSOUNDS")
-            {
-                StopSounds();
-                dialogpos++;
-            }
-            else if (line[0] == "PLAYSFX")
-            {
-                ToggleTextbox(false, 3);
-                StartCoroutine(PlaySoundEffect(line[1]));
-                dialogpos++;
-            }
-            else if (line[0] == "FINISHGAME")
-            {
-                StartCoroutine(StartCredits());
-            }
-            #endregion
-
+            if (dialogdone) RunNext();
+            else dialogdone = true;
         }
-        else if (!dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)))
-        {
-            dialogdone = true;
-        }
-        else if (dialogdone && !ready && (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0)) && (line[0] == "ALERT" || line[0] == "T") && !paused) //gå vidare från dialog
-        {
-            StopCoroutine(co);
-            dialogpos++;
-            ready = true;
-        }
-
-        //debug info
-        posobj.text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
-    public void QuestionDD(string[] line)
+    void RunNext()
+    {
+        if (!ready) return;
+        string[] line = story[dialogpos].Split('|'); //line = nuvarande raden
+
+        if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
+        {
+            dialogpos++;
+            RunNext();
+        }
+
+        else if (line[0] == "T") //textbox
+        {
+            Character talker = people[0];
+            if (int.TryParse(line[1], out int x))
+                talker = people[int.Parse(line[1])];
+            else
+                talker = new Character(line[1], "", 0);
+
+            string text = FillVars(line[2]);
+            UnityEngine.Debug.Log($"{talker.name} says: {text}");
+            co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
+            dialogpos++;
+        }
+        else if (line[0] == "ALERT") //general box
+        {
+            string text = FillVars(line[1]);
+            Debug.Log($"Alert: {text}");
+            StartCoroutine(SpawnAlert(UwUTranslator(text)));
+        }
+        else if (line[0] == "BG") //new background
+        {
+            dialogpos++;
+            StartCoroutine(ChangeBackground(line[1], background));
+            
+
+            if (line.Length > 2)
+                RemoveCharacters();
+        }
+        else if (line[0] == "CHAR") //move or create character
+        {
+            string name = "";
+            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+            else name = line[1];
+
+            string mood = line[2];
+            float x = (float)Convert.ToDouble(line[3], lang);
+            float y = (float)Convert.ToDouble(line[4], lang);
+            int align = int.Parse(line[5]);
+            dialogpos++;
+            StartCoroutine(CreateCharacter(name.ToLower(), mood, x, y, align));
+        }
+        else if (line[0] == "DEL") //delete character
+        {
+            string name = "";
+            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+            else name = line[1];
+
+            StartCoroutine(CreateCharacter(name.ToLower(), "neutral", 0, 200, 1));
+            dialogpos++;
+        }
+        else if (line[0] == "QUESTION") //question
+        {
+            ready = false;
+            if (line.Length == 6) //Normal 2 alt questions
+            {
+                string quest = line[1];
+                string alt1 = line[2];
+                story1 = line[3];
+                string alt2 = line[4];
+                story2 = line[5];
+                Question(quest, alt1, alt2);
+            }
+            else //More questions - dropdown menu
+            {
+                SpawnQuestionDD(line);
+            }
+        }
+        else if (line[0] == "LOADSTORY") //open new story (no question)
+        {
+            ToggleTextbox(false, 3);
+            LoadStory(line[1]);
+            if (line.Length > 2)
+                RemoveCharacters();
+        }
+        else if (line[0] == "OPENSCENE") //delay
+        {
+            SceneManager.LoadScene(line[1]);
+        }
+        else if (line[0] == "WAIT") //delay
+        {
+            ToggleTextbox(false, 3);
+            StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
+        }
+        else if (line[0] == "PLAYMUSIC")
+        {
+            ToggleTextbox(false, 3);
+            dialogpos++;
+            StartCoroutine(PlayMusic(line[1]));
+        }
+        else if (line[0] == "STOPSOUNDS")
+        {
+            StopSounds();
+            dialogpos++;
+        }
+        else if (line[0] == "PLAYSFX")
+        {
+            ToggleTextbox(false, 3);
+            StartCoroutine(PlaySoundEffect(line[1]));
+            dialogpos++;
+        }
+        else if (line[0] == "FINISHGAME")
+        {
+            StartCoroutine(StartCredits());
+        }
+        
+        
+    }
+    public void SpawnQuestionDD(string[] line) 
     {
         dropdownObject.GetComponent<Dropdown>().ClearOptions();
-        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "});
+        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
         ToggleTextbox(false,3);
         List<string> options = new List<string>();
         for (int i = 2; i < line.Length; i = i+2) 
@@ -255,33 +248,26 @@ public class GameManager : MonoBehaviour
             { "program", options[select-1] }
         });
         #endregion openhouse
-        story = LoadStory(options[select-1]);
-        dialogpos = 0;
+        LoadStory(options[select-1]);
         dropdownMenu.SetActive(false);
-        ready = true;
     }
     public void SkipTutorial()
     {
-        story = LoadStory("intro");
-        dialogpos = 0;
+        LoadStory("intro");
         dialogdone = false;
-        ready = true;
     }
     IEnumerator Delay(float time) //ID 7
     {
         yield return new WaitForSeconds(time);
         dialogpos++;
-        ready = true;
+        RunNext();
     }
     IEnumerator SpawnTextBox(Character talker, string target) //ID 0
     {
         dialogdone = false;
         ToggleTextbox(true, 1);
         ToggleTextbox(false, 0);
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-        portrait.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        //Download.Image(portrait, $"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
@@ -301,7 +287,6 @@ public class GameManager : MonoBehaviour
                 comment.text = written;
             }
         }
-
         comment.text = target;
         dialogdone = true;
     }
@@ -319,16 +304,14 @@ public class GameManager : MonoBehaviour
     public void AnswerQuestion(int id)
     {
         DataTracker.ReportQuestion(question.text, id);
-        dialogpos = 0;
         string[] stories = { story1, story2 };
-        story = LoadStory(stories[id - 1]);
+        LoadStory(stories[id - 1]);
         #region openhouse
         Analytics.CustomEvent("program_picked", new Dictionary<string, object>
         {
             { "program", stories[id-1] }
         });
         #endregion openhouse
-        ready = true;
     }
     IEnumerator SpawnAlert(string target) //ID 0
     {
@@ -379,7 +362,6 @@ public class GameManager : MonoBehaviour
     {
         Texture2D texture;
         ToggleTextbox(false, 3);
-        ready = false;
         Debug.Log($"New background loaded: {bg}");
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png"))
         {
@@ -395,18 +377,20 @@ public class GameManager : MonoBehaviour
             }
             
         }
-        
-        ready = true;
+        RunNext();
     }
 
-    string[] LoadStory(string story) //ID 4
+    void LoadStory(string storyx)
     {
         ToggleTextbox(false, 3);
-        Debug.Log($"New story loaded: {story}");
-        PlayerPrefs.SetString("story", story);
-        PlayerPrefs.SetString("tempstory", story);
+        Debug.Log($"New story loaded: {storyx}");
+        PlayerPrefs.SetString("story", storyx);
+        PlayerPrefs.SetString("tempstory", storyx);
         StartCoroutine(SaveInfo());
-        return File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{story}.txt");
+        dialogpos = 0;
+        story = File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{storyx}.txt");
+        ready = true;
+        RunNext();
     }
 
     IEnumerator CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
@@ -441,7 +425,7 @@ public class GameManager : MonoBehaviour
             var texture = DownloadHandlerTexture.GetContent(uwr);
             character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
-
+        RunNext();
 
     }
     IEnumerator PlayMusic(string sound) //Musik ligger på "music"
@@ -454,6 +438,7 @@ public class GameManager : MonoBehaviour
             music.GetComponent<AudioSource>().Play();
             musicplaying = sound;
         }
+        RunNext();
     }
     IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
     {
