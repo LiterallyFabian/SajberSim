@@ -1,7 +1,9 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,7 +12,7 @@ using UnityEngine.UI;
 
 namespace SajberSim.Web
 {
-    class Download : MonoBehaviour
+    public class Download : MonoBehaviour
     {
         public IEnumerator UpdateItem(GameObject item, string path, string type)
         {
@@ -34,10 +36,9 @@ namespace SajberSim.Web
         {
             StartCoroutine(UpdateItem(items, path, "img"));
         }
-        public static void Sprite(GameObject item, string path)
+        public void Sprite(GameObject items, string path)
         {
-
+            StartCoroutine(UpdateItem(items, path, "sprite"));
         }
     }
-
 }
