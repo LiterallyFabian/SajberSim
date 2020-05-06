@@ -48,13 +48,15 @@ public class GameManager : MonoBehaviour
     public Character[] people = ButtonCtrl.people;
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
-    
+    Download dl;
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        dl = (new GameObject("downloadobj")).AddComponent<Download>();
         lang.NumberDecimalSeparator = "."; 
 
         paused = false;
@@ -78,7 +80,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetString("tempstory", "start");
 
         }
-
 
         RunNext();
 
@@ -135,7 +136,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "BG") //new background
         {
             dialogpos++;
-            StartCoroutine(ChangeBackground(line[1], background));
+            ChangeBackground(line[1], background);
             
 
             if (line.Length > 2)
@@ -152,7 +153,7 @@ public class GameManager : MonoBehaviour
             float y = (float)Convert.ToDouble(line[4], lang);
             int align = int.Parse(line[5]);
             dialogpos++;
-            StartCoroutine(CreateCharacter(name.ToLower(), mood, x, y, align));
+            CreateCharacter(name.ToLower(), mood, x, y, align);
         }
         else if (line[0] == "DEL") //delete character
         {
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour
             if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
             else name = line[1];
 
-            StartCoroutine(CreateCharacter(name.ToLower(), "neutral", 0, 200, 1));
+            CreateCharacter(name.ToLower(), "neutral", 0, 200, 1);
             dialogpos++;
         }
         else if (line[0] == "QUESTION") //question
@@ -267,7 +268,7 @@ public class GameManager : MonoBehaviour
         dialogdone = false;
         ToggleTextbox(true, 1);
         ToggleTextbox(false, 0);
-        //Download.Image(portrait, $"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
+        dl.Image(portrait, $"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
@@ -358,25 +359,10 @@ public class GameManager : MonoBehaviour
         return text;
     }
 
-    IEnumerator ChangeBackground(string bg, GameObject item) //ID 1
+    void ChangeBackground(string bg, GameObject item) //ID 1
     {
-        Texture2D texture;
+        dl.Sprite(item, $"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
         ToggleTextbox(false, 3);
-        Debug.Log($"New background loaded: {bg}");
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png"))
-        {
-            yield return uwr.SendWebRequest();
-            if (uwr.isNetworkError)
-            {
-                Debug.LogError("Kunde ej ladda ner bakgrund");
-            }
-            else
-            {
-                texture = DownloadHandlerTexture.GetContent(uwr);
-                item.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            }
-            
-        }
         RunNext();
     }
 
@@ -393,20 +379,15 @@ public class GameManager : MonoBehaviour
         RunNext();
     }
 
-    IEnumerator CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
+    void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
     {
         if (GameObject.Find(name) == null) //karaktär finns ej
         {
-            //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
-            yield return uwr.SendWebRequest();
-            var texture = DownloadHandlerTexture.GetContent(uwr);
-
             //skapa gameobj
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-            renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            dl.Sprite(character, $"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -420,10 +401,7 @@ public class GameManager : MonoBehaviour
             character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
 
             //ändra mood
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
-            yield return uwr.SendWebRequest();
-            var texture = DownloadHandlerTexture.GetContent(uwr);
-            character.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            dl.Sprite(character, $"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
         }
         RunNext();
 

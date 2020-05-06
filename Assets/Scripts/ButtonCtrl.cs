@@ -10,6 +10,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SajberSim.Chararcter;
+using SajberSim.Web;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -35,12 +36,14 @@ public class ButtonCtrl : MonoBehaviour
     public static bool paused = false;
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
+    private Download dl;
 
 
 
 
     public void Start()
     {
+        dl = (new GameObject("downloadobj")).AddComponent<Download>();
         Cursor.visible = true;
         if (PlayerPrefs.GetString("story", "start") != "start") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = true;
@@ -60,7 +63,7 @@ public class ButtonCtrl : MonoBehaviour
         Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
 
-        StartCoroutine(UpdateCharacter());
+        UpdateCharacter();
 
     }
     public void Update()
@@ -68,19 +71,16 @@ public class ButtonCtrl : MonoBehaviour
         if (Input.GetKeyUp("escape") && SceneManager.GetActiveScene().name != "menu")
             TogglePause();
     }
-    IEnumerator UpdateCharacter()
+    void UpdateCharacter()
     {
         if (SceneManager.GetActiveScene().name == "menu")
         {
-            string charPath = $@"{Application.dataPath}/Modding/Characters/".Replace("/", "\\");
+            string charPath = $@"{Application.dataPath}/Modding/Characters/";
             var charpaths = new List<string>();
             // charpaths.AddRange(Directory.GetFiles(charPath, "*neutral.png"));
             charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
             //ladda in filen som texture
-            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
-            yield return uwr.SendWebRequest();
-            var texture = DownloadHandlerTexture.GetContent(uwr);
-            GameObject.Find("Character").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            dl.Sprite(GameObject.Find("Character"), $"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
         }
     }
     public void TogglePause()

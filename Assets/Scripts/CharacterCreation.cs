@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SajberSim.Web;
 
 public class CharacterCreation : MonoBehaviour
 {
@@ -17,8 +18,11 @@ public class CharacterCreation : MonoBehaviour
     private int currentbg = 0;
     public GameObject fadeimage;
     public InputField code;
+    Download dl;
+
     void Start()
     {
+        dl = (new GameObject("downloadobj")).AddComponent<Download>();
         Cursor.visible = true;
         string path = $@"{Application.dataPath}/Modding/Backgrounds/";
         backgroundpaths = Directory.GetFiles(path, "*.png");
@@ -29,22 +33,15 @@ public class CharacterCreation : MonoBehaviour
     }
     public void CreateCharacterStart()
     {
-        StartCoroutine(CreateCharacter());
-    }
-    IEnumerator CreateCharacter() //ID 2
-    {
         string charPath = $@"{Application.dataPath}/Modding/Characters/";
         string[] charpaths = Directory.GetFiles(charPath, "*neutral.png");
-        //ladda in filen som texture
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Length)]}");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
 
         //skapa gameobj
         GameObject character = new GameObject($"person");
         character.gameObject.tag = "character";
         SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-        renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        dl.Sprite(character, $"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Length)]}");
+
 
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
@@ -52,22 +49,16 @@ public class CharacterCreation : MonoBehaviour
         character.AddComponent<BoxCollider2D>();
         character.AddComponent<CharacterCreation>();
     }
+
     public void RemoveCharacters()
     {
         GameManager.RemoveCharacters();
-    }
-    IEnumerator ChangeBackground(string bg) //ID 1
-    {
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{bg}");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-        GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
     public void NextBG()
     {
         currentbg++;
         if (currentbg == backgroundpaths.Length) currentbg = 0;
-        StartCoroutine(ChangeBackground(backgroundpaths[currentbg]));
+        dl.Sprite(GameObject.Find("background"), $"file://{backgroundpaths[currentbg]}"); 
     }
     private void Update()
     {
