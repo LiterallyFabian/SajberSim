@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 [System.Serializable]
 public class DiscordJoinEvent : UnityEngine.Events.UnityEvent<string> { }
 
@@ -33,12 +34,12 @@ public class DiscordController : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
         presence.largeImageKey = "mainwfade";
         if (SceneManager.GetActiveScene().name == "menu") presence.details = "In main menu";
         else if (SceneManager.GetActiveScene().name == "credits") presence.details = "Watching credits";
-	    else presence.details = "Ingame";
-	    DiscordRpc.UpdatePresence(presence);
+        else presence.details = "Ingame";
+        DiscordRpc.UpdatePresence(presence);
     }
 
     void Update()
