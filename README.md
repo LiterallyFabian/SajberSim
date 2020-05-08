@@ -4,7 +4,16 @@
 
 ## Nerladdning
 
-Ifall du på något sätt hittat hit utan att ha spelet kan du ladda ner det här
+Färdiga builds finns [här](https://github.com/LiterallyFabian/SajberSim/releases), notera att dessa i nuläget inte direkt har något intressant att se.
+
+För källkod kan du klona projektet med Git, och sedan öppna mappen i Unity.
+
+```
+git clone https://github.com/LiterallyFabian/SajberSim
+cd SajberSim
+```
+
+
 
 
 
@@ -157,3 +166,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] fix storysetup menu
 - [ ] redo skip function
 - [ ] more fluent UI
+- [ ] easter eggs :3
