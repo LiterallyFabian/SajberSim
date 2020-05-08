@@ -39,8 +39,6 @@ public class ButtonCtrl : MonoBehaviour
     private Download dl;
 
 
-
-
     public void Start()
     {
         dl = (new GameObject("downloadobj")).AddComponent<Download>();
@@ -66,7 +64,7 @@ public class ButtonCtrl : MonoBehaviour
         UpdateCharacter();
 
     }
-    public void Update()
+    private void Update()
     {
         if (Input.GetKeyUp("escape") && SceneManager.GetActiveScene().name != "menu")
             TogglePause();
@@ -156,10 +154,7 @@ public class ButtonCtrl : MonoBehaviour
         LoadCharacters();
         StartCoroutine(FadeToScene("game"));
     }
-    public void CancelNew() //closes the new game alert
-    {
-        OverwriteAlert.SetActive(false);
-    }
+
     public void OpenMenu(GameObject menu) //opens a menu, like settings or modding
     {
         menu.SetActive(true);

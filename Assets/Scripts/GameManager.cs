@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dl = (new GameObject("downloadobj")).AddComponent<Download>();
+        dl = new GameObject("downloadobj").AddComponent<Download>();
         lang.NumberDecimalSeparator = "."; 
 
         paused = false;
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
         ready = true;
         dialogdone = false;
         Cursor.visible = true;
-        System.Random rnd = new System.Random();
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         string path = Application.dataPath;
 
@@ -82,7 +81,6 @@ public class GameManager : MonoBehaviour
         }
 
         RunNext();
-
     }
 
     // Update is called once per frame
@@ -99,7 +97,13 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("Position: " + dialogpos);
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//"))
         {
-            if (dialogdone) RunNext();
+            if (dialogdone)
+            {
+                ClearText();
+                textbox.SetActive(false);
+                alertbox.SetActive(false);
+                RunNext();
+            }
             else dialogdone = true;
         }
     }
@@ -145,7 +149,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "CHAR") //move or create character
         {
             string name = "";
-            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
             else name = line[1];
 
             string mood = line[2];
@@ -158,11 +162,11 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "DEL") //delete character
         {
             string name = "";
-            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID --> Name if possible, else name
+            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
             else name = line[1];
-
-            CreateCharacter(name.ToLower(), "neutral", 0, 200, 1);
             dialogpos++;
+            Destroy(UnityEngine.GameObject.Find(name.ToLower()));
+            RunNext();
         }
         else if (line[0] == "QUESTION") //question
         {
@@ -183,7 +187,6 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "LOADSTORY") //open new story (no question)
         {
-            ToggleTextbox(false, 3);
             LoadStory(line[1]);
             if (line.Length > 2)
                 RemoveCharacters();
@@ -194,25 +197,22 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "WAIT") //delay
         {
-            ToggleTextbox(false, 3);
             StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
         }
         else if (line[0] == "PLAYMUSIC")
         {
-            ToggleTextbox(false, 3);
             dialogpos++;
             StartCoroutine(PlayMusic(line[1]));
         }
         else if (line[0] == "STOPSOUNDS")
         {
-            StopSounds();
             dialogpos++;
+            StopSounds();
         }
         else if (line[0] == "PLAYSFX")
         {
-            ToggleTextbox(false, 3);
-            StartCoroutine(PlaySoundEffect(line[1]));
             dialogpos++;
+            StartCoroutine(PlaySoundEffect(line[1]));
         }
         else if (line[0] == "FINISHGAME")
         {
@@ -221,11 +221,10 @@ public class GameManager : MonoBehaviour
         
         
     }
-    public void SpawnQuestionDD(string[] line) 
+    private void SpawnQuestionDD(string[] line) 
     {
         dropdownObject.GetComponent<Dropdown>().ClearOptions();
         dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
-        ToggleTextbox(false,3);
         List<string> options = new List<string>();
         for (int i = 2; i < line.Length; i = i+2) 
         {
@@ -257,17 +256,16 @@ public class GameManager : MonoBehaviour
         LoadStory("intro");
         dialogdone = false;
     }
-    IEnumerator Delay(float time) //ID 7
+    private IEnumerator Delay(float time) //ID 7
     {
         yield return new WaitForSeconds(time);
         dialogpos++;
         RunNext();
     }
-    IEnumerator SpawnTextBox(Character talker, string target) //ID 0
+    private IEnumerator SpawnTextBox(Character talker, string target) //ID 0
     {
         dialogdone = false;
-        ToggleTextbox(true, 1);
-        ToggleTextbox(false, 0);
+        textbox.SetActive(true);
         dl.Image(portrait, $"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
 
@@ -292,12 +290,10 @@ public class GameManager : MonoBehaviour
         dialogdone = true;
     }
 
-    void Question(string text, string alt1, string alt2)
+    private void Question(string text, string alt1, string alt2)
     {
         dialogdone = false;
-        ToggleTextbox(true, 2);
-        ToggleTextbox(false, 1);
-        ToggleTextbox(false, 0);
+        questionbox.SetActive(true);
         question.text = text;
         alt1t.text = alt1;
         alt2t.text = alt2;
@@ -313,12 +309,12 @@ public class GameManager : MonoBehaviour
             { "program", stories[id-1] }
         });
         #endregion openhouse
+        questionbox.SetActive(false);
     }
-    IEnumerator SpawnAlert(string target) //ID 0
+    private IEnumerator SpawnAlert(string target) //ID 0
     {
         dialogdone = false;
-        ToggleTextbox(false, 1);
-        ToggleTextbox(true, 0);
+        alertbox.SetActive(true);
         string written = target[0].ToString(); //written = det som står hittills
 
         for (int i = 1; i < target.Length; i++)
@@ -336,14 +332,14 @@ public class GameManager : MonoBehaviour
         alert.text = target;
         dialogdone = true;
     }
-    public static void RemoveCharacters()
+    public static void RemoveCharacters() //used in setup too
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
 
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
     }
-    public string UwUTranslator(string text)
+    private string UwUTranslator(string text)
     {
         if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
         else
@@ -359,16 +355,14 @@ public class GameManager : MonoBehaviour
         return text;
     }
 
-    void ChangeBackground(string bg, GameObject item) //ID 1
+    private void ChangeBackground(string bg, GameObject item) //ID 1
     {
         dl.Sprite(item, $"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
-        ToggleTextbox(false, 3);
         RunNext();
     }
 
-    void LoadStory(string storyx)
+    private void LoadStory(string storyx)
     {
-        ToggleTextbox(false, 3);
         Debug.Log($"New story loaded: {storyx}");
         PlayerPrefs.SetString("story", storyx);
         PlayerPrefs.SetString("tempstory", storyx);
@@ -379,7 +373,7 @@ public class GameManager : MonoBehaviour
         RunNext();
     }
 
-    void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
+    private void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
     {
         if (GameObject.Find(name) == null) //karaktär finns ej
         {
@@ -406,7 +400,7 @@ public class GameManager : MonoBehaviour
         RunNext();
 
     }
-    IEnumerator PlayMusic(string sound) //Musik ligger på "music"
+    private IEnumerator PlayMusic(string sound) //Musik ligger på "music"
     {
         if (musicplaying != sound) //spela om den inte redan körs
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
@@ -418,7 +412,7 @@ public class GameManager : MonoBehaviour
         }
         RunNext();
     }
-    IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
+    private IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
     {
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
         {
@@ -427,37 +421,14 @@ public class GameManager : MonoBehaviour
             SFX.GetComponent<AudioSource>().Play();
         }
     }
-    public void StopSounds()
+    private void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
         musicplaying = "none";
+        RunNext();
     }
-    void ToggleTextbox(bool shown, int id) //ID0 ALERT, ID1 TEXT, ID2 QUESTION, ELSE EVERYTHING
-    {
-        if (id == 0)
-            alertbox.SetActive(shown);
-        else if (id == 1)
-            textbox.SetActive(shown);
-        else if (id == 2)
-            questionbox.SetActive(shown);
-        else
-        {
-            questionbox.SetActive(shown);
-            textbox.SetActive(shown);
-            alertbox.SetActive(shown);
-        }
-        if (!shown)
-        {
-            //om man tar bort textboxen så försvinner texten
-            comment.text = "";
-            alert.text = "";
-            question.text = "";
-            alt1t.text = "";
-            alt2t.text = "";
-        }
-    }
-    public IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
+    private IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
         StartCoroutine(FadeOut(background.GetComponent<AudioSource>(), 1.3f, 0));
         PlayerPrefs.DeleteKey("story");
@@ -486,7 +457,7 @@ public class GameManager : MonoBehaviour
         }
         yield break;
     }
-    string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
+    private string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
 
@@ -508,5 +479,13 @@ public class GameManager : MonoBehaviour
         saveinfo.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         saveinfo.SetActive(false);
+    }
+    private void ClearText()
+    {
+        comment.text = "";
+        alert.text = "";
+        question.text = "";
+        alt1t.text = "";
+        alt2t.text = "";
     }
 }

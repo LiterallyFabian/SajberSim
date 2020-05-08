@@ -14,7 +14,7 @@ namespace SajberSim.Web
 {
     public class Download : MonoBehaviour
     {
-        public IEnumerator UpdateItem(GameObject item, string path, string type)
+        private IEnumerator UpdateItem(GameObject item, string path, string type)
         {
             Debug.Log($"Trying to download file {path}...");
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
@@ -29,6 +29,7 @@ namespace SajberSim.Web
                     else if (type == "sprite")
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     Debug.Log($"{path} downloaded successfully.");
+                    yield return texture;
                 }
             }
         }
