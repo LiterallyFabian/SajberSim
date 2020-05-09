@@ -36,7 +36,13 @@ public class ButtonCtrl : MonoBehaviour
     public static bool paused = false;
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
+
+
     private Download dl;
+
+    //for easter egg. stop bullying my code
+    private bool clicked;
+    private string charpath;
 
 
     public void Start()
@@ -75,10 +81,18 @@ public class ButtonCtrl : MonoBehaviour
         {
             string charPath = $@"{Application.dataPath}/Modding/Characters/";
             var charpaths = new List<string>();
-            // charpaths.AddRange(Directory.GetFiles(charPath, "*neutral.png"));
             charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
+
+            int attempts = 0;
+            while (attempts<10) //only include characters with a blush & happy, this method is dumb 
+            {
+                charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)]; 
+                if (File.Exists(charpath.Replace("happy", "blush"))) attempts = 10;
+                attempts++;
+            }
+
             //ladda in filen som texture
-            dl.Sprite(GameObject.Find("Character"), $"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Count)]}");
+            dl.Image(GameObject.Find("Character"), $"file://{charpath}");
         }
     }
     public void TogglePause()
@@ -109,6 +123,20 @@ public class ButtonCtrl : MonoBehaviour
         CreateCharacters();
         StartCoroutine(FadeToScene("game"));
         UnityEngine.Debug.Log("New game created.");
+    }
+    public void CharEasteregg()
+    {
+        if (clicked)
+        {
+            GameObject.Find("/Canvas/Character").GetComponent<Animator>().Play("characterbye");
+            GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popup");
+        }
+        else
+        {
+            if (File.Exists(charpath.Replace("happy", "blush")))
+                dl.Image(GameObject.Find("Character"), $"file://{charpath.Replace("happy", "blush")}");
+            clicked = true;
+        }
     }
     private void CreateCharacters()
     {
