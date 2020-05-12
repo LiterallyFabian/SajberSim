@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
     public static bool paused = false;
-    public Text posobj; //Debug meny i canvas > dev
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
     public Text alert;
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
-        Debug.LogWarning("Position: " + dialogpos);
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//"))
         {
             if (dialogdone)
@@ -218,8 +216,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCredits());
         }
-        
-        
+        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
     }
     private void SpawnQuestionDD(string[] line) 
     {
