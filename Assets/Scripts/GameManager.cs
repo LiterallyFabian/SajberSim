@@ -85,6 +85,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1)) //toggles debug stuff
+        {
+            if(PlayerPrefs.GetInt("devmenu", 0) == 0)
+            {
+                PlayerPrefs.SetInt("devmenu", 1);
+                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one; // might be a dumb approach but can't use .SetActive together with .Find
+            }
+            else
+            {
+                PlayerPrefs.SetInt("devmenu", 0);
+                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.zero;
+            }
+        }
         //fixes tutorial buttonweird
         if (SceneManager.GetActiveScene().name == "game")
             if (PlayerPrefs.GetString("story", "start") == "start")
@@ -108,7 +121,9 @@ public class GameManager : MonoBehaviour
     void RunNext()
     {
         if (!ready) return;
+
         string[] line = story[dialogpos].Split('|'); //line = nuvarande raden
+        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialogpos}\naction = {story[dialogpos].Split('|')[0]}\nready = {ready}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
 
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
         {
@@ -216,7 +231,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCredits());
         }
-        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialogpos}\naction = {line[0]}\nready = {ready}\ndialogdone = {dialogdone}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
+        
     }
     private void SpawnQuestionDD(string[] line) 
     {
@@ -336,6 +351,10 @@ public class GameManager : MonoBehaviour
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
     }
+    public void RemoveCharactersWrap() //Only used for editor assignments as they can't run static methods
+    {
+        RemoveCharacters();
+    }
     private string UwUTranslator(string text)
     {
         if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
@@ -358,14 +377,20 @@ public class GameManager : MonoBehaviour
         RunNext();
     }
 
-    private void LoadStory(string storyx)
+    public void LoadStory(string storyx)
     {
+        string path = $"{Application.dataPath}/Modding/Dialogues/{storyx}.txt";
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"Tried to start non-existing story: {path}");
+            return;
+        }
         Debug.Log($"New story loaded: {storyx}");
         PlayerPrefs.SetString("story", storyx);
         PlayerPrefs.SetString("tempstory", storyx);
         StartCoroutine(SaveInfo());
         dialogpos = 0;
-        story = File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{storyx}.txt");
+        story = File.ReadAllLines(path);
         ready = true;
         RunNext();
     }
@@ -418,7 +443,7 @@ public class GameManager : MonoBehaviour
             SFX.GetComponent<AudioSource>().Play();
         }
     }
-    private void StopSounds()
+    public void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
