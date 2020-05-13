@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using SajberSim.Web;
 
 public class SetupManager : MonoBehaviour
 {
@@ -45,11 +46,15 @@ public class SetupManager : MonoBehaviour
 
     private string LastName = ""; // Last name used in a textbox
 
+    //Objs
+    Download dl;
+
 
 
 
     void Start()
     {
+        dl = new GameObject("downloadobj").AddComponent<Download>();
         path = Application.dataPath;
         story = File.ReadAllLines($"{path}/Modding/Dialogues/{CurrentStory}.txt");
         while (true) 
@@ -70,21 +75,10 @@ public class SetupManager : MonoBehaviour
     {
         
     }
-    IEnumerator ChangeBackground(string bg, GameObject item)
+    public void ChangeBackground(int id)
     {
-        Debug.Log($"New background loaded: {bg}");
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png"))
-        {
-            yield return uwr.SendWebRequest();
-
-            if (uwr.isNetworkError) Debug.LogError($"An error occured while downloading background: {uwr.error}");
-            else
-            {
-                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
-                item.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            }
-
-        }
+        background.name = allbacks[id];
+        dl.Sprite(background, $"{path}/Modding/Backgrounds/{allbacks[id]}.png");
     }
     public void FillLists() //adds audio, backgrounds, stories and characters to a list, and then updates the dropdowns
     {
@@ -102,6 +96,7 @@ public class SetupManager : MonoBehaviour
         for (int i = 0; i < storyPaths.Length; i++)
             allstories.Add(storyPaths[i].Replace(dialoguePath, "").Replace(".txt", ""));
 
+        allmusic.Add("");
         for (int i = 0; i < audioPaths.Length; i++)
             allmusic.Add(audioPaths[i].Replace(audioPath, "").Replace(".ogg", ""));
 
@@ -117,11 +112,11 @@ public class SetupManager : MonoBehaviour
         for (int i = 0; i < backgroundPaths.Length; i++)
             allbacks.Add(backgroundPaths[i].Replace(backgroundPath, "").Replace(".png", ""));
 
-        //Put current story first
-        string temp = allstories[0];
-        int index = allstories.FindIndex(x => x.StartsWith(CurrentStory));
-        allstories[0] = allstories[index];
-        allstories[index] = temp;
+        //Put current story & background first
+        allstories = SetFirst(CurrentStory, allstories);
+        allbacks = SetFirst(background.name, allbacks);
+        
+
 
         //Fills dropdowns
         DDbackground.ClearOptions();
@@ -134,6 +129,16 @@ public class SetupManager : MonoBehaviour
         DDplaysound.AddOptions(allmusic);
         DDstories.ClearOptions();
         DDstories.AddOptions(allstories);
+
+    }
+    private List<string> SetFirst(string first, List<string> li)
+    {
+        List<string> oldlist = li;
+        int index = li.FindIndex(x => x.StartsWith(first));
+        li[0] = li[index];
+        li[index] = oldlist[0];
+        
+        return li;
     }
     public void ToggleMenu(string id)
     {
@@ -199,13 +204,13 @@ public class SetupManager : MonoBehaviour
         GameObject port = GameObject.Find("/Canvas/Textbox/Portrait");
         if (allchars.Contains(input.ToLower()))
         {
-            StartCoroutine(UpdateSprite($"file://{path}/Modding/Characters/{input.ToLower()}port.png", port));
+            dl.Image(port, $"file://{path}/Modding/Characters/{input.ToLower()}port.png");
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
 
         }
         else if(IsNum(input))
         {
-            StartCoroutine(UpdateSprite($"file://{path}/Modding/Characters/unknown.png", port));
+            dl.Image(port, $"file://{path}/Modding/Characters/unknown.png");
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
         }
         else
@@ -216,21 +221,16 @@ public class SetupManager : MonoBehaviour
         if (id == 0) return;
         string character = allcharsU[id];
         allspawned.Add(character);
-        StartCoroutine(CreateCharacter(character));
+        CreateCharacter(character);
         FillLists();
     }
-    IEnumerator CreateCharacter(string id) //creates the character
+    void CreateCharacter(string id) //creates the character
     {
-        //ladda in filen som texture
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture($"file://{path}/Modding/Characters/{id.ToLower()}neutral.png");
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-
         //skapa gameobj
         GameObject character = new GameObject($"{id.ToLower()}");
         character.gameObject.tag = "character";
-        SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-        renderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        character.AddComponent<SpriteRenderer>();
+        dl.Sprite(character, $"file://{path}/Modding/Characters/{id.ToLower()}neutral.png");
 
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
@@ -242,12 +242,5 @@ public class SetupManager : MonoBehaviour
     {
         if (int.TryParse(input, out int n)) return true;
         else return false;
-    }
-    IEnumerator UpdateSprite(string path, GameObject item)
-    {
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path);
-        yield return uwr.SendWebRequest();
-        var texture = DownloadHandlerTexture.GetContent(uwr);
-        item.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 }
