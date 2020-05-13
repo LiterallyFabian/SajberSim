@@ -420,7 +420,6 @@ public class GameManager : MonoBehaviour
             dl.Sprite(character, $"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
         }
         RunNext();
-
     }
     private IEnumerator PlayMusic(string sound) //Musik ligger på "music"
     {
