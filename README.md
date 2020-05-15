@@ -4,7 +4,7 @@
 
 ## Nerladdning
 
-Färdiga builds finns [här](https://github.com/LiterallyFabian/SajberSim/releases), notera att dessa i nuläget inte direkt har något intressant att se.
+Färdiga builds finns [här](https://github.com/LiterallyFabian/SajberSim/releases) eller på huvudsidan [Sajber.me](http://sajber.me), notera att dessa i nuläget inte direkt har något intressant att se.
 
 För källkod kan du klona projektet med Git, och sedan öppna mappen i Unity.
 
