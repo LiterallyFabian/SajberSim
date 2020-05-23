@@ -20,7 +20,7 @@ T|1|Ifall du gillar programmering kanske du vill fortsätta läsa programmering 
 T|1|SajberSim som du spelar just nu är främst gjort på Fabinas fritid, men hon har även jobbat med spelet på programmeringen.
 T|1|Programmering, precis som mycket annat passar helt enkelt inte alla. Ifall du känner att du hellre vill hålla på med att designa spel kan du fördjupa dig i Digitalt skapande!
 T|0|Ska jag hämta {3.name} eller tar du detta?
-CHAR|1|blushed|-4.4|-0.17|-1
+CHAR|1|blush|-4.4|-0.17|-1
 T|1|Jag går och tar en kaffe och ber {3.name} att komma och fortsätta, heh
 WAIT|0.5
 DEL|1

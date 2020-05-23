@@ -15,7 +15,7 @@ namespace SajberSim.Chararcter
         {
             this.name = name;
             this.nick = cutenick;
-            ID = charID; //unused?
+            ID = charID;
         }
     }
 }

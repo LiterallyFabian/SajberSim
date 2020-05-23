@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         else uwuwarning.SetActive(false);
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//"))
         {
-            if (dialogdone)
+            if (dialogdone && ready)
             {
                 ClearText();
                 textbox.SetActive(false);
@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "BG") //new background
         {
             dialogpos++;
-            ChangeBackground(line[1], background);
+            ChangeBackground(line[1]);
             
 
             if (line.Length > 2)
@@ -214,8 +214,11 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "PLAYMUSIC")
         {
+            string arg = line[1];
             dialogpos++;
-            StartCoroutine(PlayMusic(line[1]));
+            if(arg != musicplaying) dl.Ogg(music, $"file://{Application.dataPath}/Modding/Audio/{arg}.ogg", true);
+            musicplaying = arg;
+            RunNext();
         }
         else if (line[0] == "STOPSOUNDS")
         {
@@ -225,7 +228,8 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "PLAYSFX")
         {
             dialogpos++;
-            StartCoroutine(PlaySoundEffect(line[1]));
+            dl.Ogg(SFX, $"file://{Application.dataPath}/Modding/Audio/{line[1]}.ogg", true);
+            RunNext();
         }
         else if (line[0] == "FINISHGAME")
         {
@@ -270,8 +274,10 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator Delay(float time) //ID 7
     {
+        ready = false;
         yield return new WaitForSeconds(time);
         dialogpos++;
+        ready = true;
         RunNext();
     }
     private IEnumerator SpawnTextBox(Character talker, string target) //ID 0
@@ -371,9 +377,9 @@ public class GameManager : MonoBehaviour
         return text;
     }
 
-    private void ChangeBackground(string bg, GameObject item) //ID 1
+    private void ChangeBackground(string bg) //ID 1
     {
-        dl.Sprite(item, $"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
+        dl.Sprite(background, $"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
         RunNext();
     }
 
@@ -421,27 +427,7 @@ public class GameManager : MonoBehaviour
         }
         RunNext();
     }
-    private IEnumerator PlayMusic(string sound) //Musik ligger på "music"
-    {
-        if (musicplaying != sound) //spela om den inte redan körs
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
-        {
-            yield return uwr.SendWebRequest();
-            music.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
-            music.GetComponent<AudioSource>().Play();
-            musicplaying = sound;
-        }
-        RunNext();
-    }
-    private IEnumerator PlaySoundEffect(string sound) //Ljudeffekter ligger på "SFX"
-    {
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip($"file://{Application.dataPath}/Modding/Audio/{sound}.ogg", AudioType.OGGVORBIS))
-        {
-            yield return uwr.SendWebRequest();
-            SFX.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
-            SFX.GetComponent<AudioSource>().Play();
-        }
-    }
+
     public void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();

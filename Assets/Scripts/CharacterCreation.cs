@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SajberSim.Web;
+using System.Linq;
 
 public class CharacterCreation : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CharacterCreation : MonoBehaviour
 
     void Start()
     {
-        dl = (new GameObject("downloadobj")).AddComponent<Download>();
+        dl = new GameObject("downloadobj").AddComponent<Download>();
         Cursor.visible = true;
         string path = $@"{Application.dataPath}/Modding/Backgrounds/";
         backgroundpaths = Directory.GetFiles(path, "*.png");
@@ -48,6 +49,21 @@ public class CharacterCreation : MonoBehaviour
         character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
         character.AddComponent<BoxCollider2D>();
         character.AddComponent<CharacterCreation>();
+    }
+    public void CycleMood() //todo
+    {
+        string name = this.gameObject.name.Split('_')[0].ToLower();
+        string currentmood = this.gameObject.name.Split('_')[1]; 
+        string[] moodpaths = Directory.GetFiles($@"{Application.dataPath}/Modding/Characters/", $"{name}*.png");
+        int currentmoodID = Array.FindIndex(moodpaths, row => row.Contains($"{name}{currentmood}"));
+        currentmoodID++;
+        
+        if (moodpaths.Length-1 > currentmoodID)
+        {
+            dl.Sprite(this.gameObject, moodpaths[0]);
+        }
+        else dl.Sprite(this.gameObject, moodpaths[currentmoodID]);
+        
     }
 
     public void RemoveCharacters()
@@ -82,12 +98,18 @@ public class CharacterCreation : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        startPosX = mousePos.x - transform.localPosition.x;
-        startPosY = mousePos.y - transform.localPosition.y;
-        isHeld = true;
+            startPosX = mousePos.x - transform.localPosition.x;
+            startPosY = mousePos.y - transform.localPosition.y;
+            isHeld = true;
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+
+        }
     }
     private void OnMouseUp()
     {

@@ -16,11 +16,14 @@ namespace SajberSim.Web
     {
         private IEnumerator UpdateItem(GameObject item, string path, string type)
         {
-            Debug.Log($"Trying to download file {path}...");
+            Debug.Log($"Trying to download image {path}...");
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
             {
+                uwr.timeout = 1;
                 yield return uwr.SendWebRequest();
-                if (uwr.isNetworkError) Debug.LogError($"Could not download {path}\n{uwr.error}");
+
+                if (uwr.isNetworkError) 
+                    Debug.LogError($"Could not download {path}\n{uwr.error}");
                 else
                 {
                     var texture = DownloadHandlerTexture.GetContent(uwr);
@@ -28,18 +31,38 @@ namespace SajberSim.Web
                         item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     else if (type == "sprite")
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                    Debug.Log($"{path} downloaded successfully.");
-                    yield return texture;
+                    Debug.Log($"Successfully downloaded {path}");
                 }
             }
         }
-        public void Image(GameObject items, string path)
+        private IEnumerator Setogg(GameObject item, string path, bool play)
         {
-            StartCoroutine(UpdateItem(items, path, "img"));
+            Debug.Log($"Trying to download audio {path}...");
+            using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.OGGVORBIS))
+            {
+                yield return uwr.SendWebRequest();
+
+                if (uwr.isNetworkError) 
+                    Debug.LogError($"Could not download {path}\n{uwr.error}");
+                else
+                {
+                    item.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
+                    Debug.Log($"Successfully downloaded {path}");
+                    if (play) item.GetComponent<AudioSource>().Play();
+                }
+            }
         }
-        public void Sprite(GameObject items, string path)
+        public void Image(GameObject item, string path)
         {
-            StartCoroutine(UpdateItem(items, path, "sprite"));
+            StartCoroutine(UpdateItem(item, path, "img"));
+        }
+        public void Sprite(GameObject item, string path)
+        {
+            StartCoroutine(UpdateItem(item, path, "sprite"));
+        }
+        public void Ogg(GameObject item, string path, bool play = false)
+        {
+            StartCoroutine(Setogg(item, path, play));
         }
     }
 }
