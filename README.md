@@ -167,3 +167,4 @@ Jag hoppas att jag nämnt det mesta här men ifall något saknas eller om du har
 - [ ] redo skip function
 - [ ] more fluent UI
 - [ ] easter eggs :3
+- [ ] better utility classes

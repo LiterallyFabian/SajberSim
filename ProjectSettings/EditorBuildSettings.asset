@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/characterpos.unity
     guid: c58a2de0af49b9644a37c167e22e103e
+  - enabled: 1
+    path: Assets/Scenes/storysetup.unity
+    guid: df1e7464909a97d4faa85c7883bf4389
   m_configObjects: {}

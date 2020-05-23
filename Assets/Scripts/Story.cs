@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace SajberSim.Story
 {
     class Story
     {
@@ -14,31 +14,35 @@ namespace Assets.Scripts
         public string path;
         public int length;
         public string firstAction;
+        public int firstActionPos;
         public string[] alltext;
 
         public Story(string filename)
         {
-            name = filename;
-            path = $"{Application.dataPath}/Modding/Dialogues/{filename}.txt";
+           name = filename;
+           path = $"{Application.dataPath}/Modding/Dialogues/{name}.txt";
             if (!File.Exists(path))
             {
-                Debug.LogError($"Tried to create story \"{filename}\" which does not exist. (PATH: {path})");
+                Debug.LogError($"Tried to create story \"{name}\" which does not exist. (PATH: {path})");
                 return;
             }
-            alltext = File.ReadAllLines($"{Application.dataPath}/Modding/Dialogues/{filename}.txt");
+            alltext = File.ReadAllLines(path);
             length = alltext.Length;
-
+            int i = 0;
             foreach(string line in alltext)
             {
                 if (GetActionFromText(line) != "COMMENT" && GetActionFromText(line) != "COMMENT")
                 {
                     firstAction = GetActionFromText(line);
+                    firstActionPos = i;
                     break;
-                }   
+                }
+                i++;
             }
         }
-        public string[] GetLine(int line)
+        public string[] Line(int line)
         {
+            string x = Application.dataPath;
             return alltext[line].Split('|');
         }
         public string GetActionFromLine(int line)
