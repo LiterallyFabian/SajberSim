@@ -7,9 +7,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using SajberSim.Web;
+using SajberSim.Story;
+using SajberSim.Chararcter;
 
 public class SetupManager : MonoBehaviour
 {
+    //Story cur = new Story("start");
     string LatestEdit; //Latest edited or selected action
     string CurrentStory = "start"; //Name of .txt file
     string[] story; //Array with a full textfile
@@ -75,6 +78,7 @@ public class SetupManager : MonoBehaviour
     {
         
     }
+
     public void ChangeBackground(int id)
     {
         background.name = allbacks[id];
@@ -112,9 +116,8 @@ public class SetupManager : MonoBehaviour
         for (int i = 0; i < backgroundPaths.Length; i++)
             allbacks.Add(backgroundPaths[i].Replace(backgroundPath, "").Replace(".png", ""));
 
-        //Put current story & background first
+        //Put current story first
         allstories = SetFirst(CurrentStory, allstories);
-        allbacks = SetFirst(background.name, allbacks);
         
 
 
@@ -189,7 +192,7 @@ public class SetupManager : MonoBehaviour
         string msg = GameObject.Find("/Canvas/Textbox/TextInput").GetComponent<InputField>().text;
         AddLine($"T|{name}|{msg}");
     }
-    private void AddLine(string line)
+    private void AddLine(string line) //Add line in script
     {
         LatestEdit = line.Split('|')[0];
         using (StreamWriter sw = new StreamWriter($"{path}/Modding/Dialogues/{CurrentStory}.txt", true))
@@ -219,15 +222,14 @@ public class SetupManager : MonoBehaviour
     public void SubmitCharacter(int id) //input from dropdown
     {
         if (id == 0) return;
-        string character = allcharsU[id];
-        allspawned.Add(character);
-        CreateCharacter(character);
+        string name = allcharsU[id];
+        allspawned.Add(name);
+        CreateCharacter(name);
         FillLists();
     }
     void CreateCharacter(string id) //creates the character
     {
-        //skapa gameobj
-        GameObject character = new GameObject($"{id.ToLower()}");
+        GameObject character = new GameObject($"{id.ToLower()}_neutral");
         character.gameObject.tag = "character";
         character.AddComponent<SpriteRenderer>();
         dl.Sprite(character, $"file://{path}/Modding/Characters/{id.ToLower()}neutral.png");
@@ -235,8 +237,11 @@ public class SetupManager : MonoBehaviour
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
         character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
-        character.AddComponent<PolygonCollider2D>();
+        character.AddComponent<BoxCollider2D>().size = new Vector2(3.7f, 11f);
+        character.GetComponent<BoxCollider2D>().offset = new Vector2(0, -1);
         character.AddComponent<CharacterCreation>();
+        character.GetComponent<CharacterCreation>().CycleMood();
+        
     }
     private bool IsNum(string input)
     {
