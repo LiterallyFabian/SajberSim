@@ -19,7 +19,13 @@ public class CharacterCreation : MonoBehaviour
     private int currentbg = 0;
     public GameObject fadeimage;
     public InputField code;
+
     Download dl;
+
+    List<string> allcharsU = new List<string>(); //list with all Characters
+    List<string> allchars = new List<string>(); //list with all characters
+    List<string> allspawned = new List<string>(); //list with all spawned characters
+    public Dropdown DDcreatechar;
 
     void Start()
     {
@@ -27,71 +33,98 @@ public class CharacterCreation : MonoBehaviour
         Cursor.visible = true;
         string path = $@"{Application.dataPath}/Modding/Backgrounds/";
         backgroundpaths = Directory.GetFiles(path, "*.png");
+
+        FillLists();
+    }
+    public void FillLists()
+    {
+        if (SceneManager.GetActiveScene().name == "characterpos" && gameObject.name == "GameObject")
+        {
+            string charPath = $@"{Application.dataPath}/Modding/Characters/";
+            string[] charPaths = Directory.GetFiles(charPath, "*neutral.png");
+            allcharsU.Add("Skapa karaktär...");
+            for (int i = 0; i < charPaths.Length; i++)
+            {
+                string name = charPaths[i].Replace(charPath, "").Replace("neutral.png", "");
+                allcharsU.Add(Char.ToUpper(name[0]) + name.Remove(0, 1));
+                allchars.Add(name);
+            }
+            allcharsU = allcharsU.Except(allspawned).ToList(); //remove already spawned characters
+            DDcreatechar.ClearOptions();
+            DDcreatechar.AddOptions(allcharsU);
+        }
+    }
+    public void SubmitCharacter(int id) //input from dropdown
+    {
+        if (id == 0) return;
+        string name = allcharsU[id];
+        allspawned.Add(name);
+        CreateCharacter(name);
+        FillLists();
     }
     public void ClearCharacters()
     {
         GameManager.RemoveCharacters();
     }
-    public void CreateCharacterStart()
+    public void CreateCharacter(string name)
     {
-        string charPath = $@"{Application.dataPath}/Modding/Characters/";
-        string[] charpaths = Directory.GetFiles(charPath, "*neutral.png");
-
         //skapa gameobj
-        GameObject character = new GameObject($"person");
+        GameObject character = new GameObject(name);
         character.gameObject.tag = "character";
-        SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-        dl.Sprite(character, $"file://{charpaths[UnityEngine.Random.Range(0, charpaths.Length)]}");
+        character.AddComponent<SpriteRenderer>();
+        dl.Sprite(character, $"{Application.dataPath}/Modding/Characters/{name}neutral.png");
 
 
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
         character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
-        character.AddComponent<BoxCollider2D>();
+        character.AddComponent<BoxCollider2D>().size = new Vector2(5, 10);
         character.AddComponent<CharacterCreation>();
     }
     public void CycleMood() //todo
     {
         string name = this.gameObject.name.Split('_')[0].ToLower();
-        string currentmood = this.gameObject.name.Split('_')[1]; 
+        string currentmood = this.gameObject.name.Split('_')[1];
         string[] moodpaths = Directory.GetFiles($@"{Application.dataPath}/Modding/Characters/", $"{name}*.png");
         int currentmoodID = Array.FindIndex(moodpaths, row => row.Contains($"{name}{currentmood}"));
         currentmoodID++;
-        
-        if (moodpaths.Length-1 > currentmoodID)
+
+        if (moodpaths.Length - 1 > currentmoodID)
         {
             dl.Sprite(this.gameObject, moodpaths[0]);
         }
         else dl.Sprite(this.gameObject, moodpaths[currentmoodID]);
-        
+
     }
 
     public void RemoveCharacters()
     {
+        allspawned.Clear();
+        FillLists();
         GameManager.RemoveCharacters();
     }
     public void NextBG()
     {
         currentbg++;
         if (currentbg == backgroundpaths.Length) currentbg = 0;
-        dl.Sprite(GameObject.Find("background"), $"file://{backgroundpaths[currentbg]}"); 
+        dl.Sprite(GameObject.Find("background"), $"file://{backgroundpaths[currentbg]}");
     }
     private void Update()
     {
-        
+
         if (isHeld)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
         }
 
-        if(gameObject.name == "GameObject")
+        if (gameObject.name == "GameObject")
         {
             string codetext = "";
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
             foreach (GameObject character in gameObjects)
             {
-                codetext += $"CHAR|ID|mood|{Math.Round(character.transform.position.x, 2)}|{Math.Round(character.transform.position.y, 2)}|1\n";
+                codetext += $"CHAR|{character.name}|neutral|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|1\n";
             }
             code.text = codetext;
         }
@@ -114,7 +147,12 @@ public class CharacterCreation : MonoBehaviour
     private void OnMouseUp()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (mousePos.x < -7.8 && mousePos.y > 3.8) Destroy(gameObject);
+        if (mousePos.x < -7.8 && mousePos.y > 3.8)
+        {
+            GameObject.Find("GameObject").GetComponent<CharacterCreation>().allspawned.Remove(gameObject.name);
+            Destroy(gameObject);
+            GameObject.Find("GameObject").GetComponent<CharacterCreation>().FillLists();
+        }
         isHeld = false;
     }
     public void ReturnToMain()

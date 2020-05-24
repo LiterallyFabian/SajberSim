@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Holds a character name and nick
+/// </summary>
 namespace SajberSim.Chararcter
 {
 

@@ -62,7 +62,17 @@ public class SetupManager : MonoBehaviour
         dl = new GameObject("downloadobj").AddComponent<Download>();
         path = Application.dataPath;
         story = File.ReadAllLines($"{path}/Modding/Dialogues/{CurrentStory}.txt");
-        GoToFirstLine();
+        while (true)
+        {
+            if (story[dialogpos].StartsWith("//") || story[dialogpos] == "")
+                dialogpos++;
+            else //first action catched
+            {
+                LatestEdit = story[dialogpos].Split('|')[0];
+                break;
+            }
+        }
+        FillLists();
 
     }
 
@@ -103,7 +113,7 @@ public class SetupManager : MonoBehaviour
             allcharsU.Add(Char.ToUpper(name[0]) + name.Remove(0, 1));
             allchars.Add(name);
         }
-        allcharsU = allcharsU.Except(allspawned).ToList(); //remove already spawned characters
+        
 
         for (int i = 0; i < backgroundPaths.Length; i++)
             allbacks.Add(backgroundPaths[i].Replace(backgroundPath, "").Replace(".png", ""));
@@ -181,13 +191,21 @@ public class SetupManager : MonoBehaviour
     {
 
     }
+    /// <summary>
+    /// Submits textbox ingame
+    /// </summary>
     public void SubmitTextbox()
     {
         string name = GameObject.Find("/Canvas/Textbox/NameInput").GetComponent<InputField>().text;
         string msg = GameObject.Find("/Canvas/Textbox/TextInput").GetComponent<InputField>().text;
-        AddLine($"T|{name}|{msg}");
+        AddLine($"T|{name}|{msg}",0);
     }
-    private void AddLine(string line) //Add line in script
+    /// <summary>
+    /// Adds action to current story script
+    /// </summary>
+    /// <param name="line">Completed line to add</param>
+    /// <param name="pos">Position to add line at</param>
+    private void AddLine(string line, int pos)
     {
         LatestEdit = line.Split('|')[0];
         using (StreamWriter sw = new StreamWriter($"{path}/Modding/Dialogues/{CurrentStory}.txt", true))
@@ -260,17 +278,7 @@ public class SetupManager : MonoBehaviour
     }
     public void GoToFirstLine()
     {
-        while (true)
-        {
-            if (story[dialogpos].StartsWith("//") || story[dialogpos] == "")
-                dialogpos++;
-            else //first action catched
-            {
-                LatestEdit = story[dialogpos].Split('|')[0];
-                break;
-            }
-        }
-        FillLists();
+        
     }
     
 }

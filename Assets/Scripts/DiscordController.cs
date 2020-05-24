@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 
 
+
 [System.Serializable]
 public class DiscordJoinEvent : UnityEngine.Events.UnityEvent<string> { }
 
