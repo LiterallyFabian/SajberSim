@@ -6,9 +6,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System.Linq.Expressions;
 using SajberSim.Web;
 using SajberSim.Story;
 using SajberSim.Chararcter;
+using SajberSim.Helper;
 
 public class SetupManager : MonoBehaviour
 {
@@ -60,17 +62,7 @@ public class SetupManager : MonoBehaviour
         dl = new GameObject("downloadobj").AddComponent<Download>();
         path = Application.dataPath;
         story = File.ReadAllLines($"{path}/Modding/Dialogues/{CurrentStory}.txt");
-        while (true) 
-        {
-            if (story[dialogpos].StartsWith("//") || story[dialogpos] == "")
-                dialogpos++;
-            else //first action catched
-            {
-                LatestEdit = story[dialogpos].Split('|')[0];
-                break;
-            }
-        }
-        FillLists();
+        GoToFirstLine();
 
     }
 
@@ -182,6 +174,9 @@ public class SetupManager : MonoBehaviour
             lookmenuopen = !lookmenuopen;
         }
     }
+    /// <summary>
+    /// Changes active story, picked from dropdown ingame
+    /// </summary>
     public void SetStory(int ID)
     {
 
@@ -211,7 +206,7 @@ public class SetupManager : MonoBehaviour
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
 
         }
-        else if(IsNum(input))
+        else if(Helper.IsNum(input))
         {
             dl.Image(port, $"file://{path}/Modding/Characters/unknown.png");
             GameObject.Find("/Canvas/Textbox/NameInput/Text").GetComponent<Text>().color = new Color32(23, 79, 23, 255);
@@ -243,9 +238,39 @@ public class SetupManager : MonoBehaviour
         character.GetComponent<CharacterCreation>().CycleMood();
         
     }
-    private bool IsNum(string input)
+    /// <summary>
+    /// Goes from start to a line in the current story.
+    /// </summary>
+    public void GoToLine(int Line)
     {
-        if (int.TryParse(input, out int n)) return true;
-        else return false;
+
     }
+    public void GoToNextLine()
+    {
+        
+    }
+    public void GoToPreviousLine()
+    {
+        dialogpos--;
+        GoToLine(dialogpos);
+    }
+    public void GoToLastLine()
+    {
+
+    }
+    public void GoToFirstLine()
+    {
+        while (true)
+        {
+            if (story[dialogpos].StartsWith("//") || story[dialogpos] == "")
+                dialogpos++;
+            else //first action catched
+            {
+                LatestEdit = story[dialogpos].Split('|')[0];
+                break;
+            }
+        }
+        FillLists();
+    }
+    
 }
