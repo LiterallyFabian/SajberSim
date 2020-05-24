@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SajberSim.Chararcter;
 using SajberSim.Web;
+using SajberSim.StoryDebug;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -257,7 +258,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Debug()
     {
-        StoryDebugger.DebugStory();
+        StoryDebugger.CreateLog();
         StartCoroutine(ToggleDebug());
         
     }
