@@ -15,4 +15,5 @@ class Manifest
     public string overlaycolor;
     public string textcolor;
     public bool nsfw;
+    public int playtime;
 }
