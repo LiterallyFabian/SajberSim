@@ -354,8 +354,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3020521122933438569}
   m_Layer: 5
-  m_Name: StoryIconTemplate
-  m_TagString: Untagged
+  m_Name: StoryCardTemplate
+  m_TagString: PreviewCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
