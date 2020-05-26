@@ -12,6 +12,8 @@ using UnityEngine.UI;
 using SajberSim.Chararcter;
 using SajberSim.Web;
 using SajberSim.StoryDebug;
+using SajberSim.Story;
+using SajberSim.Helper;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -33,6 +35,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject fadeimage;
     public AudioSource music;
 
+    private Helper shelper = new Helper();
     //pause stuff ingame
     public static bool paused = false;
     public GameObject PauseMenuGame;
@@ -74,23 +77,22 @@ public class ButtonCtrl : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp("escape") && SceneManager.GetActiveScene().name != "menu")
+        if (Input.GetKeyUp(KeyCode.Escape) && SceneManager.GetActiveScene().name != "menu")
             TogglePause();
     }
     void UpdateCharacter()
     {
         if (SceneManager.GetActiveScene().name == "menu")
         {
-            string charPath = $@"{Application.dataPath}/Modding/Characters/";
-            var charpaths = new List<string>();
-            charpaths.AddRange(Directory.GetFiles(charPath, "*happy.png"));
-
-            int attempts = 0;
-            while (attempts<10) //only include characters with a blush & happy, this method is dumb 
+            List<string> charpaths = new List<string>();
+            foreach (string path in shelper.GetAllStoryAssetPaths("characters"))
             {
-                charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)]; 
-                if (File.Exists(charpath.Replace("happy", "blush"))) attempts = 10;
-                attempts++;
+                if (path.Contains("happy")) charpaths.Add(path);
+            }
+            charpath = charpaths[UnityEngine.Random.Range(0,charpaths.Count)];
+            while (!File.Exists(charpath.Replace("happy", "blush")))
+            {
+                charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
             }
 
             //ladda in filen som texture
@@ -256,12 +258,12 @@ public class ButtonCtrl : MonoBehaviour
     {
         Process.Start($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\"));
     }
-    public void Debug()
+    /*public void Debug()
     {
         StoryDebugger.CreateLog();
         StartCoroutine(ToggleDebug());
         
-    }
+    }*/
     public void GAMEOpenSettings()
     {
         PauseMenuGame.SetActive(false);
