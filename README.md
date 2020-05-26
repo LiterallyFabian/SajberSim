@@ -1,4 +1,4 @@
-![logo](Media/banner_charlogo.png)
+![logo](/Media/banner_charlogo.png)
 
 ## Info
 
