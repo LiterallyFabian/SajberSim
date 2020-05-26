@@ -15,15 +15,15 @@ namespace SajberSim.Helper
         /// <summary>
         /// Positions for all 6 icons in the story menu
         /// </summary>
-        public static Dictionary<int, Vector2> storyPositions = new Dictionary<int, Vector2>();
+        public static Dictionary<int, Vector3> CardPositions = new Dictionary<int, Vector3>();
         private void Start()
         {
-            storyPositions.Add(0, new Vector2(0, 0));
-            storyPositions.Add(1, new Vector2(330, 0));
-            storyPositions.Add(2, new Vector2(660, 0));
-            storyPositions.Add(3, new Vector2(0, -230));
-            storyPositions.Add(4, new Vector2(330, -230));
-            storyPositions.Add(5, new Vector2(660, -230));
+            CardPositions.Add(0, new Vector3(0, 0, 1));
+            CardPositions.Add(1, new Vector3(330, 0, 1));
+            CardPositions.Add(2, new Vector3(660, 0, 1));
+            CardPositions.Add(3, new Vector3(0, -230, 1));
+            CardPositions.Add(4, new Vector3(330, -230, 1));
+            CardPositions.Add(5, new Vector3(660, -230, 1));
         }
         /// <summary>
         /// Checks if input is an int or not
@@ -68,7 +68,12 @@ namespace SajberSim.Helper
         /// </summary>
         public string[] GetAllManifests()
         {
-            return Directory.GetFiles($"{Application.dataPath}/Story/", "manifest.json");
+            List<string> manifestPaths = new List<string>();
+            foreach (string story in GetAllStoryPaths())
+            {
+                manifestPaths.AddRange(Directory.GetFiles($"{story}", "manifest.json"));
+            }
+            return manifestPaths.ToArray();
         }
         /// <summary>
         /// Returns paths to all story folders, eg app/Story/OpenHouse
@@ -80,7 +85,6 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
-        /// <returns></returns>
         public string[] GetAllStoryNames()
         {
             List<string> nameList = new List<string>();
