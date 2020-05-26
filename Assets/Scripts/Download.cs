@@ -16,7 +16,6 @@ namespace SajberSim.Web
     {
         private IEnumerator UpdateItem(GameObject item, string path, string type)
         {
-            Debug.Log($"Trying to download image {path}...");
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
             {
                 uwr.timeout = 1;
@@ -31,13 +30,11 @@ namespace SajberSim.Web
                         item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     else if (type == "sprite")
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                    Debug.Log($"Successfully downloaded {path}");
                 }
             }
         }
         private IEnumerator Setogg(GameObject item, string path, bool play)
         {
-            Debug.Log($"Trying to download audio {path}...");
             using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.OGGVORBIS))
             {
                 yield return uwr.SendWebRequest();
@@ -47,7 +44,6 @@ namespace SajberSim.Web
                 else
                 {
                     item.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
-                    Debug.Log($"Successfully downloaded {path}");
                     if (play) item.GetComponent<AudioSource>().Play();
                 }
             }
