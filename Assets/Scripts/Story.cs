@@ -16,7 +16,13 @@ namespace SajberSim.Story
         public string firstAction;
         public int firstActionPos;
         public string[] alltext;
-
+        enum Folders
+        {
+            Audio,
+            Backgrounds,
+            Characters,
+            Dialogues
+        }
         public Story(string filename)
         {
            name = filename;

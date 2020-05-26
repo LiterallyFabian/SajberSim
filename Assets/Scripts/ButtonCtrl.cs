@@ -73,7 +73,6 @@ public class ButtonCtrl : MonoBehaviour
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
 
         UpdateCharacter();
-
     }
     private void Update()
     {

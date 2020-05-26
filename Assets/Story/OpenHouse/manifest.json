@@ -3,5 +3,9 @@
   "Author": "Fabian",
   "Description": "Rundvandring av CyberGymnasiet Odenplan med information om skolan, vad vi gör i alla program och mycket mer!",
   "ID": "OpenHouse",
-  "Language": "SE"
+  "Language": "SE",
+  "OverlayColor": "FF7FFD",
+  "TextColor": "323232",
+  "NSFW": false,
+  "Playtime": 15
 }
