@@ -64,5 +64,15 @@ namespace SajberSim.Web
         {
             StartCoroutine(Setogg(item, path, play));
         }
+        /// <summary>
+        /// Returns flag from given country code, or a placeholder if the code is invalid
+        /// </summary>
+        /// <param name="code">2 letter country code</param>
+        public Sprite Flag(string code)
+        {
+            Sprite flag = Resources.Load<Sprite>($"Flags/{code.ToUpper()}@3x");
+            if (flag != null) return flag;
+            return Resources.Load<Sprite>($"Flags/unknown");
+        }
     }
 }
