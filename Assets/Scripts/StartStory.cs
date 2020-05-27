@@ -53,13 +53,13 @@ public class StartStory : MonoBehaviour
 
             //spawn, place and resize
             GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0,0,0,0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
-            menu.transform.localPosition = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i)];
+            menu.transform.localPosition = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             menu.transform.localScale = Vector3.one;
             menu.name = $"Story card {i}";
 
             //fill with data
             if(File.Exists($"{storyPaths[i]}/thumbnail.png"))
-            dl.Image(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
+            dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
 
             Color splashColor = Color.white;
             ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
@@ -74,13 +74,13 @@ public class StartStory : MonoBehaviour
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Flag").GetComponent<Image>().sprite = dl.Flag(language);
         }
     }
-    public void PageUp()
+    public void ChangePage(int change)
     {
-
-    }
-    public void PageDown()
-    {
-
+        ClearPreviewCards();
+        page += change;
+        if (page > shelper.GetCardPages()) page = 0;
+        if (page == -1) page = shelper.GetCardPages();
+        UpdatePreviewCards();
     }
     public void ClearPreviewCards()
     {
@@ -88,8 +88,6 @@ public class StartStory : MonoBehaviour
 
         for (int i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
-
-
     }
     public void OpenMenu()
     {
@@ -99,5 +97,6 @@ public class StartStory : MonoBehaviour
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.zero;
     }
+    
     
 }
