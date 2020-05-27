@@ -17,14 +17,20 @@ namespace SajberSim.Helper
         /// Positions for all 6 icons in the story menu
         /// </summary>
         public static Dictionary<int, Vector3> CardPositions = new Dictionary<int, Vector3>();
+        private static bool _filledlist = false;
         private void Start()
         {
-            CardPositions.Add(0, new Vector3(0, 0, 1));
-            CardPositions.Add(1, new Vector3(330, 0, 1));
-            CardPositions.Add(2, new Vector3(660, 0, 1));
-            CardPositions.Add(3, new Vector3(0, -230, 1));
-            CardPositions.Add(4, new Vector3(330, -230, 1));
-            CardPositions.Add(5, new Vector3(660, -230, 1));
+            if (!_filledlist)
+            {
+                _filledlist = true;
+                CardPositions.Add(0, new Vector3(0, 0, 1));
+                CardPositions.Add(1, new Vector3(330, 0, 1));
+                CardPositions.Add(2, new Vector3(660, 0, 1));
+                CardPositions.Add(3, new Vector3(0, -230, 1));
+                CardPositions.Add(4, new Vector3(330, -230, 1));
+                CardPositions.Add(5, new Vector3(660, -230, 1));
+            }
+            
         }
         /// <summary>
         /// Checks if input is an int or not

@@ -54,9 +54,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         dl = (new GameObject("downloadobj")).AddComponent<Download>();
         Cursor.visible = true;
-        if (PlayerPrefs.GetString("story", "start") != "start") //ifall man inte har spelat tidigare kan man inte använda den knappen
-            ContinueButton.interactable = true;
-        else
+        if (PlayerPrefs.GetString("story", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = false;
 
         SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
@@ -141,10 +139,12 @@ public class ButtonCtrl : MonoBehaviour
             eggran = true;
         }
     }
-    private void CreateCharacters(int id)
+    public void CreateCharacters()
     {
         System.Random rnd = new System.Random();
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
+        string configPath = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/Characters/characterconfig.txt";
+        if (!File.Exists(configPath)) return;
+        string[] config = File.ReadAllLines(configPath);
 
         people = new Character[config.Length]; //change size to amount of ppl
         PlayerPrefs.SetInt("characters", config.Length); //amount of characters
@@ -157,9 +157,9 @@ public class ButtonCtrl : MonoBehaviour
         for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
             PlayerPrefs.SetInt($"character{i}",people[i].ID);
     }
-    private void LoadCharacters(string story) //Loads characters from playerprefs
+    private void LoadCharacters() //Loads characters from playerprefs
     {
-        string path = $"{Application.dataPath}/Story/{story}/Characters/characterconfig.txt";
+        string path = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/Characters/characterconfig.txt";
         if (!File.Exists(path)) return;
         string[] config = File.ReadAllLines(path);
         people = new Character[PlayerPrefs.GetInt("characters", 1)];
@@ -172,7 +172,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Continue() //just opens everything SAVED
     {
-        LoadCharacters(PlayerPrefs.GetString("story"));
+        LoadCharacters();
         StartCoroutine(FadeToScene("game"));
     }
 

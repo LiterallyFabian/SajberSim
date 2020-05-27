@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
     Download dl;
+    private string storyPath;
 
 
 
@@ -64,20 +65,11 @@ public class GameManager : MonoBehaviour
         dialogdone = false;
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        string path = Application.dataPath;
+        storyPath = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}";
 
-        if (SceneManager.GetActiveScene().name == "game")
-        {
-            story = File.ReadAllLines($"{path}/Modding/Dialogues/{PlayerPrefs.GetString("story", "start")}.txt");
-            PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
-        }
+        story = File.ReadAllLines($"{storyPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
+        PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
-        if (SceneManager.GetActiveScene().name == "dev")
-        {
-            story = File.ReadAllLines($"{path}/Modding/Dialogues/start.txt");
-            PlayerPrefs.SetString("tempstory", "start");
-
-        }
 
         RunNext();
     }
@@ -200,7 +192,7 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "LOADSTORY") //open new story (no question)
         {
-            LoadStory(line[1]);
+            LoadScript(line[1]);
             if (line.Length > 2)
                 RemoveCharacters();
         }
@@ -216,7 +208,7 @@ public class GameManager : MonoBehaviour
         {
             string arg = line[1];
             dialogpos++;
-            if(arg != musicplaying) dl.Ogg(music, $"file://{Application.dataPath}/Modding/Audio/{arg}.ogg", true);
+            if(arg != musicplaying) dl.Ogg(music, $"file://{storyPath}/Audio/{arg}.ogg", true);
             musicplaying = arg;
             RunNext();
         }
@@ -228,7 +220,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "PLAYSFX")
         {
             dialogpos++;
-            dl.Ogg(SFX, $"file://{Application.dataPath}/Modding/Audio/{line[1]}.ogg", true);
+            dl.Ogg(SFX, $"file://{storyPath}/Audio/{line[1]}.ogg", true);
             RunNext();
         }
         else if (line[0] == "FINISHGAME")
@@ -264,12 +256,12 @@ public class GameManager : MonoBehaviour
             { "program", options[select-1] }
         });
         #endregion openhouse
-        LoadStory(options[select-1]);
+        LoadScript(options[select-1]);
         dropdownMenu.SetActive(false);
     }
     public void SkipTutorial()
     {
-        LoadStory("intro");
+        LoadScript("intro");
         dialogdone = false;
     }
     private IEnumerator Delay(float time) //ID 7
@@ -284,7 +276,7 @@ public class GameManager : MonoBehaviour
     {
         dialogdone = false;
         textbox.SetActive(true);
-        dl.Image(portrait, $"file://{Application.dataPath}/Modding/Characters/{talker.name.ToLower()}port.png");
+        dl.Image(portrait, $"file://{storyPath}/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
@@ -320,7 +312,7 @@ public class GameManager : MonoBehaviour
     {
         DataTracker.ReportQuestion(question.text, id);
         string[] stories = { story1, story2 };
-        LoadStory(stories[id - 1]);
+        LoadScript(stories[id - 1]);
         #region openhouse
         Analytics.CustomEvent("program_picked", new Dictionary<string, object>
         {
@@ -379,21 +371,20 @@ public class GameManager : MonoBehaviour
 
     private void ChangeBackground(string bg) //ID 1
     {
-        dl.Sprite(background, $"file://{Application.dataPath}/Modding/Backgrounds/{bg}.png");
+        dl.Sprite(background, $"file://{storyPath}/Backgrounds/{bg}.png");
         RunNext();
     }
 
-    public void LoadStory(string storyx)
+    public void LoadScript(string storyx)
     {
-        string path = $"{Application.dataPath}/Modding/Dialogues/{storyx}.txt";
+        string path = $"{storyPath}/Dialogues/{storyx}.txt";
         if (!File.Exists(path))
         {
             Debug.LogError($"Tried to start non-existing story: {path}");
             return;
         }
         Debug.Log($"New story loaded: {storyx}");
-        PlayerPrefs.SetString("story", storyx);
-        PlayerPrefs.SetString("tempstory", storyx);
+        PlayerPrefs.SetString("script", storyx);
         StartCoroutine(SaveInfo());
         dialogpos = 0;
         story = File.ReadAllLines(path);
@@ -409,7 +400,7 @@ public class GameManager : MonoBehaviour
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
-            dl.Sprite(character, $"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
+            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -423,7 +414,7 @@ public class GameManager : MonoBehaviour
             character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
 
             //ändra mood
-            dl.Sprite(character, $"file://{Application.dataPath}/Modding/Characters/{name}{mood}.png");
+            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
         }
         RunNext();
     }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.IO;
 using UnityEngine.UI;
 using SajberSim.Web;
+using System.Net;
+using System.Text;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -79,11 +81,17 @@ public class StartStory : MonoBehaviour
     }
     public void Play(int id)
     {
-        Debug.Log("play " + id);
+        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths()[id]}");
+        PlayerPrefs.SetString("story", shelper.GetAllStoryNames()[id]);
+        ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
+        main.CreateCharacters();
+        StartCoroutine(main.FadeToScene("game"));
+
+
     }
     public void OpenDetails(int id)
     {
-        Debug.Log("details!" + id);
+        Debug.Log($"Attempting to create details of local story with ID {id}, path {shelper.GetAllStoryPaths()[id]}");
     }
     public void ChangePage(int change)
     {
