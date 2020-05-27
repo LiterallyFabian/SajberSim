@@ -74,12 +74,22 @@ public class StartStory : MonoBehaviour
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Flag").GetComponent<Image>().sprite = dl.Flag(language);
         }
     }
+    public void PageUp()
+    {
+
+    }
+    public void PageDown()
+    {
+
+    }
     public void ClearPreviewCards()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("PreviewCard");
 
-        for (var i = 0; i < gameObjects.Length; i++)
+        for (int i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
+
+
     }
     public void OpenMenu()
     {
