@@ -96,5 +96,12 @@ namespace SajberSim.Helper
 
             return nameList.ToArray();
         }
+        /// <summary>
+        /// Returns amount of pages needed for the preview card menu
+        /// </summary>
+        public int GetCardPages()
+        {
+            return (GetAllManifests().Length - (GetAllManifests().Length % 6)) / 6;
+        }
     }
 }
