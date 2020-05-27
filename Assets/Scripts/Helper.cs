@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SajberSim.Story;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SajberSim.Helper
 {
@@ -59,7 +60,9 @@ namespace SajberSim.Helper
             }
             foreach(string story in Directory.GetDirectories($"{Application.dataPath}/Story/"))
             {
-                assetPaths.AddRange(Directory.GetFiles($"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}", extension));
+                string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
+                if (Directory.Exists(path))
+                assetPaths.AddRange(Directory.GetFiles(path, extension));
             }
             return assetPaths.ToArray();
         }
@@ -93,7 +96,5 @@ namespace SajberSim.Helper
 
             return nameList.ToArray();
         }
-        
-
     }
 }

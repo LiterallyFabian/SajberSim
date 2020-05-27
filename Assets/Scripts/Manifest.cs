@@ -7,6 +7,7 @@ using UnityEngine;
 
 class Manifest
 {
+#pragma warning disable CS0649
     public string name;
     public string author;
     public string description;

@@ -58,13 +58,14 @@ public class StartStory : MonoBehaviour
             menu.name = $"Story card {i}";
 
             //fill with data
+            if(File.Exists($"{storyPaths[i]}/thumbnail.png"))
             dl.Image(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
 
             Color splashColor = Color.white;
             ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
-            GameObject.Find($"Canvas/StoryChoice/{menu.name}/Overlay_button").GetComponent<Image>().color = splashColor;
+            GameObject.Find($"Canvas/StoryChoice/{menu.name}/Overlay").GetComponent<Image>().color = splashColor;
 
-            Color textColor = Color.white;
+            Color textColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1); //standard gray
             ColorUtility.TryParseHtmlString($"#{textcolor}", out textColor);
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Title").GetComponent<Text>().color = textColor;
 

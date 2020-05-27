@@ -35,7 +35,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject fadeimage;
     public AudioSource music;
 
-    private Helper shelper = new Helper();
+    private readonly Helper shelper = new Helper();
     //pause stuff ingame
     public static bool paused = false;
     public GameObject PauseMenuGame;
