@@ -41,6 +41,7 @@ public class StartStory : MonoBehaviour
         string[] manifests = shelper.GetAllManifests();
         for (int i = page*6; i < page*6+6; i++)
         {
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages() + 1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Debug.Log($"Importing manifest {manifests[i]}");
             Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifests[i]));
@@ -55,11 +56,13 @@ public class StartStory : MonoBehaviour
             GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0,0,0,0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
             menu.transform.localPosition = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             menu.transform.localScale = Vector3.one;
-            menu.name = $"Story card {i}";
+            menu.name = $"Card {i}";
 
             //fill with data
-            if(File.Exists($"{storyPaths[i]}/thumbnail.png"))
-            dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
+            if (File.Exists($"{storyPaths[i]}/thumbnail.png"))
+                dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
+            else 
+                GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail").GetComponent<Image>().color = Color.white;
 
             Color splashColor = Color.white;
             ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
@@ -74,12 +77,20 @@ public class StartStory : MonoBehaviour
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Flag").GetComponent<Image>().sprite = dl.Flag(language);
         }
     }
+    public void Play(int id)
+    {
+        Debug.Log("play " + id);
+    }
+    public void OpenDetails(int id)
+    {
+        Debug.Log("details!" + id);
+    }
     public void ChangePage(int change)
     {
         ClearPreviewCards();
-        page += change;
-        if (page > shelper.GetCardPages()) page = 0;
-        if (page == -1) page = shelper.GetCardPages();
+        if (page + change > shelper.GetCardPages()) page = 0;
+        else if (page + change < 0) page = shelper.GetCardPages();
+        else page += change;
         UpdatePreviewCards();
     }
     public void ClearPreviewCards()
@@ -91,11 +102,13 @@ public class StartStory : MonoBehaviour
     }
     public void OpenMenu()
     {
+        UpdatePreviewCards();
         GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.one;
     }
     public void CloseMenu()
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.zero;
+        ClearPreviewCards();
     }
     
     
