@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -23,6 +24,8 @@ namespace SajberSim.Web
 
                 if (uwr.isNetworkError) 
                     Debug.LogError($"Could not download {path}\n{uwr.error}");
+                else if (!File.Exists(path.Replace("file://", "")))
+                    Debug.LogError($"Tried to download {path} which does not exist");
                 else
                 {
                     var texture = DownloadHandlerTexture.GetContent(uwr);
@@ -31,6 +34,25 @@ namespace SajberSim.Web
                     else if (type == "sprite")
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 }
+            }
+        }
+        private IEnumerator UpdateAndSetAlpha(GameObject item, string path)
+        {
+            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
+            {
+                uwr.timeout = 2;
+                yield return uwr.SendWebRequest();
+
+                if (uwr.isNetworkError)
+                    Debug.LogError($"Could not download {path.Replace("file://", "")}\n{uwr.error}");
+                else if(!File.Exists(path))
+                    Debug.LogError($"Tried to download {path} which does not exist");
+                else
+                {
+                    var texture = DownloadHandlerTexture.GetContent(uwr);
+                    item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                }
+                item.GetComponent<Image>().color = Color.white;
             }
         }
         private IEnumerator Setogg(GameObject item, string path, bool play)
@@ -47,6 +69,10 @@ namespace SajberSim.Web
                     if (play) item.GetComponent<AudioSource>().Play();
                 }
             }
+        }
+        public void CardThumbnail(GameObject item, string path)
+        {
+            StartCoroutine(UpdateAndSetAlpha(item, path));
         }
         public void Image(GameObject item, string path)
         {
