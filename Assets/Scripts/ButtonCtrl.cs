@@ -115,18 +115,17 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void StartNew() //Just checks if a new story should be started
     {
-        if (PlayerPrefs.GetString("story", "start") != "start") //story som inte är start hittad
+        if (PlayerPrefs.GetString("story", "none") != "none") //story som inte är start hittad
             OverwriteAlert.SetActive(true);
         else
             StartNewConfirmed();
     }
-    public void StartNewConfirmed() //starts a NEW story
+
+    public void StartNewConfirmed() //confirmed that user wants to start a new
     {
-        PlayerPrefs.SetString("story", "start"); //återställ storyn på förfrågan
-        CreateCharacters();
-        StartCoroutine(FadeToScene("game"));
-        UnityEngine.Debug.Log("New game created.");
+        GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
     }
+
     public void CharEasteregg()
     {
         if (!eggclicked)
@@ -142,7 +141,7 @@ public class ButtonCtrl : MonoBehaviour
             eggran = true;
         }
     }
-    private void CreateCharacters()
+    private void CreateCharacters(int id)
     {
         System.Random rnd = new System.Random();
         string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
@@ -158,21 +157,11 @@ public class ButtonCtrl : MonoBehaviour
         for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
             PlayerPrefs.SetInt($"character{i}",people[i].ID);
     }
-    private void CreateDevCharacters() //skapar nya karaktärer, men sparar dem ej
+    private void LoadCharacters(string story) //Loads characters from playerprefs
     {
-        System.Random rnd = new System.Random();
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
-
-        people = new Character[config.Length]; //change size to amount of ppl
-
-        for (int i = 0; i < config.Length; i++) //fill array from file
-            people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1], i);
-
-        people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
-    }
-    private void LoadCharacters() //Loads characters from playerprefs
-    {
-        string[] config = File.ReadAllLines($"{Application.dataPath}/Modding/Characters/characterconfig.txt");
+        string path = $"{Application.dataPath}/Story/{story}/Characters/characterconfig.txt";
+        if (!File.Exists(path)) return;
+        string[] config = File.ReadAllLines(path);
         people = new Character[PlayerPrefs.GetInt("characters", 1)];
 
         for (int i = 0; i < people.Length; i++) //fill array from save
@@ -183,7 +172,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Continue() //just opens everything SAVED
     {
-        LoadCharacters();
+        LoadCharacters(PlayerPrefs.GetString("story"));
         StartCoroutine(FadeToScene("game"));
     }
 
@@ -211,11 +200,6 @@ public class ButtonCtrl : MonoBehaviour
     public void QuitGame() //nuff' said
     {
         Application.Quit();
-    }
-    public void OpenDev()
-    {
-        CreateDevCharacters();
-        StartCoroutine(FadeToScene("dev"));
     }
     public void ResetAll() //fucking nukes all the stats like the US during 1945
     {
