@@ -43,7 +43,7 @@ public class StartStory : MonoBehaviour
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages() + 1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
-            Debug.Log($"Importing manifest {manifests[i]}");
+            Debug.Log($"Importing manifest {i}: {manifests[i]}");
             Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifests[i]));
             string name = storydata.name;
             string language = storydata.language.ToUpper();
