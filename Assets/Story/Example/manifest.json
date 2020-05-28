@@ -21,7 +21,7 @@
   "TextColor": "323232",
 
   // Whether the story should be NSFW flagged or not
-  "NSFW": false,
+  "NSFW": true,
 
   // Time estimated to play the story, in full minutes 
   "Playtime":  10

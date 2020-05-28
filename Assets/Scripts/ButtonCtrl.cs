@@ -54,7 +54,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         dl = (new GameObject("downloadobj")).AddComponent<Download>();
         Cursor.visible = true;
-        if (PlayerPrefs.GetString("story", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
+        if (PlayerPrefs.GetString("story", "none") == "none" || PlayerPrefs.GetString("script", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = false;
 
         SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";

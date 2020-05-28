@@ -427,6 +427,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(FadeOut(background.GetComponent<AudioSource>(), 1.3f, 0));
         PlayerPrefs.DeleteKey("story");
+        PlayerPrefs.DeleteKey("script");
 
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 

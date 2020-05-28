@@ -41,7 +41,7 @@ public class StartStory : MonoBehaviour
 
         string[] storyPaths = shelper.GetAllStoryPaths();
         string[] manifests = shelper.GetAllManifests();
-        for (int i = page*6; i < page*6+6; i++)
+        for (int i = page * 6; i < page * 6 + 6; i++)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages() + 1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
@@ -49,13 +49,13 @@ public class StartStory : MonoBehaviour
             Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifests[i]));
             string name = storydata.name;
             string language = storydata.language.ToUpper();
-            string overlaycolor = storydata.overlaycolor.Replace("#","");
+            string overlaycolor = storydata.overlaycolor.Replace("#", "");
             string textcolor = storydata.textcolor.Replace("#", "");
             bool nsfw = storydata.nsfw;
             int playtime = storydata.playtime;
 
             //spawn, place and resize
-            GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0,0,0,0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
+            GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
             menu.transform.localPosition = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             menu.transform.localScale = Vector3.one;
             menu.name = $"Card {i}";
@@ -63,7 +63,7 @@ public class StartStory : MonoBehaviour
             //fill with data
             if (File.Exists($"{storyPaths[i]}/thumbnail.png"))
                 dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
-            else 
+            else
                 GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail").GetComponent<Image>().color = Color.white;
 
             Color splashColor = Color.white;
