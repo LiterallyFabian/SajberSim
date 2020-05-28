@@ -83,6 +83,7 @@ public class StartStory : MonoBehaviour
     {
         Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths()[id]}");
         PlayerPrefs.SetString("story", shelper.GetAllStoryNames()[id]);
+        PlayerPrefs.SetString("script", "start");
         ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
         main.CreateCharacters();
         StartCoroutine(main.FadeToScene("game"));

@@ -144,12 +144,9 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "BG") //new background
         {
+            if (line.Length > 2) RemoveCharacters();
             dialogpos++;
             ChangeBackground(line[1]);
-            
-
-            if (line.Length > 2)
-                RemoveCharacters();
         }
         else if (line[0] == "CHAR") //move or create character
         {
@@ -399,7 +396,7 @@ public class GameManager : MonoBehaviour
             //skapa gameobj
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
-            SpriteRenderer renderer = character.AddComponent<SpriteRenderer>();
+            character.AddComponent<SpriteRenderer>();
             dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
 
             //sätt size + pos
