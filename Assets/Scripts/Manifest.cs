@@ -17,4 +17,5 @@ class Manifest
     public string textcolor;
     public bool nsfw;
     public int playtime;
+    public int publishdate;
 }

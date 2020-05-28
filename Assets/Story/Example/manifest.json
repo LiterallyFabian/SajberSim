@@ -21,8 +21,11 @@
   "TextColor": "323232",
 
   // Whether the story should be NSFW flagged or not
-  "NSFW": true,
+  "NSFW": false,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  10
+  "Playtime":  10,
+  
+  //Date story got published (YYYYMMDD)
+  "PublishDate": "20200528"
 }

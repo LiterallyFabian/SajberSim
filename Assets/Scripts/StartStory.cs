@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using SajberSim.Web;
 using System.Net;
 using System.Text;
+using UnityEditor;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -18,6 +19,8 @@ public class StartStory : MonoBehaviour
     private Helper shelper = new Helper();
     private int page = 0;
     public GameObject StoryCardTemplate;
+    public bool nsfw;
+    Helper.StorySearchArgs searchArgs;
     Download dl;
 
 
@@ -26,8 +29,24 @@ public class StartStory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
+        else nsfw = true;
         dl = new GameObject("downloadobj").AddComponent<Download>();
         
+    }
+    public void UpdateNsfw(bool n)
+    {
+        if (n)
+        {
+            PlayerPrefs.SetInt("nsfw", 1);
+            nsfw = true;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("nsfw", 0);
+            nsfw = false;
+        }
+        UpdatePreviewCards();
     }
 
     // Update is called once per frame
@@ -39,8 +58,8 @@ public class StartStory : MonoBehaviour
     {
         ClearPreviewCards();
 
-        string[] storyPaths = shelper.GetAllStoryPaths();
-        string[] manifests = shelper.GetAllManifests();
+        string[] storyPaths = shelper.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, nsfw);
+        string[] manifests = shelper.GetAllManifests(Helper.StorySearchArgs.Alphabetical, nsfw);
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages() + 1}";
