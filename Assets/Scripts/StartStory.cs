@@ -11,6 +11,7 @@ using System.Net;
 using System.Text;
 using UnityEditor;
 using System.Threading;
+using System;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -90,7 +91,7 @@ public class StartStory : MonoBehaviour
             menu.transform.localScale = Vector3.one;
             menu.name = $"Card {i}";
 
-            //fill with data
+            //Fill with data
             if (File.Exists($"{storyPaths[i]}/thumbnail.png")) 
                 dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
             else
@@ -103,6 +104,16 @@ public class StartStory : MonoBehaviour
             Color textColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1); //standard gray
             ColorUtility.TryParseHtmlString($"#{textcolor}", out textColor);
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Title").GetComponent<Text>().color = textColor;
+            GameObject clock = GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock");
+            clock.GetComponent<Image>().color = textColor;
+            GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock/TimeNumber").GetComponent<Text>().color = textColor;
+            GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock/TimeNumber").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
+            GameObject.Find($"Canvas/StoryChoice/{menu.name}/NSFW").GetComponent<Text>().color = textColor;
+            if (!isnsfw)
+            {
+                GameObject.Find($"Canvas/StoryChoice/{menu.name}/NSFW").GetComponent<Text>().color = new Color(0, 0, 0, 0);
+                clock.transform.localPosition = new Vector3(clock.transform.localPosition.x, 47, 0);
+            }
 
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Title").GetComponent<Text>().text = name;
 

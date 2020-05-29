@@ -114,7 +114,6 @@ namespace SajberSim.Helper
 
             if (!nsfw) //remove nsfw if needed
                 fixedPaths = RemoveNSFWFromCardPaths(fixedPaths.ToList<string>());
-            Debug.LogError(string.Join("\n", fixedPaths));
             return fixedPaths;
         }
         /// <summary>
@@ -123,7 +122,7 @@ namespace SajberSim.Helper
         private string[] SortArrayBy(List<string> storyPaths, StorySearchArgs args)
         {
             bool reverse = false;
-            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.ShortestFirst) reverse = true;
+            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.LongestFirst) reverse = true;
             List<StorySort> itemList = new List<StorySort>();
 
             //Add everything to a list
