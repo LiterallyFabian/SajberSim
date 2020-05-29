@@ -98,23 +98,23 @@ namespace SajberSim.Helper
             return manifestPaths.ToArray();
         }
         /// <summary>
-        /// Returns paths to all story folders, eg app/Story/OpenHouse
+        /// Returns paths to all story folders, eg app/Story/OpenHouse. Main method for most stuff here
         /// </summary>
         /// <param name="args">Search arguments</param>
         /// <param name="nsfw">Include NSFW</param>
-        /// <returns></returns>
+        /// <returns>Array with paths to all local story folders</returns>
         public string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true)
         {
             List<string> storyPaths = Directory.GetDirectories($"{Application.dataPath}/Story/").ToList();
             string[] fixedPaths;
-            if (args == StorySearchArgs.ID) 
-                fixedPaths = Directory.GetDirectories($"{Application.dataPath}/Story/");
-            else 
+            if (args == StorySearchArgs.ID)
+                fixedPaths = new string[10];
+            else
                 fixedPaths = SortArrayBy(storyPaths, args);
 
-            if (!nsfw) 
+            if (!nsfw) //remove nsfw if needed
                 fixedPaths = RemoveNSFWFromCardPaths(fixedPaths.ToList<string>());
-
+            Debug.LogError(string.Join("\n", fixedPaths));
             return fixedPaths;
         }
         /// <summary>
@@ -123,38 +123,37 @@ namespace SajberSim.Helper
         private string[] SortArrayBy(List<string> storyPaths, StorySearchArgs args)
         {
             bool reverse = false;
-            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst) reverse = true;
+            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.ShortestFirst) reverse = true;
             List<StorySort> itemList = new List<StorySort>();
 
             //Add everything to a list
             foreach (string path in storyPaths)
             {
                 Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText($"{path}/manifest.json"));
-                if (args == StorySearchArgs.Alphabetical)
+                if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
                     itemList.Add(new StorySort(path, storydata.name));
-                else if (args == StorySearchArgs.LongestFirst)
+                else if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.ShortestFirst)
                     itemList.Add(new StorySort(path, storydata.playtime));
                 else if (args == StorySearchArgs.Author)
                     itemList.Add(new StorySort(path, storydata.author));
-                else if (args == StorySearchArgs.Newest)
+                else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
                     itemList.Add(new StorySort(path, storydata.publishdate));
             }
 
             //Start sorting
-            if(args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest) //playtime
-                itemList.Sort((x, y) => y.argint.CompareTo(x.argint));
-            if(args == StorySearchArgs.Alphabetical || args == StorySearchArgs.Author) //name || author
-                itemList.Sort((x, y) => string.Compare(x.argstring, y.argstring));
-
+            if(args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst) //playtime
+                itemList = itemList.OrderBy(c => c.argint).ToList();
+            if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.Author || args == StorySearchArgs.ReverseAlphabetical) //name || author
+                itemList = itemList.OrderBy(c => c.argstring).ToList();
 
             //Done, now add paths
             List<string> sortedList = new List<string>();
             foreach (StorySort story in itemList)
             {
-                sortedList.Add(story.path);
+                sortedList.Add(story.thepath);
             }
-            if (reverse) sortedList.Reverse();
-            return sortedList.ToArray();
+            if (reverse) return ReverseArray(sortedList.ToArray());
+            else return sortedList.ToArray();
             
         }
         private string[] RemoveNSFWFromCardPaths(List<string> storyPaths) // https://i.imgur.com/Dw1l9YI.png
@@ -180,20 +179,30 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
-        public string[] GetAllStoryNames()
+        public string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true)
         {
             List<string> nameList = new List<string>();
-            foreach (string path in GetAllStoryPaths())
+            foreach (string path in GetAllStoryPaths(args, nsfw))
                 nameList.Add(path.Replace($"{Application.dataPath}/Story/", ""));
 
             return nameList.ToArray();
         }
         /// <summary>
-        /// Returns amount of pages needed for the preview card menu
+        /// Returns amount of pages needed for the preview card menu, in the correct order
         /// </summary>
-        public int GetCardPages()
+        public int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true)
         {
-            return (GetAllManifests().Length - (GetAllManifests().Length % 6)) / 6;
+            if (GetAllManifests(args, nsfw).Length <= 6) return 0;
+            return (GetAllManifests(args, nsfw).Length - (GetAllManifests(args, nsfw).Length % 6)) / 6;
+        }
+        public static string[] ReverseArray(string[] arr)
+        {
+            Array.Reverse(arr);
+            return arr;
+        }
+        public static List<string> ReverseList(List<string> list)
+        {
+            return ReverseArray(list.ToArray()).ToList<string>(); //bad code? maybe
         }
     }
     /// <summary>
@@ -201,17 +210,17 @@ namespace SajberSim.Helper
     /// </summary>
     class StorySort
     {
-        public string path;
+        public string thepath;
         public string argstring;
         public int argint;
         public StorySort(string path, string arg)
         {
-            this.path = path;
+            this.thepath = path;
             this.argstring = arg;
         }
         public StorySort(string path, int arg)
         {
-            this.path = path;
+            this.thepath = path;
             this.argint = arg;
         }
     }

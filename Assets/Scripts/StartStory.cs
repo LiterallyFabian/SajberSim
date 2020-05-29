@@ -10,6 +10,7 @@ using SajberSim.Web;
 using System.Net;
 using System.Text;
 using UnityEditor;
+using System.Threading;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -31,10 +32,11 @@ public class StartStory : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
+        GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
         dl = new GameObject("downloadobj").AddComponent<Download>();
         
     }
-    public void UpdateNsfw(bool n)
+    public void UserUpdateNsfw(bool n)
     {
         if (n)
         {
@@ -48,6 +50,12 @@ public class StartStory : MonoBehaviour
         }
         UpdatePreviewCards();
     }
+    public void UserUpdateSort(int n)
+    {
+        searchArgs = (Helper.StorySearchArgs)n;
+        Debug.Log(searchArgs);
+        UpdatePreviewCards();
+    }
 
     // Update is called once per frame
     void Update()
@@ -56,13 +64,13 @@ public class StartStory : MonoBehaviour
     }
     public void UpdatePreviewCards()
     {
-        ClearPreviewCards();
-
-        string[] storyPaths = shelper.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, nsfw);
-        string[] manifests = shelper.GetAllManifests(Helper.StorySearchArgs.Alphabetical, nsfw);
+        Debug.Log("Request to update cards");
+        string[] storyPaths = shelper.GetAllStoryPaths(searchArgs, nsfw);
+        string[] manifests = shelper.GetAllManifests(searchArgs, nsfw);
+        
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages() + 1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages(searchArgs, nsfw)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Debug.Log($"Importing manifest {i}: {manifests[i]}");
             Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifests[i]));
@@ -70,21 +78,24 @@ public class StartStory : MonoBehaviour
             string language = storydata.language.ToUpper();
             string overlaycolor = storydata.overlaycolor.Replace("#", "");
             string textcolor = storydata.textcolor.Replace("#", "");
-            bool nsfw = storydata.nsfw;
+            bool isnsfw = storydata.nsfw;
             int playtime = storydata.playtime;
 
+            GameObject menu;
             //spawn, place and resize
-            GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
+            if (GameObject.Find($"Canvas/StoryChoice/Card {i}") == null) menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
+            else menu = GameObject.Find($"Canvas/StoryChoice/Card {i}");
+           
             menu.transform.localPosition = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             menu.transform.localScale = Vector3.one;
             menu.name = $"Card {i}";
 
             //fill with data
-            if (File.Exists($"{storyPaths[i]}/thumbnail.png"))
+            if (File.Exists($"{storyPaths[i]}/thumbnail.png")) 
                 dl.CardThumbnail(GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail"), $"{storyPaths[i]}/thumbnail.png");
             else
                 GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail").GetComponent<Image>().color = Color.white;
-
+                
             Color splashColor = Color.white;
             ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
             GameObject.Find($"Canvas/StoryChoice/{menu.name}/Overlay").GetComponent<Image>().color = splashColor;
@@ -100,8 +111,8 @@ public class StartStory : MonoBehaviour
     }
     public void Play(int id)
     {
-        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths()[id]}");
-        PlayerPrefs.SetString("story", shelper.GetAllStoryNames()[id]);
+        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths(searchArgs, nsfw)[id]}");
+        PlayerPrefs.SetString("story", shelper.GetAllStoryNames(searchArgs, nsfw)[id]);
         PlayerPrefs.SetString("script", "start");
         ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
         main.CreateCharacters();
@@ -111,22 +122,28 @@ public class StartStory : MonoBehaviour
     }
     public void OpenDetails(int id)
     {
-        Debug.Log($"Attempting to create details of local story with ID {id}, path {shelper.GetAllStoryPaths()[id]}");
+        Debug.Log($"Attempting to create details of local story with ID {id}, path {shelper.GetAllStoryPaths(searchArgs, nsfw)[id]}");
     }
     public void ChangePage(int change)
     {
+        if (shelper.GetCardPages(searchArgs, nsfw) == 0)
+        {
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Animator>().Play("storycard_pageinfojump", 0, 0);
+            return;
+        }
+
         ClearPreviewCards();
-        if (page + change > shelper.GetCardPages()) page = 0;
-        else if (page + change < 0) page = shelper.GetCardPages();
+        if (page + change > shelper.GetCardPages(searchArgs, nsfw)) page = 0;
+        else if (page + change < 0) page = shelper.GetCardPages(searchArgs, nsfw);
         else page += change;
         UpdatePreviewCards();
     }
     public void ClearPreviewCards()
     {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("PreviewCard");
-
-        for (int i = 0; i < gameObjects.Length; i++)
-            Destroy(gameObjects[i]);
+        Debug.Log("Request to delete preview cards");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("PreviewCard");
+        foreach (GameObject enemy in enemies)
+            GameObject.Destroy(enemy);
     }
     public void OpenMenu()
     {
