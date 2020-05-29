@@ -1,6 +1,6 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "Written by A",
+  "Name": "Written by A, long nsfw",
 
   // Your SajberSim username
   "Author": "Author",
@@ -21,10 +21,10 @@
   "TextColor": "323232",
 
   // Whether the story should be NSFW flagged or not
-  "NSFW": false,
+  "NSFW": true,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  10,
+  "Playtime":  200,
   
   //Date story got published (YYYYMMDD)
   "PublishDate": "20200528"

@@ -1,6 +1,6 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "A snowy day",
+  "Name": "A snowy day, sfw old short",
 
   // Your SajberSim username
   "Author": "NotFabian",
@@ -24,7 +24,7 @@
   "NSFW": false,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  10,
+  "Playtime":  2,
   
   //Date story got published (YYYYMMDD)
   "PublishDate": "20150528"
