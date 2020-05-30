@@ -19,7 +19,9 @@ using System;
 public class StartStory : MonoBehaviour
 {
     private Helper shelper = new Helper();
-    private int page = 0;
+
+    private int page = 0; //current page in story card menu, starting at 0
+
     public GameObject StoryCardTemplate;
     public bool nsfw;
     Helper.StorySearchArgs searchArgs;
@@ -48,6 +50,7 @@ public class StartStory : MonoBehaviour
         {
             PlayerPrefs.SetInt("nsfw", 0);
             nsfw = false;
+            if(page != 0) ResetPage();
         }
         UpdatePreviewCards();
     }
@@ -147,6 +150,12 @@ public class StartStory : MonoBehaviour
         if (page + change > shelper.GetCardPages(searchArgs, nsfw)) page = 0;
         else if (page + change < 0) page = shelper.GetCardPages(searchArgs, nsfw);
         else page += change;
+        UpdatePreviewCards();
+    }
+    private void ResetPage()
+    {
+        ClearPreviewCards();
+        page = 0;
         UpdatePreviewCards();
     }
     public void ClearPreviewCards()

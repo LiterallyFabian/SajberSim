@@ -108,7 +108,7 @@ namespace SajberSim.Helper
             List<string> storyPaths = Directory.GetDirectories($"{Application.dataPath}/Story/").ToList();
             string[] fixedPaths;
             if (args == StorySearchArgs.ID)
-                fixedPaths = new string[10];
+                fixedPaths = Directory.GetDirectories($"{Application.dataPath}/Story/");
             else
                 fixedPaths = SortArrayBy(storyPaths, args);
 
@@ -128,6 +128,7 @@ namespace SajberSim.Helper
             //Add everything to a list
             foreach (string path in storyPaths)
             {
+                Debug.Log($"Creating object for manifest {path}/manifest.json");
                 Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText($"{path}/manifest.json"));
                 if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
                     itemList.Add(new StorySort(path, storydata.name));
