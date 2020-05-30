@@ -236,7 +236,8 @@ public class ButtonCtrl : MonoBehaviour
             UnityEngine.Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {Application.dataPath}/{path}");
             return;
         }
-            Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
+        if(path == "Logs") Helper.CreateLogfile();
+        Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
     }
     public void OpenLink(string link)
     {
@@ -291,12 +292,8 @@ public class ButtonCtrl : MonoBehaviour
     private void OnApplicationQuit()
     {
         //DiscordRpc.Shutdown(); //Stänger Discord RPC
+        Helper.CreateLogfile();
 
-        if (Application.isEditor) return; //Skapar loggfil utanför Unity
-        DateTime now = DateTime.Now;
-        string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
-        string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
-        System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
-        System.IO.File.Copy(sourceFile, destFile, true);
+
     }
 }

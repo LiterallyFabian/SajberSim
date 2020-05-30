@@ -228,6 +228,15 @@ namespace SajberSim.Helper
         {
             return ReverseArray(list.ToArray()).ToList<string>(); //bad code? maybe
         }
+        public static void CreateLogfile()
+        {
+            if (Application.isEditor) return;
+            DateTime now = DateTime.Now;
+            string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
+            string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
+            System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
+            System.IO.File.Copy(sourceFile, destFile, true);
+        }
     }
     /// <summary>
     /// Used to store path and corresponding search pattern for Helper.SortArrayBy.
