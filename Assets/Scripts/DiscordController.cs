@@ -8,12 +8,12 @@ public class DiscordJoinEvent : UnityEngine.Events.UnityEvent<string> { }
 
 [System.Serializable]
 public class DiscordSpectateEvent : UnityEngine.Events.UnityEvent<string> { }
-
+/*
 [System.Serializable]
 public class DiscordJoinRequestEvent : UnityEngine.Events.UnityEvent<DiscordRpc.DiscordUser> { }
-
+*/
 public class DiscordController : MonoBehaviour
-{
+{/*
     public static DiscordRpc.RichPresence presence = new DiscordRpc.RichPresence();
     public string applicationId;
     public string optionalSteamId;
@@ -65,4 +65,5 @@ public class DiscordController : MonoBehaviour
     {
 
     }
+    */
 }

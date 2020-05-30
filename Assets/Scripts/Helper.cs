@@ -195,6 +195,22 @@ namespace SajberSim.Helper
             if (GetAllManifests(args, nsfw).Length <= 6) return 0;
             return (GetAllManifests(args, nsfw).Length - (GetAllManifests(args, nsfw).Length % 6)) / 6;
         }
+        /// <summary>
+        /// Returns amount of cards that should be on the last page
+        /// </summary>
+        public int GetLeftoverCardAmount(bool nsfw = true)
+        {
+            int n = GetAllManifests(StorySearchArgs.ID, nsfw).Length % 6;
+            if (n == 0) return 6; //there shouldn't be 0 cards on the last page
+            else return n;
+        }
+        /// <summary>
+        /// Returns amount of cards in total
+        /// </summary>
+        public int GetTotalCardAmount(bool nsfw = true)
+        {
+            return GetAllManifests(StorySearchArgs.ID, nsfw).Length;
+        }
         public static string[] ReverseArray(string[] arr)
         {
             Array.Reverse(arr);
