@@ -1,0 +1,31 @@
+{
+// Name of your story that will show up in the start menu and story finder
+  "Name": "oh shit",
+
+  // Your SajberSim username
+  "Author": "NotFabian",
+
+  //Description of your story that will show up in the story finder. Use \n for new lines
+  "Description": "Example story to get you started with creating your own visual novels in SajberSim!",
+
+  // Unique ID for your story - have to be the exact same as the folder name
+  "ID": "Example",
+
+  // The language your dialogues are written in
+  "Language": "US",
+
+  // Color of the thumbnail overlay in HEX
+  "OverlayColor": "ACFEFF",
+
+  // Color of the thumbnail text in HEX
+  "TextColor": "012F30",
+
+  // Whether the story should be NSFW flagged or not
+  "NSFW": true,
+
+  // Time estimated to play the story, in full minutes 
+  "Playtime":  2,
+  
+  //Date story got published (YYYYMMDD)
+  "PublishDate": "20150528"
+}
