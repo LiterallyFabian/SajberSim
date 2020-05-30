@@ -128,8 +128,7 @@ namespace SajberSim.Helper
             //Add everything to a list
             foreach (string path in storyPaths)
             {
-                Debug.Log($"Creating object for manifest {path}/manifest.json");
-                Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText($"{path}/manifest.json"));
+                Manifest storydata = GetManifest($"{path}/manifest.json");
                 if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
                     itemList.Add(new StorySort(path, storydata.name));
                 else if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.ShortestFirst)
@@ -165,14 +164,14 @@ namespace SajberSim.Helper
             }
             return storyPaths.ToArray();
         }
-         public string GetManifest(string storyID)
+         public string GetManifestPath(string storyID)
         {
             string path = $"{Application.dataPath}/Story/{storyID}";
             if (File.Exists(path))
                 return path;
             else
             {
-                Debug.LogError($"Tried getting manifest {storyID} which does not exist ({path})");
+                Debug.LogError($"Tried getting manifest path {storyID} which does not exist ({path})");
                 return null;
             }    
         }
@@ -203,6 +202,15 @@ namespace SajberSim.Helper
             int n = GetAllManifests(StorySearchArgs.ID, nsfw).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
+        }
+        public Manifest GetManifest(string path)
+        {
+            if (!path.Contains(".json"))
+            {
+                Debug.LogError($"Tried getting manifest for path \"{path}\" which does not exist");
+                return null;
+            }
+            return JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(path));
         }
         /// <summary>
         /// Returns amount of cards in total

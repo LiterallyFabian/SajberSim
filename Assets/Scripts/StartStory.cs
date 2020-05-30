@@ -26,6 +26,7 @@ public class StartStory : MonoBehaviour
     public bool nsfw;
     Helper.StorySearchArgs sortArgs;
     Download dl;
+    public Dropdown sortWay;
 
 
 
@@ -37,7 +38,9 @@ public class StartStory : MonoBehaviour
         else nsfw = true;
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
         dl = new GameObject("downloadobj").AddComponent<Download>();
-        
+
+        sortArgs = (Helper.StorySearchArgs)PlayerPrefs.GetInt("sorting", 0);
+        sortWay.SetValueWithoutNotify(PlayerPrefs.GetInt("sorting", 0));
     }
     public void UserUpdateNsfw(bool n)
     {
@@ -58,6 +61,7 @@ public class StartStory : MonoBehaviour
     {
         sortArgs = (Helper.StorySearchArgs)n;
         Debug.Log($"Sorting arguments changed: {sortArgs}");
+        PlayerPrefs.SetInt("sorting", n);
         UpdatePreviewCards();
     }
 
@@ -76,8 +80,7 @@ public class StartStory : MonoBehaviour
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages(sortArgs, nsfw)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
-            Debug.Log($"Importing manifest {i}: {manifests[i]}");
-            Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifests[i]));
+            Manifest storydata = shelper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             CreateCard(storyPaths[i], storydata, position);
             
@@ -100,34 +103,41 @@ public class StartStory : MonoBehaviour
         //menu.transform.localScale = Vector3.one;
         menu.name = $"{id}";
 
-        
+
 
         //Fill with data
-        
-            GameObject.Find($"Canvas/StoryChoice/{menu.name}/Thumbnail").GetComponent<Image>().color = Color.white;
+        if (File.Exists($"{storyPath}/thumbnail.png"))
+            dl.CardThumbnail(menu.transform.Find($"Thumbnail"), $"{storyPath}/thumbnail.png");
+        else
+            menu.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
 
         Color splashColor = Color.white;
         ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Overlay").GetComponent<Image>().color = splashColor;
+        menu.transform.Find("Overlay").GetComponent<Image>().color = splashColor;
 
         Color textColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1); //standard gray
         ColorUtility.TryParseHtmlString($"#{textcolor}", out textColor);
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Title").GetComponent<Text>().color = textColor;
+        menu.transform.Find("Title").GetComponent<Text>().color = textColor;
         
-        GameObject clock = GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock");
+        Transform clock = menu.transform.Find("Clock");
         clock.GetComponent<Image>().color = textColor;
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock/TimeNumber").GetComponent<Text>().color = textColor;
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Clock/TimeNumber").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/NSFW").GetComponent<Text>().color = textColor;
+        clock.transform.Find("TimeNumber").GetComponent<Text>().color = textColor;
+        clock.transform.Find("TimeNumber").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
+        
         if (!isnsfw)
         {
-            GameObject.Find($"Canvas/StoryChoice/{menu.name}/NSFW").GetComponent<Text>().color = new Color(0, 0, 0, 0);
+            menu.transform.Find("NSFW").GetComponent<Text>().color = new Color(0, 0, 0, 0); //hide
             clock.transform.localPosition = new Vector3(clock.transform.localPosition.x, 47, 0);
         }
+        else if (isnsfw) // easier to read than just an else 
+        {
+            menu.transform.Find("NSFW").GetComponent<Text>().color = textColor; //show
+            clock.transform.localPosition = new Vector3(clock.transform.localPosition.x, 57, 0);
+        }
 
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Title").GetComponent<Text>().text = name;
+        menu.transform.Find("Title").GetComponent<Text>().text = name;
 
-        GameObject.Find($"Canvas/StoryChoice/{menu.name}/Flag").GetComponent<Image>().sprite = dl.Flag(language);
+        menu.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
     }
     public void Play(int id)
     {

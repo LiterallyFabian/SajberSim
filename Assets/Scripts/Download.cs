@@ -50,9 +50,9 @@ namespace SajberSim.Web
                 else
                 {
                     var texture = DownloadHandlerTexture.GetContent(uwr);
-                    item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    if (item) item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 }
-                item.GetComponent<Image>().color = Color.white;
+                if (item) item.GetComponent<Image>().color = Color.white;
             }
         }
         private IEnumerator Setogg(GameObject item, string path, bool play)
@@ -70,9 +70,9 @@ namespace SajberSim.Web
                 }
             }
         }
-        public void CardThumbnail(GameObject item, string path)
+        public void CardThumbnail(Transform item, string path)
         {
-            StartCoroutine(UpdateAndSetAlpha(item, path));
+            StartCoroutine(UpdateAndSetAlpha(item.gameObject, path));
         }
         public void Image(GameObject item, string path)
         {
