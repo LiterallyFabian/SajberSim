@@ -2830,6 +2830,7 @@ MonoBehaviour:
   Speed: {fileID: 2082398437}
   Volume: {fileID: 1530438554}
   SpeedText: {fileID: 464299523}
+  languagechange: {fileID: 1542724708}
   VolumeText: {fileID: 1586086260}
   UwuText: {fileID: 2124576862}
   BehindSettings: {fileID: 1292243164}
@@ -14714,7 +14715,6 @@ GameObject:
   - component: {fileID: 1542724706}
   - component: {fileID: 1542724709}
   - component: {fileID: 1542724708}
-  - component: {fileID: 1542724707}
   m_Layer: 5
   m_Name: UpdateNotif
   m_TagString: Untagged
@@ -14741,19 +14741,6 @@ RectTransform:
   m_AnchoredPosition: {x: 235.46, y: 0}
   m_SizeDelta: {x: 270.82742, y: 60.44117}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1542724707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542724705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextId: langchange
 --- !u!114 &1542724708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14786,7 +14773,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Language change will take effect when you restart the game.
+  m_Text: 
 --- !u!222 &1542724709
 CanvasRenderer:
   m_ObjectHideFlags: 0
