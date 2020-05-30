@@ -1,0 +1,42 @@
+#Main menu
+newgame=New game
+continue=Continue
+minigames=Minigames
+settings=Settings
+create=Create
+quit=Quit
+credits=Credits
+
+#Settings
+volume=Volume
+writingspeed=Writing speed
+openlogs=Open log folder
+language=Language
+
+#Overwrite warning
+overwritewarning=You already have a game started, are you sure you want to start a new game? This will replace your old game!
+confirm=Confirm
+cancel=Cancel
+
+#Play menu
+nsfwtoggle=Show NSFW
+sort=Sort
+searchdownloaded=Search for downloaded stories
+searchplaceholder=Write something...
+play=Play
+details=Details
+page=Page
+byname=By Name
+bynamedec=By Name (descending)
+bylongest=By Longest
+byshortest=By Shortest
+bynewest=By Newest
+byoldest=By Oldest
+byauthor=By Author
+
+#Character positioning
+clearall=Remove all
+changebackground=Change background
+backtomain=Go back 
+codeplaceholder=Your code will be shown here...
+

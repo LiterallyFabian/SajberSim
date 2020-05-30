@@ -641,7 +641,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Texter\n\nKarakt\xE4rer\n\n\nBakgrunder\n\nRamverk\n"
+  m_Text: "Karakt\xE4rer\n\n\nBakgrunder\n\nRamverk\n"
 --- !u!222 &608685307
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -684,7 +684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -602}
+  m_AnchoredPosition: {x: 0, y: -486.13}
   m_SizeDelta: {x: 580.9, y: 460.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614869959
@@ -719,8 +719,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "Tack f\xF6r att du har spelat, vi hoppas att det har varit roligt och
-    att vi ser dig p\xE5 skolan i h\xF6st!\n"
+  m_Text: cute message here
 --- !u!222 &614869960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -857,10 +856,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: 'Fabian Lindgren
-
-
-    Lumi
+  m_Text: 'Lumi
 
     Emelie Grabne
 
@@ -868,8 +864,7 @@ MonoBehaviour:
     Alexander Pernebring
 
 
-    Fabian
-    Lindgren
+    Fabian Lindgren
 
 '
 --- !u!222 &947418089

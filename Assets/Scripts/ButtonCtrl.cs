@@ -14,6 +14,7 @@ using SajberSim.Web;
 using SajberSim.StoryDebug;
 using SajberSim.Story;
 using SajberSim.Helper;
+using SajberSim.Translation;
 
 public class ButtonCtrl : MonoBehaviour
 {
@@ -24,16 +25,19 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject CreditsButton;
     public Button ContinueButton;
     public Button DebugButton;
+    public Dropdown language;
     public Toggle uwu;
     public Slider Speed;
     public Slider Volume;
     public Text SpeedText;
+    public Text languagechange;
     public Text VolumeText;
     public Text UwuText;
     public GameObject BehindSettings;
     public static Character[] people = new Character[4];
     public GameObject fadeimage;
     public AudioSource music;
+    public static string[] languages = { "en", "sv" };
 
     private readonly Helper shelper = new Helper();
     //pause stuff ingame
@@ -52,6 +56,8 @@ public class ButtonCtrl : MonoBehaviour
 
     public void Start()
     {
+        if (PlayerPrefs.GetString("language", "none") != "none")
+            language.SetValueWithoutNotify(Array.IndexOf(languages, PlayerPrefs.GetString("language")));
         dl = (new GameObject("downloadobj")).AddComponent<Download>();
         Cursor.visible = true;
         if (PlayerPrefs.GetString("story", "none") == "none" || PlayerPrefs.GetString("script", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
@@ -238,6 +244,12 @@ public class ButtonCtrl : MonoBehaviour
         }
         if(path == "Logs") Helper.CreateLogfile();
         Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
+    }
+    public void SetLanguage(int n)
+    {
+        Translate.lang = languages[n];
+        PlayerPrefs.SetString("language", languages[n]);
+        languagechange.text = "Language change will take effect when you restart the game.";
     }
     public void OpenLink(string link)
     {
