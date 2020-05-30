@@ -231,7 +231,12 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenFolder(string path)
     {
-    Process.Start("explorer.exe", $@"{Application.dataPath}/Modding/{path}/".Replace("/", "\\"));
+        if (!Directory.Exists($@"{Application.dataPath}/{path}"))
+        {
+            UnityEngine.Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {Application.dataPath}/{path}");
+            return;
+        }
+            Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
     }
     public void OpenLink(string link)
     {
