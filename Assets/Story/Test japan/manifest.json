@@ -27,5 +27,8 @@
   "Playtime":  282,
   
   //Date story got published (YYYYMMDD)
-  "PublishDate": "20150528"
+  "PublishDate": "20150528",
+  
+  //Genre of the story - please assign this ingame
+  "Genre": "Slice of life"
 }

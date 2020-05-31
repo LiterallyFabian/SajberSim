@@ -27,5 +27,8 @@
   "Playtime":  1,
   
   //Date story got published (YYYYMMDD)
-  "PublishDate": "20210528"
+  "PublishDate": "20210528",
+  
+  //Genre of the story - please assign this ingame
+  "Genre": "Drama"
 }
