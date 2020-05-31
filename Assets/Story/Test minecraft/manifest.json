@@ -30,5 +30,8 @@
   "PublishDate": "20150528",
   
   //Genre of the story - please assign this ingame
-  "Genre": "Comedy"
+  "Genre": "Comedy",
+  
+  //Tags seperated by a comma
+  "Tags": ["minecraft", "steve"]
 }

@@ -30,5 +30,8 @@
   "PublishDate": "20200528",
   
   //Genre of the story - please assign this ingame
-  "Genre": "Adventure"
+  "Genre": "Adventure",
+  
+  //Tags seperated by a comma
+  "Tags": ["linus tech tips", "lol", "ltt", "tech tip", "more tags"]
 }

@@ -30,5 +30,8 @@
   "PublishDate": "20100528",
   
   //Genre of the story - please assign this ingame
-  "Genre": "Drama"
+  "Genre": "Drama",
+  
+  //Tags seperated by a comma
+  "Tags": ["sams revenge", "tag2"]
 }

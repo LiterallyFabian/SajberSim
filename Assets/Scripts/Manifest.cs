@@ -18,4 +18,5 @@ class Manifest
     public bool nsfw;
     public int playtime;
     public int publishdate;
+    public string[] tags;
 }
