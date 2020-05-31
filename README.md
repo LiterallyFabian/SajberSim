@@ -2,15 +2,15 @@
 
 ## Info
 
-SajberSim är ett ramverk för visual novels med nuvarande mål för Öppna hus / marknadsföring för [Cybergymnasiet Odenplan](https://cybergymnasiet.se/), förväntas bli klart hösten 2020. 
+SajberSim is a framework for visual novels, primarily made for [Cybergymnasiet Odenplan](https://cybergymnasiet.se/), with potential plans on being publicly released in the future.
 
 
 
-## Nerladdning
+## Download
 
-Färdiga builds finns [här](https://github.com/LiterallyFabian/SajberSim/releases) eller på huvudsidan [Sajber.me](http://sajber.me), notera att dessa i nuläget inte direkt har något intressant att se.
+Complete builds can be downloaded [here](https://github.com/LiterallyFabian/SajberSim/releases), note that these builds does not contain anything interesting to see.
 
-För källkod kan du klona projektet med Git, och sedan öppna mappen i Unity.
+For the source code, you can clone the project with Git and then open the folder with Unity 2019.3.12f1
 
 ```
 git clone https://github.com/LiterallyFabian/SajberSim
@@ -19,7 +19,7 @@ cd SajberSim
 
 
 
-## Kontakt / frågor / whatever
+## Contact / questions / whatever
 
 **Email:** fabian.lindgren@elev.cybergymnasiet.se 
 
@@ -30,4 +30,6 @@ cd SajberSim
 ## To-do
 
 https://github.com/LiterallyFabian/SajberSim/projects/1
+
+
 
