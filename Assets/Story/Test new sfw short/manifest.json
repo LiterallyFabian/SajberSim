@@ -30,7 +30,7 @@
   "PublishDate": "20210528",
   
   //Genre of the story - please assign this ingame
-  "Genre": "Drama",
+  "Genre": "drama",
   
   //Tags seperated by a comma
   "Tags": ["fish", "WAT"]

@@ -30,7 +30,7 @@
   "PublishDate": "20200528",
   
   //Genre of the story - please assign this ingame
-  "Genre": "Other",
+  "Genre": "other",
   
   //Tags seperated by a comma
   "Tags": ["example", "template"]
