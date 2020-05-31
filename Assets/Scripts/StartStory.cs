@@ -147,6 +147,10 @@ public class StartStory : MonoBehaviour
 
         menu.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
     }
+    private void CreateDetails()
+    {
+
+    }
     public void Play(int id)
     {
         Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths(sortArgs, nsfw)[id]}");
