@@ -19,4 +19,5 @@ class Manifest
     public int playtime;
     public int publishdate;
     public string[] tags;
+    public string genre;
 }

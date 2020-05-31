@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
-using SajberSim.Helper;
-using System.Linq;
-using System.IO;
-using UnityEngine.UI;
-using SajberSim.Web;
 using System.Net;
 using System.Text;
+using System.Linq;
+using System.IO;
+using UnityEngine;
 using UnityEditor;
-using System.Threading;
-using System;
+using UnityEngine.UI;
+using Newtonsoft.Json;
+using SajberSim.Helper;
+using SajberSim.Web;
 using SajberSim.Translation;
+using System.Diagnostics.Eventing.Reader;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -20,6 +21,7 @@ using SajberSim.Translation;
 public class StartStory : MonoBehaviour
 {
     public GameObject StoryCardTemplate;
+    public GameObject DetailsTemplate;
     public GameObject CloseButtonBehind;
     public Dropdown sortWay;
 
@@ -30,9 +32,10 @@ public class StartStory : MonoBehaviour
 
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
+    public bool detailsOpen = false;
     
 
-
+        
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +79,11 @@ public class StartStory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+            if (detailsOpen)
+                DeleteDetails();
+            else
+                CloseMenu();
     }
     public void UpdatePreviewCards()
     {
@@ -90,14 +97,14 @@ public class StartStory : MonoBehaviour
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = shelper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
-            CreateCard(storyPaths[i], storydata, position);
+            CreateCard(storyPaths[i], storydata, position, i);
             
         }
     }
-    private void CreateCard(string storyPath, Manifest data, Vector3 pos)
+    private void CreateCard(string storyPath, Manifest data, Vector3 pos, int no)
     {
         string name = data.name;
-        string id = storyPath.Replace($"{Application.dataPath}/Story/", "");
+        string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
         string language = data.language.ToUpper();
         string overlaycolor = data.overlaycolor.Replace("#", "");
         string textcolor = data.textcolor.Replace("#", "");
@@ -105,11 +112,11 @@ public class StartStory : MonoBehaviour
         int playtime = data.playtime;
         if (GameObject.Find($"Canvas/StoryChoice/{id}")) Destroy(GameObject.Find($"Canvas/StoryChoice/{id}").gameObject);
         //spawn, place and resize
-        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject; ;
+        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject; 
         
         menu.transform.localPosition = pos;
         //menu.transform.localScale = Vector3.one;
-        menu.name = $"{id}";
+        menu.name = $"Card {no}";
 
 
 
@@ -147,9 +154,45 @@ public class StartStory : MonoBehaviour
 
         menu.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
     }
-    private void CreateDetails()
+    private void CreateDetails(int n)
     {
+        detailsOpen = true;
+        string folderPath = shelper.GetAllStoryPaths(sortArgs, nsfw)[n];
+        Debug.Log($"Attempting to create details page with ID {n}, path {folderPath}");
+        Manifest data = shelper.GetManifest($"{folderPath}/manifest.json");
 
+        string name = data.name;
+        string id = folderPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
+        string language = data.language.ToUpper();
+        bool isnsfw = data.nsfw;
+        int playtime = data.playtime;
+        string[] tags = data.tags;
+        string genre = data.genre;
+        string author = data.author;
+        string description = data.description;
+
+        GameObject details = Instantiate(DetailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
+        Vector3 startPos = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(n - (page * 6))];
+        details.transform.localPosition = new Vector3(0, startPos.y, 1);
+
+        if (File.Exists($"{folderPath}/thumbnail.png"))
+            dl.CardThumbnail(details.transform.Find($"Thumbnail"), $"{folderPath}/thumbnail.png");
+        else
+            details.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
+
+        details.transform.Find("Title").GetComponent<Text>().text = name;
+        details.transform.Find("Author").GetComponent<Text>().text = $"{Translate.Get("publishedby")} {author}";
+        details.transform.Find("Description").GetComponent<Text>().text = description;
+        details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
+        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
+        details.transform.Find("GenreTitle/Genre").GetComponent<Text>().text = Translate.Get(genre);
+        details.transform.Find("LengthTitle/Length").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
+        details.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
+    }
+    public void DeleteDetails()
+    {
+        Destroy(GameObject.Find("DetailsCard(Clone)"));
+        detailsOpen = false;
     }
     public void Play(int id)
     {
@@ -164,7 +207,9 @@ public class StartStory : MonoBehaviour
     }
     public void OpenDetails(int id)
     {
-        Debug.Log($"Attempting to create details of local story with ID {id}, path {shelper.GetAllStoryPaths(sortArgs, nsfw)[id]}");
+        string path = shelper.GetAllStoryPaths(sortArgs, nsfw)[id];
+        Debug.Log($"Attempting to create details of local story with ID {id}, path {path}");
+        CreateDetails(id);
     }
     public void ChangePage(int change)
     {
@@ -202,6 +247,7 @@ public class StartStory : MonoBehaviour
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("closeStorymenu");
         CloseButtonBehind.SetActive(false);
+        DeleteDetails();
     }
     
     

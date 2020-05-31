@@ -6,6 +6,8 @@ settings=Settings
 create=Create
 quit=Quit
 credits=Credits
+yes=Yes
+no=No
 
 #Settings
 volume=Volume
@@ -24,7 +26,10 @@ sort=Sort
 searchdownloaded=Search for downloaded stories
 searchplaceholder=Write something...
 play=Play
+back=Go back
 details=Details
+length=Length
+tags=Tags
 page=Page
 byname=By Name
 bynamedec=By Name (descending)
@@ -33,6 +38,22 @@ byshortest=By Shortest
 bynewest=By Newest
 byoldest=By Oldest
 byauthor=By Author
+publishedby=Published by
+
+#Genres
+genre=Genre
+action=Action
+adventure=Adventure
+comedy=Comedy
+drama=Drama
+fantasy=Fantasy
+horror=Horror
+magic=Magic
+mystery=Mystery
+scifi=Sci-fi
+sliceoflife=Slice of life
+supernatural=Supernatural
+other=Other
 
 #Character positioning
 clearall=Remove all

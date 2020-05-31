@@ -6,6 +6,8 @@ settings=Inställningar
 create=Skapa
 quit=Avsluta
 credits=Medverkande
+yes=Ja
+no=Nej
 
 #Settings
 volume=Volym
@@ -24,7 +26,10 @@ sort=Sortera
 searchdownloaded=Sök efter nerladdade stories
 searchplaceholder=Skriv något...
 play=Spela
+back=Gå tillbaka
 details=Detaljer
+length=Längd
+tags=Taggar
 page=Sida
 byname=Efter namn
 bynamedec=Efter namn (fallande)
@@ -33,6 +38,22 @@ byshortest=Efter kortaste
 bynewest=Efter nyaste
 byoldest=Efter äldsta
 byauthor=Efter författare
+publishedby=Publicerad av
+
+#Genres
+genre=Genre
+action=Action
+adventure=Äventyr
+comedy=Komedi
+drama=Drama
+fantasy=Fantasy
+horror=Skräck
+magic=Magi
+mystery=Mysterium
+scifi=Sci-fi
+sliceoflife=Bit av livet
+supernatural=Övernaturlig
+other=Övrigt
 
 #Character positioning
 clearall=Ta bort alla
