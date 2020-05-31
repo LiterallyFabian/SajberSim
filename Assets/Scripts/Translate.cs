@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,14 @@ namespace SajberSim.Translation
     {
         public static string lang = Get2LetterISOCodeFromSystemLanguage().ToLower();
         /// <summary>
-        /// Example: Translate.Fields["world"]
+        /// Dictionary with words on selected language
+        /// Example: Translate.Fields["word"]
         /// </summary>
         public static Dictionary<String, String> Fields { get; private set; }
+        /// <summary>
+        /// Fall-back ictionary with words on english
+        /// </summary>
+        public static Dictionary<String, String> EnglishFields { get; private set; }
 
         /// <summary>
         /// Init on first use
@@ -20,25 +26,36 @@ namespace SajberSim.Translation
         {
             LoadLanguage();
         }
+        public static string Get(string id)
+        {
+            if (Fields.ContainsKey(id))
+                return Fields[id];
+            else
+            {
+                Debug.LogWarning($"Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
+                return EnglishFields[id];
+            }
+        }
 
         /// <summary>
         /// Load language files
         /// </summary>
         private static void LoadLanguage()
         {
-            if (Fields == null)
-                Fields = new Dictionary<string, string>();
+            if (Fields == null) Fields = new Dictionary<string, string>();
+            if (EnglishFields == null) EnglishFields = new Dictionary<string, string>();
+
             if (PlayerPrefs.GetString("language", "none") != "none") lang = PlayerPrefs.GetString("language");
-            Fields.Clear();
-            var textAsset = Resources.Load(@"Languages/" + lang);
-            string allTexts = "";
+
+            var textAsset = Resources.Load($@"Languages/{lang}");
             if (textAsset == null)
-                textAsset = Resources.Load(@"Languages/en") as TextAsset; 
-            if (textAsset == null)
+            {
+                textAsset = Resources.Load(@"Languages/en") as TextAsset;
                 Debug.LogError($"Could not find a translation file for {lang} - using English instead");
-            allTexts = (textAsset as TextAsset).text;
-            string[] lines = allTexts.Split(new string[] { "\r\n", "\n" },
-                StringSplitOptions.None);
+            }
+
+            string allTexts = (textAsset as TextAsset).text;
+            string[] lines = allTexts.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
             string key, value;
             for (int i = 0; i < lines.Length; i++)
             {
@@ -48,6 +65,23 @@ namespace SajberSim.Translation
                     value = lines[i].Substring(lines[i].IndexOf("=") + 1,
                             lines[i].Length - lines[i].IndexOf("=") - 1).Replace("\\n", Environment.NewLine);
                     Fields.Add(key, value);
+                }
+            }
+            if (lang != "en") LoadFallback();
+        }
+        private static void LoadFallback()
+        {
+            string allTexts = (Resources.Load(@"Languages/en") as TextAsset).text;
+            string[] lines = allTexts.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            string key, value;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].IndexOf("=") >= 0 && !lines[i].StartsWith("#") && lines[i] != "")
+                {
+                    key = lines[i].Substring(0, lines[i].IndexOf("="));
+                    value = lines[i].Substring(lines[i].IndexOf("=") + 1,
+                            lines[i].Length - lines[i].IndexOf("=") - 1).Replace("\\n", Environment.NewLine);
+                    EnglishFields.Add(key, value);
                 }
             }
         }

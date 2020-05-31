@@ -16,7 +16,7 @@ public class TextTranslator : MonoBehaviour
             if (TextId == "ISOCode")
                 text.text = Translate.GetLanguage();
             else
-                text.text = Translate.Fields[TextId];
+                text.text = Translate.Get(TextId);
         
     }
 }

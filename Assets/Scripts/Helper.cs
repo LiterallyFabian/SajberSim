@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SajberSim.Story;
+using SajberSim.Translation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ namespace SajberSim.Helper
 {
     class Helper : MonoBehaviour
     {
-        public static string[] genres = { "Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Sci-Fi", "Slice of life", "Supernatural", "Other" };
+        public static string[] genres;
 
         /// <summary>
         /// Positions for all 6 icons in the story menu
@@ -31,7 +32,9 @@ namespace SajberSim.Helper
                 CardPositions.Add(3, new Vector3(0, -230, 1));
                 CardPositions.Add(4, new Vector3(330, -230, 1));
                 CardPositions.Add(5, new Vector3(660, -230, 1));
+                genres = new string[] { Translate.Get("action"), Translate.Get("adventure"), Translate.Get("comedy"), Translate.Get("drama"), Translate.Get("fantasy"), Translate.Get("horror"), Translate.Get("magic"), Translate.Get("mystery"), Translate.Get("scifi"), Translate.Get("sliceoflife"), Translate.Get("supernatural"), Translate.Get("other") };
             }
+            Debug.Log($"Loaded {genres.Length} genres: {string.Join(", ", genres)}");
         }
         public enum StorySearchArgs
         {
