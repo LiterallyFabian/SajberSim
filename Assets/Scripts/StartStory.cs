@@ -22,6 +22,7 @@ public class StartStory : MonoBehaviour
     public GameObject StoryCardTemplate;
     public GameObject CloseButtonBehind;
     public Dropdown sortWay;
+
     
     Helper.StorySearchArgs sortArgs;
     private Helper shelper = new Helper();
@@ -36,6 +37,7 @@ public class StartStory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
@@ -45,7 +47,8 @@ public class StartStory : MonoBehaviour
         sortArgs = (Helper.StorySearchArgs)PlayerPrefs.GetInt("sorting", 0);
         sortWay.AddOptions(sorting.ToList());
         sortWay.SetValueWithoutNotify(PlayerPrefs.GetInt("sorting", 0));
-        
+
+        UpdatePreviewCards();
     }
     public void UserUpdateNsfw(bool n)
     {
@@ -188,14 +191,12 @@ public class StartStory : MonoBehaviour
     }
     public void OpenMenu()
     {
-        UpdatePreviewCards();
-        GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.one;
+        GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("openStorymenu");
         CloseButtonBehind.SetActive(true);
     }
     public void CloseMenu()
     {
-        GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.zero;
-        ClearPreviewCards();
+        GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("closeStorymenu");
         CloseButtonBehind.SetActive(false);
     }
     
