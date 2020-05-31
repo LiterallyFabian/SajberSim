@@ -13,6 +13,7 @@ namespace SajberSim.Helper
 {
     class Helper : MonoBehaviour
     {
+        public static string[] genres = { "Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Sci-Fi", "Slice of life", "Supernatural", "Other" };
 
         /// <summary>
         /// Positions for all 6 icons in the story menu
@@ -31,7 +32,6 @@ namespace SajberSim.Helper
                 CardPositions.Add(4, new Vector3(330, -230, 1));
                 CardPositions.Add(5, new Vector3(660, -230, 1));
             }
-            
         }
         public enum StorySearchArgs
         {
