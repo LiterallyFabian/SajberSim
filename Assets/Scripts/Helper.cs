@@ -210,7 +210,15 @@ namespace SajberSim.Helper
                 Debug.LogError($"Tried getting manifest for path \"{path}\" which does not exist");
                 return null;
             }
-            return JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(path));
+            try
+            {
+                return JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(path));
+            }
+            catch
+            {
+                Debug.LogError($"Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
+                return null;
+            }
         }
         /// <summary>
         /// Returns amount of cards in total
