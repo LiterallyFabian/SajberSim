@@ -12,22 +12,24 @@ using System.Text;
 using UnityEditor;
 using System.Threading;
 using System;
+using SajberSim.Translation;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
 /// </summary>
 public class StartStory : MonoBehaviour
 {
+    public GameObject StoryCardTemplate;
+    public GameObject CloseButtonBehind;
+    public Dropdown sortWay;
+    
+    Helper.StorySearchArgs sortArgs;
     private Helper shelper = new Helper();
+    Download dl;
 
     private int page = 0; //current page in story card menu, starting at 0
-
-    public GameObject StoryCardTemplate;
     public bool nsfw;
-    Helper.StorySearchArgs sortArgs;
-    Download dl;
-    public Dropdown sortWay;
-
+    
 
 
 
@@ -39,8 +41,11 @@ public class StartStory : MonoBehaviour
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
         dl = new GameObject("downloadobj").AddComponent<Download>();
 
+        string[] sorting = { Translate.Fields["byname"], Translate.Fields["bynamedec"], Translate.Fields["bylongest"], Translate.Fields["byshortest"], Translate.Fields["bynewest"], Translate.Fields["byoldest"], Translate.Fields["byauthor"] };
         sortArgs = (Helper.StorySearchArgs)PlayerPrefs.GetInt("sorting", 0);
+        sortWay.AddOptions(sorting.ToList());
         sortWay.SetValueWithoutNotify(PlayerPrefs.GetInt("sorting", 0));
+        
     }
     public void UserUpdateNsfw(bool n)
     {
@@ -78,7 +83,7 @@ public class StartStory : MonoBehaviour
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"Page {page + 1}/{shelper.GetCardPages(sortArgs, nsfw)+1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{shelper.GetCardPages(sortArgs, nsfw)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = shelper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
@@ -185,11 +190,13 @@ public class StartStory : MonoBehaviour
     {
         UpdatePreviewCards();
         GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.one;
+        CloseButtonBehind.SetActive(true);
     }
     public void CloseMenu()
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>().localScale = Vector3.zero;
         ClearPreviewCards();
+        CloseButtonBehind.SetActive(false);
     }
     
     

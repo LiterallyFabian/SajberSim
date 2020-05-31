@@ -20,7 +20,7 @@ cancel=Avbryt
 
 #Play menu
 nsfwtoggle=Visa NSFW
-sort=Sortering
+sort=Sortera
 searchdownloaded=Sök efter nerladdade stories
 searchplaceholder=Skriv något...
 play=Spela

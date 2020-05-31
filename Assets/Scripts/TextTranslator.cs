@@ -11,7 +11,6 @@ public class TextTranslator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log(TextId);
         var text = GetComponent<Text>();
         if (text != null)
             if (TextId == "ISOCode")
