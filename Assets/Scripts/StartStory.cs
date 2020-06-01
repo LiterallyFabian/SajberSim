@@ -28,7 +28,7 @@ public class StartStory : MonoBehaviour
 
     
     Helper.StorySearchArgs sortArgs;
-    private Helper shelper = new Helper();
+    private Helper shelper;
     Download dl;
 
     private int page = 0; //current page in story card menu, starting at 0
@@ -42,6 +42,7 @@ public class StartStory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shelper = GameObject.Find("Helper").GetComponent<Helper>();
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);

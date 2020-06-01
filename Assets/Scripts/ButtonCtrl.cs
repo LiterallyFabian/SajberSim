@@ -39,7 +39,7 @@ public class ButtonCtrl : MonoBehaviour
     public AudioSource music;
     public static string[] languages = { "en", "sv" };
 
-    private readonly Helper shelper = new Helper();
+    private Helper shelper;
     //pause stuff ingame
     public static bool paused = false;
     public GameObject PauseMenuGame;
@@ -56,6 +56,7 @@ public class ButtonCtrl : MonoBehaviour
 
     public void Start()
     {
+        shelper = GameObject.Find("Helper").GetComponent<Helper>();
         if (PlayerPrefs.GetString("language", "none") != "none")
             language.SetValueWithoutNotify(Array.IndexOf(languages, PlayerPrefs.GetString("language")));
         dl = (new GameObject("downloadobj")).AddComponent<Download>();
