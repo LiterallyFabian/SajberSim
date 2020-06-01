@@ -1,12 +1,12 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "A snowy day, sfw old short",
+  "Name": "A snowy day",
 
   // Your SajberSim username
-  "Author": "NotFabian",
+  "Author": "Fabian",
 
   //Description of your story that will show up in the story finder. Use \n for new lines
-  "Description": "Example story to get you started with creating your own visual novels in SajberSim!",
+  "Description": "This is a story about a snowing day. Surprising huh? A snowy day means that it is a normal day, but it's snowing. Probably a lot since it's the plot? damn, i should be quiet",
 
   // Unique ID for your story - have to be the exact same as the folder name
   "ID": "Example",
@@ -33,5 +33,5 @@
   "Genre": "magic",
   
   //Tags seperated by a comma
-  "Tags": ["snow", "cold"]
+  "Tags": ["snow", "cold", "sven", "forest", "magic", "uwu", "test thingy", "sfw"]
 }

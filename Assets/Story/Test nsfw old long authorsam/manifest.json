@@ -1,12 +1,12 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "Sams revenge nsfw old long",
+  "Name": "Sams revenge",
 
   // Your SajberSim username
   "Author": "Sam",
 
   //Description of your story that will show up in the story finder. Use \n for new lines
-  "Description": "Example story to get you started with creating your own visual novels in SajberSim!",
+  "Description": "Sam is an interesting person. Well, at least she was, before the incident. Everything have been very calm here since she disappeared, but that might change according to the rumours floating around...",
 
   // Unique ID for your story - have to be the exact same as the folder name
   "ID": "Example",
@@ -24,7 +24,7 @@
   "NSFW": true,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  1000,
+  "Playtime":  817,
   
   //Date story got published (YYYYMMDD)
   "PublishDate": "20100528",
@@ -33,5 +33,5 @@
   "Genre": "drama",
   
   //Tags seperated by a comma
-  "Tags": ["sams revenge", "tag2"]
+  "Tags": ["sams revenge", "tag2", "epic", "murder", "revenge"]
 }

@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using System;
+using UnityEngine.UI;
 
 public class RightClickButton : MonoBehaviour, IPointerClickHandler
 {
@@ -21,7 +22,12 @@ public class RightClickButton : MonoBehaviour, IPointerClickHandler
     }
     public void PlayStory()
     {
-        GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().Play(Convert.ToInt32(gameObject.transform.parent.name.Replace("Card ","")));
+        string name = gameObject.transform.parent.name;
+
+        if (name.Contains("Card "))
+            GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().Play(Convert.ToInt32(name.Replace("Card ","")));
+        else if(name.Contains("Detailscard"))
+            GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().Play(Convert.ToInt32(name.Replace("Detailscard ", "")));
     }
     public void OpenDetails()
     {

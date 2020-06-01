@@ -79,11 +79,11 @@ public class StartStory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            if (detailsOpen)
+        if (!detailsOpen && Input.GetKeyDown(KeyCode.Escape))
+            CloseMenu();
+        if (detailsOpen)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
                 DeleteDetails();
-            else
-                CloseMenu();
     }
     public void UpdatePreviewCards()
     {
@@ -156,7 +156,6 @@ public class StartStory : MonoBehaviour
     }
     private void CreateDetails(int n)
     {
-        detailsOpen = true;
         string folderPath = shelper.GetAllStoryPaths(sortArgs, nsfw)[n];
         Debug.Log($"Attempting to create details page with ID {n}, path {folderPath}");
         Manifest data = shelper.GetManifest($"{folderPath}/manifest.json");
@@ -174,6 +173,7 @@ public class StartStory : MonoBehaviour
         GameObject details = Instantiate(DetailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
         Vector3 startPos = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(n - (page * 6))];
         details.transform.localPosition = new Vector3(0, startPos.y, 1);
+        details.name = $"Detailscard {n}";
 
         if (File.Exists($"{folderPath}/thumbnail.png"))
             dl.CardThumbnail(details.transform.Find($"Thumbnail"), $"{folderPath}/thumbnail.png");
@@ -188,11 +188,19 @@ public class StartStory : MonoBehaviour
         details.transform.Find("GenreTitle/Genre").GetComponent<Text>().text = Translate.Get(genre);
         details.transform.Find("LengthTitle/Length").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
         details.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
+        detailsOpen = true;
     }
     public void DeleteDetails()
     {
-        Destroy(GameObject.Find("DetailsCard(Clone)"));
+        GameObject card = GameObject.FindGameObjectWithTag("DetailsCard");
+        card.GetComponent<Animator>().Play("detailsClose");
+        StartCoroutine(DelCard(card));
         detailsOpen = false;
+    }
+    private IEnumerator DelCard(GameObject card)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(card);
     }
     public void Play(int id)
     {
