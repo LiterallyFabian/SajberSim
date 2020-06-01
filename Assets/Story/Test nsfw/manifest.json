@@ -24,7 +24,7 @@
   "NSFW": true,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  2,
+  "Playtime":  15,
   
   //Date story got published (YYYYMMDD)
   "PublishDate": "20150528",

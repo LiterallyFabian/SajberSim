@@ -1,6 +1,6 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "Lazy day sfw",
+  "Name": "A lazy day",
   // Your SajberSim username
   "Author": "tFabian",
 
@@ -14,7 +14,7 @@
   "Language": "US",
 
   // Color of the thumbnail overlay in HEX
-  "OverlayColor": "ACFEFF",
+  "OverlayColor": "EBFF97",
 
   // Color of the thumbnail text in HEX
   "TextColor": "012F30",
@@ -26,7 +26,7 @@
   "Playtime":  2,
   
   //Date story got published (YYYYMMDD)
-  "PublishDate": "20150528",
+  "PublishDate": "20190528",
   
   //Genre of the story - please assign this ingame
   "Genre": "sliceoflife",

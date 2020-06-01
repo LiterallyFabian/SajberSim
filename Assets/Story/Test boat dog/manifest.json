@@ -15,7 +15,7 @@
   "Language": "US",
 
   // Color of the thumbnail overlay in HEX
-  "OverlayColor": "ACFEFF",
+  "OverlayColor": "E291FF",
 
   // Color of the thumbnail text in HEX
   "TextColor": "012F30",

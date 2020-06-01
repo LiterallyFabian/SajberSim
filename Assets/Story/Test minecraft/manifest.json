@@ -1,6 +1,6 @@
 {
 // Name of your story that will show up in the start menu and story finder
-  "Name": "Craftin sfw",
+  "Name": "Steve's adventure",
 
   // Your SajberSim username
   "Author": "NotFabian",
@@ -15,7 +15,7 @@
   "Language": "US",
 
   // Color of the thumbnail overlay in HEX
-  "OverlayColor": "ACFEFF",
+  "OverlayColor": "CBFFBD",
 
   // Color of the thumbnail text in HEX
   "TextColor": "012F30",
@@ -24,10 +24,10 @@
   "NSFW": false,
 
   // Time estimated to play the story, in full minutes 
-  "Playtime":  2,
+  "Playtime":  8,
   
   //Date story got published (YYYYMMDD)
-  "PublishDate": "20150528",
+  "PublishDate": "20200228",
   
   //Genre of the story - please assign this ingame
   "Genre": "comedy",
