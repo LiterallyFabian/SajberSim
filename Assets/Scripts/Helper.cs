@@ -162,7 +162,7 @@ namespace SajberSim.Helper
         {
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText($"{path}/manifest.json"));
+                Manifest storydata = GetManifest($"{path}/manifest.json");
                 if (storydata.nsfw) storyPaths.Remove(path);
             }
             return storyPaths.ToArray();
