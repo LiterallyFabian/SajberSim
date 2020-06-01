@@ -9,4 +9,11 @@ public class Card : MonoBehaviour
     {
         GetComponent<Image>().color = new Color(0, 0, 0, a);
     }
+    public void SetDark(bool d)
+    {
+        if (d)
+            GetComponent<Image>().color = new Color(0.92f, 0.92f, 0.92f);
+        else
+            GetComponent<Image>().color = Color.white;
+    }
 }
