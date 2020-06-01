@@ -248,10 +248,8 @@ public class GameManager : MonoBehaviour
             options.Add(line[i]);
         }
         #region openhouse
-        Analytics.CustomEvent("program_picked", new Dictionary<string, object>
-        {
-            { "program", options[select-1] }
-        });
+        if(PlayerPrefs.GetString("story") == "OpenHouse")
+        Analytics.CustomEvent("program_picked", new Dictionary<string, object> {{ "program", options[select-1] }});
         #endregion openhouse
         LoadScript(options[select-1]);
         dropdownMenu.SetActive(false);
@@ -311,10 +309,8 @@ public class GameManager : MonoBehaviour
         string[] stories = { story1, story2 };
         LoadScript(stories[id - 1]);
         #region openhouse
-        Analytics.CustomEvent("program_picked", new Dictionary<string, object>
-        {
-            { "program", stories[id-1] }
-        });
+        if (PlayerPrefs.GetString("story") == "OpenHouse")
+            Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
         #endregion openhouse
         questionbox.SetActive(false);
     }
