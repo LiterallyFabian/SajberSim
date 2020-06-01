@@ -1464,7 +1464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &400989037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1481,7 +1481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 162.3, y: 160.7}
+  m_AnchoredPosition: {x: 16813, y: 3775}
   m_SizeDelta: {x: 2936.7, y: 2421.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &400989038
@@ -1640,17 +1640,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OverwriteAlert: {fileID: 540176319}
   Logo: {fileID: 540176319}
-  Settings: {fileID: 540176319}
   Modding: {fileID: 540176319}
   CreditsButton: {fileID: 540176319}
   ContinueButton: {fileID: 1694603271}
   DebugButton: {fileID: 1694603271}
-  uwu: {fileID: 796057013}
-  Speed: {fileID: 2078907719}
-  Volume: {fileID: 1785054955}
-  SpeedText: {fileID: 1857009102}
-  VolumeText: {fileID: 2134494692}
-  UwuText: {fileID: 0}
   BehindSettings: {fileID: 979750588}
   fadeimage: {fileID: 400989036}
   music: {fileID: 837362669}

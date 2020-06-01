@@ -20,33 +20,26 @@ public class ButtonCtrl : MonoBehaviour
 {
     public GameObject OverwriteAlert;
     public GameObject Logo;
-    public GameObject Settings;
     public GameObject Modding;
     public GameObject CreditsButton;
+    public GameObject SettingsMenu;
     public Button ContinueButton;
     public Button DebugButton;
-    public Dropdown language;
-    public Toggle uwu;
-    public Slider Speed;
-    public Slider Volume;
-    public Text SpeedText;
-    public Text languagechange;
-    public Text VolumeText;
-    public Text UwuText;
     public GameObject BehindSettings;
     public static Character[] people = new Character[4];
     public GameObject fadeimage;
     public AudioSource music;
-    public static string[] languages = { "en", "sv" };
+    
 
     private Helper shelper;
-    //pause stuff ingame
-    public static bool paused = false;
+    private Download dl;
+
+    
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
 
 
-    private Download dl;
+    
 
     //for easter egg. stop bullying my code
     private bool eggclicked;
@@ -56,33 +49,14 @@ public class ButtonCtrl : MonoBehaviour
 
     public void Start()
     {
+        if(GameObject.Find("Helper"))
         shelper = GameObject.Find("Helper").GetComponent<Helper>();
-        if (PlayerPrefs.GetString("language", "none") != "none")
-            language.SetValueWithoutNotify(Array.IndexOf(languages, PlayerPrefs.GetString("language")));
-        dl = (new GameObject("downloadobj")).AddComponent<Download>();
+        dl = new GameObject("downloadobj").AddComponent<Download>();
         Cursor.visible = true;
         if (PlayerPrefs.GetString("story", "none") == "none" || PlayerPrefs.GetString("script", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = false;
 
-        SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
-        VolumeText.text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f) * 100)}%";
-
-        if (PlayerPrefs.GetInt("uwu", 0) == 1)
-        {
-            uwu.SetIsOnWithoutNotify(true);
-            UwuText.text = "(◠‿◠✿)";
-        }
-        
-        Speed.SetValueWithoutNotify(PlayerPrefs.GetFloat("delay",0.04f));
-        Volume.SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
-        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
-
         UpdateCharacter();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape) && SceneManager.GetActiveScene().name != "menu")
-            TogglePause();
     }
     void UpdateCharacter()
     {
@@ -103,21 +77,7 @@ public class ButtonCtrl : MonoBehaviour
             dl.Image(GameObject.Find("Character"), $"file://{charpath}");
         }
     }
-    public void TogglePause()
-    {
-        if (!paused)
-        {
-            paused = true;
-            OpenMenu(PauseMenuGame);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            CloseSettings();
-            paused = false;
-            Time.timeScale = 1;
-        }
-    }
+    
     public void StartNew() //Just checks if a new story should be started
     {
         if (PlayerPrefs.GetString("story", "none") != "none") //story som inte är start hittad
@@ -195,7 +155,6 @@ public class ButtonCtrl : MonoBehaviour
 
     public void CloseSettings() //closes all menus
     {
-        Settings.SetActive(false);
         BehindSettings.SetActive(false);
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);
@@ -212,30 +171,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
     }
-    public void ChangeSpeed(float value) //runs when the speed slider is changed
-    {
-        PlayerPrefs.SetFloat("delay", value);
-        SpeedText.text = $"{Math.Round(PlayerPrefs.GetFloat("delay",0.04f)*1000)}ms";
-    }
-    public void ChangeVolume(float newVolume)
-    {
-        PlayerPrefs.SetFloat("volume", newVolume);
-        AudioListener.volume = PlayerPrefs.GetFloat("volume",1f);
-        VolumeText.text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f)*100)}%";
-    }
-    public void UwUToggle(bool uwu)
-    {
-        if (uwu)
-        {
-            UwuText.text = "(◠‿◠✿)";
-            PlayerPrefs.SetInt("uwu", 1);
-        }
-        else //disable / false
-        {
-            UwuText.text = "";
-            PlayerPrefs.SetInt("uwu", 0);
-        }
-    }
+    
     public void OpenFolder(string path)
     {
         if (!Directory.Exists($@"{Application.dataPath}/{path}"))
@@ -246,12 +182,12 @@ public class ButtonCtrl : MonoBehaviour
         if(path == "Logs") Helper.CreateLogfile();
         Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
     }
-    public void SetLanguage(int n)
-    {
-        Translate.lang = languages[n];
-        PlayerPrefs.SetString("language", languages[n]);
-        languagechange.text = "Language change will take effect when you restart the game.";
+    public void FindAndCloseSettings()
+    { 
+        if(GameObject.Find("Canvas/Settings(Clone)"))
+        GameObject.Find("Canvas/Settings(Clone)").GetComponent<Settings>().CloseMenu();
     }
+    
     public void OpenLink(string link)
     {
         Process.Start(link);
@@ -266,6 +202,11 @@ public class ButtonCtrl : MonoBehaviour
         StartCoroutine(ToggleDebug());
         
     }*/
+    public void OpenSettings()
+    {
+        GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+        x.transform.localPosition = Vector3.zero;
+    }
     public void GAMEOpenSettings()
     {
         PauseMenuGame.SetActive(false);
@@ -281,12 +222,6 @@ public class ButtonCtrl : MonoBehaviour
     public void StartScene(string scene) //seems like i couldn't start coroutines with buttons
     {
         StartCoroutine(FadeToScene(scene));
-    }
-    public void ReturnToMain()
-    {
-        CloseSettings();
-        Time.timeScale = 1;
-        StartCoroutine(FadeToScene("menu"));
     }
     public IEnumerator FadeToScene(string scene)
     {

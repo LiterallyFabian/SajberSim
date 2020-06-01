@@ -10,6 +10,10 @@ namespace SajberSim.Translation
     {
         public static string lang = Get2LetterISOCodeFromSystemLanguage().ToLower();
         /// <summary>
+        /// Languages supported in the game. can be selected from settings
+        /// </summary>
+        public static string[] languages = { "en", "sv" };
+        /// <summary>
         /// Dictionary with words on selected language
         /// Example: Translate.Fields["word"]
         /// </summary>

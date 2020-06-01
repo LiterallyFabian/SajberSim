@@ -211,11 +211,12 @@ public class StartStory : MonoBehaviour
     public void DeleteDetails()
     {
         GameObject card = GameObject.FindGameObjectWithTag("DetailsCard");
+        if (!card) return;
         card.GetComponent<Animator>().Play("detailsClose");
         StartCoroutine(DelCard(card));
         detailsOpen = false;
     }
-    private IEnumerator DelCard(GameObject card)
+    public static IEnumerator DelCard(GameObject card)
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(card);
