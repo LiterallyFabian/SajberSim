@@ -15,6 +15,22 @@ writingspeed=Utskriftshastighet
 openlogs=Öppna loggfiler
 language=Språk
 
+#Time
+about=för ungefär {0} {1} sedan
+abouta=för ungefär {0} sedan
+seconds=sekunder
+minute=en minut
+minutes=minuter
+hour=en timme
+hours=timmar
+yesterday=igår
+day=en dag
+days=dagar
+month=en månad
+months=månader
+year=ett år
+years=år
+
 #Overwrite warning
 overwritewarning=Du har redan ett spel påbörjat, är du säker på att du vill starta ett nytt? Detta kommer ta bort din gamla sparfil!
 confirm=Bekräfta

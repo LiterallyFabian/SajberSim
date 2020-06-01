@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -267,6 +268,43 @@ namespace SajberSim.Helper
             string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
             System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
             System.IO.File.Copy(sourceFile, destFile, true);
+        }
+        public static string TimeAgo(DateTime dateTime)
+        {
+            string result = string.Empty;
+            TimeSpan timeSpan = DateTime.Now.Subtract(dateTime);
+
+            if (timeSpan <= TimeSpan.FromSeconds(60))
+            {
+                result = String.Format(Translate.Get("abouta"), timeSpan.Seconds, Translate.Get("seconds"));
+            }
+            else if (timeSpan <= TimeSpan.FromMinutes(60))
+            {
+                result = timeSpan.Minutes > 1 ?
+                    String.Format(Translate.Get("about"), timeSpan.Minutes, Translate.Get("minutes")) : String.Format(Translate.Get("abouta"), Translate.Get("minute"));
+            }
+            else if (timeSpan <= TimeSpan.FromHours(24))
+            {
+                result = timeSpan.Hours > 1 ?
+                    String.Format(Translate.Get("about"), timeSpan.Hours, Translate.Get("hours")) : String.Format(Translate.Get("abouta"), Translate.Get("hour"));
+            }
+            else if (timeSpan <= TimeSpan.FromDays(30))
+            {
+                result = timeSpan.Days > 1 ?
+                    String.Format(Translate.Get("about"), timeSpan.Days, Translate.Get("days")) : Translate.Get("yesterday");
+            }
+            else if (timeSpan <= TimeSpan.FromDays(365))
+            {
+                result = timeSpan.Days > 30 ?
+                    String.Format(Translate.Get("about"), timeSpan.Days / 30, Translate.Get("months")) : String.Format(Translate.Get("abouta"), Translate.Get("month"));
+            }
+            else
+            {
+                result = timeSpan.Days > 365 ?
+                    String.Format(Translate.Get("about"), timeSpan.Days / 365, Translate.Get("years")) : String.Format(Translate.Get("abouta"), Translate.Get("year"));
+            }
+
+            return result;
         }
     }
     /// <summary>

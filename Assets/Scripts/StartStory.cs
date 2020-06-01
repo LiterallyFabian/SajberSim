@@ -14,6 +14,7 @@ using SajberSim.Helper;
 using SajberSim.Web;
 using SajberSim.Translation;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -197,7 +198,7 @@ public class StartStory : MonoBehaviour
             details.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
 
         details.transform.Find("Title").GetComponent<Text>().text = name;
-        details.transform.Find("Author").GetComponent<Text>().text = $"{Translate.Get("publishedby")} {author} {DateTime.Now.AddDays(-10)}";
+        details.transform.Find("Author").GetComponent<Text>().text = $"{Translate.Get("publishedby")} <b>{author}</b> {Helper.TimeAgo(DateTime.ParseExact(publishdate.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture))}";
         details.transform.Find("Description").GetComponent<Text>().text = description;
         details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
         details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
