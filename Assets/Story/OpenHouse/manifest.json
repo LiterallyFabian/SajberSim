@@ -1,7 +1,7 @@
 {
-  "Name": "CyberGymnasiet öppet hus",
+  "Name": "CyberGymnasiet Ã¶ppet hus",
   "Author": "Fabian",
-  "Description": "Rundvandring av CyberGymnasiet Odenplan med information om skolan, vad vi gör i alla program och mycket mer!",
+  "Description": "Rundvandring av CyberGymnasiet Odenplan med information om skolan, vad vi gÃ¶r i alla program och mycket mer!",
   "ID": "OpenHouse",
   "Language": "SE",
   "OverlayColor": "FF7FFD",
@@ -10,5 +10,5 @@
   "Playtime": 15,
   "PublishDate": 20200615,
   "Genre": "other",
-  "Tags": ["CyberGymnasiet", "odenplan", "öppet hus"]
+  "Tags": ["CyberGymnasiet", "odenplan", "Ã¶ppet hus"]
 }
