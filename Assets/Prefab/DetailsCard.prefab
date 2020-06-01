@@ -1017,7 +1017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Published by Fabina '
+  m_Text: 'Published by <b>Fabina</b> 23 days ago '
 --- !u!1 &3012068440579821848
 GameObject:
   m_ObjectHideFlags: 0

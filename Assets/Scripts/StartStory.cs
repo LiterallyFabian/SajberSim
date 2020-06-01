@@ -184,6 +184,7 @@ public class StartStory : MonoBehaviour
         string genre = data.genre;
         string author = data.author;
         string description = data.description;
+        int publishdate = data.publishdate;
 
         GameObject details = Instantiate(DetailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
         Vector3 startPos = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(n - (page * 6))];
@@ -196,7 +197,7 @@ public class StartStory : MonoBehaviour
             details.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
 
         details.transform.Find("Title").GetComponent<Text>().text = name;
-        details.transform.Find("Author").GetComponent<Text>().text = $"{Translate.Get("publishedby")} {author}";
+        details.transform.Find("Author").GetComponent<Text>().text = $"{Translate.Get("publishedby")} {author} {DateTime.Now.AddDays(-10)}";
         details.transform.Find("Description").GetComponent<Text>().text = description;
         details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
         details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
