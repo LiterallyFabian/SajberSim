@@ -33,6 +33,7 @@ public class StartStory : MonoBehaviour
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
     public bool detailsOpen = false;
+    private string searchTerm = "";
     
 
         
@@ -40,7 +41,6 @@ public class StartStory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
@@ -75,6 +75,22 @@ public class StartStory : MonoBehaviour
         PlayerPrefs.SetInt("sorting", n);
         UpdatePreviewCards();
     }
+    public void UserUpdateSearch(string search)
+    {
+        Debug.Log($"Search term changed: {search}");
+        searchTerm = search;
+        if (page != 0) ResetPage();
+        UpdatePreviewCards();
+    }
+    public void UserEditSearch(string search)
+    {
+        if (search == "")
+        {
+            Debug.Log($"Search term reset.");
+            searchTerm = "";
+            UpdatePreviewCards();
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -88,17 +104,16 @@ public class StartStory : MonoBehaviour
     public void UpdatePreviewCards()
     {
         Debug.Log("Request to update cards");
-        string[] storyPaths = shelper.GetAllStoryPaths(sortArgs, nsfw);
-        string[] manifests = shelper.GetAllManifests(sortArgs, nsfw);
+        string[] storyPaths = shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm);
+        string[] manifests = shelper.GetAllManifests(sortArgs, nsfw, searchTerm);
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{shelper.GetCardPages(sortArgs, nsfw)+1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{shelper.GetCardPages(sortArgs, nsfw, searchTerm)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = shelper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             CreateCard(storyPaths[i], storydata, position, i);
-            
         }
     }
     private void CreateCard(string storyPath, Manifest data, Vector3 pos, int no)
@@ -156,7 +171,7 @@ public class StartStory : MonoBehaviour
     }
     private void CreateDetails(int n)
     {
-        string folderPath = shelper.GetAllStoryPaths(sortArgs, nsfw)[n];
+        string folderPath = shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[n];
         Debug.Log($"Attempting to create details page with ID {n}, path {folderPath}");
         Manifest data = shelper.GetManifest($"{folderPath}/manifest.json");
 
@@ -202,10 +217,11 @@ public class StartStory : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Destroy(card);
     }
+
     public void Play(int id)
     {
-        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths(sortArgs, nsfw)[id]}");
-        PlayerPrefs.SetString("story", shelper.GetAllStoryNames(sortArgs, nsfw)[id]);
+        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id]}");
+        PlayerPrefs.SetString("story", shelper.GetAllStoryNames(sortArgs, nsfw, searchTerm)[id]);
         PlayerPrefs.SetString("script", "start");
         ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
         main.CreateCharacters();
@@ -215,21 +231,21 @@ public class StartStory : MonoBehaviour
     }
     public void OpenDetails(int id)
     {
-        string path = shelper.GetAllStoryPaths(sortArgs, nsfw)[id];
+        string path = shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id];
         Debug.Log($"Attempting to create details of local story with ID {id}, path {path}");
         CreateDetails(id);
     }
     public void ChangePage(int change)
     {
-        if (shelper.GetCardPages(sortArgs, nsfw) == 0)
+        if (shelper.GetCardPages(sortArgs, nsfw, searchTerm) == 0)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Animator>().Play("storycard_pageinfojump", 0, 0);
             return;
         }
 
         ClearPreviewCards();
-        if (page + change > shelper.GetCardPages(sortArgs, nsfw)) page = 0;
-        else if (page + change < 0) page = shelper.GetCardPages(sortArgs, nsfw);
+        if (page + change > shelper.GetCardPages(sortArgs, nsfw, searchTerm)) page = 0;
+        else if (page + change < 0) page = shelper.GetCardPages(sortArgs, nsfw, searchTerm);
         else page += change;
         UpdatePreviewCards();
     }
