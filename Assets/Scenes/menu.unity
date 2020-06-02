@@ -349,6 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84514703}
   - component: {fileID: 84514702}
+  - component: {fileID: 84514704}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -382,6 +383,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84514704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84514701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fb3a6de7091cc4ca3ee3c5559e599f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &89794986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1848,6 +1861,8 @@ GameObject:
   - component: {fileID: 367784133}
   - component: {fileID: 367784135}
   - component: {fileID: 367784134}
+  - component: {fileID: 367784137}
+  - component: {fileID: 367784136}
   m_Layer: 5
   m_Name: Alfredo
   m_TagString: Untagged
@@ -1911,6 +1926,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367784132}
   m_CullTransparentMesh: 0
+--- !u!114 &367784136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367784132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 367784137}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &367784137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367784132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: bc397d731b773a347bea0cab3f1a96c6, type: 3}
+  angry: {fileID: 21300000, guid: e192ed2acf386e54b88ed3c04cf4815a, type: 3}
 --- !u!1 &371565553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,6 +2811,8 @@ GameObject:
   - component: {fileID: 633151722}
   - component: {fileID: 633151724}
   - component: {fileID: 633151723}
+  - component: {fileID: 633151726}
+  - component: {fileID: 633151725}
   m_Layer: 5
   m_Name: Sam
   m_TagString: Untagged
@@ -2817,6 +2876,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633151721}
   m_CullTransparentMesh: 0
+--- !u!114 &633151725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633151721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 633151726}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &633151726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633151721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: ba45175178fca514aabb1a0ba9b628f3, type: 3}
+  angry: {fileID: 21300000, guid: 0a81b0a25375455438d7818c5e952a11, type: 3}
 --- !u!1 &640248710
 GameObject:
   m_ObjectHideFlags: 0
@@ -9376,6 +9477,8 @@ GameObject:
   - component: {fileID: 908647152}
   - component: {fileID: 908647154}
   - component: {fileID: 908647153}
+  - component: {fileID: 908647156}
+  - component: {fileID: 908647155}
   m_Layer: 5
   m_Name: Melwin
   m_TagString: Untagged
@@ -9439,6 +9542,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908647151}
   m_CullTransparentMesh: 0
+--- !u!114 &908647155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908647151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 908647156}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &908647156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908647151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: 0a276c8a764b81441a936c12129bd49b, type: 3}
+  angry: {fileID: 21300000, guid: 4695480083e82d34a99f79e46641e07c, type: 3}
 --- !u!1 &929938910
 GameObject:
   m_ObjectHideFlags: 0
@@ -9678,6 +9823,7 @@ GameObject:
   - component: {fileID: 983074974}
   - component: {fileID: 983074973}
   - component: {fileID: 983074976}
+  - component: {fileID: 983074977}
   m_Layer: 5
   m_Name: Character
   m_TagString: Untagged
@@ -9777,8 +9923,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 371701549}
-          m_MethodName: CharEasteregg
+        - m_Target: {fileID: 983074977}
+          m_MethodName: Blush
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -9788,6 +9934,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &983074977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983074971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b990201f79e8ea845a0ff8bca3300c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1054693742
 GameObject:
   m_ObjectHideFlags: 0
@@ -11455,6 +11613,9 @@ GameObject:
   - component: {fileID: 1353986588}
   - component: {fileID: 1353986590}
   - component: {fileID: 1353986589}
+  - component: {fileID: 1353986592}
+  - component: {fileID: 1353986591}
+  - component: {fileID: 1353986593}
   m_Layer: 5
   m_Name: Fabina
   m_TagString: Untagged
@@ -11518,6 +11679,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353986587}
   m_CullTransparentMesh: 0
+--- !u!114 &1353986591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353986587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ad04441f879b24b9bcd92709a4db82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1353986592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353986587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1353986593}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1353986593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353986587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: 7b5e39fcaf3eea54e9b0279fde8308ab, type: 3}
+  angry: {fileID: 21300000, guid: 9357651a636ff374ab728c6e7c6aea05, type: 3}
 --- !u!1 &1355695483
 GameObject:
   m_ObjectHideFlags: 0
@@ -12977,6 +13192,8 @@ GameObject:
   - component: {fileID: 1628740301}
   - component: {fileID: 1628740303}
   - component: {fileID: 1628740302}
+  - component: {fileID: 1628740305}
+  - component: {fileID: 1628740304}
   m_Layer: 5
   m_Name: Lumi
   m_TagString: Untagged
@@ -13040,6 +13257,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628740300}
   m_CullTransparentMesh: 0
+--- !u!114 &1628740304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628740300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1628740305}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1628740305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628740300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: 241600614bae43343821b8bb786ef4ff, type: 3}
+  angry: {fileID: 21300000, guid: 1f2ae902220db9b47bd96e1c81c1cfa5, type: 3}
 --- !u!1 &1639893542
 GameObject:
   m_ObjectHideFlags: 0
@@ -23113,6 +23372,8 @@ GameObject:
   - component: {fileID: 1773239373}
   - component: {fileID: 1773239375}
   - component: {fileID: 1773239374}
+  - component: {fileID: 1773239377}
+  - component: {fileID: 1773239376}
   m_Layer: 5
   m_Name: Batrik
   m_TagString: Untagged
@@ -23176,6 +23437,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773239372}
   m_CullTransparentMesh: 0
+--- !u!114 &1773239376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773239372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1773239377}
+          m_MethodName: UpdateMood
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1773239377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773239372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3636073f2ea8842a3686ecccd2326e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blush: {fileID: 21300000, guid: 6d1d299e1322ae749b756943c6b98713, type: 3}
+  angry: {fileID: 21300000, guid: 8f27dcab694e2da4ca16e6cee8dd0b1c, type: 3}
 --- !u!1 &1774588550
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class ButtonCtrl : MonoBehaviour
     public static Character[] people = new Character[4];
     public GameObject fadeimage;
     public AudioSource music;
-    
+    public static string charpath;
 
     private Helper shelper;
     private Download dl;
@@ -41,17 +41,19 @@ public class ButtonCtrl : MonoBehaviour
 
     
 
-    //for easter egg. stop bullying my code
-    private bool eggclicked;
-    private string charpath;
-    private bool eggran;
-
-
     public void Start()
     {
-        if(GameObject.Find("Helper"))
-        shelper = GameObject.Find("Helper").GetComponent<Helper>();
-        dl = new GameObject("downloadobj").AddComponent<Download>();
+        if (GameObject.Find("Helper"))
+        {
+            shelper = GameObject.Find("Helper").GetComponent<Helper>();
+            dl = GameObject.Find("Helper").GetComponent<Download>();
+        }
+        else
+        {
+            shelper = new GameObject("Helperobj").AddComponent<Helper>();
+            dl = new GameObject("downloadobj").AddComponent<Download>();
+        }
+        
         Cursor.visible = true;
         if (PlayerPrefs.GetString("story", "none") == "none" || PlayerPrefs.GetString("script", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
             ContinueButton.interactable = false;
@@ -91,21 +93,7 @@ public class ButtonCtrl : MonoBehaviour
         GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
     }
 
-    public void CharEasteregg()
-    {
-        if (!eggclicked)
-        {
-            if (File.Exists(charpath.Replace("happy", "blush")))
-                dl.Image(GameObject.Find("Character"), $"file://{charpath.Replace("happy", "blush")}");
-            eggclicked = true;
-        }
-        else
-        {
-            GameObject.Find("/Canvas/Character").GetComponent<Animator>().Play("characterbye");
-            GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popup");
-            eggran = true;
-        }
-    }
+    
     public void CreateCharacters()
     {
         System.Random rnd = new System.Random();
@@ -226,7 +214,7 @@ public class ButtonCtrl : MonoBehaviour
     public IEnumerator FadeToScene(string scene)
     {
         StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
-        if(eggran) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
+        if(MainPopup.singlecharClicked) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 
         for (float i = 0; i <= 1; i += Time.deltaTime/1.5f) //Starts fade, load scene when done
