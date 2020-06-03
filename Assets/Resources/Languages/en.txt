@@ -1,7 +1,7 @@
 #Main menu
 newgame=New game
 continue=Continue
-minigames=Minigames
+findnovels=Find novels
 settings=Settings
 create=Create
 quit=Quit

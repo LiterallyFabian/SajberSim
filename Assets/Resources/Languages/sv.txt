@@ -1,7 +1,7 @@
 #Main menu
 newgame=Nytt spel
 continue=Fortsätt
-minigames=Minigames
+findnovels=Hitta noveller
 settings=Inställningar
 create=Skapa
 quit=Avsluta
