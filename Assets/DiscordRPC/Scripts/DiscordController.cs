@@ -93,13 +93,23 @@ public class DiscordController : MonoBehaviour
                 else presence.state = "";
                 break;
             case "game":
-                presence.state = "Playing a visual novel";
-                presence.details = $"{GameManager.storyAuthor} - {GameManager.storyName}";
+                presence.details = $"Playing {GameManager.storyName}";
+                presence.state = $"Published by {GameManager.storyAuthor}";
                 break;
-
-
+            case "credits":
+                presence.details = "Watching credits";
+                presence.state = "";
+                break;
+            case "characterpos":
+                presence.details = "Setting up characters";
+                presence.state = "";
+                break;
+            default:
+                presence.details = "Unknown state";
+                presence.state = "";
+                break;
         }
-
+        presence.largeImageKey = "rpc_logo_2";
         DiscordRpc.UpdatePresence(presence);
         DiscordRpc.RunCallbacks();
     }

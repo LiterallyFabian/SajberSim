@@ -231,7 +231,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        //DiscordRpc.Shutdown(); //Stänger Discord RPC
+        DiscordRpc.Shutdown(); //Stänger Discord RPC
         Helper.CreateLogfile();
 
 
