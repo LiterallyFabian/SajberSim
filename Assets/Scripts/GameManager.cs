@@ -50,6 +50,9 @@ public class GameManager : MonoBehaviour
     Download dl;
     private string storyPath;
 
+    public static string storyName;
+    public static string storyAuthor;
+
 
 
 
@@ -69,7 +72,6 @@ public class GameManager : MonoBehaviour
 
         story = File.ReadAllLines($"{storyPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
-
 
         RunNext();
     }

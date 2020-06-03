@@ -410,12 +410,12 @@ PrefabInstance:
     - target: {fileID: 2641443005569688461, guid: 0734aa79d6f39d240b06c322735d3818,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2641443005569688461, guid: 0734aa79d6f39d240b06c322735d3818,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2641443005569688462, guid: 0734aa79d6f39d240b06c322735d3818,
         type: 3}
@@ -472,8 +472,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2641443005569688463, guid: 0734aa79d6f39d240b06c322735d3818,
+        type: 3}
+      propertyPath: applicationId
+      value: 684504383618285590
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2641443005569688463, guid: 0734aa79d6f39d240b06c322735d3818, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0734aa79d6f39d240b06c322735d3818, type: 3}
+--- !u!1 &89794987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2641443005569688461, guid: 0734aa79d6f39d240b06c322735d3818,
+    type: 3}
+  m_PrefabInstance: {fileID: 89794986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &89794988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89794987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f0a5f59ffffa84c86547736e2e730a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applicationId: 684504383618285590
+  optionalSteamId: 
+  clickCounter: 0
+  joinRequest:
+    userId: 
+    username: 
+    discriminator: 
+    avatar: 
+  onConnect:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisconnect:
+    m_PersistentCalls:
+      m_Calls: []
+  hasResponded:
+    m_PersistentCalls:
+      m_Calls: []
+  onJoin:
+    m_PersistentCalls:
+      m_Calls: []
+  onSpectate:
+    m_PersistentCalls:
+      m_Calls: []
+  onJoinRequest:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &106310270
 GameObject:
   m_ObjectHideFlags: 0

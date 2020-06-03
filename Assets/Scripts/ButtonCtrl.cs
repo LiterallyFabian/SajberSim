@@ -127,6 +127,10 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Continue() //just opens everything SAVED
     {
+        Manifest data = Helper.GetManifest($"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/manifest.json");
+        StartStory.storymenuOpen = false;
+        GameManager.storyAuthor = data.author;
+        GameManager.storyName = data.name;
         LoadCharacters();
         StartCoroutine(FadeToScene("game"));
     }

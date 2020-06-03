@@ -187,7 +187,7 @@ namespace SajberSim.Helper
             }
             return storyPaths.ToArray();
         }
-         public string GetManifestPath(string storyID)
+         public static string GetManifestPath(string storyID)
         {
             string path = $"{Application.dataPath}/Story/{storyID}";
             if (File.Exists(path))
@@ -228,7 +228,7 @@ namespace SajberSim.Helper
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
         }
-        public Manifest GetManifest(string path)
+        public static Manifest GetManifest(string path)
         {
             if (!path.Contains(".json"))
             {

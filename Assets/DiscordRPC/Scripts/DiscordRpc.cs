@@ -42,7 +42,6 @@ public class DiscordRpc
         public OnRequestInfo requestCallback;
     }
 
-
     [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct RichPresenceStruct
     {
@@ -120,11 +119,6 @@ public class DiscordRpc
         var presencestruct = presence.GetStruct();
         UpdatePresenceNative(ref presencestruct);
         presence.FreeMem();
-
-    }
-    public static void Update()
-    {
-
     }
 
     public class RichPresence
@@ -225,6 +219,4 @@ public class DiscordRpc
             }
         }
     }
-
-
 }

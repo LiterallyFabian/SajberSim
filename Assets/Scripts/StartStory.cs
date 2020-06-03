@@ -34,6 +34,8 @@ public class StartStory : MonoBehaviour
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
     public bool detailsOpen = false;
+    public static bool storymenuOpen = false;
+    public static bool creatingStory = false;
     private string searchTerm = "";
     
 
@@ -42,6 +44,7 @@ public class StartStory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        storymenuOpen = false;
         shelper = GameObject.Find("Helper").GetComponent<Helper>();
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
@@ -113,7 +116,7 @@ public class StartStory : MonoBehaviour
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{shelper.GetCardPages(sortArgs, nsfw, searchTerm)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
-            Manifest storydata = shelper.GetManifest(manifests[i]); 
+            Manifest storydata = Helper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             CreateCard(storyPaths[i], storydata, position, i);
         }
@@ -175,7 +178,7 @@ public class StartStory : MonoBehaviour
     {
         string folderPath = shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[n];
         Debug.Log($"Attempting to create details page with ID {n}, path {folderPath}");
-        Manifest data = shelper.GetManifest($"{folderPath}/manifest.json");
+        Manifest data = Helper.GetManifest($"{folderPath}/manifest.json");
 
         string name = data.name;
         string id = folderPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
@@ -224,11 +227,18 @@ public class StartStory : MonoBehaviour
 
     public void Play(int id)
     {
-        Debug.Log($"Attempting to start story with ID {id}, path {shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id]}");
-        PlayerPrefs.SetString("story", shelper.GetAllStoryNames(sortArgs, nsfw, searchTerm)[id]);
+        string story = shelper.GetAllStoryNames(sortArgs, nsfw, searchTerm)[id];
+        string path = shelper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id];
+        Manifest data = Helper.GetManifest($"{path}/manifest.json");
+
+        Debug.Log($"Attempting to start story with ID {id}, path {path}");
+        PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("script", "start");
         ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
         main.CreateCharacters();
+        storymenuOpen = false;
+        GameManager.storyAuthor = data.author;
+        GameManager.storyName = data.name;
         StartCoroutine(main.FadeToScene("game"));
 
 
@@ -270,12 +280,14 @@ public class StartStory : MonoBehaviour
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("openStorymenu");
         CloseButtonBehind.SetActive(true);
+        storymenuOpen = true;
     }
     public void CloseMenu()
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("closeStorymenu");
         CloseButtonBehind.SetActive(false);
         DeleteDetails();
+        storymenuOpen = false;
     }
     
     
