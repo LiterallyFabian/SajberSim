@@ -93,7 +93,7 @@ public class DiscordController : MonoBehaviour
                 else presence.state = "";
                 break;
             case "game":
-                presence.details = $"Playing {GameManager.storyName}";
+                presence.details = $"Playing \"{GameManager.storyName}\"";
                 presence.state = $"Published by {GameManager.storyAuthor}";
                 break;
             case "credits":
