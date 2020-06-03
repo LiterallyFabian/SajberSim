@@ -31,7 +31,6 @@ public class ButtonCtrl : MonoBehaviour
     public AudioSource music;
     public static string charpath;
 
-    private Helper shelper;
     private Download dl;
 
     
@@ -45,12 +44,10 @@ public class ButtonCtrl : MonoBehaviour
     {
         if (GameObject.Find("Helper"))
         {
-            shelper = GameObject.Find("Helper").GetComponent<Helper>();
             dl = GameObject.Find("Helper").GetComponent<Download>();
         }
         else
         {
-            shelper = new GameObject("Helperobj").AddComponent<Helper>();
             dl = new GameObject("downloadobj").AddComponent<Download>();
         }
         
@@ -65,7 +62,7 @@ public class ButtonCtrl : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "menu")
         {
             List<string> charpaths = new List<string>();
-            foreach (string path in shelper.GetAllStoryAssetPaths("characters"))
+            foreach (string path in Helper.GetAllStoryAssetPaths("characters"))
             {
                 if (path.Contains("happy")) charpaths.Add(path);
             }

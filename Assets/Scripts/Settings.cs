@@ -36,7 +36,7 @@ public class Settings : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1)
         {
-            transform.Find("UwU").GetComponent<Toggle>().SetIsOnWithoutNotify(true);
+            transform.Find("UwU/Toggle").GetComponent<Toggle>().SetIsOnWithoutNotify(true);
             transform.Find("UwU/Value").GetComponent<Text>().text = "(◠‿◠✿)";
         }
     }

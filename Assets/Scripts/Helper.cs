@@ -62,7 +62,7 @@ namespace SajberSim.Helper
         /// </summary>
         /// <param name="folder">Foldertype, eg. Characters</param>
         /// <returns>Array with all specified assets</returns>
-        public string[] GetAllStoryAssetPaths(string folder)
+        public static string[] GetAllStoryAssetPaths(string folder)
         {
             string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
             List<string> assetPaths = new List<string>();
@@ -93,7 +93,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns paths to all story manifest files
         /// </summary>
-        public string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
+        public static string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
         {
             List<string> manifestPaths = new List<string>();
             foreach (string story in GetAllStoryPaths(args, nsfw, searchTerm))
@@ -111,7 +111,7 @@ namespace SajberSim.Helper
         /// <param name="args">Search arguments</param>
         /// <param name="nsfw">Include NSFW</param>
         /// <returns>Array with paths to all local story folders</returns>
-        public string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
+        public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
         {
             List<string> storyPaths = Directory.GetDirectories($"{Application.dataPath}/Story/").ToList();
             string[] fixedPaths;
@@ -128,7 +128,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Takes array of story paths and sorts it by data in manifest
         /// </summary>
-        private string[] SortArrayBy(List<string> storyPaths, StorySearchArgs args)
+        private static string[] SortArrayBy(List<string> storyPaths, StorySearchArgs args)
         {
             bool reverse = false;
             if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.LongestFirst) reverse = true;
@@ -164,7 +164,7 @@ namespace SajberSim.Helper
             else return sortedList.ToArray();
             
         }
-        private string[] FilterNSFWFromCardPaths(List<string> storyPaths, bool remove = true) // https://i.imgur.com/Dw1l9YI.png
+        private static string[] FilterNSFWFromCardPaths(List<string> storyPaths, bool remove = true) // https://i.imgur.com/Dw1l9YI.png
         {
             foreach (string path in storyPaths.ToList())
             {
@@ -174,7 +174,7 @@ namespace SajberSim.Helper
             }
             return storyPaths.ToArray();
         }
-        private string[] FilterSearchFromCardPaths(List<string> storyPaths, string searchTerm)
+        private static string[] FilterSearchFromCardPaths(List<string> storyPaths, string searchTerm)
         {
             searchTerm.ToLower();
             if (searchTerm == "nsfw") return FilterNSFWFromCardPaths(storyPaths, false);
@@ -201,7 +201,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
-        public string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
+        public static string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
         {
             List<string> nameList = new List<string>();
             foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm))
@@ -212,7 +212,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns amount of pages needed for the preview card menu, in the correct order
         /// </summary>
-        public int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
+        public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "")
         {
             int length = GetAllManifests(args, nsfw, searchTerm).Length;
 
@@ -222,7 +222,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns amount of cards that should be on the last page
         /// </summary>
-        public int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "")
+        public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "")
         {
             int n = GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
@@ -248,7 +248,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns amount of cards in total
         /// </summary>
-        public int GetTotalCardAmount(bool nsfw = true, string searchTerm = "")
+        public static int GetTotalCardAmount(bool nsfw = true, string searchTerm = "")
         {
             return GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm).Length;
         }
