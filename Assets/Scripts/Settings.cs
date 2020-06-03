@@ -95,4 +95,9 @@ public class Settings : MonoBehaviour
         GetComponent<Animator>().Play("closeStorymenu");
         StartCoroutine(StartStory.DelCard(this.gameObject));
     }
+    public void CreateAndOpenLog()
+    {
+        Helper.CreateLogfile();
+        Helper.OpenFolderFromGame("Logs");
+    }
 }

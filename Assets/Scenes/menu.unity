@@ -500,7 +500,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applicationId: 684504383618285590
   optionalSteamId: 
-  clickCounter: 0
   joinRequest:
     userId: 
     username: 
@@ -2295,9 +2294,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: "Ifall du vill testa redigera eller g\xF6ra egna stories i SajberSim har
-    du kommit r\xE4tt! Instruktioner f\xF6r detta finns p\xE5 Github. I nul\xE4get
-    g\xF6rs allting via textfiler som du kan hitta med knapparna nedan. \n\n"
+  m_Text: This screen is abandoned and will probably not return in the future. It
+    was nice while it lasted!
 --- !u!222 &410652028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11116,7 +11114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1288605317
 RectTransform:
   m_ObjectHideFlags: 0

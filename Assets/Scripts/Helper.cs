@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace SajberSim.Helper
                 CardPositions.Add(4, new Vector3(330, -230, 1));
                 CardPositions.Add(5, new Vector3(660, -230, 1));
                 genres = new string[] { Translate.Get("action"), Translate.Get("adventure"), Translate.Get("comedy"), Translate.Get("drama"), Translate.Get("fantasy"), Translate.Get("horror"), Translate.Get("magic"), Translate.Get("mystery"), Translate.Get("scifi"), Translate.Get("sliceoflife"), Translate.Get("supernatural"), Translate.Get("other") };
-                Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
+                UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
             
         }
@@ -98,8 +99,8 @@ namespace SajberSim.Helper
             List<string> manifestPaths = new List<string>();
             foreach (string story in GetAllStoryPaths(args, nsfw, searchTerm))
             {
-                if (!File.Exists($"{story}/manifest.json")) 
-                    Debug.LogError($"Tried getting manifest for {story} which does not exist.");
+                if (!File.Exists($"{story}/manifest.json"))
+                    UnityEngine.Debug.LogError($"Tried getting manifest for {story} which does not exist.");
                 else
                     manifestPaths.Add($"{story}/manifest.json");
             }
@@ -194,7 +195,7 @@ namespace SajberSim.Helper
                 return path;
             else
             {
-                Debug.LogError($"Tried getting manifest path {storyID} which does not exist ({path})");
+                UnityEngine.Debug.LogError($"Tried getting manifest path {storyID} which does not exist ({path})");
                 return null;
             }    
         }
@@ -232,7 +233,7 @@ namespace SajberSim.Helper
         {
             if (!path.Contains(".json"))
             {
-                Debug.LogError($"Tried getting manifest for path \"{path}\" which does not exist");
+                UnityEngine.Debug.LogError($"Tried getting manifest for path \"{path}\" which does not exist");
                 return null;
             }
             try
@@ -241,7 +242,7 @@ namespace SajberSim.Helper
             }
             catch
             {
-                Debug.LogError($"Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
+                UnityEngine.Debug.LogError($"Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
                 return null;
             }
         }
@@ -259,17 +260,33 @@ namespace SajberSim.Helper
         }
         public static List<string> ReverseList(List<string> list)
         {
-            return ReverseArray(list.ToArray()).ToList<string>(); //bad code? maybe
+            list.Reverse();
+            return list; 
         }
         public static void CreateLogfile()
-        {
+        {   
             if (Application.isEditor) return;
             DateTime now = DateTime.Now;
             string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
-            string destFile = $@"{Application.dataPath}/Logs/SajberSim {now.Year}.{now.Day}.{now.Month} - {now.Hour}.{now.Minute}.{now.Second}.txt".Replace("/", "\\");
+            string destFile = $@"{Application.dataPath}/Logs/SajberSim {now:yyyy.MM.dd - HH.mm.ss}.txt".Replace("/", "\\");
             System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
             System.IO.File.Copy(sourceFile, destFile, true);
         }
+        /// <summary>
+        /// Appends argument on game directory (*/SajberSim_Data/)
+        /// </summary>
+        /// <param name="path"></param>
+        public static void OpenFolderFromGame(string path)
+        {
+            string fullpath = $@"{Application.dataPath}/{path}";
+            if (Directory.Exists(fullpath))
+                Process.Start("explorer.exe", fullpath);
+            else
+                UnityEngine.Debug.LogError($"Tried to open path {fullpath} which does not exist");
+        }
+
+        /// <param name="dateTime">Date in the past to count from</param>
+        /// <returns>Simplified string, eg "about 30 days ago", "yesterday"</returns>
         public static string TimeAgo(DateTime dateTime)
         {
             string result = string.Empty;

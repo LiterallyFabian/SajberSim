@@ -3566,7 +3566,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2254785213267220377}
     - target: {fileID: 3260014644483953731, guid: 22307201b1199bb4e80ba9b20b08ea24,
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
@@ -3610,12 +3610,12 @@ PrefabInstance:
     - target: {fileID: 3260014644483953731, guid: 22307201b1199bb4e80ba9b20b08ea24,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenFolder
+      value: CreateAndOpenLog
       objectReference: {fileID: 0}
     - target: {fileID: 3260014644483953731, guid: 22307201b1199bb4e80ba9b20b08ea24,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3260014644483953731, guid: 22307201b1199bb4e80ba9b20b08ea24,
         type: 3}
