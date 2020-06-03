@@ -19,7 +19,6 @@ public class ChangeMoodOnPopups : MonoBehaviour
 
     public void UpdateMood()
     {
-        Debug.Log("CLICK! " + gameObject.name);
         clicks++;
         if (clicks == 1) GetComponent<Image>().sprite = blush;
         if(clicks == 5) GetComponent<Image>().sprite = angry;
