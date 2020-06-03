@@ -216,6 +216,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
         if(MainPopup.singlecharClicked) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
+        MainPopup.singlecharClicked = false;
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 
         for (float i = 0; i <= 1; i += Time.deltaTime/1.5f) //Starts fade, load scene when done
