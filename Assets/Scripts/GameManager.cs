@@ -73,6 +73,12 @@ public class GameManager : MonoBehaviour
         story = File.ReadAllLines($"{storyPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
+        if (File.Exists($"{storyPath}/textbox.png"))
+        {
+            Debug.Log($"Found textbox at path {storyPath}/textbox.png and will try to update...");
+            dl.Image(textbox, $"{storyPath}/textbox.png");
+        }
+
         RunNext();
     }
 
