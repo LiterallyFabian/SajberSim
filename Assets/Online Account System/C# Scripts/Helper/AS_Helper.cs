@@ -280,7 +280,7 @@ public class AS_Credentials
             PlayerPrefs.SetString("AS_EmailAccount", value);
         }
     }
-	const string _phpScriptsLocation = "http://sajber.me/account";
+	const string _phpScriptsLocation = "https://sajber.me/account";
     public static string phpScriptsLocation
     {
         get
