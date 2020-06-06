@@ -21,19 +21,21 @@ namespace SajberSim.Helper
         /// <summary>
         /// Positions for all 6 icons in the story menu
         /// </summary>
-        public static Dictionary<int, Vector3> CardPositions = new Dictionary<int, Vector3>();
+        public static Dictionary<int, Vector3> CardPositions = new Dictionary<int, Vector3>()
+        {
+            {0, new Vector3(0, 0, 1)},
+            {1, new Vector3(330, 0, 1)},
+            {2, new Vector3(660, 0, 1)},
+            {3, new Vector3(0, -230, 1)},
+            {4, new Vector3(330, -230, 1)},
+            {5, new Vector3(660, -230, 1)}
+        };
         private static bool _filledlist = false;
         private void Start()
         {
             if (!_filledlist)
             {
                 _filledlist = true;
-                CardPositions.Add(0, new Vector3(0, 0, 1));
-                CardPositions.Add(1, new Vector3(330, 0, 1));
-                CardPositions.Add(2, new Vector3(660, 0, 1));
-                CardPositions.Add(3, new Vector3(0, -230, 1));
-                CardPositions.Add(4, new Vector3(330, -230, 1));
-                CardPositions.Add(5, new Vector3(660, -230, 1));
                 genres = new string[] { Translate.Get("action"), Translate.Get("adventure"), Translate.Get("comedy"), Translate.Get("drama"), Translate.Get("fantasy"), Translate.Get("horror"), Translate.Get("magic"), Translate.Get("mystery"), Translate.Get("scifi"), Translate.Get("sliceoflife"), Translate.Get("supernatural"), Translate.Get("other") };
                 UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
