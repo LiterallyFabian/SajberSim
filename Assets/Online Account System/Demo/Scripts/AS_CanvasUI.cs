@@ -167,7 +167,7 @@ public class AS_CanvasUI : MonoBehaviour
 		// Equivalent to: 
 		// StartCoroutine ( AS_Login.TryToDownloadRegistrationForm (accountInfo, RegistrationFormDownloaded) );
 		
-		guiMessage = "Loading..";
+		guiMessage = Translate.Get("loading");
 	}
 	
 	public void OnRegistrationCancelled()
