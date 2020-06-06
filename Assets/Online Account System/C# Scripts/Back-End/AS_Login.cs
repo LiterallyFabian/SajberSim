@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using SajberSim.Translation;
+
 public static class AS_Login
 {
 
@@ -127,12 +129,12 @@ public static class AS_Login
         if (www.text.ToLower().Contains("success"))
         {
             Log(LogType.Log, "Emailed password reset link!\n" + www.text);
-            resultCallback("Emailed password reset link!");
+            resultCallback(Translate.Get("recoverysent"));
         }
         else
         {
             Log(LogType.Warning, "Could not email password reset link - Check Message:\n" + www.text);
-            resultCallback("Error: Could not email password reset link");
+            resultCallback(Translate.Get("emailerror"));
         }
 
 
@@ -151,44 +153,52 @@ public static class AS_Login
     /// <param name="registrationMessage"> Success / Error message message.</param>
 	public static bool CheckFields(AS_AccountInfo regInfo, string passwordConfirm, string emailConfirm, ref string errorMessage)
     {
-
+        string username = regInfo.GetFieldValue("username");
+        string password = regInfo.GetFieldValue("password");
+        string email = regInfo.GetFieldValue("email");
         errorMessage = "";
 
 		// Validate the data in the fields (make sure it matches their type
 		if ( !regInfo.fields.CheckMySQLFields (ref errorMessage) )
 			return false;
 
-        if (regInfo.GetFieldValue("password") == null || 
-		    (AS_Preferences.askUserForEmail && regInfo.GetFieldValue("email") == null))
+        if (password == null || 
+		    (AS_Preferences.askUserForEmail && email == null))
         {
-            errorMessage = "Account info not set up correctly..! Missing fields..!";
+            errorMessage = "Account info not set up correctly! Missing fields!";
             return false;
         }
 
         // Password must match
-        if (regInfo.GetFieldValue ("password") != passwordConfirm) {
-			errorMessage = "Passwords must match..!";
+        if (password != passwordConfirm) {
+			errorMessage = Translate.Get("passwordnomatch");
 			return false;
 		}
 		// If an email has been entered
-		else if (AS_Preferences.askUserForEmail && regInfo.GetFieldValue ("email") != "") {
+		else if (AS_Preferences.askUserForEmail && email != "") {
 			// It must be valid
 			if (!new Regex (@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
 			                     + "@"
 			                     + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$").Match (regInfo.GetFieldValue ("email")).Success) {
-				errorMessage = "Invalid email..!";
+				errorMessage = Translate.Get("emailinvalid");
 				return false;
 			} 
 			// And match its confirm
-			if ( regInfo.GetFieldValue ("email") != emailConfirm)
+			if (email != emailConfirm)
 			{ 
-				errorMessage = "Emails must match..!";
+				errorMessage = Translate.Get("emailnomatch");
 				return false;
 			} 
 		}
+        //Username too short
+        if (username.Length < 3)
+        {
+            errorMessage = string.Format(Translate.Get("usernameshort"), regInfo.GetFieldValue("username"));
+            return false;
+        }
 
-		// All good..!
-		return true;
+        // All good..!
+        return true;
 	}
 	
 	
@@ -262,12 +272,12 @@ public static class AS_Login
         if (www.text.ToLower().Contains("success"))
         {
             Log(LogType.Log, "New account registered successfully!\n" + www.text);
-            resultCallback("New account registered successfully!");
+            resultCallback(Translate.Get("createdaccount"));
         }
         else
         {
             Log( LogType.Error, "Could not register new account - Check Message:\n" + www.text);
-            resultCallback("Error: Could not register new account");
+            resultCallback(Translate.Get("accounterror")); 
         }
 
 
@@ -314,7 +324,7 @@ public static class AS_Login
         if (www.error != null && www.error != "")
         {
             Log( LogType.Error, "WWW Error:\n" + www.error);
-            resultCallback("Error: Could not connect. Please try again later!");
+            resultCallback(Translate.Get("noconnection"));
             yield break;
         }
         if (www.text.ToLower().Contains("error"))
@@ -327,19 +337,19 @@ public static class AS_Login
         if (www.text == "-1")
         {
             Log(LogType.Warning, "Failed Login Attempt (Account Inactive)\n" + www.text);
-            resultCallback("Error: Account is Inactive - Please check your emails.");
+            resultCallback(Translate.Get("accinactive"));
         }
         else if (www.text == "-2")
         {
             Log(LogType.Warning, "Failed Login Attempt (Invalid Username / Password)\n" + www.text);
-            resultCallback("Error: Invalid Username / Password");
+            resultCallback(Translate.Get("invalidinfo"));
         }
         else
         {
 			int id = -1;
 			if (!int.TryParse(www.text, out id))
 			{				
-				resultCallback("Error: Could not connect. Please try again later!");
+				resultCallback(Translate.Get("noconnection"));
 				Log( LogType.Error, "Failed Login Attempt (Unknown Error / Warning)\n" + www.text);
 				yield break;
 			}

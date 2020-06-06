@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using SajberSim.Translation;
 
 public static class AS_ErrorHandling
 {
@@ -30,7 +31,7 @@ public static class AS_ErrorHandling
     public static string HandlePHPError(this string errorString)
     {
 		if (errorString.ToLower().Contains("could not send"))
-			return "Could not email you a reset link - make sure this is a valid email or try again later.";
+			return Translate.Get("phperror");
 
 
         return "PHP Error!";
@@ -53,12 +54,12 @@ public static class AS_ErrorHandling
             if (words.Length < 2)
                 return "Duplicate entry!";
 
-            return "There is an existing account with that " + words[1].ToLower().UppercaseFirst();
+            return string.Format(Translate.Get("fielddupe"), words[1].ToLower().UppercaseFirst()); //There is an existing account with that {0}.
 
         }
 
         if (errorString.ToLower().Contains("could not find the specified email"))
-            return "Could not find an account with that email";
+            return Translate.Get("emailnull"); // Could not find an account with that email.
 
         // GENERIC ERROR HANDLING
         // MySQL error #### (

@@ -15,6 +15,40 @@ writingspeed=Utskriftshastighet
 openlogs=Öppna loggfiler
 language=Språk
 
+#Account
+signin=Logga in
+login=Logga in
+username=Användarnamn
+password=Lösenord
+email=E-post
+loading=Laddar...
+submit=Skicka
+send=Skicka
+createacc=Skapa konto
+forgotpass=Glömt lösenordet?
+recovery=Återställning av lösenord
+recoverysent=Återställningslänk skickad!
+accountemail=E-post:
+recoverytext=Ange ditt kontos e-postadress för att få en länk för återställning av lösenord.
+processing=Bearbetar...
+createdaccount=Nytt konto registrerat!
+requiredfields= 
+
+#Account errors
+invalidemail=Fel: Det gick inte att hitta ett konto med den e-postadressen
+fieldempty=Fel: {0} kan inte vara tomt!
+accinactive=Fel: Kontot är inaktivt - Kontrollera din e-post för att aktivera.
+invalidinfo=Fel: Ogiltigt användarnamn / lösenord.
+noconnection=Fel: Det gick inte att ansluta. Vänligen försök igen senare!
+passwordnomatch=LFel: ösenorden matchar inte.
+emailnomatch=Fel: E-postadressen matchar inte.
+emailinvalid=Fel: E-postadressen är ogiltig eller är redan registrerad.
+usernameshort=Fel: Användarnamnet {0} är för kort.
+emailnull=Fel: Det gick inte att hitta ett konto med den e-postadressen,
+fielddupe=Fel: Det finns ett befintligt konto med det {0}.
+phperror=Fel: Det gick inte att skicka en återställningslänk - se till att detta är en giltigt e-postadress eller försök igen senare.
+accounterror=Fel: Det gick inte att registrera ett konto, försök igen senare.
+
 #Time
 about=för ungefär {0} {1} sedan
 abouta=för ungefär {0} sedan

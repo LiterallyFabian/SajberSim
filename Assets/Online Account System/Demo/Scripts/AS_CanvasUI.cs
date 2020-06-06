@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System; 
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using SajberSim.Translation;
 
 public class AS_CanvasUI : MonoBehaviour
 {
@@ -141,9 +142,12 @@ public class AS_CanvasUI : MonoBehaviour
     #region Button Accessors
     public void OnLoginRequested()
     {
-        string username = usernameField.text;
-        string password = passwordField.text;
-        username.TryToLogin(password, LoginAttempted);
+		if (usernameField.text.Length != 0 && passwordField.text.Length != 0) //only run if both fields got input
+		{
+			string username = usernameField.text;
+			string password = passwordField.text;
+			username.TryToLogin(password, LoginAttempted);
+		}
     }
 
     public void OnMessageClicked()
@@ -245,7 +249,7 @@ public class AS_CanvasUI : MonoBehaviour
 		loginState = AS_LoginState.Registering;
 		
 		// What you want to appear in the registration GUI
-		guiMessage = "Please fill in the required fields."; 
+		guiMessage = Translate.Get("requiredfields"); 
 		
 	}
 	

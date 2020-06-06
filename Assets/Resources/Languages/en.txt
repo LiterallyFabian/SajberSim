@@ -15,6 +15,41 @@ writingspeed=Writing speed
 openlogs=Open log folder
 language=Language
 
+#Account
+signin=Sign in
+login=Login
+username=Username
+password=Password
+email=Email
+loading=Loading...
+submit=Submit
+send=Send
+createacc=Create an account
+forgotpass=Forgot password?
+recovery=Password recovery
+recoverysent=Emailed password reset link!
+accountemail=Account email:
+recoverytext=Enter your user account's email address to get a password reset link.
+processing=Processing...
+createdaccount=New account registered successfully!
+requiredfields=Please fill in the required fields.
+
+#Account errors
+invalidemail=Error: Could not find an account with that email
+fieldempty=Error: {} can not be empty!
+accinactive=Error: Account is inactive - Please check your email.
+invalidinfo=Error: Invalid username / password.
+noconnection=Error: Could not connect. Please try again later!
+passwordnomatch=Error: Passwords do not match.
+emailnomatch=Error: Emails do not match.
+emailinvalid=Error: Email is invalid or already taken.
+emailerror=Error: Could not email password reset link.
+usernameshort=Error: Username {0} is too short.
+emailnull=Error: Could not find an account with that email.
+fielddupe=Error: There is an existing account with that {0}.
+phperror=Error: Could not email you a reset link - make sure this is a valid email or try again later.
+accounterror=Error: Could not create account, please try again later.
+
 #Time
 about=about {0} {1} ago
 abouta=about {0} ago
