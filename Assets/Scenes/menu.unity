@@ -7881,6 +7881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoginCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 116216, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22401026, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
