@@ -232,6 +232,5 @@ public class ButtonCtrl : MonoBehaviour
         DiscordRpc.Shutdown(); //Stänger Discord RPC
         Helper.CreateLogfile();
 
-
     }
 }

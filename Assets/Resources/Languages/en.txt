@@ -17,6 +17,7 @@ language=Language
 
 #Account
 signin=Sign in
+accountnotice=You will need a SajberSim account if you want to publish your own visual novels.
 login=Login
 username=Username
 password=Password
