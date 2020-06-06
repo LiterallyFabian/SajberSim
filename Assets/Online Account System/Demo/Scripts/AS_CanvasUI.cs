@@ -375,11 +375,11 @@ public class AS_CanvasUI : MonoBehaviour
 			if (field.name.ToLower().Contains("username"))
 			{
                 AS_MySQLField dummyField = new AS_MySQLField();
-                dummyField.name = "<b>Bold *</b>: Required Field";
+                dummyField.name = "";
                 AS_InputField dummy = CreateInputField(dummyField);
                 dummy.background.gameObject.SetActive(false);
 			}
-
+				
 			/// Password / Email -> Require confirmation
 			if (field.name.ToLower().Contains("password"))
 			{ 
