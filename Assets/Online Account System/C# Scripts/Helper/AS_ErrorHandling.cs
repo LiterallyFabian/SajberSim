@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using SajberSim.Translation;
+using System.Linq;
 
 public static class AS_ErrorHandling
 {
@@ -19,10 +20,10 @@ public static class AS_ErrorHandling
     {
 
         if (errorString.ToLower().Contains("mysql"))
-            return "Error: " + errorString.HandleMySQLError();
+            return Translate.Get("error") + errorString.HandleMySQLError();
 
         if (errorString.ToLower().Contains("php"))
-            return "Error: " + errorString.HandlePHPError();
+            return Translate.Get("error") + errorString.HandlePHPError();
 
         return "Error: Unspecified error";
 
@@ -54,7 +55,9 @@ public static class AS_ErrorHandling
             if (words.Length < 2)
                 return "Duplicate entry!";
 
-            return string.Format(Translate.Get("fielddupe"), words[1].ToLower().UppercaseFirst()); //There is an existing account with that {0}.
+            if (words[1].ToLower() == "username") words[1] = Translate.Get("username").ToLower();
+            if (words[1].ToLower() == "email") words[1] = Translate.Get("email").ToLower();
+            return string.Format(Translate.Get("fielddupe"), words[1]); //There is an existing account with that {0}.
 
         }
 

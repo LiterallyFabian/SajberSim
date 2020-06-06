@@ -33,9 +33,11 @@ accountemail=Account email:
 recoverytext=Enter your user account's email address to get a password reset link.
 processing=Processing...
 createdaccount=New account registered successfully!
+signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc).
 requiredfields=Please fill in the required fields.
 
 #Account errors
+error=Error: 
 invalidemail=Error: Could not find an account with that email
 fieldempty=Error: {} can not be empty!
 accinactive=Error: Account is inactive - Please check your email.
@@ -45,9 +47,9 @@ passwordnomatch=Error: Passwords do not match.
 emailnomatch=Error: Emails do not match.
 emailinvalid=Error: Email is invalid or already taken.
 emailerror=Error: Could not email password reset link.
-usernameshort=Error: Username {0} is too short.
-emailnull=Error: Could not find an account with that email.
-fielddupe=Error: There is an existing account with that {0}.
+usernameshort=Error: Username "{0}" is too short.
+emailnull=Could not find an account with that email.
+fielddupe=There is an existing account with that {0}.
 phperror=Error: Could not email you a reset link - make sure this is a valid email or try again later.
 accounterror=Error: Could not create account, please try again later.
 

@@ -16,7 +16,7 @@ public class AS_CanvasUI : MonoBehaviour
     */
     public void OnSuccessfulLogin(int id)
 	{
-		this.Log(LogType.Log, "Successfully Logged In User with id: " + id + " - Add any custom Logic Here!");
+		this.Log(LogType.Log, "Successfully Logged In User with id: " + id);
 		loginState = AS_LoginState.LoginSuccessful;  
 		
 		if (accountManagementGUI)
@@ -367,7 +367,7 @@ public class AS_CanvasUI : MonoBehaviour
 			
 			// Id is an auto-increment unique identifier
 			// and custom info is not specified during registration
-			if (field.name.ToLower() == "id" | field.name.ToLower() == "custominfo" | field.name.ToLower() == "isactive")
+			if (field.name.ToLower() == "id" | field.name.ToLower() == "custominfo" | field.name.ToLower() == "isactive" | field.name.ToLower() == "singupdate")
 				continue;
 			
 			// For any other field, create an InputField prefab
