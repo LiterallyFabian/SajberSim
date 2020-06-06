@@ -1,9 +1,9 @@
 #Main menu
 newgame=Nytt spel
 continue=Fortsätt
-findnovels=Hitta noveller
+findnovels=Hitta romaner
 settings=Inställningar
-create=Skapa noveller
+create=Skapa romaner
 quit=Avsluta
 credits=Medverkande
 yes=Ja
@@ -17,6 +17,7 @@ language=Språk
 
 #Account
 signin=Logga in
+accountnotice=Du behöver ett SajberSim-konto ifall du vill publicera dina egna visuella romaner.
 login=Logga in
 username=Användarnamn
 password=Lösenord
