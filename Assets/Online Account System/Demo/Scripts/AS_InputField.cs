@@ -17,7 +17,7 @@ public class AS_InputField : MonoBehaviour {
 	public void Initialize(AS_MySQLField field)
 	{ 
 		this.field = field;
-		nameText.text = (field.isRequired ? "<b>" :"" )+ field.name.UppercaseFirst() + (field.isRequired ? " *</b>": "") + ":"; 
+		nameText.text = (field.isRequired ? "<b>" :"" )+ field.name.UppercaseFirst() + (field.isRequired ? "</b> ": " "); 
 		inputField.onValueChanged.AddListener (OnValueChanged);
 		if (field.name.ToLower ().Contains ("password"))
 			inputField.contentType = InputField.ContentType.Password;
