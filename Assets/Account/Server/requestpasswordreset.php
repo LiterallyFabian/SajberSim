@@ -28,14 +28,14 @@ $email = str_replace('%2b', '+', $email );
 $query="SELECT id, username, email FROM accounts WHERE email = '$email'";
 $result= try_mysql_query($link, $query);
 
-// If it doesn't 
+// If it doesn't
 if( mysqli_num_rows($result) ==0){
-die( "MySQL error: Could not find the specified email - " . $email);} 
+die( "MySQL error: Could not find the specified email - " . $email);}
 
 $temp = mysqli_fetch_array($result);
 
-$id = $temp['id'];  
-$username = $temp['username']; 
+$id = $temp['id'];
+$username = $temp['username'];
 
 // Generate a random hash and sha1 it
 $hash = sha1(uniqid(rand(), true));
@@ -44,22 +44,22 @@ $hash = sha1(uniqid(rand(), true));
 $query="SELECT accountid FROM passwordreset WHERE accountid = '$id'";
 $result= try_mysql_query($link, $query);
 
-// If it does, 
+// If it does,
 if( mysqli_num_rows($result) != 0){
 
 	// Update it with the new hash
 	$query="UPDATE passwordreset SET hash = '$hash' WHERE accountid = '$id'";
-        
+
         try_mysql_query($link, $query);
-	
-} 
+
+}
 // If it doesn't
 else {
 
 	// Insert it
 	$query="INSERT INTO passwordreset VALUES ('$id', '$hash')";
-        
-	try_mysql_query($link, $query);	
+
+	try_mysql_query($link, $query);
 
 }
 
@@ -70,15 +70,12 @@ $resetLink    = $phpScriptsLocation . '/resetpassword.html?id=' . $id . '&hash='
 
 $subject = 'Password Reset'; // Give the email a subject
 
-$message = '
- 
-Hello ' . $username . ',
-
-to reset your password, click on the following link:
+$message = 'Hi ' . $username . '! To reset your SajberSim password, click on the following link:
 '
 	. $resetLink . '
- 
 
+
+If you didn\'t want to change your password
 '; // Our message above
 
 $headers = 'From: ' . $emailAccount . "\r\n" .
@@ -88,13 +85,13 @@ $headers = 'From: ' . $emailAccount . "\r\n" .
 
 $to = str_replace('%40', '@', $to );
 
-// Send our email   
+// Send our email
 if ( !mail($to, $subject, $message, $headers) ){
-	
-	// Remove it from confirmation table 
+
+	// Remove it from confirmation table
 	$query="DELETE FROM passwordreset WHERE accountid = '$id' and hash = '$hash'";
-	try_mysql_query($link, $query); 
-	
+	try_mysql_query($link, $query);
+
 	$errorMessage  = "error: Could not send the following email:\n";
 	$errorMessage .= "\nFROM: "    . $emailAccount;
 	$errorMessage .= "\nTO: "      . $to;
