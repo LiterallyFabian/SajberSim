@@ -3,6 +3,7 @@ using System.Collections;
 using System; 
 using UnityEngine.UI;
 using SajberSim.Translation;
+using System.Linq;
 
 public class AS_CanvasUI : MonoBehaviour
 {
@@ -364,10 +365,11 @@ public class AS_CanvasUI : MonoBehaviour
 		// Registration Info has the fields the user should fill in
 		foreach (AS_MySQLField field in accountInfo.fields)
 		{
-			
+
 			// Id is an auto-increment unique identifier
 			// and custom info is not specified during registration
-			if (field.name.ToLower() == "id" | field.name.ToLower() == "custominfo" | field.name.ToLower() == "isactive" | field.name.ToLower() == "singupdate")
+			string[] dontinclude = { "id", "custominfo", "isactive", "signupdate", "bio" };
+			if (dontinclude.Contains(field.name.ToLower()))
 				continue;
 			
 			// For any other field, create an InputField prefab
@@ -388,13 +390,13 @@ public class AS_CanvasUI : MonoBehaviour
 			if (field.name.ToLower().Contains("password"))
 			{ 
 				passwordConfirm = new AS_MySQLField(field);
-				passwordConfirm.name = "Confirm Password"; 
+				passwordConfirm.name = "Confirm password";
 				CreateInputField(passwordConfirm); 
 			}
 			else if (field.name.ToLower().Contains("email"))
 			{ 
 				emailConfirm = new AS_MySQLField(field);
-				emailConfirm.name = "Confirm Email"; 
+				emailConfirm.name = "Confirm email";
 				CreateInputField(emailConfirm);  
 			}
 		}

@@ -33,7 +33,7 @@ accountemail=E-post:
 recoverytext=Ange ditt kontos e-postadress för att få en länk för återställning av lösenord.
 processing=Bearbetar...
 createdaccount=Nytt konto registrerat!
-signupnote=När du har registrerat dig och verifierat ditt konto kommer du kunna lägga till mer valfri (social medier, profilbild osv.).
+signupnote=När du har registrerat dig och verifierat ditt konto kommer du kunna lägga till mer valfri information (social medier, profilbild osv.) på din profil.
 requiredfields= 
 
 #Account errors
@@ -45,7 +45,7 @@ invalidinfo=Fel: Ogiltigt användarnamn / lösenord.
 noconnection=Fel: Det gick inte att ansluta. Vänligen försök igen senare!
 passwordnomatch=LFel: ösenorden matchar inte.
 emailnomatch=Fel: E-postadressen matchar inte.
-emailinvalid=Fel: E-postadressen är ogiltig eller är redan registrerad.
+emailinvalid=Fel: E-postadressen är ogiltig eller redan registrerad.
 usernameshort=Fel: Användarnamnet "{0}" är för kort.
 emailnull=Det gick inte att hitta ett konto med den e-postadressen.
 fielddupe=Det finns ett befintligt konto med det {0}.

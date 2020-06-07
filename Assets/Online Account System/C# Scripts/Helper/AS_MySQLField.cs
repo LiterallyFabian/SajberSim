@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using SajberSim.Translation;
 
 /// <summary>
 /// MySQL field.
@@ -46,8 +47,9 @@ public static class AS_MySQLFieldHelper
 			// Check for ommited fields
 			if (field.isRequired && field.stringValue == "")
 			{
-				errorMessage = field.name.UppercaseFirst() + " can not be empty!";
-				return false;
+				errorMessage = string.Format(Translate.Get("fieldempty"), Translate.Get(field.name.ToLower()));
+
+                return false;
 			}
 			
 			if (field.stringValue != "")

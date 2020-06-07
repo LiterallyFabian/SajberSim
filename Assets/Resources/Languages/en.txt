@@ -33,13 +33,13 @@ accountemail=Account email:
 recoverytext=Enter your user account's email address to get a password reset link.
 processing=Processing...
 createdaccount=New account registered successfully!
-signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc).
+signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc) on your profile.
 requiredfields=Please fill in the required fields.
 
 #Account errors
 error=Error: 
 invalidemail=Error: Could not find an account with that email
-fieldempty=Error: {} can not be empty!
+fieldempty=Error: {0} can not be empty!
 accinactive=Error: Account is inactive - Please check your email.
 invalidinfo=Error: Invalid username / password.
 noconnection=Error: Could not connect. Please try again later!
