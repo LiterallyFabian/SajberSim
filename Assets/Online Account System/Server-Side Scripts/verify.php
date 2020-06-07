@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // VERIFY.PHP
 // INPUT: (id, hash) via _GET
@@ -16,7 +16,7 @@ $link = try_mysql_connect($databaseHostname, $databaseUsername, $databasePasswor
 
 
 if(!isset($_GET['id']) || empty($_GET['id']) OR (!isset($_GET['hash']) || empty($_GET['hash']))){
-        die( '<div class="statusmsg">Error: Invalid approach, please use the link that has been send to your email.</div>' );
+        die( '<div class="statusmsg">Error: Invalid approach, please use the link that has been send to your email to verify your account.</div>' );
 }
 
 
@@ -38,8 +38,8 @@ $result = try_mysql_query($link, $query) ;
 // If we didn't find a match
 if(mysqli_num_rows($result) == 0 ){
 
-        die( '<div class="statusmsg">Error: The url is either invalid or you already have activated your account.</div>' );
-     
+        die( '<div class="statusmsg">Error: Your request to verify your email has expired or the link has already been used. Try logging in or making a new account.</div>' );
+
 }
 // Else if there is
 else {
@@ -47,12 +47,12 @@ else {
         // Mark the user active
         $query = "UPDATE accounts SET isactive=TRUE WHERE id='$id'";
         try_mysql_query($link, $query) ;
-        
+
         // Remove the key
-        $query = "DELETE from confirm WHERE accountid='$id'";    
+        $query = "DELETE from confirm WHERE accountid='$id'";
         try_mysql_query($link, $query) ;
-        
-        echo '<div class="statusmsg">Success: Your account has been activated, you can now login</div>';
+
+        echo '<div class="statusmsg">Success: Your SajberSim account is now activated, you can now login.</div>';
 }
 
 exit();

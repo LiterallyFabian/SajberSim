@@ -2,7 +2,7 @@
 
 // UPDATEPASSWORD.PHP
 // INPUT: (id, newpassword, hash) via _POST
-// FUNCTIONALITY: Verifies that there was indeed a password reset request and then 
+// FUNCTIONALITY: Verifies that there was indeed a password reset request and then
 // proceeds with updating the password in the 'accounts' table where the id matches the given id
 // OUTPUT: "success" if all went according to plan - otherwise an error message containing "error"
 
@@ -37,7 +37,7 @@ $result = try_mysql_query($link, $query);
 if( mysqli_num_rows($result) ==0){
 
 	//die( "MySQL error: Could not find the account with id " . $id );
-	die( "The password reset you requested has some invalid info.\n\nPlease follow the link from your email, or request another password reset." );
+	die( "Error: Could not reset password due to an invalid or expired link.\n\nPlease follow the link from your email, or request another password reset." );
 } 
 
 $temp = mysqli_fetch_array($result);
@@ -53,7 +53,7 @@ if( mysqli_num_rows($result) ==0){
 
 	//die( "MySQL error: Account with id " . $id . " has not requested a password reset." );
 	die( "$username, we can not find a password reset request for your account.\n\nPlease try again." );
-} 
+}
 
 $temp = mysqli_fetch_array($result);
 
@@ -62,7 +62,7 @@ $temp = mysqli_fetch_array($result);
 if ($hash != $temp['hash']){
 	//die( "MySQL error: Invalid id / hash combination!" );
 	die( "The password reset you requested has some invalid info.\n\nPlease follow the link from your email, or request another password reset." );
-} 
+}
 
 // Create the query
 $hashedPassword = hash('sha512', $newpassword);
