@@ -30,7 +30,7 @@ class WebhookUrls
     {
         using (dWebHook dcWeb = new dWebHook())
         {
-            dcWeb.profilepic = "http://sajber.me/account/Email/webhookpfp.png";
+            dcWeb.profilepic = avatar;
             dcWeb.displayname = $"SajberSim {nameext}";
             dcWeb.url = url;
             dcWeb.SendMessage(msgbase + msg);
