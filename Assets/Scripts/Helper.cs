@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -327,23 +329,23 @@ namespace SajberSim.Helper
             return result;
         }
     }
-    /// <summary>
-    /// Used to store path and corresponding search pattern for Helper.SortArrayBy.
-    /// </summary>
-    class StorySort
+}
+/// <summary>
+/// Used to store path and corresponding search pattern for Helper.SortArrayBy.
+/// </summary>
+class StorySort
+{
+    public string thepath;
+    public string argstring;
+    public int argint;
+    public StorySort(string path, string arg)
     {
-        public string thepath;
-        public string argstring;
-        public int argint;
-        public StorySort(string path, string arg)
-        {
-            this.thepath = path;
-            this.argstring = arg;
-        }
-        public StorySort(string path, int arg)
-        {
-            this.thepath = path;
-            this.argint = arg;
-        }
+        this.thepath = path;
+        this.argstring = arg;
+    }
+    public StorySort(string path, int arg)
+    {
+        this.thepath = path;
+        this.argint = arg;
     }
 }
