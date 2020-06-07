@@ -10,7 +10,7 @@ SajberSim is a framework for visual novels, primarily made for [Cybergymnasiet O
 
 Complete builds can be downloaded [here](https://github.com/LiterallyFabian/SajberSim/releases), note that these builds does not contain anything interesting to see.
 
-For the source code, you can clone the project with Git and then open the folder with Unity 2019.3.12f1
+For the source code, you can clone the project with Git and then open the folder with Unity 2019.3.15f1
 
 ```
 git clone https://github.com/LiterallyFabian/SajberSim
