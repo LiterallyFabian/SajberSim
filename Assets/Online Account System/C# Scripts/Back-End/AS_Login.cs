@@ -234,6 +234,8 @@ public static class AS_Login
         if (requireEmailActivation)
             newAccountInfo.fields.SetFieldValue("isactive", "FALSE");
 
+        newAccountInfo.fields.SetFieldValue("signupdate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+
 		// Serialize the custom info field
 		newAccountInfo.SerializeCustomInfo ();
 
