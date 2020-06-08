@@ -8,9 +8,9 @@ quit=Avsluta
 credits=Medverkande
 yes=Ja
 no=Nej
-overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 confirm=Bekräfta
 cancel=Avbryt
+overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 
 #Settings
 volume=Volym
@@ -37,7 +37,7 @@ recoverytext=Ange ditt kontos e-postadress för att få en länk för återstäl
 processing=Bearbetar...
 createdaccount=Nytt konto registrerat!
 signupnote=När du har registrerat dig och verifierat ditt konto kommer du kunna lägga till mer valfri information (social medier, profilbild osv.) på din profil.
-requiredfields= 
+requiredfields=Fyll i alla obligatoriska fält.
 
 #Account errors
 error=Fel: 

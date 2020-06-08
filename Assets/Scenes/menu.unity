@@ -2174,6 +2174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OverwriteAlert: {fileID: 1425992320}
+  OverwriteTitle: {fileID: 1766937782}
   Logo: {fileID: 863821243}
   Modding: {fileID: 1288605316}
   CreditsButton: {fileID: 290548648}
@@ -24635,7 +24636,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
-  m_Text: Do you want to continue with <b>{0}</b> or start a new game?
+  m_Text: Doyou want to continue with <b>{0}</b> or start a new game?
 --- !u!222 &1766937783
 CanvasRenderer:
   m_ObjectHideFlags: 0

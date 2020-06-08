@@ -250,6 +250,10 @@ namespace SajberSim.Helper
                 return null;
             }
         }
+        public static Manifest GetManifestFromName(string name)
+        {
+            return GetManifest($"{Application.dataPath}/Story/{name}/manifest.json");
+        }
         /// <summary>
         /// Returns amount of cards in total
         /// </summary>

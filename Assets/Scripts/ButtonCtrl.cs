@@ -19,6 +19,8 @@ using SajberSim.Translation;
 public class ButtonCtrl : MonoBehaviour
 {
     public GameObject OverwriteAlert;
+    public Text OverwriteTitle;
+    private string overwritetext;
     public GameObject Logo;
     public GameObject Modding;
     public GameObject CreditsButton;
@@ -29,6 +31,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject fadeimage;
     public AudioSource music;
     public static string charpath;
+
 
     private Download dl;
 
@@ -75,8 +78,11 @@ public class ButtonCtrl : MonoBehaviour
     
     public void StartNew() //Just checks if a new story should be started
     {
-        if (PlayerPrefs.GetString("story", "none") != "none") //story som inte är start hittad
+        if (PlayerPrefs.GetString("story", "none") != "none")
+        {
+            //story som inte är start hittad
             OverwriteAlert.SetActive(true);
+        }
         else
             StartNewConfirmed();
     }
