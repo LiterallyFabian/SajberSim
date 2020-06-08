@@ -23,7 +23,6 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject Modding;
     public GameObject CreditsButton;
     public GameObject SettingsMenu;
-    public Button ContinueButton;
     public Button DebugButton;
     public GameObject BehindSettings;
     public static Character[] people = new Character[4];
@@ -52,9 +51,6 @@ public class ButtonCtrl : MonoBehaviour
         }
         
         Cursor.visible = true;
-        if (PlayerPrefs.GetString("story", "none") == "none" || PlayerPrefs.GetString("script", "none") == "none") //ifall man inte har spelat tidigare kan man inte använda den knappen
-            ContinueButton.interactable = false;
-
         UpdateCharacter();
     }
     void UpdateCharacter()

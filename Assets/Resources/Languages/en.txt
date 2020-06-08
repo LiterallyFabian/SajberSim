@@ -8,6 +8,9 @@ quit=Quit
 credits=Credits
 yes=Yes
 no=No
+confirm=Confirm
+cancel=Cancel
+overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 
 #Settings
 volume=Volume
@@ -68,11 +71,6 @@ month=a month
 months=months
 year=a year
 years=years
-
-#Overwrite warning
-overwritewarning=You already have a game started, are you sure you want to start a new game? This will replace your old game!
-confirm=Confirm
-cancel=Cancel
 
 #Play menu
 nsfwtoggle=Show NSFW

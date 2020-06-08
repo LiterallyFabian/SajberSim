@@ -8,6 +8,9 @@ quit=Avsluta
 credits=Medverkande
 yes=Ja
 no=Nej
+overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
+confirm=Bekräfta
+cancel=Avbryt
 
 #Settings
 volume=Volym
@@ -67,11 +70,6 @@ month=en månad
 months=månader
 year=ett år
 years=år
-
-#Overwrite warning
-overwritewarning=Du har redan ett spel påbörjat, är du säker på att du vill starta ett nytt? Detta kommer ta bort din gamla sparfil!
-confirm=Bekräfta
-cancel=Avbryt
 
 #Play menu
 nsfwtoggle=Visa NSFW
