@@ -10,7 +10,7 @@ public class SplashScreenEdit : MonoBehaviour
     private static bool played = false;
     IEnumerator Start()
     {
-        if (Application.isEditor && !played)
+        if (!Application.isEditor && !played)
         {
             played = true;
             music.GetComponent<AudioSource>().Play();
