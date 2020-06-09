@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -331,6 +332,39 @@ namespace SajberSim.Helper
             }
 
             return result;
+        }
+        /// <summary>
+        /// Converts an int to a bool
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool ToBool(this int n)
+        {
+            if (n == 1) return true;
+            else return false;
+        }
+        /// <summary>
+        /// Converts a bool to 0 or 1
+        /// </summary>
+        public static int ToNum(this bool n)
+        {
+            if (n) return 1;
+            else return 0;
+        }
+        public static bool GetBoolFromPrefs(string key)
+        {
+            if (!PlayerPrefs.HasKey(key))
+            {
+                UnityEngine.Debug.LogError($"Tried getting playerprefs with key {key} which does not exist, returning false");
+                return false;
+            }
+            else if (PlayerPrefs.GetInt(key) == 1) return true;
+            else return false;
+        }
+        public static void SetPrefsFromBool(string key, bool b)
+        {
+            if (b) PlayerPrefs.SetInt(key, 1);
+            else PlayerPrefs.SetInt(key, 0);
         }
     }
 }
