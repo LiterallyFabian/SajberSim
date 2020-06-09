@@ -22,6 +22,8 @@ namespace SajberSim.Helper
         public static bool loggedin = false;
         public static int id = -1;
 
+        AS_AccountInfo accountInfo = new AS_AccountInfo();
+        
 
         /// <summary>
         /// Positions for all 6 icons in the story menu

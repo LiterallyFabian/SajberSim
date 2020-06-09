@@ -24,16 +24,27 @@ public class AS_CanvasUI : MonoBehaviour
 		//save username + hashed password for easier login
 		PlayerPrefs.SetString("username", PlayerPrefs.GetString("tempuser"));
 		PlayerPrefs.SetString("hash", PlayerPrefs.GetString("temphash"));
-
+		accountInfo.TryToDownload(id, ShowData);
 		Helper.loggedin = true;
 		Helper.id = id;
-
+		
 		if (accountManagementGUI)
 		{
 			accountManagementGUI.enabled = true;
 			accountManagementGUI.Init(id);
 		}
 	} 
+	void ShowData(string callback)
+	{
+		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = string.Format(Translate.Get("loggedinas"), accountInfo.GetFieldValue("username"));
+	}
+	public void SetLoginbox(bool show)
+	{
+		if (show)
+			loginState = AS_LoginState.LoginPrompt;
+		else
+			loginState = AS_LoginState.Idle;
+	}
 	
 	// Messages to the user
 	/// <summary>
@@ -78,6 +89,7 @@ public class AS_CanvasUI : MonoBehaviour
 	// Check if we're good to go, and load up the first screen
 	void Start()
 	{
+		DontDestroyOnLoad(this.gameObject);
 		accountManagementGUI = GetComponentInChildren<AS_AccountManagementGUI> ();
 
 		if (!loginParent || !registrationParent || !recoveryParent 
@@ -96,6 +108,7 @@ public class AS_CanvasUI : MonoBehaviour
 				recoveryField.gameObject.SetActive(false);
 		} 
 		loginState = AS_LoginState.LoginPrompt;
+		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = Translate.Get("login");
 		TryLoginWithSaved();
 	} 
 	void TryLoginWithSaved()
