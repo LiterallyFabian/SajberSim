@@ -232,7 +232,7 @@ public class StartStory : MonoBehaviour
         Debug.Log($"Attempting to start story with ID {id}, path {path}");
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("script", "start");
-        ButtonCtrl main = GameObject.Find("GameObject").GetComponent<ButtonCtrl>();
+        ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
         main.CreateCharacters();
         storymenuOpen = false;
         GameManager.storyAuthor = data.author;
