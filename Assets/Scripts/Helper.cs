@@ -6,7 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -336,9 +335,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Converts an int to a bool
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static bool ToBool(this int n)
+        public static bool ToBool(int n)
         {
             if (n == 1) return true;
             else return false;
@@ -346,7 +343,7 @@ namespace SajberSim.Helper
         /// <summary>
         /// Converts a bool to 0 or 1
         /// </summary>
-        public static int ToNum(this bool n)
+        public static int ToNum(bool n)
         {
             if (n) return 1;
             else return 0;
