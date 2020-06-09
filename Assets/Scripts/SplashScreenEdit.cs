@@ -13,7 +13,7 @@ public class SplashScreenEdit : MonoBehaviour
         {
             played = true;
             music.GetComponent<AudioSource>().Play();
-            Time.timeScale = 0.07f;
+            Time.timeScale = 0.05f;
             SplashScreen.Begin();
             while (!SplashScreen.isFinished)
             {

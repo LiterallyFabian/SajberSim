@@ -24,7 +24,7 @@ autologin=Log in automatically
 
 #Account
 signin=Sign in
-accountnotice=You will need a SajberSim account if you want to publish your own visual novels.
+accountnotice=A SajberSim account is not required for playing, but you need to be logged in if you want to publish your own visual novels or save stats.
 login=Login
 username=Username
 password=Password

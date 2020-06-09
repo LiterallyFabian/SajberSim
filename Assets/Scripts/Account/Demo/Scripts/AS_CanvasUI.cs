@@ -80,15 +80,11 @@ public class AS_CanvasUI : MonoBehaviour
 	AS_MySQLField passwordConfirm, emailConfirm;
 	AS_AccountManagementGUI accountManagementGUI;
 
-	// Shut everything off
-	void Awake()
-	{  
-		loginState = AS_LoginState.Idle;  
-	}
 
 	// Check if we're good to go, and load up the first screen
 	void Start()
 	{
+		loginState = AS_LoginState.LoginSuccessful;
 		DontDestroyOnLoad(this.gameObject);
 		accountManagementGUI = GetComponentInChildren<AS_AccountManagementGUI> ();
 
@@ -107,8 +103,7 @@ public class AS_CanvasUI : MonoBehaviour
 			if (recoveryField)
 				recoveryField.gameObject.SetActive(false);
 		} 
-		loginState = AS_LoginState.LoginPrompt;
-		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = Translate.Get("login");
+		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = Translate.Get("signin");
 		TryLoginWithSaved();
 	} 
 	void TryLoginWithSaved()

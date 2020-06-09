@@ -2418,7 +2418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -38}
+  m_AnchoredPosition: {x: 0, y: -33.1}
   m_SizeDelta: {x: 1362, y: 122.3}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &22288836
@@ -3587,7 +3587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.84300005}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -51}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11467856
@@ -5029,8 +5029,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 4, y: -147}
-  m_SizeDelta: {x: 698.41797, y: 93.095825}
+  m_AnchoredPosition: {x: 4, y: -146}
+  m_SizeDelta: {x: 698.41797, y: 123.24428}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7642564584550358689
 CanvasRenderer:
@@ -5072,8 +5072,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You will need a SajberSim account if you want to publish your own visual
-    novels.
+  m_Text: A SajberSim account is not required for playing, but you need to be logged
+    in if you want to publish your own visual novels or save stats.
 --- !u!114 &8147365960929211769
 MonoBehaviour:
   m_ObjectHideFlags: 0

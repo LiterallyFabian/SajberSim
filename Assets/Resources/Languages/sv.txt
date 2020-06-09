@@ -24,7 +24,7 @@ autologin=Logga in automatiskt
 
 #Account
 signin=Logga in
-accountnotice=Du behöver ett SajberSim-konto ifall du vill publicera dina egna visuella romaner.
+accountnotice=Ett SajberSim-konto behövs inte för att spela, men du behöver vara inloggad för att publicera egna romaner.
 login=Logga in
 username=Användarnamn
 password=Lösenord
