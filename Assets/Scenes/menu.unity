@@ -9642,6 +9642,7 @@ GameObject:
   - component: {fileID: 863821248}
   - component: {fileID: 863821249}
   - component: {fileID: 863821250}
+  - component: {fileID: 863821251}
   m_Layer: 5
   m_Name: logo
   m_TagString: Untagged
@@ -9863,6 +9864,19 @@ MonoBehaviour:
             m_StringArgument: logo spin
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &863821251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863821243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2126db787918c4e8c14a0d9d1f38fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music: {fileID: 863821243}
 --- !u!1 &864819048
 GameObject:
   m_ObjectHideFlags: 0
