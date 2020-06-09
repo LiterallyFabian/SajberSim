@@ -19,6 +19,9 @@ namespace SajberSim.Helper
     class Helper : MonoBehaviour
     {
         public static string[] genres;
+        public static bool loggedin = false;
+        public static int id = -1;
+
 
         /// <summary>
         /// Positions for all 6 icons in the story menu
@@ -349,14 +352,9 @@ namespace SajberSim.Helper
             if (n) return 1;
             else return 0;
         }
-        public static bool GetBoolFromPrefs(string key)
+        public static bool GetBoolFromPrefs(string key, int def)
         {
-            if (!PlayerPrefs.HasKey(key))
-            {
-                UnityEngine.Debug.LogError($"Tried getting playerprefs with key {key} which does not exist, returning false");
-                return false;
-            }
-            else if (PlayerPrefs.GetInt(key) == 1) return true;
+            if (PlayerPrefs.GetInt(key, def) == 1) return true;
             else return false;
         }
         public static void SetPrefsFromBool(string key, bool b)

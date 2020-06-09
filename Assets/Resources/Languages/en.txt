@@ -11,6 +11,8 @@ yes=Yes
 no=No
 confirm=Confirm
 cancel=Cancel
+logout=Log out
+loggedinas=Logged in as {0}
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 
 #Settings
@@ -18,6 +20,7 @@ volume=Volume
 writingspeed=Writing speed
 openlogs=Open log folder
 language=Language
+autologin=Log in automatically
 
 #Account
 signin=Sign in

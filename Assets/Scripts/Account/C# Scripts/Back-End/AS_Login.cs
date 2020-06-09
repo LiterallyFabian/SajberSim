@@ -292,7 +292,7 @@ public static class AS_Login
     /// <summary>
     /// Attempt to login to our database. When we are done with that attempt, return something meaningful or an error message.
     /// </summary>
-    public static IEnumerator TryToLogin(string username, string password, Action<string> resultCallback, string hostUrl = null)
+    public static IEnumerator TryToLogin(string username, string password, Action<string> resultCallback, string hostUrl = null, string hash = "")
     {
         if (hostUrl == null)
             hostUrl = AS_Credentials.phpScriptsLocation;
@@ -313,9 +313,11 @@ public static class AS_Login
 
 		// Add The required fields
         form.AddField("username", username);
-        // Hash the password
-        string hashedPassword = password.Hash();
-        form.AddField("password", hashedPassword);
+
+        if(hash != "")
+            form.AddField("password", hash); //login with provided hash if possible
+        else
+            form.AddField("password", password.Hash());
 
         // Connect to the script
         WWW www = new WWW(url, form);

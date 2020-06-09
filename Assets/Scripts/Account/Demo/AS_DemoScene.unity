@@ -666,6 +666,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &873570446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 116216, guid: 5ca92fc35a011ad41bb83574197b5fe8,
+    type: 3}
+  m_PrefabInstance: {fileID: 33132159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &873570447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873570446}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbc17a337e9bfb40869c9f3a78252f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accountInfo:
+    fields: []
+    customInfo:
+      someObject: {fileID: 0}
+      socials:
+      - show: 0
+        social: Twitter
+        username: 
+      - show: 0
+        social: Discord
+        username: 
+      - show: 0
+        social: Reddit
+        username: 
+      - show: 0
+        social: GitHub
+        username: 
+      - show: 0
+        social: Artstation
+        username: 
+      - show: 0
+        social: Website
+        username: 
 --- !u!1001 &2074172350
 PrefabInstance:
   m_ObjectHideFlags: 0

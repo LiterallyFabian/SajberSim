@@ -155,7 +155,7 @@ public static class AS_MySQLFieldMethods
     /// <param name="password">Password.</param>
     /// <param name="callback">What to call when we are done.</param>
     /// <param name="phpScriptsLocation">Where the PHP scripts are located.</param>
-    public static void TryToLogin(this string username, string password, Action<string> callback, string phpScriptsLocation = null)
+    public static void TryToLogin(this string username, string password, Action<string> callback, string phpScriptsLocation = null, string hash = "")
     {
 
         AS_CoroutineCaller caller = AS_CoroutineCaller.Create();
@@ -166,7 +166,7 @@ public static class AS_MySQLFieldMethods
              caller.Destroy();
              callback(value);
          },
-        phpScriptsLocation));
+        phpScriptsLocation, hash));
     }
     /// <summary>
     /// Tries to download the registration form.

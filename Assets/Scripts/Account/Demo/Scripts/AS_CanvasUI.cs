@@ -4,6 +4,7 @@ using System;
 using UnityEngine.UI;
 using SajberSim.Translation;
 using System.Linq;
+using SajberSim.Helper;
 
 public class AS_CanvasUI : MonoBehaviour
 {
@@ -17,9 +18,16 @@ public class AS_CanvasUI : MonoBehaviour
     */
     public void OnSuccessfulLogin(int id)
 	{
-		this.Log(LogType.Log, "Successfully Logged In User with id: " + id);
-		loginState = AS_LoginState.LoginSuccessful;  
-		
+		this.Log(LogType.Log, $"Successfully logged in as user {PlayerPrefs.GetString("tempuser")}");
+		loginState = AS_LoginState.LoginSuccessful;
+
+		//save username + hashed password for easier login
+		PlayerPrefs.SetString("username", PlayerPrefs.GetString("tempuser"));
+		PlayerPrefs.SetString("hash", PlayerPrefs.GetString("temphash"));
+
+		Helper.loggedin = true;
+		Helper.id = id;
+
 		if (accountManagementGUI)
 		{
 			accountManagementGUI.enabled = true;
@@ -69,7 +77,7 @@ public class AS_CanvasUI : MonoBehaviour
 
 	// Check if we're good to go, and load up the first screen
 	void Start()
-	{ 
+	{
 		accountManagementGUI = GetComponentInChildren<AS_AccountManagementGUI> ();
 
 		if (!loginParent || !registrationParent || !recoveryParent 
@@ -87,8 +95,20 @@ public class AS_CanvasUI : MonoBehaviour
 			if (recoveryField)
 				recoveryField.gameObject.SetActive(false);
 		} 
-		loginState = AS_LoginState.LoginPrompt; 
+		loginState = AS_LoginState.LoginPrompt;
+		TryLoginWithSaved();
 	} 
+	void TryLoginWithSaved()
+	{
+		if (PlayerPrefs.GetInt("autologin", 1) == 0 || Helper.loggedin) return;
+		string username = PlayerPrefs.GetString("username", "");
+		if (username != "")
+		{
+			loginState = AS_LoginState.LoginSuccessful;
+			username.TryToLogin("", LoginAttempted, null, PlayerPrefs.GetString("hash"));
+		}
+		
+	}
 	
 	public string guiMessage { set { 
 			if (!guiMessageText)
@@ -148,6 +168,9 @@ public class AS_CanvasUI : MonoBehaviour
 			string username = usernameField.text;
 			string password = passwordField.text;
 			username.TryToLogin(password, LoginAttempted);
+
+			PlayerPrefs.SetString("tempuser", username);
+			PlayerPrefs.SetString("temphash", password.Hash());
 		}
     }
 
@@ -219,13 +242,13 @@ public class AS_CanvasUI : MonoBehaviour
 	public void LoginAttempted(string callbackMessage)
 	{
 		
-		
 		// If our log in failed,
 		if (callbackMessage.IsAnError())
         {
             string [] s = callbackMessage.Split( new string[] { "Error: " }, StringSplitOptions.RemoveEmptyEntries);
             guiMessage = s.Length >= 1 ? s[0] : callbackMessage;
             this.Log( LogType.Error, callbackMessage);
+			loginState = AS_LoginState.Idle;
 			return;
 		}
 		
