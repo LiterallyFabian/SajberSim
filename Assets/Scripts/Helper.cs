@@ -41,7 +41,8 @@ namespace SajberSim.Helper
                 genres = new string[] { Translate.Get("action"), Translate.Get("adventure"), Translate.Get("comedy"), Translate.Get("drama"), Translate.Get("fantasy"), Translate.Get("horror"), Translate.Get("magic"), Translate.Get("mystery"), Translate.Get("scifi"), Translate.Get("sliceoflife"), Translate.Get("supernatural"), Translate.Get("other") };
                 UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
-            
+            Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
+            AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
         }
         public enum StorySearchArgs
         {
