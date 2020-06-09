@@ -1251,6 +1251,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 591715122792385623}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &212013394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212013392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: play
 --- !u!95 &212013398
 Animator:
   serializedVersion: 3
@@ -1824,6 +1837,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1515023342}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &352151252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352151250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: settings
 --- !u!95 &352151256
 Animator:
   serializedVersion: 3
@@ -1855,6 +1881,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 28933961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &362937818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362937816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: create
 --- !u!95 &362937822
 Animator:
   serializedVersion: 3
@@ -10548,6 +10587,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1253364051}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1028380684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028380682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: quit
 --- !u!95 &1028380688
 Animator:
   serializedVersion: 3
@@ -25314,6 +25366,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1119066945}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1953201833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953201831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: novels
 --- !u!95 &1953201837
 Animator:
   serializedVersion: 3
