@@ -9665,7 +9665,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -230, y: 241}
-  m_SizeDelta: {x: 580.1904, y: 176.28113}
+  m_SizeDelta: {x: 489.1166, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863821245
 MonoBehaviour:
@@ -9716,8 +9716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097fba3bd662ce944bc1bcecf1c80b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 127
-  size: 1.06
+  BPM: 150
+  size: 1.055
   ray: {fileID: 41964685}
 --- !u!95 &863821248
 Animator:
@@ -9748,7 +9748,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 13a96559dd1c3e440ba39420c54f0ce1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 645bb5e4eef8fb943811407ab9519bdd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
