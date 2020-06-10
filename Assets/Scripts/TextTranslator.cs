@@ -12,7 +12,7 @@ public class TextTranslator : MonoBehaviour
     void Start()
     {
         var text = GetComponent<Text>();
-        if (text != null)
+        if (text != null | text.text != "")
             if (TextId == "ISOCode")
                 text.text = Translate.GetLanguage();
             else

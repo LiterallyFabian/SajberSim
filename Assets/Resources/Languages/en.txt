@@ -11,7 +11,9 @@ yes=Yes
 no=No
 confirm=Confirm
 cancel=Cancel
+paused=Paused
 logout=Log out
+saved=Saved!
 loggedinas=Logged in as {0}
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 
@@ -21,6 +23,8 @@ writingspeed=Writing speed
 openlogs=Open log folder
 language=Language
 autologin=Log in automatically
+setstory=Change script...
+uwumode=UwU mode is activated... :3
 
 #Account
 signin=Sign in
@@ -114,6 +118,6 @@ other=Other
 #Character positioning
 clearall=Remove all
 changebackground=Change background
-backtomain=Go back 
+backtomain=Back to main
 codeplaceholder=Your code will be shown here...
 

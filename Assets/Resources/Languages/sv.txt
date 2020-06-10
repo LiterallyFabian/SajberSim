@@ -11,7 +11,9 @@ yes=Ja
 no=Nej
 confirm=Bekräfta
 cancel=Avbryt
+paused=Pausat
 logout=Logga ut
+saved=Saved!
 loggedinas=Inloggad som {0}
 overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 
@@ -21,6 +23,8 @@ writingspeed=Utskriftshastighet
 openlogs=Öppna loggfiler
 language=Språk
 autologin=Logga in automatiskt
+setstory=Byt skript...
+uwumode=UwU-läget är aktiverat... :3
 
 #Account
 signin=Logga in
@@ -113,6 +117,6 @@ other=Övrigt
 #Character positioning
 clearall=Ta bort alla
 changebackground=Byt bakgrund
-backtomain=Gå tillbaka
+backtomain=Tillbaka till huvudmenyn
 codeplaceholder=Din kod visas här...
 

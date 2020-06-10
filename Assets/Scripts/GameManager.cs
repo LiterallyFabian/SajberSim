@@ -12,7 +12,9 @@ using UnityEngine.Analytics;
 using System.Globalization;
 using SajberSim.Web;
 using SajberSim.Chararcter;
-
+/// <summary>
+/// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static bool ready = true; //Om skriptet är redo att gå till nästa rad
@@ -29,9 +31,12 @@ public class GameManager : MonoBehaviour
     public GameObject fadeimage;
     public GameObject saveinfo;
     public GameObject SFX;
+    public GameObject pausemenu;
     public GameObject skiptutorial;
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
+    public GameObject SettingsMenu;
+    private bool settingsopen = false;
     public static bool paused = false;
     public Text comment; //Texten som skrivs ut
     public Text personname; //Namntaggen i textboxar
@@ -106,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//"))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//")) && !settingsopen)
         {
             if (dialogdone && ready)
             {
@@ -117,6 +122,30 @@ public class GameManager : MonoBehaviour
             }
             else dialogdone = true;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!settingsopen)
+            {
+                settingsopen = true;
+                pausemenu.SetActive(true);
+            }
+            else 
+            {
+                settingsopen = false;
+                pausemenu.SetActive(false);
+            }
+        }
+    }
+    public void OpenSettings()
+    {
+        settingsopen = true;
+        GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+        x.transform.localPosition = Vector3.zero;
+        x.name = "Settings";
+    }
+    public void GoToMain()
+    {
+        SceneManager.LoadScene("menu");
     }
     void RunNext()
     {

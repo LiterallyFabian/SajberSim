@@ -8957,6 +8957,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3721688168797242348, guid: 5ca92fc35a011ad41bb83574197b5fe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetLoginbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721688168797242348, guid: 5ca92fc35a011ad41bb83574197b5fe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1617014452}
     - target: {fileID: 8035716136829502716, guid: 5ca92fc35a011ad41bb83574197b5fe8,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -9530,7 +9540,6 @@ GameObject:
   - component: {fileID: 757424586}
   - component: {fileID: 757424589}
   - component: {fileID: 757424588}
-  - component: {fileID: 757424590}
   - component: {fileID: 757424587}
   m_Layer: 5
   m_Name: Username
@@ -9601,16 +9610,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1617014452}
+        m_MethodName: SetLoginbox
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &757424588
 MonoBehaviour:
@@ -9653,18 +9662,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757424585}
   m_CullTransparentMesh: 0
---- !u!114 &757424590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757424585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dc67a76b20d67e4cbb14fb5cc22c9b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &820237088
 GameObject:
   m_ObjectHideFlags: 0
@@ -11785,7 +11782,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 254.5, y: 700}
+  m_ReferenceResolution: {x: 800, y: 700}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -19519,6 +19516,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570555391}
   m_CullTransparentMesh: 0
+--- !u!114 &1617014452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11471556, guid: 5ca92fc35a011ad41bb83574197b5fe8,
+    type: 3}
+  m_PrefabInstance: {fileID: 709797645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b08a18f1a0afaf48a29dee0b8db8e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1618918544
 GameObject:
   m_ObjectHideFlags: 0
