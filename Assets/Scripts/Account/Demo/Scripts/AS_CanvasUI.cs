@@ -27,16 +27,24 @@ public class AS_CanvasUI : MonoBehaviour
 		accountInfo.TryToDownload(id, ShowData);
 		Helper.loggedin = true;
 		Helper.id = id;
-		
-		if (accountManagementGUI)
-		{
-			accountManagementGUI.enabled = true;
-			accountManagementGUI.Init(id);
-		}
 	} 
 	void ShowData(string callback)
 	{
 		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = string.Format(Translate.Get("loggedinas"), accountInfo.GetFieldValue("username"));
+		accountInfo.SetFieldValue("lastlogin", DateTime.Now.ToString("yyyyMMddHHmmss"));
+		accountInfo.TryToUpload(Helper.id, AccountInfoUploaded);
+	}
+	void AccountInfoUploaded(string message)
+	{
+		if (message.ToLower().Contains("error"))
+		{
+			this.Log(LogType.Error, "Account System: " + message);
+		}
+		else
+		{
+			this.Log(LogType.Log, "Account System: " + message);
+		}
+
 	}
 	public void SetLoginbox(bool show)
 	{
@@ -45,7 +53,7 @@ public class AS_CanvasUI : MonoBehaviour
 		else
 			loginState = AS_LoginState.Idle;
 	}
-	
+
 	// Messages to the user
 	/// <summary>
 	/// Make sure there's a child with that name in every canvas group

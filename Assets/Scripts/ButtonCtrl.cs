@@ -91,7 +91,6 @@ public class ButtonCtrl : MonoBehaviour
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
     }
-
     
     public void CreateCharacters()
     {

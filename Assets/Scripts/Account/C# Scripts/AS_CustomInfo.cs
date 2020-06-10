@@ -21,6 +21,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
+public enum UserRoles { Admin, Moderator, Supporter, User, Banned }
 
 /// <summary>
 /// Use this class to easily store custom class instances to the database.
@@ -28,36 +29,31 @@ using System.Collections.Generic;
 [Serializable]
 public class AS_CustomInfo
 {
-    // Required to be serializable
     public AS_CustomInfo() { }
 
-
-    // -------- ADD YOUR CUSTOM VARIABLES HERE --------
-    // !! MAKE SURE THEY ARE [Serializable] !!
-	// !! IF THEY ARE NOT, Add the [XmlIgnore] property on them
-	// !! NOTE THAT ANY VARIABLE WHICH HAS A TRANSFORM PROPERTY CAN NOT BE SERIALIZED!
-
-	[XmlIgnore]
-	public GameObject someObject;
-
-    // Altering these variables will cause the Demo script
-    // named AS_AccountManagementGUI to stop working
-    // (although you can probably edit it to suit your needs,
-    // if you ever need an ingame editor for the CustomInfo class)
-
-    public AS_PlayerClass playerClass = AS_PlayerClass.Mage;
-    
-    public AS_LevelInfo[] levels = new AS_LevelInfo[]
-	{ new AS_LevelInfo ("Funky Town", 5),
-		new AS_LevelInfo ("Spooky Town", 2) };
-
-    public AS_StatInfo[] stats = new AS_StatInfo[]
-	{ new AS_StatInfo ("Stamina", 40),
-		new AS_StatInfo ("Intelligence", 75),
-		new AS_StatInfo ("Agility", 20)};
-
+    public UserRoles role = UserRoles.User;
+    public string reddit = "";
+    public string discord = "";
+    public string github = "";
+    public string twitter = "";
+    public string website = "";
 }
 
+[Serializable]
+public class AS_Socials
+{
+
+    // Required to be serializable
+    public AS_Socials() { }
+
+    public AS_Socials(string _key, string _value)
+    { key = _key; value = _value; }
+
+    public string key = "";
+    public string value = "";
+
+
+}
 
 /*	
  * -------Alter any class you wish below here although note that-----------
@@ -67,44 +63,24 @@ public class AS_CustomInfo
  *     	if you need an ingame editor for the Custom Info class)
  * 
  */
-
-public enum AS_PlayerClass { Warrior, Rogue, Mage, Priest }
-
+/*
 [Serializable]
-public class AS_LevelInfo
+public class AS_SocialInfo
 {
+   public AS_SocialInfo() { }
 
-    // Required to be serializable
-    public AS_LevelInfo() { }
+   public bool show = false;
+   public AS_SocialInfo(string _social, string _username)
+   {
+       social = _social;
+       username = _username;
+   }
 
-    public bool show = false;
-
-    public AS_LevelInfo(string _name, int _score)
-    { name = _name; score = _score; }
-
-    public string name = "";
-    public int score = 0;
-
-
+   public string social = "";
+   public string username = "";
 }
-
-[Serializable]
-public class AS_StatInfo
-{
-
-    // Required to be serializable
-    public AS_StatInfo() { }
-
-    public bool show = false;
-
-    public AS_StatInfo(string _name, int _value)
-    { name = _name; value = _value; }
-
-    public string name = "";
-    public int value = 0;
-
-}
-
+*/
+/*
 public static class AS_CustomInfoMethods
 {
 
@@ -205,5 +181,4 @@ public static class AS_CustomInfoMethods
         GUILayout.EndVertical();
         return customInfo;
     }
-
-}
+    */

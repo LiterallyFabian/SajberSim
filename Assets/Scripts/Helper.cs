@@ -23,7 +23,7 @@ namespace SajberSim.Helper
         public static int id = -1;
 
         AS_AccountInfo accountInfo = new AS_AccountInfo();
-        
+
 
         /// <summary>
         /// Positions for all 6 icons in the story menu
@@ -78,7 +78,7 @@ namespace SajberSim.Helper
             string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
             List<string> assetPaths = new List<string>();
             folder = folder.ToLower();
-            
+
             if (!validPaths.Contains(folder)) return new string[0];
 
             string extension = "*.png";
@@ -92,7 +92,7 @@ namespace SajberSim.Helper
                     extension = "*.txt";
                     break;
             }
-            foreach(string story in Directory.GetDirectories($"{Application.dataPath}/Story/"))
+            foreach (string story in Directory.GetDirectories($"{Application.dataPath}/Story/"))
             {
                 string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
                 if (Directory.Exists(path))
@@ -160,7 +160,7 @@ namespace SajberSim.Helper
             }
 
             //Start sorting
-            if(args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst) //playtime
+            if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst) //playtime
                 itemList = itemList.OrderBy(c => c.argint).ToList();
             if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.Author || args == StorySearchArgs.ReverseAlphabetical) //name || author
                 itemList = itemList.OrderBy(c => c.argstring).ToList();
@@ -173,7 +173,7 @@ namespace SajberSim.Helper
             }
             if (reverse) return ReverseArray(sortedList.ToArray());
             else return sortedList.ToArray();
-            
+
         }
         private static string[] FilterNSFWFromCardPaths(List<string> storyPaths, bool remove = true) // https://i.imgur.com/Dw1l9YI.png
         {
@@ -198,7 +198,7 @@ namespace SajberSim.Helper
             }
             return storyPaths.ToArray();
         }
-         public static string GetManifestPath(string storyID)
+        public static string GetManifestPath(string storyID)
         {
             string path = $"{Application.dataPath}/Story/{storyID}";
             if (File.Exists(path))
@@ -207,7 +207,7 @@ namespace SajberSim.Helper
             {
                 UnityEngine.Debug.LogError($"Tried getting manifest path {storyID} which does not exist ({path})");
                 return null;
-            }    
+            }
         }
         /// <summary>
         /// Returns names of all story folders
@@ -275,10 +275,10 @@ namespace SajberSim.Helper
         public static List<string> ReverseList(List<string> list)
         {
             list.Reverse();
-            return list; 
+            return list;
         }
         public static void CreateLogfile()
-        {   
+        {
             if (Application.isEditor) return;
             DateTime now = DateTime.Now;
             string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
