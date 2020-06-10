@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using SajberSim.Translation;
 using System.Linq;
 using SajberSim.Helper;
+using SajberSim.Web;
 
 public class AS_CanvasUI : MonoBehaviour
 {
