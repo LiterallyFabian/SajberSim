@@ -408,7 +408,7 @@ public class AS_CanvasUI : MonoBehaviour
 
 			// Id is an auto-increment unique identifier
 			// and custom info is not specified during registration
-			string[] dontinclude = { "id", "custominfo", "isactive", "signupdate", "bio" };
+			string[] dontinclude = { "id", "custominfo", "isactive", "signupdate", "bio", "lastlogin" };
 			if (dontinclude.Contains(field.name.ToLower()))
 				continue;
 			
