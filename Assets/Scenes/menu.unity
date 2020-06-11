@@ -8212,6 +8212,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 105654, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
+      propertyPath: m_Name
+      value: Emailtitle
+      objectReference: {fileID: 0}
     - target: {fileID: 107132, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -8242,6 +8246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114998, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114998, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 116216, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
@@ -8370,6 +8378,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 194410, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 194410, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 194430, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
@@ -8654,27 +8666,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -107.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 364.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22454718, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 58.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22462352, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMin.y
@@ -8798,27 +8810,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1332.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -107.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22481646, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22489780, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
       propertyPath: m_AnchorMin.y
@@ -8977,7 +8989,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1618223057520066762, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ca92fc35a011ad41bb83574197b5fe8, type: 3}
 --- !u!1 &718077838
 GameObject:
