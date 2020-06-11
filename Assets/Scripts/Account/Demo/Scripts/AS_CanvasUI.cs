@@ -406,10 +406,9 @@ public class AS_CanvasUI : MonoBehaviour
 		foreach (AS_MySQLField field in accountInfo.fields)
 		{
 
-			// Id is an auto-increment unique identifier
-			// and custom info is not specified during registration
-			string[] dontinclude = { "id", "custominfo", "isactive", "signupdate", "bio", "lastlogin" };
-			if (dontinclude.Contains(field.name.ToLower()))
+			// Fields to include in Registration form
+			string[] allowedfields = { "username", "email", "password" };
+			if (!allowedfields.Contains(field.name.ToLower()))
 				continue;
 			
 			// For any other field, create an InputField prefab

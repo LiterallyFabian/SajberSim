@@ -1,4 +1,4 @@
-#Main menu
+#General
 newgame=Nytt spel
 continue=Fortsätt
 findnovels=Hitta romaner
@@ -14,6 +14,7 @@ cancel=Avbryt
 paused=Pausat
 logout=Logga ut
 saved=Saved!
+verified=Verifierad
 loggedinas=Inloggad som {0}
 overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 
