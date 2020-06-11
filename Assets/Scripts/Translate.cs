@@ -30,14 +30,19 @@ namespace SajberSim.Translation
         {
             LoadLanguage();
         }
-        public static string Get(string id)
+        public static string Get(string id, string location = "a script")
         {
             if (Fields.ContainsKey(id))
                 return Fields[id];
-            else
+            else if(EnglishFields.ContainsKey(id))
             {
                 Debug.LogWarning($"Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
                 return EnglishFields[id];
+            }
+            else
+            {
+                Debug.LogError($"Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning placeholder. This request was called from {location}");
+                return "TRANSLATION_MISSING";
             }
         }
 
