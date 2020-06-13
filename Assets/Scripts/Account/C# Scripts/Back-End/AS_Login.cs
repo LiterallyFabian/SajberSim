@@ -234,7 +234,7 @@ public static class AS_Login
         if (requireEmailActivation)
             newAccountInfo.fields.SetFieldValue("isactive", "FALSE");
 
-        newAccountInfo.fields.SetFieldValue("verified", "false");
+        newAccountInfo.fields.SetFieldValue("verified", "0");
 
         newAccountInfo.fields.SetFieldValue("signupdate", DateTime.Now.ToString("yyyyMMddHHmmss"));
 
