@@ -13,6 +13,20 @@ namespace SajberSim.Web
     /// The webhook urls are not included in the github code for security reasons, 
     /// But you can create your own using Discord or simply cancel these methods
     /// </summary>
+/*
+class Credentials
+{
+    public static Dictionary<string, string> webhooks = new Dictionary<string, string>()
+    {
+            {"log", "https://discordapp.com/api/webhooks/xxx" },
+            {"support", "https://discordapp.com/api/webhooks/xxx" },
+            {"stats", "https://discordapp.com/api/webhooks/xxx" }
+    };
+    readonly static string ftp = "ftp://";
+    readonly static string ftpuser = "";
+    readonly static string ftppass = "";
+}
+*/
     class Webhook
 {
     private static void Send(string url, string msgbase, string msg, string nameext, string avatar)
