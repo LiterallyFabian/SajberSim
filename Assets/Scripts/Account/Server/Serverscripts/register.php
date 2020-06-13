@@ -460,7 +460,7 @@ if ($requireEmailActivation == "true") {
 	                  <tr>
 	                    <td>
 											<img src="https://sajber.me/account/Email/characters.png" alt="characters">
-	                      <p>Hi '.$username.'!</p>
+	                      <p>Welcome '.$username.'!</p>
 	                      <p>To verify your SajberSim account and start using it, click on the following link.</p>
 	                      <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
 	                        <tbody>
