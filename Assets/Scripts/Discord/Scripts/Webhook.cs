@@ -10,20 +10,9 @@ namespace SajberSim.Web
 {
     /// <summary>
     /// Sends webhooks to discord for various events. 
-    /// The WebhookUrls.url is not included in the github code for security reasons, but can be created with the folloding code:
+    /// The webhook urls are not included in the github code for security reasons, 
+    /// But you can create your own using Discord or simply cancel these methods
     /// </summary>
-    /// 
-/*
-class WebhookUrls
-{
-    public static Dictionary<string, string> url = new Dictionary<string, string>()
-    {
-            {"log", "https://discordapp.com/api/webhooks/XXX" },
-            {"support", "https://discordapp.com/api/webhooks/XXX" },
-            {"stats", "https://discordapp.com/api/webhooks/XXX" }
-    };
-}
-*/
     class Webhook
 {
     private static void Send(string url, string msgbase, string msg, string nameext, string avatar)
@@ -38,15 +27,15 @@ class WebhookUrls
     }
     public static void Log(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
     {
-        Send(WebhookUrls.url["log"], "**:video_game: INGAME LOG**\n\n ", msg, "Log", avatar);
+        Send(Credentials.webhooks["log"], "**:video_game: INGAME LOG**\n\n ", msg, "Log", avatar);
     }
     public static void Support(string msg, string email, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
     {
-        Send(WebhookUrls.url["support"], $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ", msg, "Support", avatar);
+        Send(Credentials.webhooks["support"], $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ", msg, "Support", avatar);
     }
     public static void Stats(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
     {
-        Send(WebhookUrls.url["stats"], "**:chart_with_upwards_trend: STATS**\n\n ", msg, "Stats", avatar);
+        Send(Credentials.webhooks["stats"], "**:chart_with_upwards_trend: STATS**\n\n ", msg, "Stats", avatar);
     }
 }
 public class dWebHook : IDisposable
