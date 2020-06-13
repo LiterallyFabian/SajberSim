@@ -22,9 +22,9 @@ class Credentials
             {"support", "https://discordapp.com/api/webhooks/xxx" },
             {"stats", "https://discordapp.com/api/webhooks/xxx" }
     };
-    readonly static string ftp = "ftp://";
-    readonly static string ftpuser = "";
-    readonly static string ftppass = "";
+    public const string ftp = "ftp://";
+    public const string ftpuser = "";
+    public const string ftppass = "";
 }
 */
     class Webhook
