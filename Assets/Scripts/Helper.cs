@@ -22,7 +22,7 @@ namespace SajberSim.Helper
         public static bool loggedin = false;
         public static int id = -1;
 
-        AS_AccountInfo accountInfo = new AS_AccountInfo();
+        public static AS_AccountInfo acc;
 
 
         /// <summary>

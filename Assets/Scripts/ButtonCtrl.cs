@@ -61,6 +61,13 @@ public class ButtonCtrl : MonoBehaviour
         string storyname = Helper.GetManifestFromName(PlayerPrefs.GetString("story")).name;
         if(storyname != "none")
         GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), storyname);
+
+        Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
+        //Set login if you are logged in
+        if (Helper.loggedin)
+            loginstatus.text = string.Format(Translate.Get("loggedinas"), Helper.acc.GetFieldValue("username"));
+        else
+            loginstatus.text = Translate.Get("signin");
     }
     private void UpdateCharacter()
     {

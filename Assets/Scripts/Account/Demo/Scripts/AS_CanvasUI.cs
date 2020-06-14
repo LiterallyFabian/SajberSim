@@ -31,6 +31,7 @@ public class AS_CanvasUI : MonoBehaviour
 	} 
 	void ShowData(string callback)
 	{
+		Helper.acc = accountInfo;
 		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = string.Format(Translate.Get("loggedinas"), accountInfo.GetFieldValue("username"));
 		accountInfo.SetFieldValue("lastlogin", DateTime.Now.ToString("yyyyMMddHHmmss"));
 		accountInfo.TryToUpload(Helper.id, AccountInfoUploaded);
@@ -112,7 +113,6 @@ public class AS_CanvasUI : MonoBehaviour
 			if (recoveryField)
 				recoveryField.gameObject.SetActive(false);
 		} 
-		if (GameObject.Find("Canvas/Username")) GameObject.Find("Canvas/Username").GetComponent<Text>().text = Translate.Get("signin");
 		TryLoginWithSaved();
 	} 
 	void TryLoginWithSaved()
