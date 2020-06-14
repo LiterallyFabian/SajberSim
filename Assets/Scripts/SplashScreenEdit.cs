@@ -9,6 +9,7 @@ public class SplashScreenEdit : MonoBehaviour
     private static bool played = false;
     IEnumerator Start()
     {
+        ParticleSystem mousetrail = GameObject.Find("ParticleHolder/mousetrail").GetComponent<ParticleSystem>();
         if (!Application.isEditor && !played)
         {
             played = true;
@@ -17,9 +18,9 @@ public class SplashScreenEdit : MonoBehaviour
             SplashScreen.Begin();
             while (!SplashScreen.isFinished)
             {
+                mousetrail.Clear();
                 SplashScreen.Draw();
                 yield return null;
-
             }
             Time.timeScale = 1;
         }
