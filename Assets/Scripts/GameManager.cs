@@ -17,8 +17,8 @@ using SajberSim.Chararcter;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static bool ready = true; //Om skriptet är redo att gå till nästa rad
-    public static bool dialogdone = false; //Om någon dialog håller på att skrivas ut är denna false
+    public static bool ready = true; // If the game is ready to go to the next line (eg delays, downloads)
+    public static bool dialogdone = false; //False if a text is currently writing out
     public static int dialogpos = 0;
     public static float charsize = 0.8f;
     public GameObject textbox;
@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
     public GameObject SettingsMenu;
     private bool settingsopen = false;
     public static bool paused = false;
-    public Text comment; //Texten som skrivs ut
-    public Text personname; //Namntaggen i textboxar
+    public Text comment; //The normal text
+    public Text personname; //The nametag
     public Text alert;
     public Text question;
     public Text alt1t;
@@ -139,22 +139,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void Pause(bool n)
-    {
-        paused = n;
-        pausemenu.SetActive(n);
-    }
-    public void OpenSettings()
-    {
-        settingsopen = true;
-        GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
-        x.transform.localPosition = Vector3.zero;
-        x.name = "Settings";
-    }
-    public void GoToMain()
-    {
-        SceneManager.LoadScene("menu");
-    }
     void RunNext()
     {
         if (!ready) return;
@@ -225,11 +209,11 @@ public class GameManager : MonoBehaviour
                 story1 = line[3];
                 string alt2 = line[4];
                 story2 = line[5];
-                Question(quest, alt1, alt2);
+                OpenQuestion(quest, alt1, alt2);
             }
             else //More questions - dropdown menu
             {
-                SpawnQuestionDD(line);
+                OpenQuestionDD(line);
             }
         }
         else if (line[0] == "LOADSTORY") //open new story (no question)
@@ -269,49 +253,50 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCredits());
         }
-        
     }
-    private void SpawnQuestionDD(string[] line) 
+
+
+    #region Characters
+    private void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
     {
-        dropdownObject.GetComponent<Dropdown>().ClearOptions();
-        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
-        List<string> options = new List<string>();
-        for (int i = 2; i < line.Length; i = i+2) 
+        if (GameObject.Find(name) == null) //karaktär finns ej
         {
-            options.Add(line[i]);
+            //skapa gameobj
+            GameObject character = new GameObject(name);
+            character.gameObject.tag = "character";
+            character.AddComponent<SpriteRenderer>();
+            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
+
+            //sätt size + pos
+            character.transform.position = new Vector3(x, y, -1f);
+            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
         }
-        dropdownQ.text = line[1];
-        dropdownObject.GetComponent<Dropdown>().AddOptions(options);
-        dropdownMenu.SetActive(true);
-    }
-    public void ChangeStoryFromDD(int select)
-    {
-        string[] line = story[dialogpos].Split('|');
-        List<string> options = new List<string>();
-        for (int i = 3; i < line.Length; i = i + 2)
+        else //karaktär finns
         {
-            options.Add(line[i]);
+            //ändra pos
+            GameObject character = GameObject.Find(name);
+            character.transform.position = new Vector3(x, y, -1f);
+            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
+
+            //ändra mood
+            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
         }
-        #region openhouse
-        if(PlayerPrefs.GetString("story") == "OpenHouse")
-        Analytics.CustomEvent("program_picked", new Dictionary<string, object> {{ "program", options[select-1] }});
-        #endregion openhouse
-        LoadScript(options[select-1]);
-        dropdownMenu.SetActive(false);
-    }
-    public void SkipTutorial()
-    {
-        LoadScript("intro");
-        dialogdone = false;
-    }
-    private IEnumerator Delay(float time) //ID 7
-    {
-        ready = false;
-        yield return new WaitForSeconds(time);
-        dialogpos++;
-        ready = true;
         RunNext();
     }
+    public static void RemoveCharacters() //used in setup too
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
+
+        for (var i = 0; i < gameObjects.Length; i++)
+            Destroy(gameObjects[i]);
+    }
+    public void RemoveCharactersWrap() //Only used for editor assignments as they can't run static methods
+    {
+        RemoveCharacters();
+    }
+    #endregion
+
+    #region Text
     private IEnumerator SpawnTextBox(Character talker, string target) //ID 0
     {
         dialogdone = false;
@@ -340,25 +325,6 @@ public class GameManager : MonoBehaviour
         dialogdone = true;
     }
 
-    private void Question(string text, string alt1, string alt2)
-    {
-        dialogdone = false;
-        questionbox.SetActive(true);
-        question.text = text;
-        alt1t.text = alt1;
-        alt2t.text = alt2;
-    }
-    public void AnswerQuestion(int id)
-    {
-        DataTracker.ReportQuestion(question.text, id);
-        string[] stories = { story1, story2 };
-        LoadScript(stories[id - 1]);
-        #region openhouse
-        if (PlayerPrefs.GetString("story") == "OpenHouse")
-            Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
-        #endregion openhouse
-        questionbox.SetActive(false);
-    }
     private IEnumerator SpawnAlert(string target) //ID 0
     {
         dialogdone = false;
@@ -380,17 +346,6 @@ public class GameManager : MonoBehaviour
         alert.text = target;
         dialogdone = true;
     }
-    public static void RemoveCharacters() //used in setup too
-    {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
-
-        for (var i = 0; i < gameObjects.Length; i++)
-            Destroy(gameObjects[i]);
-    }
-    public void RemoveCharactersWrap() //Only used for editor assignments as they can't run static methods
-    {
-        RemoveCharacters();
-    }
     private string UwUTranslator(string text)
     {
         if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
@@ -405,6 +360,99 @@ public class GameManager : MonoBehaviour
             if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
         }
         return text;
+    }
+    private string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
+    {
+        MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
+
+        foreach (Match match in matches)
+        {
+            string replace = "";
+            if (match.Groups[2].Value == "name")
+                replace = people[int.Parse(match.Groups[1].Value)].name;
+            if (match.Groups[2].Value == "nick")
+                replace = people[int.Parse(match.Groups[1].Value)].nick;
+
+            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter 
+        }
+
+        return text;
+    }
+    private void ClearText()
+    {
+        comment.text = "";
+        alert.text = "";
+        question.text = "";
+        alt1t.text = "";
+        alt2t.text = "";
+    }
+
+    #endregion
+
+    #region Questions
+    private void OpenQuestion(string text, string alt1, string alt2)
+    {
+        dialogdone = false;
+        questionbox.SetActive(true);
+        question.text = text;
+        alt1t.text = alt1;
+        alt2t.text = alt2;
+    }
+    public void AnswerQuestion(int id)
+    {
+        DataTracker.ReportQuestion(question.text, id);
+        string[] stories = { story1, story2 };
+        LoadScript(stories[id - 1]);
+        #region openhouse
+        if (PlayerPrefs.GetString("story") == "OpenHouse")
+            Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
+        #endregion openhouse
+        questionbox.SetActive(false);
+    }
+    private void OpenQuestionDD(string[] line) 
+    {
+        dropdownObject.GetComponent<Dropdown>().ClearOptions();
+        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
+        List<string> options = new List<string>();
+        for (int i = 2; i < line.Length; i = i+2) 
+        {
+            options.Add(line[i]);
+        }
+        dropdownQ.text = line[1];
+        dropdownObject.GetComponent<Dropdown>().AddOptions(options);
+        dropdownMenu.SetActive(true);
+    }
+    public void AnswerQuestionDD(int select)
+    {
+        string[] line = story[dialogpos].Split('|');
+        List<string> options = new List<string>();
+        for (int i = 3; i < line.Length; i = i + 2)
+        {
+            options.Add(line[i]);
+        }
+        #region openhouse
+        if(PlayerPrefs.GetString("story") == "OpenHouse")
+        Analytics.CustomEvent("program_picked", new Dictionary<string, object> {{ "program", options[select-1] }});
+        #endregion openhouse
+        LoadScript(options[select-1]);
+        dropdownMenu.SetActive(false);
+    }
+
+    #endregion
+
+    #region Generic
+    public void SkipTutorial()
+    {
+        LoadScript("intro");
+        dialogdone = false;
+    }
+    private IEnumerator Delay(float time) //ID 7
+    {
+        ready = false;
+        yield return new WaitForSeconds(time);
+        dialogpos++;
+        ready = true;
+        RunNext();
     }
 
     private void ChangeBackground(string bg) //ID 1
@@ -430,39 +478,32 @@ public class GameManager : MonoBehaviour
         RunNext();
     }
 
-    private void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
-    {
-        if (GameObject.Find(name) == null) //karaktär finns ej
-        {
-            //skapa gameobj
-            GameObject character = new GameObject(name);
-            character.gameObject.tag = "character";
-            character.AddComponent<SpriteRenderer>();
-            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
-
-            //sätt size + pos
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
-        }
-        else //karaktär finns
-        {
-            //ändra pos
-            GameObject character = GameObject.Find(name);
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
-
-            //ändra mood
-            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
-        }
-        RunNext();
-    }
-
     public void StopSounds()
     {
         background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
         musicplaying = "none";
         RunNext();
+    }
+
+    #endregion
+
+    #region UI
+    public void Pause(bool n)
+    {
+        paused = n;
+        pausemenu.SetActive(n);
+    }
+    public void OpenSettings()
+    {
+        settingsopen = true;
+        GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+        x.transform.localPosition = Vector3.zero;
+        x.name = "Settings";
+    }
+    public void GoToMain()
+    {
+        SceneManager.LoadScene("menu");
     }
     private IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
@@ -494,35 +535,14 @@ public class GameManager : MonoBehaviour
         }
         yield break;
     }
-    private string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
-    {
-        MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
+    #endregion
 
-        foreach (Match match in matches)
-        {
-            string replace ="";
-            if (match.Groups[2].Value == "name")
-                replace = people[int.Parse(match.Groups[1].Value)].name;
-            if (match.Groups[2].Value == "nick")
-                replace = people[int.Parse(match.Groups[1].Value)].nick;
-
-            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace,1); //Byter 
-        }
-
-        return text;
-    }
+    #region Saving
     public IEnumerator SaveInfo() //just shows the user that the game got saved. simple huh?
     {
         saveinfo.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         saveinfo.SetActive(false);
     }
-    private void ClearText()
-    {
-        comment.text = "";
-        alert.text = "";
-        question.text = "";
-        alt1t.text = "";
-        alt2t.text = "";
-    }
+    #endregion
 }
