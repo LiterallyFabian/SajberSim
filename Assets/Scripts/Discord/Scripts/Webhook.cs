@@ -72,7 +72,6 @@ class Credentials
             discordValues.Set("username", displayname);
             discordValues.Set("avatar_url", profilepic);
             discordValues.Set("content", msgSend);
-            if (embeds != null) discordValues.Add("embeds", embeds[0]);
 
             try
             {
