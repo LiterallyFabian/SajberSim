@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -28,58 +29,64 @@ class Credentials
 }
 */
     class Webhook
-{
-    private static void Send(string url, string msgbase, string msg, string nameext, string avatar)
     {
-        using (dWebHook dcWeb = new dWebHook())
+        private static void Send(string url, string msgbase, string msg, string nameext, string avatar)
         {
-            dcWeb.profilepic = avatar;
-            dcWeb.displayname = $"SajberSim {nameext}";
-            dcWeb.url = url;
-            dcWeb.SendMessage(msgbase + msg);
+            using (dWebHook dcWeb = new dWebHook())
+            {
+                dcWeb.profilepic = avatar;
+                dcWeb.displayname = $"SajberSim {nameext}";
+                dcWeb.url = url;
+                dcWeb.SendMessage(msgbase + msg);
+            }
+        }
+        public static void Log(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
+        {
+            Send(Credentials.webhooks["log"], "**:video_game: INGAME LOG**\n\n ", msg, "Log", avatar);
+        }
+        public static void Support(string msg, string email, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
+        {
+            Send(Credentials.webhooks["support"], $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ", msg, "Support", avatar);
+        }
+        public static void Stats(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
+        {
+            Send(Credentials.webhooks["stats"], "**:chart_with_upwards_trend: STATS**\n\n ", msg, "Stats", avatar);
         }
     }
-    public static void Log(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
+    public class dWebHook : IDisposable
     {
-        Send(Credentials.webhooks["log"], "**:video_game: INGAME LOG**\n\n ", msg, "Log", avatar);
-    }
-    public static void Support(string msg, string email, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
-    {
-        Send(Credentials.webhooks["support"], $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ", msg, "Support", avatar);
-    }
-    public static void Stats(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
-    {
-        Send(Credentials.webhooks["stats"], "**:chart_with_upwards_trend: STATS**\n\n ", msg, "Stats", avatar);
-    }
-}
-public class dWebHook : IDisposable
-{
-    private readonly WebClient dWebClient;
-    private static NameValueCollection discordValues = new NameValueCollection();
-    public string url { get; set; }
-    public string displayname { get; set; }
-    public string profilepic { get; set; }
-    public string[] embeds { get; set; }
+        private readonly WebClient dWebClient;
+        private static NameValueCollection discordValues = new NameValueCollection();
+        public string url { get; set; }
+        public string displayname { get; set; }
+        public string profilepic { get; set; }
 
-    public dWebHook()
-    {
-        dWebClient = new WebClient();
-    }
+        public dWebHook()
+        {
+            dWebClient = new WebClient();
+        }
 
 
-    public void SendMessage(string msgSend)
-    {
-        discordValues.Add("username", displayname);
-        discordValues.Add("avatar_url", profilepic);
-        discordValues.Add("content", msgSend);
-        if(embeds != null) discordValues.Add("embeds", embeds[0]);
+        public void SendMessage(string msgSend)
+        {
+            discordValues.Set("username", displayname);
+            discordValues.Set("avatar_url", profilepic);
+            discordValues.Set("content", msgSend);
+            if (embeds != null) discordValues.Add("embeds", embeds[0]);
 
-        dWebClient.UploadValues(url, discordValues);
-    }
+            try
+            {
+                dWebClient.UploadValues(url, discordValues);
+            }
+            catch (WebException e)
+            {
+                UnityEngine.Debug.LogError($"Web: Tried to send message with text {msgSend} failed, error message:\n\n{e}");
+            }
+        }
 
-    public void Dispose()
-    {
-        dWebClient.Dispose();
+        public void Dispose()
+        {
+            dWebClient.Dispose();
+        }
     }
-}
 }
