@@ -16,6 +16,9 @@ using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
 
+/// <summary>
+/// Controls buttons on the main menu
+/// </summary>
 public class ButtonCtrl : MonoBehaviour
 {
     public GameObject OverwriteAlert;
@@ -56,7 +59,7 @@ public class ButtonCtrl : MonoBehaviour
         Cursor.visible = true;
         UpdateCharacter();
     }
-    void UpdateCharacter()
+    private void UpdateCharacter()
     {
         if (SceneManager.GetActiveScene().name == "menu")
         {

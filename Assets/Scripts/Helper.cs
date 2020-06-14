@@ -294,7 +294,7 @@ namespace SajberSim.Helper
         {
             string fullpath = $@"{Application.dataPath}/{path}";
             if (Directory.Exists(fullpath))
-                Process.Start("explorer.exe", fullpath);
+                Process.Start(fullpath);
             else
                 UnityEngine.Debug.LogError($"Tried to open path {fullpath} which does not exist");
         }
