@@ -12,15 +12,16 @@ using UnityEngine.Analytics;
 using System.Globalization;
 using SajberSim.Web;
 using SajberSim.Chararcter;
+using System.Runtime.CompilerServices;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     public static bool ready = true; // If the game is ready to go to the next line (eg delays, downloads)
-    public static bool dialogdone = false; //False if a text is currently writing out
-    public static int dialogpos = 0;
-    public static float charsize = 0.8f;
+    public static bool textdone = false; // False if a text is currently writing out
+    public static int dialoguepos = 0;
+    public static float charactersize = 0.8f; // This is the size of game characters, not letters
     public GameObject textbox;
     public GameObject alertbox;
     public GameObject portrait;
@@ -68,9 +69,9 @@ public class GameManager : MonoBehaviour
         lang.NumberDecimalSeparator = "."; 
 
         paused = false;
-        dialogpos = 0;
+        dialoguepos = 0;
         ready = true;
-        dialogdone = false;
+        textdone = false;
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         storyPath = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}";
@@ -111,16 +112,16 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//")) && !paused)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialoguepos] == "" || story[dialoguepos].StartsWith("//")) && !paused)
         {
-            if (dialogdone && ready)
+            if (textdone && ready)
             {
                 ClearText();
                 textbox.SetActive(false);
                 alertbox.SetActive(false);
                 RunNext();
             }
-            else dialogdone = true;
+            else textdone = true;
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -143,12 +144,12 @@ public class GameManager : MonoBehaviour
     {
         if (!ready) return;
 
-        string[] line = story[dialogpos].Split('|'); //line = nuvarande raden
-        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialogpos}\naction = {story[dialogpos].Split('|')[0]}\nready = {ready}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialogpos]}";
+        string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
+        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialoguepos]}";
 
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
         {
-            dialogpos++;
+            dialoguepos++;
             RunNext();
         }
 
@@ -163,7 +164,7 @@ public class GameManager : MonoBehaviour
             string text = FillVars(line[2]);
             UnityEngine.Debug.Log($"{talker.name} says: {text}");
             co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
-            dialogpos++;
+            dialoguepos++;
         }
         else if (line[0] == "ALERT") //general box
         {
@@ -174,7 +175,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "BG") //new background
         {
             if (line.Length > 2) RemoveCharacters();
-            dialogpos++;
+            dialoguepos++;
             ChangeBackground(line[1]);
         }
         else if (line[0] == "CHAR") //move or create character
@@ -187,7 +188,7 @@ public class GameManager : MonoBehaviour
             float x = (float)Convert.ToDouble(line[3], lang);
             float y = (float)Convert.ToDouble(line[4], lang);
             int align = int.Parse(line[5]);
-            dialogpos++;
+            dialoguepos++;
             CreateCharacter(name.ToLower(), mood, x, y, align);
         }
         else if (line[0] == "DEL") //delete character
@@ -195,7 +196,7 @@ public class GameManager : MonoBehaviour
             string name = "";
             if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
             else name = line[1];
-            dialogpos++;
+            dialoguepos++;
             Destroy(UnityEngine.GameObject.Find(name.ToLower()));
             RunNext();
         }
@@ -233,19 +234,19 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "PLAYMUSIC")
         {
             string arg = line[1];
-            dialogpos++;
+            dialoguepos++;
             if(arg != musicplaying) dl.Ogg(music, $"file://{storyPath}/Audio/{arg}.ogg", true);
             musicplaying = arg;
             RunNext();
         }
         else if (line[0] == "STOPSOUNDS")
         {
-            dialogpos++;
+            dialoguepos++;
             StopSounds();
         }
         else if (line[0] == "PLAYSFX")
         {
-            dialogpos++;
+            dialoguepos++;
             dl.Ogg(SFX, $"file://{storyPath}/Audio/{line[1]}.ogg", true);
             RunNext();
         }
@@ -269,14 +270,14 @@ public class GameManager : MonoBehaviour
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
+            character.transform.localScale = new Vector3(charactersize * align, charactersize, 0.6f);
         }
         else //karaktär finns
         {
             //ändra pos
             GameObject character = GameObject.Find(name);
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charsize * align, charsize, 0.6f);
+            character.transform.localScale = new Vector3(charactersize * align, charactersize, 0.6f);
 
             //ändra mood
             dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
@@ -299,7 +300,7 @@ public class GameManager : MonoBehaviour
     #region Text
     private IEnumerator SpawnTextBox(Character talker, string target) //ID 0
     {
-        dialogdone = false;
+        textdone = false;
         textbox.SetActive(true);
         dl.Image(portrait, $"file://{storyPath}/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
@@ -312,22 +313,22 @@ public class GameManager : MonoBehaviour
             {
                 written = written + target[i];
                 yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
-                if (dialogdone) //avbryt och skriv hela
+                if (textdone) //avbryt och skriv hela
                 {
                     comment.text = target;
-                    dialogdone = true;
+                    textdone = true;
                     break;
                 }
                 comment.text = written;
             }
         }
         comment.text = target;
-        dialogdone = true;
+        textdone = true;
     }
 
     private IEnumerator SpawnAlert(string target) //ID 0
     {
-        dialogdone = false;
+        textdone = false;
         alertbox.SetActive(true);
         string written = target[0].ToString(); //written = det som står hittills
 
@@ -335,16 +336,16 @@ public class GameManager : MonoBehaviour
         {
             written = written + target[i];
             yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
-            if (dialogdone) //avbryt och skriv hela
+            if (textdone) //avbryt och skriv hela
             {
                 alert.text = target;
-                dialogdone = true;
+                textdone = true;
                 break;
             }
             alert.text = written;
         }
         alert.text = target;
-        dialogdone = true;
+        textdone = true;
     }
     private string UwUTranslator(string text)
     {
@@ -392,7 +393,7 @@ public class GameManager : MonoBehaviour
     #region Questions
     private void OpenQuestion(string text, string alt1, string alt2)
     {
-        dialogdone = false;
+        textdone = false;
         questionbox.SetActive(true);
         question.text = text;
         alt1t.text = alt1;
@@ -424,7 +425,7 @@ public class GameManager : MonoBehaviour
     }
     public void AnswerQuestionDD(int select)
     {
-        string[] line = story[dialogpos].Split('|');
+        string[] line = story[dialoguepos].Split('|');
         List<string> options = new List<string>();
         for (int i = 3; i < line.Length; i = i + 2)
         {
@@ -444,13 +445,13 @@ public class GameManager : MonoBehaviour
     public void SkipTutorial()
     {
         LoadScript("intro");
-        dialogdone = false;
+        textdone = false;
     }
     private IEnumerator Delay(float time) //ID 7
     {
         ready = false;
         yield return new WaitForSeconds(time);
-        dialogpos++;
+        dialoguepos++;
         ready = true;
         RunNext();
     }
@@ -472,7 +473,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"New story loaded: {storyx}");
         PlayerPrefs.SetString("script", storyx);
         StartCoroutine(SaveInfo());
-        dialogpos = 0;
+        dialoguepos = 0;
         story = File.ReadAllLines(path);
         ready = true;
         RunNext();

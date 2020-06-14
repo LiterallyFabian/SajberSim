@@ -249,7 +249,7 @@ public class SetupManager : MonoBehaviour
 
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
-        character.transform.localScale = new Vector3(GameManager.charsize, GameManager.charsize, 0.6f);
+        character.transform.localScale = new Vector3(GameManager.charactersize, GameManager.charactersize, 0.6f);
         character.AddComponent<BoxCollider2D>().size = new Vector2(3.7f, 11f);
         character.GetComponent<BoxCollider2D>().offset = new Vector2(0, -1);
         character.AddComponent<CharacterCreation>();
