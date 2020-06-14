@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//")) && !settingsopen)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialogpos] == "" || story[dialogpos].StartsWith("//")) && !paused)
         {
             if (dialogdone && ready)
             {
@@ -124,17 +124,25 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!settingsopen)
+            if (!paused)
             {
-                settingsopen = true;
-                pausemenu.SetActive(true);
+                Pause(true);
             }
-            else 
+            else if(paused && settingsopen)
             {
+                GameObject.Find("Canvas/Settings").GetComponent<Settings>().CloseMenu();
                 settingsopen = false;
-                pausemenu.SetActive(false);
+            }
+            else if(paused && !settingsopen)
+            {
+                Pause(false);
             }
         }
+    }
+    public void Pause(bool n)
+    {
+        paused = n;
+        pausemenu.SetActive(n);
     }
     public void OpenSettings()
     {
