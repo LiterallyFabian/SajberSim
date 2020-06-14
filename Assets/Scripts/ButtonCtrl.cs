@@ -58,6 +58,9 @@ public class ButtonCtrl : MonoBehaviour
         
         Cursor.visible = true;
         UpdateCharacter();
+        string storyname = Helper.GetManifestFromName(PlayerPrefs.GetString("story")).name;
+        if(storyname != "none")
+        GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), storyname);
     }
     private void UpdateCharacter()
     {
@@ -83,8 +86,8 @@ public class ButtonCtrl : MonoBehaviour
     {
         if (PlayerPrefs.GetString("story", "none") != "none")
         {
-            //story som inte är start hittad
-            OverwriteAlert.SetActive(true);
+            //story found
+            OverwriteAlert.transform.localScale = Vector3.one;
         }
         else
             StartNewConfirmed();
@@ -92,6 +95,7 @@ public class ButtonCtrl : MonoBehaviour
 
     public void StartNewConfirmed() //confirmed that user wants to start a new
     {
+        OverwriteAlert.transform.localScale = Vector3.zero;
         GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
     }
     
@@ -152,7 +156,7 @@ public class ButtonCtrl : MonoBehaviour
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(false);
-        OverwriteAlert.SetActive(false);
+        OverwriteAlert.transform.localScale = Vector3.zero;
         GameManager.paused = false;
         
     }
