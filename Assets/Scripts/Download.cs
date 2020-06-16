@@ -15,7 +15,8 @@ namespace SajberSim.Web
 {
     public class Download : MonoBehaviour
     {
-        private IEnumerator UpdateItem(GameObject item, string path, string type)
+        enum ItemType { Image, Sprite };
+        private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
             {
@@ -23,15 +24,15 @@ namespace SajberSim.Web
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError) 
-                    Debug.LogError($"Could not download {path}\n{uwr.error}");
+                    Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
                 else if (!File.Exists(path.Replace("file://", "")))
-                    Debug.LogError($"Tried to download {path} which does not exist");
+                    Debug.LogError($"Download: Tried to download {path} which does not exist");
                 else
                 {
                     var texture = DownloadHandlerTexture.GetContent(uwr);
-                    if(type == "img")
+                    if(type == ItemType.Image)
                         item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                    else if (type == "sprite")
+                    else if (type == ItemType.Sprite)
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 }
             }
@@ -44,9 +45,9 @@ namespace SajberSim.Web
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError)
-                    Debug.LogError($"Could not download {path.Replace("file://", "")}\n{uwr.error}");
-                else if(!File.Exists(path))
-                    Debug.LogError($"Tried to download {path} which does not exist");
+                    Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
+                else if(!File.Exists(path.Replace("file://", "")))
+                    Debug.LogError($"Download: Tried to download {path} which does not exist");
                 else
                 {
                     var texture = DownloadHandlerTexture.GetContent(uwr);
@@ -61,8 +62,12 @@ namespace SajberSim.Web
             {
                 yield return uwr.SendWebRequest();
 
-                if (uwr.isNetworkError) 
-                    Debug.LogError($"Could not download {path}\n{uwr.error}");
+                if (uwr.isNetworkError)
+                    Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
+                else if (!File.Exists(path.Replace("file://", "")))
+                    Debug.LogError($"Download: Tried to download {path} which does not exist");
+                else if(item.GetComponent<AudioSource>() == null)
+                    Debug.LogError($"Download: Tried to set audio {path} on gameobject {item.name} which does not have an audio source component.");
                 else
                 {
                     item.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);
@@ -76,11 +81,11 @@ namespace SajberSim.Web
         }
         public void Image(GameObject item, string path)
         {
-            StartCoroutine(UpdateItem(item, path, "img"));
+            StartCoroutine(UpdateItem(item, path, ItemType.Image));
         }
         public void Sprite(GameObject item, string path)
         {
-            StartCoroutine(UpdateItem(item, path, "sprite"));
+            StartCoroutine(UpdateItem(item, path, ItemType.Sprite));
         }
         public void Ogg(GameObject item, string path, bool play = false)
         {
