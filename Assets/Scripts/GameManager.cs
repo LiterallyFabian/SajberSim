@@ -146,14 +146,14 @@ public class GameManager : MonoBehaviour
 
         string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
         GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialoguepos]}";
-
+        line[0] = line[0].ToLower();
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
         {
             dialoguepos++;
             RunNext();
         }
 
-        else if (line[0] == "T") //textbox
+        else if (line[0] == "t") //textbox
         {
             Character talker = people[0];
             if (int.TryParse(line[1], out int x))
@@ -166,19 +166,19 @@ public class GameManager : MonoBehaviour
             co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             dialoguepos++;
         }
-        else if (line[0] == "ALERT") //general box
+        else if (line[0] == "alert") //general box
         {
             string text = FillVars(line[1]);
             Debug.Log($"Alert: {text}");
             StartCoroutine(SpawnAlert(UwUTranslator(text)));
         }
-        else if (line[0] == "BG") //new background
+        else if (line[0] == "bg") //new background
         {
             if (line.Length > 2) RemoveCharacters();
             dialoguepos++;
             ChangeBackground(line[1]);
         }
-        else if (line[0] == "CHAR") //move or create character
+        else if (line[0] == "char") //move or create character
         {
             string name = "";
             if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             CreateCharacter(name.ToLower(), mood, x, y, align);
         }
-        else if (line[0] == "DEL") //delete character
+        else if (line[0] == "del") //delete character
         {
             string name = "";
             if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
             Destroy(UnityEngine.GameObject.Find(name.ToLower()));
             RunNext();
         }
-        else if (line[0] == "QUESTION") //question
+        else if (line[0] == "question") //question
         {
             ready = false;
             if (line.Length == 6) //Normal 2 alt questions
@@ -217,21 +217,21 @@ public class GameManager : MonoBehaviour
                 OpenQuestionDD(line);
             }
         }
-        else if (line[0] == "LOADSTORY") //open new story (no question)
+        else if (line[0] == "loadstory") //open new story (no question)
         {
             LoadScript(line[1]);
             if (line.Length > 2)
                 RemoveCharacters();
         }
-        else if (line[0] == "OPENSCENE") //delay
+        else if (line[0] == "openscene") //delay
         {
             SceneManager.LoadScene(line[1]);
         }
-        else if (line[0] == "WAIT") //delay
+        else if (line[0] == "wait") //delay
         {
             StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
         }
-        else if (line[0] == "PLAYMUSIC")
+        else if (line[0] == "playmusic")
         {
             string arg = line[1];
             dialoguepos++;
@@ -239,18 +239,18 @@ public class GameManager : MonoBehaviour
             musicplaying = arg;
             RunNext();
         }
-        else if (line[0] == "STOPSOUNDS")
+        else if (line[0] == "stopsounds")
         {
             dialoguepos++;
             StopSounds();
         }
-        else if (line[0] == "PLAYSFX")
+        else if (line[0] == "playsfx")
         {
             dialoguepos++;
             dl.Ogg(SFX, $"file://{storyPath}/Audio/{line[1]}.ogg", true);
             RunNext();
         }
-        else if (line[0] == "FINISHGAME")
+        else if (line[0] == "finishgame")
         {
             StartCoroutine(StartCredits());
         }
