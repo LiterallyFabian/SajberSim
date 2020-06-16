@@ -458,7 +458,7 @@ public class GameManager : MonoBehaviour
 
     private void ChangeBackground(string bg) //ID 1
     {
-        dl.Sprite(background, $"file://{storyPath}/Backgrounds/{bg}.png");
+        dl.Image(background, $"file://{storyPath}/Backgrounds/{bg}.png");
         RunNext();
     }
 
@@ -481,8 +481,8 @@ public class GameManager : MonoBehaviour
 
     public void StopSounds()
     {
-        background.GetComponent<AudioSource>().Stop();
         music.GetComponent<AudioSource>().Stop();
+        SFX.GetComponent<AudioSource>().Stop();
         musicplaying = "none";
         RunNext();
     }
