@@ -2,7 +2,7 @@
 
 ## Info
 
-SajberSim is a framework for visual novels, primarily made for [Cybergymnasiet Odenplan](https://cybergymnasiet.se/), with potential plans on being publicly released in the future.
+SajberSim is an engine for creating, playing and publishing visual novels, primarily made for [Cybergymnasiet Odenplan](https://cybergymnasiet.se/) with plans on being published around October 2020.
 
 
 
@@ -19,9 +19,26 @@ cd SajberSim
 
 
 
+## Documentation for creating stories
+
+Will be added soon. 
+
+
+
+## Contributing
+
+- Translating
+  - Translation files for the core game can be found [here](https://github.com/LiterallyFabian/SajberSim/tree/master/Assets/Resources/Languages).
+  - Edits, additions or new languages can be submitted through pull requests or by my socials below.
+  - For translation of already published visual novels, contact the publisher of said novel.
+- Official / default novels
+  - For default novels included in the core game instead of being submitted and downloaded through Steam workshop, send me a message on one of my socials below
+
+
+
 ## Contact / questions / whatever
 
-**Email:** fabian.lindgren@elev.cybergymnasiet.se 
+**Email:** lindgrenfabian@gmail.com
 
 **Discord:** Fabian#1540
 
