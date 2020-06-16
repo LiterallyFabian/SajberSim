@@ -254,6 +254,12 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCredits());
         }
+        else
+        {
+            Debug.LogError($"Visual Novel: Error at line {dialoguepos} in {storyPath}/Dialogues/{PlayerPrefs.GetString("script")}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
+            dialoguepos++;
+            RunNext();
+        }
     }
 
 
