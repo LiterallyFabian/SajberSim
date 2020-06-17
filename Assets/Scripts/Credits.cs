@@ -2,6 +2,7 @@
 using SajberSim.Helper;
 using SajberSim.Story;
 using SajberSim.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,17 +20,19 @@ public class Credits : MonoBehaviour
     // Assets in the scene
     public Text Roles;
     public Text People;
-    public Text Message;
     public Text NoCredits;
+    public GameObject Message;
     public GameObject Logo;
     public GameObject Background;
     public GameObject CreditHolder;
+    public GameObject EscButton;
 
     // Variables
     public static string storyname = "";
     private string[] creditsraw;
     private string storypath;
     private Download dl;
+    public int speed = 45;
     private void Start()
     {
         dl = GameObject.Find("EventSystem").GetComponent<Download>();
@@ -50,6 +53,7 @@ public class Credits : MonoBehaviour
         bool rolesfound = false;
         string roles = "";
         string people = "";
+        int lines = 0;
 
         if(File.Exists($"{storypath}/logo.png")) 
             dl.Image(Logo, $"{storypath}/logo.png");
@@ -58,8 +62,10 @@ public class Credits : MonoBehaviour
         {
             if (line.ToLower().StartsWith("background|"))
                 dl.Image(Background, $"{storypath}/Backgrounds/{line.ToLower().Replace("background|", "")}.png");
+
             else if (line.ToLower().StartsWith("music|"))
-                dl.Ogg(music, $"{storypath}/Audio/{line.ToLower().Replace("music|", "")}.ogg", true);
+                dl.Ogg(music, $"{storypath}/Audio/{line.Split('|')[1]}.ogg", true);
+
             else if (line.ToLower().StartsWith("color|"))
             {
                 Color textColor = new Color(0.772549f, 0.3098039f, 0.6470588f, 1); //sajbersim pink
@@ -68,7 +74,10 @@ public class Credits : MonoBehaviour
                 Roles.color = Helper.ModifyColor(textColor, 0.8f);
             }
             else if (line.ToLower().StartsWith("message|"))
-                Message.text = line.Split('|')[1];
+                Message.GetComponent<Text>().text = line.Split('|')[1];
+
+            else if (line.ToLower().StartsWith("speed|"))
+                speed = Convert.ToInt32(line.Split('|')[1]);
 
             else if(line != "") // Roles / people found
             {
@@ -78,6 +87,7 @@ public class Credits : MonoBehaviour
                     {
                         roles += $"\n\n{line.Replace("-", "")}";
                         people += "\n\n";
+                        lines += 2;
                     }
                     else
                     {
@@ -89,15 +99,23 @@ public class Credits : MonoBehaviour
                 {
                     roles += "\n";
                     people += line + "\n";
+                    lines++;
                 }
             }
         }
+        Message.transform.localPosition = new Vector3(0, (lines * -40 - 70), 0);
         People.text = people;
         Roles.text = roles;
     }
     private void Update()
     {
-        CreditHolder.transform.position += Vector3.up * 40 * Time.deltaTime;
+        CreditHolder.transform.position += Vector3.up * speed * Time.deltaTime;
+        if (Message.transform.position.y > 350)
+        {
+            Message.transform.parent = GameObject.Find("Canvas").transform;
+            Message.transform.position = new Vector3(Message.transform.position.x, Message.transform.position.y-1, 0);
+            EscButton.GetComponent<Animator>().Play("esc key");
+        }
         if (Input.GetKeyDown("escape"))
             StartCoroutine(LeaveCredits());
     }

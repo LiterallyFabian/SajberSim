@@ -1,6 +1,7 @@
 Background|blur
 Music|jam
 Color|C54FA5
+Speed|45
 Message|Tack för att du har spelat, vi hoppas att vi får se dig på skolan i framtiden!
 
 -Karaktärer
