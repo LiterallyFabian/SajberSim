@@ -364,6 +364,16 @@ namespace SajberSim.Helper
             if (b) PlayerPrefs.SetInt(key, 1);
             else PlayerPrefs.SetInt(key, 0);
         }
+        /// <summary>
+        /// Modifies the brightness of a color
+        /// </summary>
+        /// <param name="alphaChange">Amount to multiply the darkness with</param>
+        public static Color ModifyColor(Color color, float alphaChange)
+        {
+            color = color * alphaChange;
+            color.a = 1;
+            return color;
+        }
     }
 }
 /// <summary>

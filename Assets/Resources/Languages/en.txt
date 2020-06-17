@@ -17,6 +17,7 @@ saved=Saved!
 verified=Verified
 loggedinas=Logged in as {0}
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
+nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory
 
 #Settings
 volume=Volume

@@ -515,6 +515,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
         StartCoroutine(FadeOut(background.GetComponent<AudioSource>(), 1.3f, 0));
+        Credits.storyname = PlayerPrefs.GetString("story");
         PlayerPrefs.DeleteKey("story");
         PlayerPrefs.DeleteKey("script");
 
