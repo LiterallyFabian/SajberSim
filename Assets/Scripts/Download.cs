@@ -29,7 +29,8 @@ namespace SajberSim.Web
                     Debug.LogError($"Download: Tried to download {path} which does not exist");
                 else
                 {
-                    var texture = DownloadHandlerTexture.GetContent(uwr);
+                    Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+
                     if(type == ItemType.Image)
                         item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     else if (type == ItemType.Sprite)

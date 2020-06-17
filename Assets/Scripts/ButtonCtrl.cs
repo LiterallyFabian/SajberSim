@@ -57,7 +57,7 @@ public class ButtonCtrl : MonoBehaviour
         }
         
         Cursor.visible = true;
-        UpdateCharacter();
+        UpdateUI();
         string storyid = PlayerPrefs.GetString("story", "none");
         if (Directory.Exists($"{Application.dataPath}/Story/{storyid}"))
             GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifestFromName(storyid).name);
@@ -71,7 +71,7 @@ public class ButtonCtrl : MonoBehaviour
         else
             loginstatus.text = Translate.Get("signin");
     }
-    private void UpdateCharacter()
+    private void UpdateUI()
     {
         if (SceneManager.GetActiveScene().name == "menu")
         {
