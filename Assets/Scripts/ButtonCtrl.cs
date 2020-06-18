@@ -15,6 +15,7 @@ using SajberSim.StoryDebug;
 using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
+using Steamworks;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -66,10 +67,10 @@ public class ButtonCtrl : MonoBehaviour
 
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
         //Set login if you are logged in
-        if (Helper.loggedin)
-            loginstatus.text = string.Format(Translate.Get("loggedinas"), Helper.acc.GetFieldValue("username"));
+        if (SteamManager.Initialized)
+            loginstatus.text = string.Format(Translate.Get("loggedinas"), SteamFriends.GetPersonaName());
         else
-            loginstatus.text = Translate.Get("signin");
+            loginstatus.text = Translate.Get("notloggedin");
     }
     private void UpdateUI()
     {
