@@ -33,7 +33,6 @@ public class Settings : MonoBehaviour
         transform.Find("Speed/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("delay", 0.04f));
         transform.Find("Volume/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
 
-        transform.Find("AutoLogin/Toggle").GetComponent<Toggle>().SetIsOnWithoutNotify(PlayerPrefs.GetInt("autologin", 1) == 1);
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1)
         {
@@ -42,17 +41,6 @@ public class Settings : MonoBehaviour
         }
     }
 
-    public void AutoLogin(bool n)
-    {
-        if (n)
-            PlayerPrefs.SetInt("autologin", 1);
-        else
-        {
-            PlayerPrefs.SetInt("autologin", 0);
-            PlayerPrefs.DeleteKey("username");
-            PlayerPrefs.DeleteKey("hash");
-        }
-    }
     public void ChangeSpeed(float value) //runs when the speed slider is changed
     {
         PlayerPrefs.SetFloat("delay", value);
