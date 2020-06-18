@@ -16,6 +16,9 @@ using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using Steamworks;
+using LapinerTools.uMyGUI;
+using LapinerTools.Steam.Data;
+using LapinerTools.Steam.UI;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -107,6 +110,13 @@ public class ButtonCtrl : MonoBehaviour
     {
         OverwriteAlert.transform.localScale = Vector3.zero;
         GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
+    }
+    public void OpenWorkshop()
+    {
+        uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
+        //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
+        //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
+        //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
     
     public void CreateCharacters()
