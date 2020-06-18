@@ -14,6 +14,7 @@ using SajberSim.Translation;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO.Compression;
 
 namespace SajberSim.Helper
 {
@@ -375,6 +376,37 @@ namespace SajberSim.Helper
             color = color * alphaChange;
             color.a = 1;
             return color;
+        }
+        /// <summary>
+        /// Tries to zip a directory and put it in the origin folder (Folder -> Folder/Folder.zip)
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <returns>True for successful compressions, otherwise false</returns>
+        //public static bool ZipDirectory(string origin)
+        //{
+        //    if (!Directory.Exists(origin))
+        //    {
+        //        UnityEngine.Debug.LogError($"Helper: Tried to zip directory {origin} which does not exist.");
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            string result = new DirectoryInfo(origin).Name + ".zip";
+        //            ZipFile.CreateFromDirectory(origin, result);
+        //            return true;
+        //        }
+        //        catch(Exception e)
+        //        {
+        //            UnityEngine.Debug.LogError($"Helper: Could not zip directory {origin}.\n{e}");
+        //            return false;
+        //        }
+        //    }
+        //}
+        public byte[] ConvertZipToData(string fileName)
+        {
+            return File.ReadAllBytes(fileName);
         }
     }
 }
