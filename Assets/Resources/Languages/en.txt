@@ -15,9 +15,12 @@ paused=Paused
 logout=Log out
 saved=Saved!
 verified=Verified
+submit=Submit
+send=Send
 loggedinas=Logged in as {0}
+notloggedin=Not logged in
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
-nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory
+nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory.
 
 #Settings
 volume=Volume
@@ -27,44 +30,6 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
-
-#Account
-signin=Sign in
-accountnotice=A SajberSim account is not required for playing, but you need to be logged in if you want to publish your own visual novels or save stats.
-login=Login
-username=Username
-password=Password
-email=Email
-loading=Loading...
-submit=Submit
-send=Send
-createacc=Create an account
-forgotpass=Forgot password?
-recovery=Password recovery
-recoverysent=Emailed password reset link!
-accountemail=Account email:
-recoverytext=Enter your user account's email address to get a password reset link.
-processing=Processing...
-createdaccount=New account registered successfully!
-signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc) on your profile.
-requiredfields=Please fill in the required fields.
-
-#Account errors
-error=Error: 
-invalidemail=Error: Could not find an account with that email
-fieldempty=Error: {0} can not be empty!
-accinactive=Error: Account is inactive - Please check your email.
-invalidinfo=Error: Invalid username / password.
-noconnection=Error: Could not connect. Please try again later!
-passwordnomatch=Error: Passwords do not match.
-emailnomatch=Error: Emails do not match.
-emailinvalid=Error: Email is invalid or already taken.
-emailerror=Error: Could not email password reset link.
-usernameshort=Error: Username "{0}" is too short.
-emailnull=Could not find an account with that email.
-fielddupe=There is an existing account with that {0}.
-phperror=Error: Could not email you a reset link - make sure this is a valid email or try again later.
-accounterror=Error: Could not create account, please try again later.
 
 #Time
 about=about {0} {1} ago
@@ -123,3 +88,39 @@ changebackground=Change background
 backtomain=Back to main
 codeplaceholder=Your code will be shown here...
 
+#Discontinued, following strings does not need to be translated
+#Account
+signin=Sign in
+accountnotice=A SajberSim account is not required for playing, but you need to be logged in if you want to publish your own visual novels or save stats.
+login=Login
+username=Username
+password=Password
+email=Email
+loading=Loading...
+createacc=Create an account
+forgotpass=Forgot password?
+recovery=Password recovery
+recoverysent=Emailed password reset link!
+accountemail=Account email:
+recoverytext=Enter your user account's email address to get a password reset link.
+processing=Processing...
+createdaccount=New account registered successfully!
+signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc) on your profile.
+requiredfields=Please fill in the required fields.
+
+#Account errors
+error=Error: 
+invalidemail=Error: Could not find an account with that email
+fieldempty=Error: {0} can not be empty!
+accinactive=Error: Account is inactive - Please check your email.
+invalidinfo=Error: Invalid username / password.
+noconnection=Error: Could not connect. Please try again later!
+passwordnomatch=Error: Passwords do not match.
+emailnomatch=Error: Emails do not match.
+emailinvalid=Error: Email is invalid or already taken.
+emailerror=Error: Could not email password reset link.
+usernameshort=Error: Username "{0}" is too short.
+emailnull=Could not find an account with that email.
+fielddupe=There is an existing account with that {0}.
+phperror=Error: Could not email you a reset link - make sure this is a valid email or try again later.
+accounterror=Error: Could not create account, please try again later.
