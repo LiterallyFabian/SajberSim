@@ -14,7 +14,7 @@ public class TextTranslator : MonoBehaviour
     {
         if(this.gameObject.GetComponent<Text>() == null)
         {
-            Debug.LogError($"Tried to translate with key {TextId} on object {gameObject.name} which does not have a text component");
+            Debug.LogError($"Translation: Tried to translate with key {TextId} on object {gameObject.name} which does not have a text component");
             return;
         }
         Text txt = GetComponent<Text>();

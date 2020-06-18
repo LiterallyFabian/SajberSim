@@ -79,7 +79,7 @@ class Credentials
             }
             catch (WebException e)
             {
-                UnityEngine.Debug.LogError($"Web: Tried to send message with text {msgSend} failed, error message:\n\n{e}");
+                UnityEngine.Debug.LogError($"Webhook: Tried to send message with text {msgSend} failed, error message:\n\n{e}");
             }
         }
 

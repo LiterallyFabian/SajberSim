@@ -110,7 +110,7 @@ namespace SajberSim.Helper
             foreach (string story in GetAllStoryPaths(args, nsfw, searchTerm))
             {
                 if (!File.Exists($"{story}/manifest.json"))
-                    UnityEngine.Debug.LogError($"Tried getting manifest for {story} which does not exist.");
+                    UnityEngine.Debug.LogError($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
                 else
                     manifestPaths.Add($"{story}/manifest.json");
             }
@@ -205,7 +205,7 @@ namespace SajberSim.Helper
                 return path;
             else
             {
-                UnityEngine.Debug.LogError($"Tried getting manifest path {storyID} which does not exist ({path})");
+                UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path})");
                 return null;
             }
         }
@@ -243,7 +243,7 @@ namespace SajberSim.Helper
         {
             if (!path.Contains(".json"))
             {
-                UnityEngine.Debug.LogError($"Tried getting manifest for path \"{path}\" which does not exist");
+                UnityEngine.Debug.LogError($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
                 return null;
             }
             try
@@ -252,7 +252,7 @@ namespace SajberSim.Helper
             }
             catch
             {
-                UnityEngine.Debug.LogError($"Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
+                UnityEngine.Debug.LogError($"Helper/GetManifest: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
                 return null;
             }
         }
@@ -296,7 +296,7 @@ namespace SajberSim.Helper
             if (Directory.Exists(fullpath))
                 Process.Start(fullpath);
             else
-                UnityEngine.Debug.LogError($"Tried to open path {fullpath} which does not exist");
+                UnityEngine.Debug.LogError($"Helper/Folder: Tried to open path {fullpath} which does not exist");
         }
 
         /// <param name="dateTime">Date in the past to count from</param>

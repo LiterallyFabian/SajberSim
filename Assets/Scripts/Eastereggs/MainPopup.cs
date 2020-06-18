@@ -35,8 +35,8 @@ public class MainPopup : MonoBehaviour
         }
         else
         {
-            GameObject.Find("/Canvas/Character").GetComponent<Animator>().Play("characterbye");
-            GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popup");
+            //GameObject.Find("/Canvas/Character").GetComponent<Animator>().Play("characterbye");
+            //GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popup");
         }
     }
 }

@@ -36,12 +36,12 @@ namespace SajberSim.Translation
                 return Fields[id];
             else if(EnglishFields.ContainsKey(id))
             {
-                Debug.LogWarning($"Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
+                Debug.LogWarning($"Translation: Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
                 return EnglishFields[id];
             }
             else
             {
-                Debug.LogError($"Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning placeholder. This request was called from {location}");
+                Debug.LogError($"Translation: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning placeholder. This request was called from {location}");
                 return "TRANSLATION_MISSING";
             }
         }
@@ -60,7 +60,7 @@ namespace SajberSim.Translation
             if (textAsset == null)
             {
                 textAsset = Resources.Load(@"Languages/en") as TextAsset;
-                Debug.LogError($"Could not find a translation file for {lang} - using English instead");
+                Debug.LogError($"Translation: Could not find a translation file for {lang} - using English instead");
             }
 
             string allTexts = (textAsset as TextAsset).text;

@@ -473,7 +473,7 @@ public class GameManager : MonoBehaviour
         string path = $"{storyPath}/Dialogues/{storyx}.txt";
         if (!File.Exists(path))
         {
-            Debug.LogError($"Tried to start non-existing story: {path}");
+            Debug.LogError($"Visual Novel: Tried to start non-existing story: {path}");
             return;
         }
         Debug.Log($"New story loaded: {storyx}");
