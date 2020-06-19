@@ -43,7 +43,20 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
 
-
+    private void OnEnable()
+    {
+        try
+        {
+            SteamClient.Init((uint)Helper.AppID);
+            Helper.loggedin = true;
+            UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
+        }
+        catch (System.Exception e)
+        {
+            UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
+            Helper.loggedin = false;
+        }
+    }
 
 
     public void Start()
@@ -67,12 +80,14 @@ public class ButtonCtrl : MonoBehaviour
 
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
         //Set login if you are logged in
-        /*if (SteamManager.Initialized)
+        if (Helper.loggedin)
         {
-            loginstatus.text = string.Format(Translate.Get("loggedinas"), SteamFriends.GetPersonaName());
+            loginstatus.text = string.Format(Translate.Get("loggedinas"), SteamClient.Name);
+        }
         else
-                loginstatus.text = Translate.Get("notloggedin");
-        }*/
+        {
+            loginstatus.text = Translate.Get("notloggedin");
+        }
     }
     private void UpdateUI()
     {
@@ -260,6 +275,7 @@ public class ButtonCtrl : MonoBehaviour
     private void OnApplicationQuit()
     {
         DiscordRpc.Shutdown(); //Stänger Discord RPC
+        SteamClient.Shutdown();
         Helper.CreateLogfile();
 
     }
