@@ -16,9 +16,6 @@ using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using Steamworks;
-using LapinerTools.uMyGUI;
-using LapinerTools.Steam.Data;
-using LapinerTools.Steam.UI;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -47,7 +44,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject SettingsMenuGame;
 
 
-    
+
 
     public void Start()
     {
@@ -59,7 +56,7 @@ public class ButtonCtrl : MonoBehaviour
         {
             dl = new GameObject("downloadobj").AddComponent<Download>();
         }
-        
+
         Cursor.visible = true;
         UpdateUI();
         string storyid = PlayerPrefs.GetString("story", "none");
@@ -70,10 +67,12 @@ public class ButtonCtrl : MonoBehaviour
 
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
         //Set login if you are logged in
-        if (SteamManager.Initialized)
+        /*if (SteamManager.Initialized)
+        {
             loginstatus.text = string.Format(Translate.Get("loggedinas"), SteamFriends.GetPersonaName());
         else
-            loginstatus.text = Translate.Get("notloggedin");
+                loginstatus.text = Translate.Get("notloggedin");
+        }*/
     }
     private void UpdateUI()
     {
@@ -113,12 +112,15 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
-        uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
+        //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
+    }
+    public void CreateNovel()
+    {
         //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
         //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
-    
+
     public void CreateCharacters()
     {
         System.Random rnd = new System.Random();

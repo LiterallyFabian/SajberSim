@@ -21,7 +21,7 @@ namespace SajberSim.Helper
     class Helper : MonoBehaviour
     {
         public static string[] genres;
-        public static AppId_t AppID = (AppId_t)1353530;
+        public static int AppID = 1353530;
         public static bool loggedin = false;
         public static int id = -1;
 
