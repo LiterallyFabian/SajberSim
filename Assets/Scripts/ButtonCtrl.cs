@@ -47,7 +47,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         try
         {
-            SteamClient.Init((uint)Helper.AppID);
+            SteamClient.Init(Helper.AppID);
             Helper.loggedin = true;
             UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
         }
