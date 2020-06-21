@@ -1,4 +1,6 @@
-﻿using SajberSim.Web;
+﻿using SajberSim.Steam;
+using SajberSim.Web;
+using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +12,7 @@ public class MainPopup : MonoBehaviour
     private Download dl;
 
     //For making the main character blushing
-    public static bool singlecharClicked;
+    public static int singlecharClicked;
 
     // Start is called before the first frame update
     private void Start()
@@ -27,11 +29,14 @@ public class MainPopup : MonoBehaviour
 
     public void Blush()
     {
-        if (!singlecharClicked)
+        singlecharClicked++;
+        if (singlecharClicked == 5)
         {
             if (File.Exists(ButtonCtrl.charpath.Replace("happy", "blush")))
+            {
                 dl.Image(GameObject.Find("Character"), $"file://{ButtonCtrl.charpath.Replace("happy", "blush")}");
-            singlecharClicked = true;
+                Achievements.Grant(Achievements.List.ACHIEVEMENT_findblush);
+            }
         }
         else
         {

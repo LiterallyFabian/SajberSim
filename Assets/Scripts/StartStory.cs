@@ -15,6 +15,7 @@ using SajberSim.Web;
 using SajberSim.Translation;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
+using SajberSim.Steam;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -237,9 +238,9 @@ public class StartStory : MonoBehaviour
         storymenuOpen = false;
         GameManager.storyAuthor = data.author;
         GameManager.storyName = data.name;
+        Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
+        Stats.Add(Stats.List.novelsstarted);
         StartCoroutine(main.FadeToScene("game"));
-
-
     }
     public void OpenDetails(int id)
     {

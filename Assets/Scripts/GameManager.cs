@@ -13,6 +13,7 @@ using System.Globalization;
 using SajberSim.Web;
 using SajberSim.Chararcter;
 using System.Runtime.CompilerServices;
+using SajberSim.Steam;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -527,7 +528,7 @@ public class GameManager : MonoBehaviour
             if (i > 0.5f) Cursor.visible = false;
             yield return null;
         }
-
+        Stats.Add(Stats.List.novelsfinished);
         SceneManager.LoadScene("credits");
     }
     public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
