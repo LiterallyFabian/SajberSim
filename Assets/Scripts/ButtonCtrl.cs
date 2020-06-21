@@ -16,6 +16,8 @@ using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using Steamworks;
+using Steamworks.Data;
+using SajberSim.Steam;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -42,23 +44,23 @@ public class ButtonCtrl : MonoBehaviour
     
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
-
     private void OnEnable()
     {
-        try
+        if (!Helper.loggedin)
         {
-            SteamClient.Init(Helper.AppID);
-            Helper.loggedin = true;
-            UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
-        }
-        catch (System.Exception e)
-        {
-            UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
-            Helper.loggedin = false;
+            try
+            {
+                SteamClient.Init(Helper.AppID);
+                Helper.loggedin = true;
+                UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
+                Helper.loggedin = false;
+            }
         }
     }
-
-
     public void Start()
     {
         if (GameObject.Find("Helper"))
@@ -99,7 +101,7 @@ public class ButtonCtrl : MonoBehaviour
                 if (path.Contains("happy")) charpaths.Add(path);
             }
             charpath = charpaths[UnityEngine.Random.Range(0,charpaths.Count)];
-            while (!File.Exists(charpath.Replace("happy", "blush")))
+            while (!File.Exists(charpath.Replace("happy", "blush"))) 
             {
                 charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
             }
@@ -127,6 +129,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
+        UnityEngine.Debug.Log(SteamClient.Name);
         //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
     }
     public void CreateNovel()
@@ -260,13 +263,13 @@ public class ButtonCtrl : MonoBehaviour
     public IEnumerator FadeToScene(string scene)
     {
         StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
-        if(MainPopup.singlecharClicked) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
-        MainPopup.singlecharClicked = false;
+        if(MainPopup.singlecharClicked >= 5) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
+        MainPopup.singlecharClicked = 0;
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 
         for (float i = 0; i <= 1; i += Time.deltaTime/1.5f) //Starts fade, load scene when done
         {
-            fadeimage.GetComponent<Image>().color = new Color(0, 0, 0, i);
+            fadeimage.GetComponent<UnityEngine.UI.Image>().color = new UnityEngine.Color(0, 0, 0, i);
             if (i > 0.5f) Cursor.visible = false;
             yield return null;
         }
