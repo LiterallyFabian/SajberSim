@@ -77,6 +77,7 @@ fantasy=Fantasy
 horror=Skräck
 magic=Magi
 mystery=Mysterium
+romance=Romantik
 scifi=Sci-fi
 sliceoflife=Bit av livet
 supernatural=Övernaturlig

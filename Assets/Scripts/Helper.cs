@@ -21,6 +21,8 @@ namespace SajberSim.Helper
     class Helper : MonoBehaviour
     {
         public static string[] genres;
+        // genres as how they are in the steamworks backend
+        public static string[] genresid = new string[] { "Adventure", "Action", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
         public static uint AppID = 1353530;
         public static bool loggedin = false;
         public static int id = -1;
@@ -40,18 +42,6 @@ namespace SajberSim.Helper
             {4, new Vector3(330, -230, 1)},
             {5, new Vector3(660, -230, 1)}
         };
-        private static bool _filledlist = false;
-        private void Start()
-        {
-            if (!_filledlist)
-            {
-                _filledlist = true;
-                genres = new string[] { Translate.Get("action"), Translate.Get("adventure"), Translate.Get("comedy"), Translate.Get("drama"), Translate.Get("fantasy"), Translate.Get("horror"), Translate.Get("magic"), Translate.Get("mystery"), Translate.Get("scifi"), Translate.Get("sliceoflife"), Translate.Get("supernatural"), Translate.Get("other") };
-                UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
-            }
-            Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
-            AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
-        }
         public enum StorySearchArgs
         {
             Alphabetical,
@@ -62,6 +52,31 @@ namespace SajberSim.Helper
             Oldest,
             Author,
             ID
+        }
+
+        private static bool _filledlist = false;
+        private void Start()
+        {
+            if (!_filledlist)
+            {
+                _filledlist = true;
+                genres = new string[] { Translate.Get("action"), 
+                    Translate.Get("adventure"), 
+                    Translate.Get("comedy"), 
+                    Translate.Get("drama"), 
+                    Translate.Get("fantasy"), 
+                    Translate.Get("horror"), 
+                    Translate.Get("magic"), 
+                    Translate.Get("mystery"), 
+                    Translate.Get("romance"), 
+                    Translate.Get("scifi"), 
+                    Translate.Get("sliceoflife"), 
+                    Translate.Get("supernatural"), 
+                    Translate.Get("other") };
+                UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
+            }
+            Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
+            AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
         }
         /// <summary>
         /// Checks if input is an int or not
