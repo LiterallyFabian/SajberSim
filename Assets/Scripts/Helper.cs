@@ -53,6 +53,12 @@ namespace SajberSim.Helper
             Author,
             ID
         }
+        public static void Alert(string text)
+        {
+            GameObject alert = Instantiate(Resources.Load("Prefabs/Alert", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+            alert.transform.Find("title").GetComponent<Text>().text = text;
+            alert.transform.localPosition = Vector3.zero;
+        }
 
         private static bool _filledlist = false;
         private void Start()
