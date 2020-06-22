@@ -37,8 +37,7 @@ public class Credits : MonoBehaviour
     private void Start()
     {
         dl = GameObject.Find("EventSystem").GetComponent<Download>();
-        storypath = $"{Application.dataPath}/Story/{storyname}";
-        string creditsPath = storypath + "/credits.txt";
+        string creditsPath = storyname + "/credits.txt";
         
         if (!File.Exists(creditsPath))
         {
@@ -46,6 +45,7 @@ public class Credits : MonoBehaviour
             NoCredits.color = new Color(0.772549f, 0.3098039f, 0.6470588f, 1);
             return;
         }
+        storypath = storyname;
         creditsraw = File.ReadAllLines(creditsPath);
         SetCredits();
     }
