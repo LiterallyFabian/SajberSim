@@ -26,6 +26,8 @@ namespace SajberSim.Helper
         public static uint AppID = 1353530;
         public static bool loggedin = false;
         public static int id = -1;
+        public static string localPath = "";
+        public static string steamPath = "";
 
         public static AS_AccountInfo acc;
 
@@ -83,6 +85,8 @@ namespace SajberSim.Helper
             }
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
+            localPath = Application.dataPath + "/Story/";
+            steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
         }
         /// <summary>
         /// Checks if input is an int or not
