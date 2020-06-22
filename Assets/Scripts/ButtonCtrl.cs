@@ -129,7 +129,6 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
-        UnityEngine.Debug.Log(SteamClient.Name);
         //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
     }
     public void CreateNovel()
