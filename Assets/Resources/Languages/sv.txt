@@ -17,10 +17,13 @@ saved=Saved!
 verified=Verifierad
 submit=Skicka
 send=Skicka
-loggedinas=Inloggad som {0}
-notloggedin=Inte inloggad
 overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 nocredits=Denna roman har inga anpassade eftertexter. Du kan skapa egna genom att redigera "credits.txt" i dina spelfiler.
+
+#Steam
+loggedinas=Inloggad som {0}
+notloggedin=Inte inloggad
+noconnection=SajberSim kunde inte ansluta till Steam. Försök att starta spelet ifrån ditt steam-bibliotek eller starta om datorn.
 
 #Settings
 volume=Volym
@@ -89,7 +92,9 @@ changebackground=Byt bakgrund
 backtomain=Tillbaka till huvudmenyn
 codeplaceholder=Din kod visas här...
 
-#Discontinued, following strings does not need to be translated
+################################################################
+#Discontinued, following strings does not need to be translated#
+################################################################
 #Account
 signin=Logga in
 accountnotice=Ett SajberSim-konto behövs inte för att spela, men du behöver vara inloggad för att publicera egna romaner.

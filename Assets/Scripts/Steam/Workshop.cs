@@ -8,10 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SajberSim.Helper;
+using SajberSim.Translation;
+using Steamworks;
 
 namespace SajberSim.Steam
 {
-    class Workshop
+    public class Workshop
     {
         public enum Privacy
         {
@@ -19,16 +21,23 @@ namespace SajberSim.Steam
             FriendsOnly,
             Private
         }
-        public async static void Upload(string title, string description, int tag, string dataPath, string lang, string iconPath, Privacy privacy)
+        public enum Rating
+        {
+            Everyone,
+            Questionable,
+            Mature
+        }
+        public async static void Upload(string title, string description, int tag, string dataPath, string lang, Privacy privacy, Rating rating)
         {
             Editor item = Steamworks.Ugc.Editor.NewCommunityFile
                     .WithTitle(title)
                     .WithDescription(description)
-                    .AddKeyValueTag("Romance", "Genre")
-                    .AddKeyValueTag("Mature", "Rating")
+                    .WithTag(Helper.Helper.genresid[tag])
+                    .WithTag(rating.ToString())
                     .WithContent(dataPath)
                     .InLanguage(lang)
-                    .WithPreviewFile(iconPath);
+                    .WithPreviewFile(dataPath + "/steam.png")
+                    .WithChangeLog("First upload");
 
             switch (privacy)
             {
@@ -42,9 +51,10 @@ namespace SajberSim.Steam
 
             PublishResult result = await item.SubmitAsync(new ProgressClass());
             UnityEngine.Debug.Log($"Steam: Tried to upload a new workshop item with title {title}, path {dataPath}. \nResult from Steam: {result.Result}");
-            if(result.Result.ToString() == "OK")
+            if(result.Success)
             {
-                Helper.Helper.Alert($"{title} was successfully uploaded to the Steam Workshop, congratulations!");
+                Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, title, result.FileId));
+                Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}"); 
                 Stats.Add(Stats.List.novelspublished);
             }
         }

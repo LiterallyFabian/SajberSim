@@ -17,10 +17,13 @@ saved=Saved!
 verified=Verified
 submit=Submit
 send=Send
-loggedinas=Logged in as {0}
-notloggedin=Not logged in
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory.
+
+#Steam
+loggedinas=Logged in as {0}
+notloggedin=Not logged in
+noconnection=SajberSim could not connect to Steam. Try launching the application from your library or restart your computer.
 
 #Settings
 volume=Volume
@@ -30,6 +33,9 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
+
+#Publishing
+publishsuccess=Congratulations {0}, <b>{1}</b> was successfully uploaded to the Steam Workshop!  Your file ID is {2}.\n\nThanks for contributing to the SajberSim community :) 
 
 #Time
 about=about {0} {1} ago
@@ -89,7 +95,9 @@ changebackground=Change background
 backtomain=Back to main
 codeplaceholder=Your code will be shown here...
 
-#Discontinued, following strings does not need to be translated
+################################################################
+#Discontinued, following strings does not need to be translated#
+################################################################
 #Account
 signin=Sign in
 accountnotice=A SajberSim account is not required for playing, but you need to be logged in if you want to publish your own visual novels or save stats.
