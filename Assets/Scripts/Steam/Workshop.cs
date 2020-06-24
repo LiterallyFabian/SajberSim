@@ -64,12 +64,40 @@ namespace SajberSim.Steam
                 Helper.Helper.Alert(string.Format(Translate.Get("publishfail"), result.Result));
             }
         }
+        /// <summary>
+        /// Verifies if a folder is ready for upload.
+        /// </summary>
+        /// <param name="dataPath">Path to story folder</param>
+        /// <returns>Whether it's ready or not.</returns>
         public static bool Verify(string dataPath)
         {
+            string[] folders = { "Audio", "Backgrounds", "Characters", "Dialogues" };
             if (!File.Exists($@"{dataPath}/steam.png"))
             {
-                Helper.Helper.Alert("h");
-                return true;
+                Helper.Helper.Alert(Translate.Get("picnotfound")); // Thumbnail for steam was not found.
+                return false;
+            }
+            else
+            {
+                FileInfo thumbnail = new FileInfo($@"{dataPath}/steam.png");
+                if (thumbnail.Length > 1000000)
+                {
+                    Helper.Helper.Alert(Translate.Get("pictoolarge")); // Thumbnail for steam was too large.
+                    return false;
+                }
+            }
+            foreach(string folder in folders)
+            {
+                if (!Directory.Exists($"{dataPath}/{folder}"))
+                {
+                    Helper.Helper.Alert(string.Format(Translate.Get("nodirectory"), folder, folder.ToLower())); //Directory not found
+                    return false;
+                }
+                else if(Directory.GetFileSystemEntries($"{dataPath}/{folder}").Length == 0)
+                {
+                    Helper.Helper.Alert(string.Format(Translate.Get("nodirectory"), folder, folder.ToLower())); //Directory empty
+                    return false;
+                }
             }
             return true;
         }
