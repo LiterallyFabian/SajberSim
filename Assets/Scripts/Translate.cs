@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SajberSim.Web;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
@@ -41,8 +42,9 @@ namespace SajberSim.Translation
             }
             else
             {
-                Debug.LogError($"Translation: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning placeholder. This request was called from {location}");
-                return "TRANSLATION_MISSING";
+                Debug.LogError($"Translation: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning ID. This request was called from {location}");
+                Webhook.Log($"Translation: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN");
+                return id.ToUpper();
             }
         }
 
