@@ -57,6 +57,7 @@ public class ButtonCtrl : MonoBehaviour
             catch (System.Exception e)
             {
                 UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
+                Helper.Alert($"Could not connect to Steam. Is it open?");
                 Helper.loggedin = false;
             }
         }
@@ -129,6 +130,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
+        if (!Helper.loggedin) Helper.Alert("SajberSim could not connect to Steam. Try launching the application from your library or restart your computer.");
         //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
     }
     public void CreateNovel()
@@ -141,7 +143,7 @@ public class ButtonCtrl : MonoBehaviour
     public void CreateCharacters()
     {
         System.Random rnd = new System.Random();
-        string configPath = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/Characters/characterconfig.txt";
+        string configPath = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
         if (!File.Exists(configPath)) return;
         string[] config = File.ReadAllLines(configPath);
 
@@ -158,7 +160,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     private void LoadCharacters() //Loads characters from playerprefs
     {
-        string path = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/Characters/characterconfig.txt";
+        string path = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
         if (!File.Exists(path)) return;
         string[] config = File.ReadAllLines(path);
         people = new Character[PlayerPrefs.GetInt("characters", 1)];

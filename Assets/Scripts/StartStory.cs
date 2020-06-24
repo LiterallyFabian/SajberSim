@@ -229,7 +229,7 @@ public class StartStory : MonoBehaviour
         string story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm)[id];
         string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id];
         Manifest data = Helper.GetManifest($"{path}/manifest.json");
-
+        Helper.currentStoryPath = path;
         Debug.Log($"Attempting to start story with ID {id}, path {path}");
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("script", "start");

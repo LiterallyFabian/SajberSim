@@ -14,6 +14,7 @@ using SajberSim.Web;
 using SajberSim.Chararcter;
 using System.Runtime.CompilerServices;
 using SajberSim.Steam;
+using SajberSim.Helper;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
     Download dl;
-    private string storyPath;
 
     public static string storyName;
     public static string storyAuthor;
@@ -75,15 +75,14 @@ public class GameManager : MonoBehaviour
         textdone = false;
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        storyPath = $"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}";
 
-        story = File.ReadAllLines($"{storyPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
+        story = File.ReadAllLines($"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
-        if (File.Exists($"{storyPath}/textbox.png"))
+        if (File.Exists($"{Helper.currentStoryPath}/textbox.png"))
         {
-            Debug.Log($"Found textbox at path {storyPath}/textbox.png and will try to update...");
-            dl.Image(textbox, $"{storyPath}/textbox.png");
+            Debug.Log($"Found textbox at path {Helper.currentStoryPath}/textbox.png and will try to update...");
+            dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
         }
 
         RunNext();
@@ -236,7 +235,7 @@ public class GameManager : MonoBehaviour
         {
             string arg = line[1];
             dialoguepos++;
-            if(arg != musicplaying) dl.Ogg(music, $"file://{storyPath}/Audio/{arg}.ogg", true);
+            if(arg != musicplaying) dl.Ogg(music, $"file://{Helper.currentStoryPath}/Audio/{arg}.ogg", true);
             musicplaying = arg;
             RunNext();
         }
@@ -248,7 +247,7 @@ public class GameManager : MonoBehaviour
         else if (line[0] == "playsfx")
         {
             dialoguepos++;
-            dl.Ogg(SFX, $"file://{storyPath}/Audio/{line[1]}.ogg", true);
+            dl.Ogg(SFX, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
             RunNext();
         }
         else if (line[0] == "finishgame")
@@ -257,7 +256,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Visual Novel: Error at line {dialoguepos} in {storyPath}/Dialogues/{PlayerPrefs.GetString("script")}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
+            Helper.Alert($"An invalid action was found at line {dialoguepos} in script {PlayerPrefs.GetString("script")}.txt. \"{line[0]}\" is not a valid action.");
+            Debug.LogError($"Visual Novel: Error at line {dialoguepos} in {Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script")}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
             dialoguepos++;
             RunNext();
         }
@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
-            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
+            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -287,7 +287,7 @@ public class GameManager : MonoBehaviour
             character.transform.localScale = new Vector3(charactersize * align, charactersize, 0.6f);
 
             //ändra mood
-            dl.Sprite(character, $"file://{storyPath}/Characters/{name}{mood}.png");
+            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
         }
         RunNext();
     }
@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
     {
         textdone = false;
         textbox.SetActive(true);
-        dl.Image(portrait, $"file://{storyPath}/Characters/{talker.name.ToLower()}port.png");
+        dl.Image(portrait, $"file://{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png");
         personname.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
@@ -465,13 +465,13 @@ public class GameManager : MonoBehaviour
 
     private void ChangeBackground(string bg) //ID 1
     {
-        dl.Image(background, $"file://{storyPath}/Backgrounds/{bg}.png");
+        dl.Image(background, $"file://{Helper.currentStoryPath}/Backgrounds/{bg}.png");
         RunNext();
     }
 
     public void LoadScript(string storyx)
     {
-        string path = $"{storyPath}/Dialogues/{storyx}.txt";
+        string path = $"{Helper.currentStoryPath}/Dialogues/{storyx}.txt";
         if (!File.Exists(path))
         {
             Debug.LogError($"Visual Novel: Tried to start non-existing story: {path}");
@@ -515,7 +515,7 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
     {
-        StartCoroutine(FadeOut(background.GetComponent<AudioSource>(), 1.3f, 0));
+        StartCoroutine(FadeOut(music.GetComponent<AudioSource>(), 1.3f, 0));
         Credits.storyname = PlayerPrefs.GetString("story");
         PlayerPrefs.DeleteKey("story");
         PlayerPrefs.DeleteKey("script");
