@@ -176,7 +176,6 @@ public class StartStory : MonoBehaviour
     private void CreateDetails(int n)
     {
         string folderPath = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[n];
-        Debug.Log($"Attempting to create details page with ID {n}, path {folderPath}");
         Manifest data = Helper.GetManifest($"{folderPath}/manifest.json");
 
         string name = data.name;
