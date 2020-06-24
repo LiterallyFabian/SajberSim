@@ -24,7 +24,8 @@ nocredits=Denna roman har inga anpassade eftertexter. Du kan skapa egna genom at
 loggedinas=Inloggad som {0}
 notloggedin=Inte inloggad
 noconnection=SajberSim kunde inte ansluta till Steam. Försök att starta spelet ifrån ditt steam-bibliotek eller starta om datorn.
-
+publishsuccess=Grattis {0}, <b>{1}</b> finns nu uppladdat på Steam! Din romans ID är {2}.\n\nTack för att du har bidragit till SajberSim-communityn :)
+publishfail=Något gick fel när du publicerade din roman. Försök igen eller kontakta support om problemet kvarstår. \n\n Felmeddelande från Steam: {0}
 #Settings
 volume=Volym
 writingspeed=Utskriftshastighet
@@ -120,7 +121,6 @@ invalidemail=Fel: Det gick inte att hitta ett konto med den e-postadressen
 fieldempty=Fel: {0} kan inte vara tomt!
 accinactive=Fel: Kontot är inaktivt - Kontrollera din e-post för att aktivera.
 invalidinfo=Fel: Ogiltigt användarnamn / lösenord.
-noconnection=Fel: Det gick inte att ansluta. Vänligen försök igen senare!
 passwordnomatch=LFel: ösenorden matchar inte.
 emailnomatch=Fel: E-postadressen matchar inte.
 emailinvalid=Fel: E-postadressen är ogiltig eller redan registrerad.

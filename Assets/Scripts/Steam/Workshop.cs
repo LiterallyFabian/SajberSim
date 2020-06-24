@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using Steamworks;
+using SajberSim.Web;
 
 namespace SajberSim.Steam
 {
@@ -56,6 +57,11 @@ namespace SajberSim.Steam
                 Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, title, result.FileId));
                 Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}"); 
                 Stats.Add(Stats.List.novelspublished);
+                if (privacy == Privacy.Public) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel! https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
+            }
+            else
+            {
+                Helper.Helper.Alert(string.Format(Translate.Get("publishfail"), result.Result));
             }
         }
         public static bool Verify(string dataPath)
