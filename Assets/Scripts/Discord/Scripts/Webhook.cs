@@ -30,7 +30,7 @@ class Credentials
 */
     class Webhook
     {
-        private static void Send(string url, string msgbase, string msg, string nameext, string avatar)
+        private static void Send(string url, string msg, string nameext, string avatar, string msgbase = "")
         {
             using (dWebHook dcWeb = new dWebHook())
             {
@@ -42,15 +42,15 @@ class Credentials
         }
         public static void Log(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
         {
-            Send(Credentials.webhooks["log"], "**:video_game: INGAME LOG**\n\n ", msg, "Log", avatar);
+            Send(Credentials.webhooks["log"], msg, "Log", avatar);
         }
         public static void Support(string msg, string email, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
         {
-            Send(Credentials.webhooks["support"], $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ", msg, "Support", avatar);
+            Send(Credentials.webhooks["support"], msg, "Support", avatar, $"**:triangular_flag_on_post: NEW SUPPORT REQUEST**\nSender: {email}\n\n ");
         }
         public static void Stats(string msg, string avatar = "http://sajber.me/account/Email/webhookpfp.png")
         {
-            Send(Credentials.webhooks["stats"], "**:chart_with_upwards_trend: STATS**\n\n ", msg, "Stats", avatar);
+            Send(Credentials.webhooks["stats"], msg, "Stats", avatar);
         }
     }
     public class dWebHook : IDisposable
