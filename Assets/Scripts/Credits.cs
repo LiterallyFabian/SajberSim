@@ -13,6 +13,8 @@ using UnityEngine.UI;
 
 public class Credits : MonoBehaviour
 {
+    private Camera cam;
+    private Transform canvas;
     // Fade stuff
     public GameObject fadeimage;
     public bool fadestarted;
@@ -29,23 +31,23 @@ public class Credits : MonoBehaviour
     public GameObject EscButton;
 
     // Variables
-    public static string storyname = "";
     private string[] creditsraw;
-    private string storypath;
+    public static string storypath;
     private Download dl;
     public int speed = 45;
     private void Start()
     {
+        canvas = GameObject.Find("Canvas").transform;
+        cam = Camera.main;
         dl = GameObject.Find("EventSystem").GetComponent<Download>();
-        string creditsPath = storyname + "/credits.txt";
+        string creditsPath = storypath + "/credits.txt";
         
         if (!File.Exists(creditsPath))
         {
-            Debug.LogError($"No credits found for {storyname}. Continuing with default.");
+            Debug.LogError($"No credits found for {storypath}. Continuing with default.");
             NoCredits.color = new Color(0.772549f, 0.3098039f, 0.6470588f, 1);
             return;
         }
-        storypath = storyname;
         creditsraw = File.ReadAllLines(creditsPath);
         SetCredits();
     }
@@ -72,6 +74,7 @@ public class Credits : MonoBehaviour
                 Color textColor = new Color(0.772549f, 0.3098039f, 0.6470588f, 1); //sajbersim pink
                 ColorUtility.TryParseHtmlString($"#{line.ToLower().Replace("color|", "").Replace("#", "")}", out textColor);
                 People.color = textColor;
+                Message.GetComponent<Text>().color = textColor;
                 Roles.color = Helper.ModifyColor(textColor, 0.8f);
             }
             else if (line.ToLower().StartsWith("message|"))
@@ -111,10 +114,9 @@ public class Credits : MonoBehaviour
     private void Update()
     {
         CreditHolder.transform.position += Vector3.up * speed * Time.deltaTime;
-        if (Message.transform.position.y > 350)
+        if (cam.ScreenToWorldPoint(Message.transform.position).y > 0.7f)
         {
-            Message.transform.parent = GameObject.Find("Canvas").transform;
-            Message.transform.position = new Vector3(Message.transform.position.x, Message.transform.position.y-1, 0);
+            Message.transform.SetParent(canvas);
             EscButton.GetComponent<Animator>().Play("esc key");
         }
         if (Input.GetKeyDown("escape"))
