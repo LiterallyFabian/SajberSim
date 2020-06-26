@@ -80,14 +80,14 @@ public class StartStory : MonoBehaviour
         PlayerPrefs.SetInt("sorting", n);
         UpdatePreviewCards();
     }
-    public void UserUpdateSearch(string search)
+    public void UserUpdateSearch(string search) //runs at lost focus or enter
     {
         Debug.Log($"Search term changed: {search}");
         searchTerm = search;
         if (page != 0) ResetPage();
         UpdatePreviewCards();
     }
-    public void UserEditSearch(string search)
+    public void UserEditSearch(string search) //runs every single letter
     {
         if (search == "")
         {
