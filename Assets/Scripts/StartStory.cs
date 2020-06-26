@@ -205,6 +205,7 @@ public class StartStory : MonoBehaviour
         details.transform.Find("Description").GetComponent<Text>().text = description;
         details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
         details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
+        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().color = isnsfw ? new Color(0.5f, 0, 0) : new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
         details.transform.Find("GenreTitle/Genre").GetComponent<Text>().text = Translate.Get(genre);
         details.transform.Find("LengthTitle/Length").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
         details.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
