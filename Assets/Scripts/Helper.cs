@@ -28,6 +28,7 @@ namespace SajberSim.Helper
         public static bool loggedin = false;
         public static int id = -1;
         public static string localPath = "";
+        public static string customPath = "";
         public static string steamPath = "";
         public static string currentStoryPath = "";
 
@@ -59,9 +60,11 @@ namespace SajberSim.Helper
         }
         public enum StorySearchPaths
         {
-            Both,
-            Workshop,
-            Local,
+            All, //all stories
+            Workshop, //only workshop stories
+            NoWorkshop, //no workshop stories
+            Local, //only official stories
+            Own //only custom stories
         }
         public static void Alert(string text)
         {
@@ -89,12 +92,14 @@ namespace SajberSim.Helper
                     Translate.Get("sliceoflife"), 
                     Translate.Get("supernatural"), 
                     Translate.Get("other") };
+                customPath = Application.dataPath + "/MyStories/";
                 localPath = Application.dataPath + "/Story/";
                 if(loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
                 UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
+            Directory.CreateDirectory($"{Application.dataPath}/MyStories");
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
         }
         /// <summary>
@@ -110,9 +115,8 @@ namespace SajberSim.Helper
         /// </summary>
         /// <param name="folder">Foldertype, eg. Characters</param>
         /// <returns>Array with all specified assets</returns>
-        public static string[] GetAllStoryAssetPaths(string folder, StorySearchPaths where = StorySearchPaths.Both)
+        public static string[] GetAllStoryAssetPaths(string folder)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
             string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
             List<string> assetPaths = new List<string>();
             folder = folder.ToLower();
@@ -130,28 +134,20 @@ namespace SajberSim.Helper
                     extension = "*.txt";
                     break;
             }
-            if (where != StorySearchPaths.Local)
-                foreach (string story in Directory.GetDirectories(steamPath))
-                {
-                    string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
-                    if (Directory.Exists(path))
-                        assetPaths.AddRange(Directory.GetFiles(path, extension));
-                }
-            if (where != StorySearchPaths.Workshop)
-                foreach (string story in Directory.GetDirectories(localPath))
-                {
-                    string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
-                    if (Directory.Exists(path))
-                        assetPaths.AddRange(Directory.GetFiles(path, extension));
-                }
+            foreach (string story in GetAllStoryPaths())
+            {
+                string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
+                if (Directory.Exists(path))
+                    assetPaths.AddRange(Directory.GetFiles(path, extension));
+            }
             return assetPaths.ToArray();
         }
         /// <summary>
         /// Returns paths to all story manifest files
         /// </summary>
-        public static string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
             List<string> manifestPaths = new List<string>();
             foreach (string story in GetAllStoryPaths(args, nsfw, searchTerm, where))
             {
@@ -168,19 +164,40 @@ namespace SajberSim.Helper
         /// <param name="args">Search arguments</param>
         /// <param name="nsfw">Include NSFW</param>
         /// <returns>Array with paths to all local story folders</returns>
-        public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+
             List<string> storyPaths = new List<string>();
-            if (where != StorySearchPaths.Local)
-                storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
-            if (where != StorySearchPaths.Workshop)
+            //This is what I call "The tired" ~
+            //update, apparently the 5 line method i had here before wasn't the problem. oh well goodnight
+            if (where == StorySearchPaths.Workshop)
+            {
+                storyPaths = Directory.GetDirectories(steamPath).ToList();
+            }
+            else if (where == StorySearchPaths.Local)
+            {
+                storyPaths = Directory.GetDirectories(localPath).ToList();
+            }
+            else if (where == StorySearchPaths.Own)
+            {
+                storyPaths = Directory.GetDirectories(customPath).ToList();
+            }
+            else if (where == StorySearchPaths.NoWorkshop)
+            {
+                storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
                 storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
-            string[] fixedPaths;
-            if (args == StorySearchArgs.ID)
-                fixedPaths = Directory.GetDirectories($"{Application.dataPath}/Story/");
-            else
-                fixedPaths = SortArrayBy(storyPaths, args);
+            }
+            else if (where == StorySearchPaths.All)
+            {
+                storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
+                storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
+                storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
+            }
+
+                //Fix the list
+                string[] fixedPaths = SortArrayBy(storyPaths, args);
+
             if (!nsfw) //remove nsfw if needed
                 fixedPaths = FilterNSFWFromCardPaths(fixedPaths.ToList());
             if (searchTerm != "")
@@ -192,6 +209,8 @@ namespace SajberSim.Helper
         /// </summary>
         private static string[] SortArrayBy(List<string> storyPaths, StorySearchArgs args)
         {
+            if (args == StorySearchArgs.ID) return storyPaths.ToArray();
+
             bool reverse = false;
             if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.LongestFirst) reverse = true;
             List<StorySort> itemList = new List<StorySort>();
@@ -249,41 +268,64 @@ namespace SajberSim.Helper
             }
             return storyPaths.ToArray();
         }
+        /// <summary>
+        /// Removes all story paths where the logged in owner not is the author
+        /// </summary>
+        public static string[] FilterNonOwnedFromCardPaths(List<string> storyPaths)
+        {
+            foreach(string path in storyPaths)
+            {
+                Manifest storydata = GetManifest($"{path}/manifest.json");
+                if (storydata.author != SteamClient.Name) storyPaths.Remove(path);
+            }
+            return storyPaths.ToArray();
+        }
         public static string GetManifestPath(string storyID, StorySearchPaths where)
         {
-            string dir = localPath;
-            if (where == StorySearchPaths.Workshop && loggedin) dir = steamPath;
+            string dir;
+            switch (where)
+            {
+                case StorySearchPaths.Local:
+                    dir = localPath;
+                    break;
+                case StorySearchPaths.Workshop:
+                    if (loggedin) dir = steamPath;
+                    else dir = localPath;
+                    break;
+                case StorySearchPaths.Own:
+                    dir = customPath;
+                    break;
+                default:
+                    dir = localPath;
+                    break;
+            }
             string path = $"{dir}/{storyID}";
             if (File.Exists(path))
                 return path;
             else
             {
-                UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path})");
+                UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
                 return null;
             }
         }
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
-        public static string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
             List<string> nameList = new List<string>();
-            if (where != StorySearchPaths.Local)
-                foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm))
+            foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm, where))
                 nameList.Add(path.Replace(steamPath, ""));
-            if (where != StorySearchPaths.Workshop)
-                foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm))
-                    nameList.Add(path.Replace(localPath, ""));
 
             return nameList.ToArray();
         }
         /// <summary>
         /// Returns amount of pages needed for the preview card menu, in the correct order
         /// </summary>
-        public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
             int length = GetAllManifests(args, nsfw, searchTerm, where).Length;
 
             if (length <= 6) return 0;
@@ -292,9 +334,9 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns amount of cards that should be on the last page
         /// </summary>
-        public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
             int n = GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm, where).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
@@ -318,12 +360,12 @@ namespace SajberSim.Helper
         }
         public static Manifest GetManifestFromName(string name, StorySearchPaths where = StorySearchPaths.Local)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
+            if (!loggedin) where = StorySearchPaths.NoWorkshop;
             string path = localPath;
             if (where == StorySearchPaths.Workshop) path = steamPath;
-            else if(where == StorySearchPaths.Both)
+            else if(where == StorySearchPaths.All || where == StorySearchPaths.NoWorkshop)
             {
-                UnityEngine.Debug.LogError($"Tried getting manifest for story {name} but search arguments were incorrect.");
+                UnityEngine.Debug.LogError($"Tried getting manifest for story {name} but search arguments were incorrect ({where}).");
                 return null;
             }
             return GetManifest($"{path}{name}/manifest.json");
@@ -331,9 +373,8 @@ namespace SajberSim.Helper
         /// <summary>
         /// Returns amount of cards in total
         /// </summary>
-        public static int GetTotalCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.Both)
+        public static int GetTotalCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.Local;
             return GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm, where).Length;
         }
         public static string[] ReverseArray(string[] arr)

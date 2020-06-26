@@ -34,6 +34,7 @@ public class StartStory : MonoBehaviour
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
     public bool detailsOpen = false;
+    private Helper.StorySearchPaths searchPath = Helper.StorySearchPaths.All;
     public static bool storymenuOpen = false;
     public static bool creatingStory = false;
     private string searchTerm = "";
@@ -108,12 +109,12 @@ public class StartStory : MonoBehaviour
     public void UpdatePreviewCards()
     {
         Debug.Log("Request to update cards");
-        string[] storyPaths = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm);
-        string[] manifests = Helper.GetAllManifests(sortArgs, nsfw, searchTerm);
+        string[] storyPaths = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
+        string[] manifests = Helper.GetAllManifests(sortArgs, nsfw, searchTerm, searchPath);
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Helper.GetCardPages(sortArgs, nsfw, searchTerm)+1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = Helper.GetManifest(manifests[i]); 
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
@@ -175,7 +176,7 @@ public class StartStory : MonoBehaviour
     }
     private void CreateDetails(int n)
     {
-        string folderPath = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[n];
+        string folderPath = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[n];
         Manifest data = Helper.GetManifest($"{folderPath}/manifest.json");
 
         string name = data.name;
@@ -225,8 +226,8 @@ public class StartStory : MonoBehaviour
 
     public void Play(int id)
     {
-        string story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm)[id];
-        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id];
+        string story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
+        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         Manifest data = Helper.GetManifest($"{path}/manifest.json");
         Helper.currentStoryPath = path;
         Debug.Log($"Attempting to start story with ID {id}, path {path}");
@@ -243,20 +244,20 @@ public class StartStory : MonoBehaviour
     }
     public void OpenDetails(int id)
     {
-        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm)[id];
+        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         Debug.Log($"Attempting to create details of local story with ID {id}, path {path}");
         CreateDetails(id);
     }
     public void ChangePage(int change)
     {
-        if (Helper.GetCardPages(sortArgs, nsfw, searchTerm) == 0)
+        if (Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath) == 0)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Animator>().Play("storycard_pageinfojump", 0, 0);
             return;
         }
 
         ClearPreviewCards();
-        if (page + change > Helper.GetCardPages(sortArgs, nsfw, searchTerm)) page = 0;
+        if (page + change > Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)) page = 0;
         else if (page + change < 0) page = Helper.GetCardPages(sortArgs, nsfw, searchTerm);
         else page += change;
         UpdatePreviewCards();
@@ -274,8 +275,10 @@ public class StartStory : MonoBehaviour
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
     }
-    public void OpenMenu()
+    public void OpenMenu(bool both = true)
     {
+        if (!both)
+            UpdatePreviewCards();
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("openStorymenu");
         CloseButtonBehind.SetActive(true);
         storymenuOpen = true;
