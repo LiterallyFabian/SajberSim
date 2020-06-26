@@ -102,7 +102,7 @@ public class ButtonCtrl : MonoBehaviour
             {
                 if (path.Contains("happy")) charpaths.Add(path);
             }
-            if (charpath.Count() == 0) return;
+            if (charpaths.Count() == 0) return;
             charpath = charpaths[UnityEngine.Random.Range(0,charpaths.Count)];
             while (!File.Exists(charpath.Replace("happy", "blush"))) 
             {
