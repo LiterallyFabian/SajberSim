@@ -57,7 +57,7 @@ public class ButtonCtrl : MonoBehaviour
             catch (System.Exception e)
             {
                 UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
-                Helper.Alert($"Could not connect to Steam. Is it open?");
+                Helper.Alert(Translate.Get("noconnection"));
                 Helper.loggedin = false;
             }
         }
@@ -130,11 +130,13 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
-        if (!Helper.loggedin) Helper.Alert("SajberSim could not connect to Steam. Try launching the application from your library or restart your computer.");
+        if (!Helper.loggedin) Helper.Alert(Translate.Get("noconnection"));
+        Workshop.Upload("A cool story", "hey!\nnew line", 0, @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\Test japan", "english", Workshop.Privacy.Public, Workshop.Rating.Everyone);
         //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
     }
     public void CreateNovel()
     {
+        Helper.Alert("this is a long message uwu");
         //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
         //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
