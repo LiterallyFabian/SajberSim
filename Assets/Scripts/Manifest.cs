@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-class Manifest
+public class Manifest
 {
 #pragma warning disable CS0649
     public string name;

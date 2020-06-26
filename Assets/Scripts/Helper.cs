@@ -19,7 +19,7 @@ using UnityEngine.SocialPlatforms;
 
 namespace SajberSim.Helper
 {
-    class Helper : MonoBehaviour
+    public class Helper : MonoBehaviour
     {
         public static string[] genres;
         // genres as how they are in the steamworks backend
