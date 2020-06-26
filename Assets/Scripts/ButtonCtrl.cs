@@ -24,6 +24,7 @@ using SajberSim.Steam;
 /// </summary>
 public class ButtonCtrl : MonoBehaviour
 {
+    public GameObject CreationMenu;
     public GameObject OverwriteAlert;
     public Text OverwriteTitle;
     private string overwritetext;
@@ -101,6 +102,7 @@ public class ButtonCtrl : MonoBehaviour
             {
                 if (path.Contains("happy")) charpaths.Add(path);
             }
+            if (charpath.Count() == 0) return;
             charpath = charpaths[UnityEngine.Random.Range(0,charpaths.Count)];
             while (!File.Exists(charpath.Replace("happy", "blush"))) 
             {
