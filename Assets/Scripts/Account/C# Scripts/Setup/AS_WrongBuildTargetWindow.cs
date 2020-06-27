@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
-
+#pragma warning disable CS0618 // Type or member is obsolete
 
 public class AS_WrongBuildTargetWindow :EditorWindow {
 
@@ -20,7 +20,7 @@ public class AS_WrongBuildTargetWindow :EditorWindow {
 #endif
 
 		window.caller = caller;
-		window.position = new Rect (600,	400,  	window.minSize.x, window.minSize.y);        
+		window.position = new Rect(600, 400, window.minSize.x, window.minSize.y);      
 		
 	}
 

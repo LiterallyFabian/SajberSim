@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine; 
 using System.Collections.Generic;
 
-
 public enum AS_SetupState {CredentialsAndPreferences, Fields, Done}
 public class AS_SetupWindow : EditorWindow
 { 

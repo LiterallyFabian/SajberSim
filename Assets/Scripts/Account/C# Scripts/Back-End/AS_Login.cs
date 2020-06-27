@@ -4,7 +4,7 @@ using System.Collections;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using SajberSim.Translation;
-
+#pragma warning disable CS0618 // Type or member is obsolete
 public static class AS_Login
 {
 

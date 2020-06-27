@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-
+#pragma warning disable CS0618 // Type or member is obsolete
 class LogoSpin : MonoBehaviour
 {
     private ParticleSystem stars;
