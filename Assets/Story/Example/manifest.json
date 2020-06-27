@@ -2,7 +2,7 @@
 // Name of your story that will show up in the start menu and story finder
   "Name": "Example story",
 
-  // Your SajberSim username
+  // Your Steam username
   "Author": "Fabian",
 
   //Description of your story that will show up in the story finder. Use \n for new lines
