@@ -468,8 +468,7 @@ namespace SajberSim.Helper
         /// </summary>
         public static int ToNum(bool n)
         {
-            if (n) return 1;
-            else return 0;
+            return n ? 1 : 0;
         }
         public static bool GetBoolFromPrefs(string key, int def)
         {
@@ -511,7 +510,7 @@ namespace SajberSim.Helper
         //            ZipFile.CreateFromDirectory(origin, result);
         //            return true;
         //        }
-        //        catch(Exception e)
+        //        catch (Exception e)
         //        {
         //            UnityEngine.Debug.LogError($"Helper: Could not zip directory {origin}.\n{e}");
         //            return false;
