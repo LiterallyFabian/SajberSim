@@ -383,7 +383,7 @@ public class GameManager : MonoBehaviour
 
             text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter 
         }
-
+        text.Replace("{path}", Helper.currentStoryPath);
         return text;
     }
     private void ClearText()
