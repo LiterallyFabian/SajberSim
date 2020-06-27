@@ -21,5 +21,7 @@ namespace SajberSim.Colors
         public static Color TitleText = new Color(0.3019608f, 0.1568628f, 0.3490196f, 1);
         // Main color used in the logo
         public static Color LogoPurple = new Color(0.6313726f, 0.1254902f, 0.5529412f, 1);
+        // Light blue used for ingame buttons and dropdowns
+        public static Color IngameBlue = new Color(0.495283f, 0.6032573f, 1, 1);
     }
 }

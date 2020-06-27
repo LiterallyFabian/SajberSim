@@ -1,10 +1,10 @@
 {
 // Color of the text written out in the boxes
-"TextColor": "000000",
+"TextColor": "520F4F",
 
-// Color of the drop down and buttons for questions/alternatives
-"QuestionColor": "B1FEFF"
+// Color of the drop down background and buttons for questions/alternatives
+"QuestionColor": "B1FEFF",
 
-
-
+// Color of the text in the drop down or buttons for questions/alternatives
+"QuestionTextColor": "323232"
 }

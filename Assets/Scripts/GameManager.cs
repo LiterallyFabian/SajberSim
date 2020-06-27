@@ -15,6 +15,7 @@ using SajberSim.Chararcter;
 using System.Runtime.CompilerServices;
 using SajberSim.Steam;
 using SajberSim.Helper;
+using SajberSim.Colors;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -38,7 +39,11 @@ public class GameManager : MonoBehaviour
     public GameObject skiptutorial;
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
+    public GameObject dropdownItemBackground;
+    public GameObject dropdownBackground;
     public GameObject SettingsMenu;
+    public GameObject qbutton1;
+    public GameObject qbutton2;
     private bool settingsopen = false;
     public static bool paused = false;
     public Text comment; //The normal text
@@ -79,12 +84,8 @@ public class GameManager : MonoBehaviour
         story = File.ReadAllLines($"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
-        if (File.Exists($"{Helper.currentStoryPath}/textbox.png"))
-        {
-            Debug.Log($"Found textbox at path {Helper.currentStoryPath}/textbox.png and will try to update...");
-            dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
-        }
 
+        UpdateDesign();
         RunNext();
     }
 
@@ -540,6 +541,37 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+    private void UpdateDesign()
+    {
+        StoryDesign design = Helper.GetDesign();
+
+        if (File.Exists($"{Helper.currentStoryPath}/textbox.png"))
+        {
+            Debug.Log($"Found textbox at path {Helper.currentStoryPath}/textbox.png and will try to update...");
+            dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
+        }
+
+        Color textColor = Colors.DarkPurple;
+        ColorUtility.TryParseHtmlString($"#{design.textcolor.Replace("#", "")}", out textColor);
+        comment.color = textColor;
+        dropdownQ.color = textColor;
+        question.color = textColor;
+        alert.color = textColor;
+
+        Color buttonColor = Colors.IngameBlue;
+        ColorUtility.TryParseHtmlString($"#{design.questioncolor.Replace("#", "")}", out buttonColor);
+        qbutton1.GetComponent<Image>().color = buttonColor;
+        qbutton2.GetComponent<Image>().color = buttonColor;
+        dropdownObject.GetComponent<Image>().color = buttonColor;
+        dropdownBackground.GetComponent<Image>().color = Helper.ModifyColor(buttonColor, 1.05f);
+        dropdownItemBackground.GetComponent<Image>().color = Helper.ModifyColor(buttonColor, 1.1f);
+
+
+        Color buttonTextColor = Colors.UnityGray;
+        ColorUtility.TryParseHtmlString($"#{design.questiontextcolor.Replace("#", "")}", out buttonTextColor);
+        alt1t.color = buttonTextColor;
+        alt2t.color = buttonTextColor;
     }
     #endregion
 

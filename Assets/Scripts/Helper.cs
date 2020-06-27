@@ -452,6 +452,24 @@ namespace SajberSim.Helper
 
             return result;
         }
+        public static StoryDesign GetDesign()
+        {
+            string path = currentStoryPath + "/design.json";
+            if (!File.Exists(path))
+            {
+                UnityEngine.Debug.LogWarning($"{currentStoryPath} does not have a design manifest, continuing with default.");
+                return new StoryDesign();
+            }
+            try
+            {
+                return JsonConvert.DeserializeObject<StoryDesign>(File.ReadAllText(path));
+            }
+            catch
+            {
+                UnityEngine.Debug.LogError($"Helper/GetDesign: Something went wrong when converting manifest \"{path}/design.json\". Is it setup correctly?");
+                return null;
+            }
+        }
         /// <summary>
         /// Converts an int to a bool
         /// </summary>

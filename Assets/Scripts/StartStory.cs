@@ -16,6 +16,7 @@ using SajberSim.Translation;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using SajberSim.Steam;
+using SajberSim.Colors;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -150,7 +151,7 @@ public class StartStory : MonoBehaviour
         ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
         menu.transform.Find("Overlay").GetComponent<Image>().color = splashColor;
 
-        Color textColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1); //standard gray
+        Color textColor = Colors.UnityGray; 
         ColorUtility.TryParseHtmlString($"#{textcolor}", out textColor);
         menu.transform.Find("Title").GetComponent<Text>().color = textColor;
         
@@ -205,7 +206,7 @@ public class StartStory : MonoBehaviour
         details.transform.Find("Description").GetComponent<Text>().text = description;
         details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
         details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
-        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().color = isnsfw ? new Color(0.5f, 0, 0) : new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
+        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().color = isnsfw ? Colors.NsfwRed : Colors.UnityGray;
         details.transform.Find("GenreTitle/Genre").GetComponent<Text>().text = Translate.Get(genre);
         details.transform.Find("LengthTitle/Length").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
         details.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
@@ -231,6 +232,7 @@ public class StartStory : MonoBehaviour
         string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         Manifest data = Helper.GetManifest($"{path}/manifest.json");
         Helper.currentStoryPath = path;
+        Helper.currentStoryName = story;
         Debug.Log($"Attempting to start story with ID {id}, path {path}");
         PlayerPrefs.SetString("story", story);
         PlayerPrefs.SetString("script", "start");
