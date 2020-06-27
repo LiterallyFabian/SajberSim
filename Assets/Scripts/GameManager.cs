@@ -401,6 +401,7 @@ public class GameManager : MonoBehaviour
     #region Questions
     private void OpenQuestion(string text, string alt1, string alt2)
     {
+        fadeimage.SetActive(false);
         textdone = false;
         questionbox.SetActive(true);
         question.text = text;
@@ -522,13 +523,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("script");
 
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
-
-        for (float i = 0; i <= 1; i += Time.deltaTime / 1.5f) //Starts fade, load scene when done
-        {
-            fadeimage.GetComponent<Image>().color = new Color(0, 0, 0, i);
-            if (i > 0.5f) Cursor.visible = false;
-            yield return null;
-        }
+        fadeimage.GetComponent<Animator>().Play("darken");
+        yield return new WaitForSeconds(0.7f);
         Stats.Add(Stats.List.novelsfinished);
         SceneManager.LoadScene("credits");
     }
