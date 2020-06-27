@@ -1,0 +1,10 @@
+{
+// Color of the text written out in the boxes
+"TextColor": "000000",
+
+// Color of the drop down and buttons for questions/alternatives
+"QuestionColor": "B1FEFF"
+
+
+
+}

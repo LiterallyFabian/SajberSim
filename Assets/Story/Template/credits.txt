@@ -1,13 +1,12 @@
-Background|wallpaper
-Music|jam
-Color|C54FA5
+Background|credits
+Color|FFE5F2
 Speed|45
-Message|Tack för att du har spelat, vi hoppas att vi får se dig på skolan i framtiden!
+Message|This message will show up after all the people have been shown, and this will stay on the screen. Add new roles with a dash (-)
 
--Karaktärer
+-Creators
+Fabian
+Me!
+-Designers
 Lumi
-Emelie Grabne
--Bakgrunder
-Alexander Pernebring
--Ramverk
-Fabian Lindgren
+-Another role
+Someone cool

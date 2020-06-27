@@ -1,0 +1,37 @@
+{
+// Name of your story that will show up in the start menu and story finder
+  "Name": "Template",
+
+  // Your Steam username
+  "Author": "Fabian",
+
+  //Description of your story that will show up in the story finder. Use \n for new lines
+  "Description": "This description should be around 75 words long and will show up ingame. It does not have to be the same as on the workshop page",
+
+  // Folder name
+  "ID": "Template",
+
+  // The language your dialogues are written in
+  "Language": "US",
+
+  // Color of the thumbnail overlay in HEX
+  "OverlayColor": "FFFFFF",
+
+  // Color of the thumbnail text in HEX
+  "TextColor": "323232",
+
+  // Whether the story should be NSFW flagged or not
+  "NSFW": false,
+
+  // Time estimated to play the story, in full minutes 
+  "Playtime":  5,
+  
+  //Date story got published (YYYYMMDD)
+  "PublishDate": "20200528",
+  
+  //Genre of the story - please assign this ingame
+  "Genre": "other",
+  
+  //Tags seperated by a comma
+  "Tags": ["enter", "your", "tags here"]
+}
