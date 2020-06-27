@@ -31,6 +31,7 @@ namespace SajberSim.Helper
         public static string customPath = "";
         public static string steamPath = "";
         public static string currentStoryPath = "";
+        public static string currentStoryName = "";
 
         public static AS_AccountInfo acc;
 
@@ -323,7 +324,7 @@ namespace SajberSim.Helper
             if (!loggedin) where = StorySearchPaths.NoWorkshop;
             List<string> nameList = new List<string>();
             foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm, where))
-                nameList.Add(path.Replace(steamPath, ""));
+                nameList.Add(Path.GetFileName(Path.GetDirectoryName(path)));
 
             return nameList.ToArray();
         }
