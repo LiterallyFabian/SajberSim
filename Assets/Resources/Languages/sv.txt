@@ -73,7 +73,7 @@ byshortest=Efter kortaste
 bynewest=Efter nyaste
 byoldest=Efter äldsta
 byauthor=Efter författare
-publishedby=Publicerad av
+publishedby=Publicerad av {0}
 
 #Genres
 genre=Genre

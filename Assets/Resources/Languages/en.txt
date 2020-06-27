@@ -73,7 +73,7 @@ byshortest=By Shortest
 bynewest=By Newest
 byoldest=By Oldest
 byauthor=By Author
-publishedby=Published by
+publishedby=Published by {0}
 
 #Genres
 genre=Genre
