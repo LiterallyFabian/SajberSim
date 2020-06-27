@@ -230,6 +230,10 @@ namespace SajberSim.Helper
                     else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
                         itemList.Add(new StorySort(path, storydata.publishdate));
                 }
+                else
+                {
+                    UnityEngine.Debug.LogError($"{path} does not have a manifest");
+                }
             }
 
             //Start sorting
