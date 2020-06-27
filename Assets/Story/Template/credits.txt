@@ -1,0 +1,13 @@
+Background|wallpaper
+Music|jam
+Color|C54FA5
+Speed|45
+Message|Tack för att du har spelat, vi hoppas att vi får se dig på skolan i framtiden!
+
+-Karaktärer
+Lumi
+Emelie Grabne
+-Bakgrunder
+Alexander Pernebring
+-Ramverk
+Fabian Lindgren
