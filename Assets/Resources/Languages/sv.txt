@@ -30,6 +30,20 @@ picnotfound=Det gick inte att hitta en workshop-thumbnail i din nya katalog. Se 
 pictoolarge=Din workshop-thumbnail (steam.png) kan inte vara större än 1 MB.
 nodirectory=Mappen {0} är antingen tom eller finns inte. Se till att lägga till några {1} i din visuella roman!
 
+#Create a story
+createnew=Skapa en ny visuell roman
+createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Du kan alltid ändra detta senare.
+name=Namn
+defaultname=Min episka roman
+description=Beskrivning
+defaultdescription=Använd det här utrymmet för att beskriva din visuella roman. Denna text bör vara cirka 75 ord lång och ge en kort överblick som gör spelare intresserade av din roman. Detta visas bara i spelet, du kan göra en längre beskrivning för din Workshop-sida.
+primarygenre=Primär genre
+audience=Publik
+everyone=Everyone
+questionable=Questionable
+mature=Mature
+defaulttags=Ange, dina, taggar, separerade, med, komma
+
 #Settings
 volume=Volym
 writingspeed=Utskriftshastighet
