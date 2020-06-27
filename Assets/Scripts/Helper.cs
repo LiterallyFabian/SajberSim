@@ -231,10 +231,6 @@ namespace SajberSim.Helper
                     else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
                         itemList.Add(new StorySort(path, storydata.publishdate));
                 }
-                else
-                {
-                    UnityEngine.Debug.LogError($"{path} does not have a manifest");
-                }
             }
 
             //Start sorting
@@ -324,7 +320,7 @@ namespace SajberSim.Helper
             if (!loggedin) where = StorySearchPaths.NoWorkshop;
             List<string> nameList = new List<string>();
             foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm, where))
-                nameList.Add(Path.GetFileName(Path.GetDirectoryName(path)));
+                nameList.Add(new DirectoryInfo(path).Name);
 
             return nameList.ToArray();
         }
