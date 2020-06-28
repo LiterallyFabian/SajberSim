@@ -29,6 +29,7 @@ publishfail=Something went wrong while publishing your Visual Novel. Try again o
 picnotfound=Could not find a Workshop thumbnail in your novel directory. Make sure it is named "steam.png" with dimmensions 500x500px.
 pictoolarge=Your Workshop thumbnail (steam.png) can not be larger than 1 MB.
 nodirectory=The directory {0} is either empty or does not exist. Make sure to add some {1} in your visual novel!
+openedworkshop=Trying to open the Steam workshop...\n\nWhen you find a visual novel you want to try, click "Subscribe" 
 
 #Create story
 createnew=Create a new visual novel
@@ -36,7 +37,7 @@ createnewdesc=Want to create your own visual novel? Cool, let's get started with
 name=Name
 defaultname=My epic novel
 description=Description
-defaultdescription=Use this space to describe your visual novel. This text should be around 75 words long and give a brief overview that will make players interested in your novel. This will only show up in-game, you will be able to make a longer description for your Workshop page.
+defaultdescription=Use this space to describe your visual novel. This text should be around 75 words long and give a brief overview that will make players interested in your novel. This will only show up in-game, you will be able to make a longer description for your Workshop page later when publishing the novel.
 primarygenre=Primary genre
 audience=Audience
 everyone=Everyone
