@@ -88,6 +88,7 @@ byshortest=Efter kortaste
 bynewest=Efter nyaste
 byoldest=Efter äldsta
 byauthor=Efter författare
+bymodified=Efter senast modifierade
 publishedby=Publicerad av {0}
 
 #Genres

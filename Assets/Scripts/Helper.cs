@@ -57,6 +57,7 @@ namespace SajberSim.Helper
             Newest,
             Oldest,
             Author,
+            LastModified,
             ID
         }
         public enum StorySearchPaths
@@ -196,7 +197,7 @@ namespace SajberSim.Helper
                 storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
 
-            //Fix the list
+            //Sort the list
             string[] fixedPaths = SortArrayBy(storyPaths, args);
 
             if (!nsfw) //remove nsfw if needed
@@ -213,7 +214,7 @@ namespace SajberSim.Helper
             if (args == StorySearchArgs.ID) return storyPaths.ToArray();
 
             bool reverse = false;
-            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.LongestFirst) reverse = true;
+            if (args == StorySearchArgs.ReverseAlphabetical || args == StorySearchArgs.Newest || args == StorySearchArgs.LongestFirst || args == StorySearchArgs.LastModified) reverse = true;
             List<StorySort> itemList = new List<StorySort>();
 
             //Add everything to a list
@@ -230,11 +231,13 @@ namespace SajberSim.Helper
                         itemList.Add(new StorySort(path, storydata.author));
                     else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
                         itemList.Add(new StorySort(path, storydata.publishdate));
+                    else if (args == StorySearchArgs.LastModified)
+                        itemList.Add(new StorySort(path));
                 }
             }
 
             //Start sorting
-            if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst) //playtime
+            if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest || args == StorySearchArgs.ShortestFirst || args == StorySearchArgs.LastModified) //playtime
                 itemList = itemList.OrderBy(c => c.argint).ToList();
             if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.Author || args == StorySearchArgs.ReverseAlphabetical) //name || author
                 itemList = itemList.OrderBy(c => c.argstring).ToList();
@@ -546,6 +549,7 @@ class StorySort
     public string thepath;
     public string argstring;
     public int argint;
+    public long arglong;
     public StorySort(string path, string arg)
     {
         this.thepath = path;
@@ -555,5 +559,20 @@ class StorySort
     {
         this.thepath = path;
         this.argint = arg;
+    }
+    // only giving a path will set argint to the latest modification date 
+    public StorySort(string path)
+    {
+        thepath = path;
+        DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        if (Directory.Exists(path))
+        {
+            TimeSpan diff = Directory.GetLastWriteTime(path).ToUniversalTime() - origin;
+            this.argint = (int)(diff.TotalSeconds);
+        }
+        else
+        {
+            arglong = 0;
+        }
     }
 }

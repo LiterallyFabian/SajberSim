@@ -291,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -321,7 +321,7 @@ PrefabInstance:
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -332,16 +332,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 371701549}
+      objectReference: {fileID: 1834734306}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CreateNovel
+      value: SetSearchPath
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1834734306}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OpenMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181124, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -3517,7 +3552,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.33962262, g: 0.049661797, b: 0.26613277, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -14351,7 +14386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1273872605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22349,7 +22384,7 @@ MonoBehaviour:
   m_Text: Use this space to describe your visual novel. This text should be around
     75 words long and give a brief overview that will make players interested in
     your novel. This will only show up in-game, you will be able to make a longer
-    description for your Workshop page.
+    description for your Workshop page later when publishing the novel.
 --- !u!222 &1612276439
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39510,7 +39545,7 @@ PrefabInstance:
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -39540,7 +39575,7 @@ PrefabInstance:
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -39551,15 +39586,40 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 371701549}
+      objectReference: {fileID: 1834734306}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: StartNew
+      value: SetSearchPath
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 371701549}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: StartNew
+      objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181124, guid: 5247818795116ef4183966c47ce37890,

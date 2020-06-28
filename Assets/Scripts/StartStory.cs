@@ -52,12 +52,20 @@ public class StartStory : MonoBehaviour
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
         dl = new GameObject("downloadobj").AddComponent<Download>();
 
-        string[] sorting = { Translate.Fields["byname"], Translate.Fields["bynamedec"], Translate.Fields["bylongest"], Translate.Fields["byshortest"], Translate.Fields["bynewest"], Translate.Fields["byoldest"], Translate.Fields["byauthor"] };
+        string[] sorting = { Translate.Get("byname"), Translate.Get("bynamedec"), Translate.Get("bylongest"), Translate.Get("byshortest"), Translate.Get("bynewest"), Translate.Get("byoldest"), Translate.Get("byauthor"), Translate.Get("bymodified") };
         sortArgs = (Helper.StorySearchArgs)PlayerPrefs.GetInt("sorting", 0);
         sortWay.AddOptions(sorting.ToList());
         sortWay.SetValueWithoutNotify(PlayerPrefs.GetInt("sorting", 0));
 
         UpdatePreviewCards();
+    }
+    public void SetSearchPath(int n)
+    {
+        switch(n)
+        {
+            case 0: searchPath = Helper.StorySearchPaths.All; break;
+            case 1: searchPath = Helper.StorySearchPaths.Own; break;
+        }
     }
     public void UserUpdateNsfw(bool n)
     {
@@ -278,10 +286,9 @@ public class StartStory : MonoBehaviour
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
     }
-    public void OpenMenu(bool both = true)
+    public void OpenMenu()
     {
-        if (!both)
-            UpdatePreviewCards();
+        UpdatePreviewCards();
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("openStorymenu");
         CloseButtonBehind.SetActive(true);
         storymenuOpen = true;
