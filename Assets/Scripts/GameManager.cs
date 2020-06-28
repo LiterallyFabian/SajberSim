@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public GameObject saveinfo;
     public GameObject SFX;
     public GameObject pausemenu;
-    public GameObject skiptutorial;
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
     public GameObject dropdownItemBackground;
@@ -105,11 +104,6 @@ public class GameManager : MonoBehaviour
                 GameObject.Find("/Canvas/dev").transform.localScale = Vector3.zero;
             }
         }
-        //fixes tutorial buttonweird
-        if (SceneManager.GetActiveScene().name == "game")
-            if (PlayerPrefs.GetString("story", "start") == "start")
-                skiptutorial.SetActive(true);
-            else skiptutorial.SetActive(false);
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
@@ -452,11 +446,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Generic
-    public void SkipTutorial()
-    {
-        LoadScript("intro");
-        textdone = false;
-    }
     private IEnumerator Delay(float time) //ID 7
     {
         ready = false;
@@ -525,7 +514,7 @@ public class GameManager : MonoBehaviour
 
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
         fadeimage.GetComponent<Animator>().Play("darken");
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.5f);
         Stats.Add(Stats.List.novelsfinished);
         SceneManager.LoadScene("credits");
     }
