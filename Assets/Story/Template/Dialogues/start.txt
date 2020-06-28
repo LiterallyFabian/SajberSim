@@ -4,6 +4,7 @@ BG|wallpaper
 CHAR|Fabina|neutral|3.36|-0.17|1
 T|Fabina|You have successfully set up your game!
 T|Fabina|Now it's time to start edit the files, this visual novel is saved at {path}
+T|Fabina|Check out the documentation if you need help, and don't forget to include a credits scene for your game!
 CHAR|Fabina|happy|3.36|-0.17|1
-T|Fabina|Check out the documentation if you need help, and good luck making your visual novel!\n\n- Fabina
+T|Fabina|Good luck making your visual novel!\n\n- Fabina
 FINISHGAME
