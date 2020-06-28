@@ -196,8 +196,8 @@ namespace SajberSim.Helper
                 storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
 
-                //Fix the list
-                string[] fixedPaths = SortArrayBy(storyPaths, args);
+            //Fix the list
+            string[] fixedPaths = SortArrayBy(storyPaths, args);
 
             if (!nsfw) //remove nsfw if needed
                 fixedPaths = FilterNSFWFromCardPaths(fixedPaths.ToList());
