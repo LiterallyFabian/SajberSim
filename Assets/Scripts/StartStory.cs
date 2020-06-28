@@ -120,6 +120,8 @@ public class StartStory : MonoBehaviour
         Debug.Log("Request to update cards");
         string[] storyPaths = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
         string[] manifests = Helper.GetAllManifests(sortArgs, nsfw, searchTerm, searchPath);
+        if(storyPaths.Count() == 0) GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.one;
+        else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {

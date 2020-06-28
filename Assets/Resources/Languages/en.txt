@@ -90,6 +90,7 @@ byoldest=By Oldest
 byauthor=By Author
 bymodified=By latest Modified
 publishedby=Published by {0}
+nonovelsfound=No visual novels could be found! Create your own using the "Create" button above, or download some from the Steam Workshop to get started!
 
 #Genres
 genre=Genre

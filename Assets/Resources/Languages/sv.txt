@@ -90,6 +90,7 @@ byoldest=Efter äldsta
 byauthor=Efter författare
 bymodified=Efter senast modifierade
 publishedby=Publicerad av {0}
+nonovelsfound=Inga visuella romaner kunde hittas! Tryck på "Skapa" knappen ovan för att komma igång med din egna, eller ladda ned några från Steams workshop!
 
 #Genres
 genre=Genre
