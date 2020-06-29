@@ -67,6 +67,15 @@ public class StartStory : MonoBehaviour
             case 1: searchPath = Helper.StorySearchPaths.Own; break;
         }
     }
+    /// <summary>
+    /// Change the toggle & value if own novels only should be shown
+    /// </summary>
+    public void SetOwnToggle(bool n)
+    {
+        GameObject.Find("Canvas/StoryChoice/MyNovelsToggle").GetComponent<Toggle>().SetIsOnWithoutNotify(n);
+        searchPath = n ? Helper.StorySearchPaths.Own : Helper.StorySearchPaths.All;
+        UpdatePreviewCards();
+    }
     public void UserUpdateNsfw(bool n)
     {
         if (n)
@@ -299,9 +308,10 @@ public class StartStory : MonoBehaviour
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
     }
-    public void OpenMenu()
+    public void OpenMenu(bool own = false)
     {
-        UpdatePreviewCards();
+        if (own) SetOwnToggle(true);
+        else SetOwnToggle(false);
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("openStorymenu");
         CloseButtonBehind.SetActive(true);
         storymenuOpen = true;

@@ -128,7 +128,7 @@ public class ButtonCtrl : MonoBehaviour
     public void StartNewConfirmed() //confirmed that user wants to start a new
     {
         OverwriteAlert.transform.localScale = Vector3.zero;
-        GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu();
+        GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu(false);
     }
     public void OpenWorkshop()
     {

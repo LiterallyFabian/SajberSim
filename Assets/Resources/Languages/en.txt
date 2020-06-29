@@ -72,6 +72,7 @@ years=years
 
 #Play menu
 nsfwtoggle=Show NSFW
+ownnoveltoggle=Only show my novels
 sort=Sort
 searchdownloaded=Search for downloaded stories
 searchplaceholder=Write something...
