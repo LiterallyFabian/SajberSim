@@ -149,7 +149,7 @@ namespace SajberSim.Helper
         /// </summary>
         public static string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             List<string> manifestPaths = new List<string>();
             foreach (string story in GetAllStoryPaths(args, nsfw, searchTerm, where))
             {
@@ -168,7 +168,7 @@ namespace SajberSim.Helper
         /// <returns>Array with paths to all local story folders</returns>
         public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
 
             List<string> storyPaths = new List<string>();
             //This is what I call "The tired" ~
@@ -320,7 +320,7 @@ namespace SajberSim.Helper
         /// </summary>
         public static string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             List<string> nameList = new List<string>();
             foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm, where))
                 nameList.Add(new DirectoryInfo(path).Name);
@@ -332,7 +332,7 @@ namespace SajberSim.Helper
         /// </summary>
         public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             int length = GetAllManifests(args, nsfw, searchTerm, where).Length;
 
             if (length <= 6) return 0;
@@ -343,7 +343,7 @@ namespace SajberSim.Helper
         /// </summary>
         public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             int n = GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm, where).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
@@ -367,7 +367,7 @@ namespace SajberSim.Helper
         }
         public static Manifest GetManifestFromName(string name, StorySearchPaths where = StorySearchPaths.Local)
         {
-            if (!loggedin) where = StorySearchPaths.NoWorkshop;
+            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             string path = localPath;
             if (where == StorySearchPaths.Workshop) path = steamPath;
             else if(where == StorySearchPaths.All || where == StorySearchPaths.NoWorkshop)
