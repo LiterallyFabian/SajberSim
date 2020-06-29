@@ -120,8 +120,7 @@ public class StartStory : MonoBehaviour
         Debug.Log("Request to update cards");
         string[] storyPaths = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
         string[] manifests = Helper.GetAllManifests(sortArgs, nsfw, searchTerm, searchPath);
-        if(storyPaths.Count() == 0) GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.one;
-        else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
+        UpdateNoNovelNotice(storyPaths.Count());
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
@@ -131,6 +130,18 @@ public class StartStory : MonoBehaviour
             Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
             CreateCard(storyPaths[i], storydata, position, i);
         }
+    }
+    private void UpdateNoNovelNotice(int novels)
+    {
+        if (novels == 0)
+        {
+            if (searchPath == Helper.StorySearchPaths.All && searchTerm == "")
+                GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfound");
+            else
+                GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfoundsearch");
+            GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.one;
+        }
+        else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
     }
     private void CreateCard(string storyPath, Manifest data, Vector3 pos, int no)
     {

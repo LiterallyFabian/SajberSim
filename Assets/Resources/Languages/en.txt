@@ -91,6 +91,7 @@ byauthor=By Author
 bymodified=By latest Modified
 publishedby=Published by {0}
 nonovelsfound=No visual novels could be found! Create your own using the "Create" button above, or download some from the Steam Workshop to get started!
+nonovelsfoundsearch=Your search doesn't match any visual novels. Try searching for something else, or download some from the Steam Workshop!
 
 #Genres
 genre=Genre
