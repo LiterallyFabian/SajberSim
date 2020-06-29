@@ -132,9 +132,13 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void OpenWorkshop()
     {
-        if (!Helper.loggedin) Helper.Alert(Translate.Get("noconnection"));
-        Workshop.Upload("A cool story", "hey!\nnew line", 0, @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\Test japan", "english", Workshop.Privacy.Public, Workshop.Rating.Everyone);
-        //uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_browse");
+        if (!Helper.loggedin)
+        {
+            Helper.Alert(Translate.Get("noconnection"));
+            return;
+        }
+        Helper.Alert(Translate.Get("openedworkshop"));
+        Process.Start($@"steam://openurl/https://steamcommunity.com/app/1353530/workshop/");
     }
     public void CreateNovel()
     {
