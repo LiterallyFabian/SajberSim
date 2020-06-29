@@ -33,7 +33,7 @@ openedworkshop=Trying to open the Steam workshop...\n\nWhen you find a visual no
 
 #Create story
 createnew=Create a new visual novel
-createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! You can always change this later.
+createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! This can always be changed later and can be in any language.
 name=Name
 defaultname=My epic novel
 description=Description

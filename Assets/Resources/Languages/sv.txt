@@ -33,7 +33,7 @@ openedworkshop=Försöker att öppna Steams workshop...\n\nNär du hittar en rom
 
 #Create a story
 createnew=Skapa en ny visuell roman
-createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Du kan alltid ändra detta senare.
+createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras senare och kan vara på vilket språk som helst.
 name=Namn
 defaultname=Min episka roman
 description=Beskrivning
