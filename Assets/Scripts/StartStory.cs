@@ -74,6 +74,11 @@ public class StartStory : MonoBehaviour
     {
         GameObject.Find("Canvas/StoryChoice/MyNovelsToggle").GetComponent<Toggle>().SetIsOnWithoutNotify(n);
         searchPath = n ? Helper.StorySearchPaths.Own : Helper.StorySearchPaths.All;
+        Debug.Log(n ? "Card menu changed to only show own novels" : "Card menu changed to show all novels");
+        if(Helper.GetTotalCardAmount(nsfw, searchTerm, Helper.StorySearchPaths.Own) == 0 && n)
+        {
+
+        }
         UpdatePreviewCards();
     }
     public void UserUpdateNsfw(bool n)
@@ -144,7 +149,9 @@ public class StartStory : MonoBehaviour
     {
         if (novels == 0)
         {
-            if (searchPath == Helper.StorySearchPaths.All && searchTerm == "")
+            if(searchPath == Helper.StorySearchPaths.Own)
+                GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = string.Format(Translate.Get("noownnovelsfound"), Translate.Get("ownnoveltoggle"));
+            else if (searchPath == Helper.StorySearchPaths.All && searchTerm == "")
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfound");
             else
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfoundsearch");

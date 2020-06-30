@@ -93,6 +93,7 @@ bymodified=Efter senast modifierade
 publishedby=Publicerad av {0}
 nonovelsfound=Inga visuella romaner kunde hittas! Tryck på "Skapa" knappen ovan för att komma igång med din egna, eller ladda ned några från Steams workshop!
 nonovelsfoundsearch=Dessa sökfilter matchar inga installerade romaner. Testa sök på något annat, eller ladda ner några från Steam!
+noownnovelsfound=Du har inga visuella romaner som matchar dessa sökfilter. Du kan visa alla romaner genom att avmarkera "{0}" ovan.
 
 #Genres
 genre=Genre
