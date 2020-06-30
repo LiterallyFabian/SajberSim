@@ -92,6 +92,7 @@ public class ButtonCtrl : MonoBehaviour
         {
             loginstatus.text = Translate.Get("notloggedin");
         }
+        GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
     }
     private void UpdateUI()
     {
