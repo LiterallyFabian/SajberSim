@@ -3447,6 +3447,17 @@ MonoBehaviour:
           m_StringArgument: https://youtu.be/RJC2vwQifCA
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 949310012}
+        m_MethodName: GrantName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ACHIEVEMENT_miohonda
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &488847025
 GameObject:
   m_ObjectHideFlags: 0
@@ -12308,6 +12319,7 @@ GameObject:
   - component: {fileID: 949310009}
   - component: {fileID: 949310011}
   - component: {fileID: 949310010}
+  - component: {fileID: 949310012}
   m_Layer: 0
   m_Name: blank
   m_TagString: Untagged
@@ -12351,6 +12363,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee2cc7ce9c2335f4c8bbf3a90f0ff6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &949310012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949310008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d969242c5e591ae4ebd4aad45cb8c460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &964605138

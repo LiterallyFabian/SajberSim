@@ -23,13 +23,21 @@ namespace SajberSim.Steam
             ACHIEVEMENT_download,
             ACHIEVEMENT_create,
             ACHIEVEMENT_publish1,
-            ACHIEVEMENT_publish10
+            ACHIEVEMENT_publish10,
+            ACHIEVEMENT_100questions,
+            ACHIEVEMENT_500questions,
+            ACHIEVEMENT_setname,
+            ACHIEVEMENT_miohonda
         }
         public static void Grant(List achievement)
         {
             Achievement ach = new Achievement(achievement.ToString());
             ach.Trigger(true);
-            Debug.Log($"{SteamClient.Name} achieved \"{ach.Name}\"! Congrats :3");
+        }
+        public void GrantName(string name)
+        {
+            Achievement ach = new Achievement(name);
+            ach.Trigger(true);
         }
     }
 }
