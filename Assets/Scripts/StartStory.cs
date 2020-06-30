@@ -75,10 +75,7 @@ public class StartStory : MonoBehaviour
         GameObject.Find("Canvas/StoryChoice/MyNovelsToggle").GetComponent<Toggle>().SetIsOnWithoutNotify(n);
         searchPath = n ? Helper.StorySearchPaths.Own : Helper.StorySearchPaths.All;
         Debug.Log(n ? "Card menu changed to only show own novels" : "Card menu changed to show all novels");
-        if(Helper.GetTotalCardAmount(nsfw, searchTerm, Helper.StorySearchPaths.Own) == 0 && n)
-        {
-
-        }
+        if (page != 0) ResetPage();
         UpdatePreviewCards();
     }
     public void UserUpdateNsfw(bool n)
