@@ -405,6 +405,7 @@ public class GameManager : MonoBehaviour
     }
     public void AnswerQuestion(int id)
     {
+        Stats.Add(Stats.List.decisionsmade);
         DataTracker.ReportQuestion(question.text, id);
         string[] stories = { story1, story2 };
         LoadScript(stories[id - 1]);
@@ -429,6 +430,7 @@ public class GameManager : MonoBehaviour
     }
     public void AnswerQuestionDD(int select)
     {
+        Stats.Add(Stats.List.decisionsmade);
         string[] line = story[dialoguepos].Split('|');
         List<string> options = new List<string>();
         for (int i = 3; i < line.Length; i = i + 2)

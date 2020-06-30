@@ -12,7 +12,8 @@ namespace SajberSim.Steam
             novelsstarted,
             novelsfinished,
             novelscreated,
-            novelspublished
+            novelspublished,
+            decisionsmade
         }
         public static void Add(List stat, int value = 1)
         {
