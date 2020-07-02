@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         story = File.ReadAllLines($"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
-
+        UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
         UpdateDesign();
         RunNext();
     }

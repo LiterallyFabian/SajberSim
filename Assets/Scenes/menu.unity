@@ -14761,7 +14761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1273872605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35123,7 +35123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextId: createnew
+  TextId: createnewnovel
 --- !u!1 &2042752060
 GameObject:
   m_ObjectHideFlags: 0
