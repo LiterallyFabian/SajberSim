@@ -32,7 +32,7 @@ nodirectory=Mappen {0} är antingen tom eller finns inte. Se till att lägga til
 openedworkshop=Försöker att öppna Steams workshop...\n\nNär du hittar en roman du vill spela, tryck "Subscribe" och kom tillbaka till SajberSim.
 
 #Create a story
-createnew=Skapa en ny
+createnew=Skapa roman
 createnewnovel=Skapa en ny visuell roman
 createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras senare och kan vara på vilket språk som helst.
 name=Namn
