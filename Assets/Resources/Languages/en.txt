@@ -34,7 +34,7 @@ openedworkshop=Trying to open the Steam workshop...\n\nWhen you find a visual no
 #Create story
 createnew=Create novel
 createnewnovel=Create a new visual novel
-createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! This can always be changed later and can be in any language.
+createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! This can be changed at any time. To edit a novel you can right-click it and select "Edit".
 name=Name
 defaultname=My epic novel
 description=Description
@@ -45,6 +45,10 @@ everyone=Everyone
 questionable=Questionable
 mature=Mature
 defaulttags=Enter, your, tags, separated, by, a, comma
+edit=Edit
+verify=Verify
+publish=Publish
+detailsDescription=Here you can see and edit the details for your visual novel.
 
 #Settings
 volume=Volume
@@ -93,7 +97,7 @@ byauthor=By Author
 bymodified=By latest Modified
 publishedby=Published by {0}
 openworkshop=Open workshop
-nonovelsfound=No visual novels could be found! Create your own using the "Create" button above, or download some from the Steam Workshop to get started!
+nonovelsfound=No visual novels could be found! Create your own using the "{0}" button above, or download some from the Steam Workshop to get started!
 nonovelsfoundsearch=Your search doesn't match any visual novels. Try searching for something else, or download some from the Steam Workshop!
 noownnovelsfound=You don't have any visual novels matching these search results. You can view all novels by unchecking the "{0}" toggle above.
 

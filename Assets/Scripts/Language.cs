@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SajberSim.Web;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.UI;
 
-class Language
+public class Language
 {
     public Language(string code, string name, string formal, string localized)
     {
@@ -24,7 +27,7 @@ class Language
         new Language("AE", "arabic", "Arabic", "عربى"),
         new Language("BG", "bulgarian", "Bulgarian", "Български"),
         new Language("CN", "schinese", "Chinese (Simplified)", "中文"),
-        new Language("CN", "tchinese", "Chinese (Traditional)", "中文"),
+        new Language("CN", "tchinese", "Chinese (Traditional)", "文言"),
         new Language("CZ", "czech", "Czech", "čeština"),
         new Language("DK", "danish", "Danish", "Dansk"),
         new Language("NL", "dutch", "Dutch", "Nederlands"),
@@ -46,8 +49,36 @@ class Language
         new Language("SE", "swedish", "Swedish", "Svenska"),
         new Language("TH", "thai", "Thai", "ไทย"),
         new Language("TR", "turkish", "Turkish", "Türkçe"),
-        new Language("UA", "ukrainian", "Ukrainian", "	українська мова "),
+        new Language("UA", "ukrainian", "Ukrainian", "українська мова "),
         new Language("VN", "vietnamese", "Vietnamese", "Tiếng Việt")
         };
+    public static List<string> ListEnglishName()
+    {
+        List<string> lang = new List<string>();
+        foreach (Language language in list)
+            lang.Add(language.formal_name);
+        return lang;
+    }
+    public static List<string> ListLocalizedName()
+    {
+        List<string> lang = new List<string>();
+        foreach (Language language in list)
+            lang.Add(language.localized_name);
+        return lang;
+    }
+    public static List<string> ListFlagCode()
+    {
+        List<string> lang = new List<string>();
+        foreach (Language language in list)
+            lang.Add(language.flag_code);
+        return lang;
+    }
+    public static List<string> ListSteamName()
+    {
+        List<string> lang = new List<string>();
+        foreach (Language language in list)
+            lang.Add(language.language_code);
+        return lang;
+    }
 }
 

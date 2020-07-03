@@ -34,7 +34,7 @@ openedworkshop=Försöker att öppna Steams workshop...\n\nNär du hittar en rom
 #Create a story
 createnew=Skapa roman
 createnewnovel=Skapa en ny visuell roman
-createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras senare och kan vara på vilket språk som helst.
+createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras när som helst. Ifall du vill redigera en roman kan du gå tillbaka och högerklicka på den och välja "Redigera".
 name=Namn
 defaultname=Min episka roman
 description=Beskrivning
@@ -45,6 +45,10 @@ everyone=Everyone
 questionable=Questionable
 mature=Mature
 defaulttags=Ange, dina, taggar, separerade, med, komma
+edit=Redigera
+verify=Verifiera
+publish=Publicera
+detailsDescription=Här kan du se och redigera detaljerna för din visuella roman.
 
 #Settings
 volume=Volym

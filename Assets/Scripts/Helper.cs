@@ -24,6 +24,7 @@ namespace SajberSim.Helper
         public static string[] genres;
         // genres as how they are in the steamworks backend
         public static string[] genresid = new string[] { "Adventure", "Action", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
+        public static string[] audience = new string[] { "Everyone", "Questionable", "Mature" };
         public static uint AppID = 1353530;
         public static bool loggedin = false;
         public static int id = -1;
