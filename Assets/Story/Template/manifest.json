@@ -23,6 +23,9 @@
   // Whether the story should be NSFW flagged or not
   "NSFW": false,
 
+  // NSFW rating - please assign this ingame to avoid issues
+  "Rating": "Everyone",
+
   // Time estimated to play the story, in full minutes 
   "Playtime":  5,
   

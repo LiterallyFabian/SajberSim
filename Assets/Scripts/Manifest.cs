@@ -24,6 +24,7 @@ public class Manifest
     public int publishdate;
     public string[] tags;
     public string genre;
+    public string rating;
 }
 /// <summary>
 /// Visual Novel design file
