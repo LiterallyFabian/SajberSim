@@ -37,6 +37,7 @@ createnewnovel=Skapa en ny visuell roman
 createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras när som helst. Ifall du vill redigera en roman kan du gå tillbaka och högerklicka på den och välja "Redigera".
 name=Namn
 defaultname=Min episka roman
+defaultnameuser={0}s episka roman
 description=Beskrivning
 defaultdescription=Använd det här utrymmet för att beskriva din visuella roman. Denna text bör vara cirka 75 ord lång och ge en kort överblick som gör spelare intresserade av din roman. Detta visas bara i spelet, du kan göra en längre beskrivning för din Workshop-sida senare när du publicerar romanen.
 primarygenre=Primär genre

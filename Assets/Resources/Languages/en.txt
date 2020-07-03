@@ -37,6 +37,7 @@ createnewnovel=Create a new visual novel
 createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! This can be changed at any time. To edit a novel you can right-click it and select "Edit".
 name=Name
 defaultname=My epic novel
+defaultnameuser={0}s epic novel
 description=Description
 defaultdescription=Use this space to describe your visual novel. This text should be around 75 words long and give a brief overview that will make players interested in your novel. This will only show up in-game, you will be able to make a longer description for your Workshop page later when publishing the novel.
 primarygenre=Primary genre
@@ -48,7 +49,34 @@ defaulttags=Enter, your, tags, separated, by, a, comma
 edit=Edit
 verify=Verify
 publish=Publish
-detailsDescription=Here you can see and edit the details for your visual novel.
+modifyassets=Add/edit assets
+placecharacters=Place characters
+teststory=Test story
+testcredits=Test credits
+detailsdescription=Here you can see and edit the basic details for your visual novel.
+editsdescription=Here you can see statistics about your visual novel and access all tools to edit it.
+
+
+#Visual novel stats
+statsabout=Stats about {0}
+totalscripts=Scripts: {0}
+totallines=Scriptlines: {0}
+totalcharacters=Unique characters: {0}
+totalaudio=Audio clips: {0}
+totalbackgrounds=Backgrounds: {0}
+totaldialogues=Dialogue boxes: {0}
+totalalerts=Alerts: {0}
+totalwords=Total words: {0}
+totalbgchanges=Background changes: {0}
+totaldecisions=Decisions: {0}
+totalparticipants=Participants (in credits): {0}
+filesize=File size: {0}
+hasstart=Has start: {0}
+hasthumbnail=Has thumbnail: {0}
+hassteam=Has Steam icon: {0}
+hascredits=Has credits: {0}
+
+
 
 #Settings
 volume=Volume
