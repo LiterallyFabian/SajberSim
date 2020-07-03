@@ -143,7 +143,6 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void CreateNovel()
     {
-        Helper.Alert("this is a long message uwu");
         //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
         //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);

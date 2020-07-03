@@ -149,7 +149,7 @@ public class StartStory : MonoBehaviour
             if(searchPath == Helper.StorySearchPaths.Own)
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = string.Format(Translate.Get("noownnovelsfound"), Translate.Get("ownnoveltoggle"));
             else if (searchPath == Helper.StorySearchPaths.All && searchTerm == "")
-                GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfound");
+                GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = string.Format(Translate.Get("nonovelsfound"), Translate.Get("createnew"));
             else
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = Translate.Get("nonovelsfoundsearch");
             GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.one;
