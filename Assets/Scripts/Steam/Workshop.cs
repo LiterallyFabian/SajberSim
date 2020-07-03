@@ -33,7 +33,7 @@ namespace SajberSim.Steam
             Editor item = Steamworks.Ugc.Editor.NewCommunityFile
                     .WithTitle(title)
                     .WithDescription(description)
-                    .WithTag(Helper.Helper.genresid[tag])
+                    .WithTag(Helper.Helper.genresSteam[tag])
                     .WithTag(rating.ToString())
                     .WithContent(dataPath)
                     .InLanguage(lang)
@@ -57,7 +57,7 @@ namespace SajberSim.Steam
                 Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, title, result.FileId));
                 Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}"); 
                 Stats.Add(Stats.List.novelspublished);
-                if (privacy == Privacy.Public) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel! https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
+                if (privacy == Privacy.Public) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel: \"{title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
             }
             else
             {
