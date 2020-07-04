@@ -158,6 +158,7 @@ public class StartStory : MonoBehaviour
     }
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, int no, string parent = "Canvas/StoryChoice")
     {
+        if (Helper.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
         string name = data.name;
         string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
         string language = data.language.ToUpper();
