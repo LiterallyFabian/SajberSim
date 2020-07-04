@@ -1,9 +1,11 @@
 ﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,12 +49,17 @@ namespace SajberSim.Web
 
                 if (uwr.isNetworkError)
                     Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
-                else if(!File.Exists(path.Replace("file://", "")))
-                    Debug.LogError($"Download: Tried to download {path} which does not exist");
-                else
+                else if (File.Exists(path.Replace("file://", "")) || path.Contains("https://"))
                 {
-                    var texture = DownloadHandlerTexture.GetContent(uwr);
-                    if (item) item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    try
+                    {
+                        var texture = DownloadHandlerTexture.GetContent(uwr);
+                        if (item) item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Download: Tried to download {path} which caused an error.\n{e}");
+                    }
                 }
                 if (item) item.GetComponent<Image>().color = Color.white;
             }

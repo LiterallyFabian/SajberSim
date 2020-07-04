@@ -77,22 +77,30 @@ public class ButtonCtrl : MonoBehaviour
         Cursor.visible = true;
         UpdateUI();
         string storyid = PlayerPrefs.GetString("story", "none");
-        if (File.Exists($"{Application.dataPath}/Story/{storyid}/manifest.json"))
-            GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifest(storyid).name);
-        else
-            PlayerPrefs.SetString("story", "none");
+        //if (File.Exists($"{Application.dataPath}/Story/{storyid}/manifest.json"))
+        //    GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifest(storyid).name);
+        //else
+        //    PlayerPrefs.SetString("story", "none");
 
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
         //Set login if you are logged in
         if (Helper.loggedin)
         {
-            loginstatus.text = string.Format(Translate.Get("loggedinas"), SteamClient.Name);
+            loginstatus.text = string.Format(Translate.Get("welcomeuser"), SteamClient.Name);
+            dl.CardThumbnail(GameObject.Find("Canvas/ProfilePicture").transform, SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarfull);
         }
         else
         {
-            loginstatus.text = Translate.Get("notloggedin");
+            loginstatus.text = Translate.Get("offline");
         }
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
+    }
+   public void OpenSteamProfile()
+    {
+        if (Helper.loggedin)
+        {
+            Process.Start($@"steam://openurl/{SteamAPI.GetProfile($"{SteamClient.SteamId}").Profileurl}");
+        }
     }
     private void UpdateUI()
     {
