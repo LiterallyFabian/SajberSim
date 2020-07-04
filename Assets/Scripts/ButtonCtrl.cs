@@ -77,8 +77,8 @@ public class ButtonCtrl : MonoBehaviour
         Cursor.visible = true;
         UpdateUI();
         string storyid = PlayerPrefs.GetString("story", "none");
-        if (Directory.Exists($"{Application.dataPath}/Story/{storyid}"))
-            GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifestFromName(storyid).name);
+        if (File.Exists($"{Application.dataPath}/Story/{storyid}/manifest.json"))
+            GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifest(storyid).name);
         else
             PlayerPrefs.SetString("story", "none");
 
@@ -271,12 +271,12 @@ public class ButtonCtrl : MonoBehaviour
     }
     public IEnumerator FadeToScene(string scene)
     {
-        StartCoroutine(AudioFadeOut.FadeOut(music, 1.55f));
-        if(MainPopup.singlecharClicked >= 5) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
+        StartCoroutine(AudioFadeOut.FadeOut(music, 0.4f));
+        //if(MainPopup.singlecharClicked >= 5) GameObject.Find("/CharEasterEgg").GetComponent<Animator>().Play("allchar popdown"); //fade away easter egg if active
         MainPopup.singlecharClicked = 0;
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 
-        for (float i = 0; i <= 1; i += Time.deltaTime/1.5f) //Starts fade, load scene when done
+        for (float i = 0; i <= 1; i += Time.deltaTime/0.5f) //Starts fade, load scene when done
         {
             fadeimage.GetComponent<UnityEngine.UI.Image>().color = new UnityEngine.Color(0, 0, 0, i);
             if (i > 0.5f) Cursor.visible = false;

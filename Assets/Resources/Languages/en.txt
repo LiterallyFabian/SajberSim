@@ -60,8 +60,8 @@ editsdescription=Here you can see statistics about your visual novel and access 
 #Visual novel stats
 statsabout=Stats about {0}
 totalscripts=Scripts: {0}
-totallines=Scriptlines: {0}
-totalcharacters=Unique characters: {0}
+totallines=Script lines: {0}
+totalcharacters=Characters: {0}
 totalaudio=Audio clips: {0}
 totalbackgrounds=Backgrounds: {0}
 totaldialogues=Dialogue boxes: {0}
