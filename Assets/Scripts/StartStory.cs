@@ -156,7 +156,7 @@ public class StartStory : MonoBehaviour
         }
         else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
     }
-    private void CreateCard(string storyPath, Manifest data, Vector3 pos, int no)
+    public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, int no, string parent = "Canvas/StoryChoice")
     {
         string name = data.name;
         string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
@@ -167,7 +167,7 @@ public class StartStory : MonoBehaviour
         int playtime = data.playtime;
         if (GameObject.Find($"Canvas/StoryChoice/{id}")) Destroy(GameObject.Find($"Canvas/StoryChoice/{id}").gameObject);
         //spawn, place and resize
-        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject; 
+        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject; 
         
         menu.transform.localPosition = pos;
         //menu.transform.localScale = Vector3.one;
@@ -208,6 +208,7 @@ public class StartStory : MonoBehaviour
         menu.transform.Find("Title").GetComponent<Text>().text = name;
 
         menu.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
+        return menu;
     }
     private void CreateDetails(int n)
     {
@@ -260,10 +261,21 @@ public class StartStory : MonoBehaviour
         Destroy(card);
     }
 
-    public void Play(int id)
+    public void Play(int id, string name = "", string editpath = "")
     {
-        string story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
-        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
+        string story;
+        string path;
+        if (id == -1)
+        {
+            story = name;
+            path = editpath;
+        }
+        else
+        {
+            story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
+            path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
+        }
+        Debug.LogWarning(path);
         Manifest data = Helper.GetManifest($"{path}/manifest.json");
         Helper.currentStoryPath = path;
         Helper.currentStoryName = story;
