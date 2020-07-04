@@ -169,6 +169,7 @@ public class CreateStory : MonoBehaviour
         int characters = Helper.GetStoryAssetPaths("characters", currentlyEditingPath).Length;
         try
         {
+            int i = 0;
             foreach (string line in scriptLines)
             {
                 string action = line.Split('|')[0];
@@ -176,14 +177,24 @@ public class CreateStory : MonoBehaviour
                 {
                     case "T":
                         dialogues++;
-                        words += line.Split('|')[2].Count(f => f == ' ') + 1;
+                        if (line.Split('|').Length == 3)
+                            words += line.Split('|')[2].Count(f => f == ' ') + 1;
                         break;
                     case "BG": backgroundchanges++; break;
                     case "ALERT": alerts++; break;
                     case "QUESTION": 
                         decisions++;
-                        words += line.Split('|')[1].Count(f => f == ' ') + 1;
+                        if (line.Split('|').Length > 1)
+                            words += line.Split('|')[1].Count(f => f == ' ') + 1;
                         break;
+                }
+                i++;
+            }
+            if(File.Exists(currentlyEditingPath + "/credits.txt"))
+            {
+                foreach(string line in File.ReadAllLines(currentlyEditingPath + "/credits.txt"))
+                {
+                    if (!line.Contains('|') && !line.StartsWith("-") && line != "") participants++;
                 }
             }
             E_Stats.text =
@@ -196,6 +207,10 @@ public class CreateStory : MonoBehaviour
                 $"{string.Format(Translate.Get("totalalerts"), alerts)}\n" +
                 $"{string.Format(Translate.Get("totalwords"), words)}\n" +
                 $"{string.Format(Translate.Get("totalbgchanges"), backgroundchanges)}\n" +
+                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n\n" +
+                $"{string.Format(Translate.Get("totalparticipants"), participants)}\n" +
+                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
+                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
                 $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
                 $"";
         }
