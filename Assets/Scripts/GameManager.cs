@@ -406,7 +406,6 @@ public class GameManager : MonoBehaviour
     public void AnswerQuestion(int id)
     {
         Stats.Add(Stats.List.decisionsmade);
-        DataTracker.ReportQuestion(question.text, id);
         string[] stories = { story1, story2 };
         LoadScript(stories[id - 1]);
         #region openhouse
