@@ -146,6 +146,29 @@ namespace SajberSim.Helper
             }
             return assetPaths.ToArray();
         }
+        public static string[] GetStoryAssetPaths(string folder, string path)
+        {
+            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
+            List<string> assetPaths = new List<string>();
+            folder = folder.ToLower();
+
+            if (!validPaths.Contains(folder)) return new string[0];
+
+            string extension = "*.png";
+
+            switch (folder)
+            {
+                case "audio":
+                    extension = "*.ogg";
+                    break;
+                case "dialogues":
+                    extension = "*.txt";
+                    break;
+            }
+            if (Directory.Exists($"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}"))
+                assetPaths.AddRange(Directory.GetFiles($"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}", extension));
+            return assetPaths.ToArray();
+        }
         /// <summary>
         /// Returns paths to all story manifest files
         /// </summary>
@@ -352,7 +375,7 @@ namespace SajberSim.Helper
         }
         public static Manifest GetManifest(string path)
         {
-            if (!path.Contains(".json"))
+            if (!File.Exists(path))
             {
                 UnityEngine.Debug.LogError($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
                 return null;
