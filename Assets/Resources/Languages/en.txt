@@ -4,6 +4,7 @@ continue=Continue
 findnovels=Find novels
 settings=Settings
 create=Create
+mynovels=My novels
 novels=Novels
 quit=Quit
 credits=Credits

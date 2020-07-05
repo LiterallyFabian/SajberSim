@@ -4,6 +4,7 @@ continue=Fortsätt
 findnovels=Hitta romaner
 settings=Inställningar
 create=Skapa
+mynovels=Mina romaner
 quit=Avsluta
 credits=Medverkande
 novels=Romaner
