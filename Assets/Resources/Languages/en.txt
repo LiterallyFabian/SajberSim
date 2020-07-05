@@ -18,6 +18,7 @@ saved=Saved!
 verified=Verified
 submit=Submit
 send=Send
+debug=Debug
 overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory.
 
@@ -52,9 +53,9 @@ verify=Verify
 publish=Publish
 modifyassets=Add/edit assets
 placecharacters=Place characters
-teststory=Test story
-testcredits=Test credits
-detailsdescription=Here you can see and edit the basic details for your visual novel.
+teststory=Play story
+testcredits=Play credits
+detailsdescription=Here you can see and edit the basic details for your visual novel. The name and description does not have to be the same as on Steam.
 editsdescription=Here you can see statistics about your visual novel and access all tools to edit it.
 
 

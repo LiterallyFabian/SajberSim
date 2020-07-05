@@ -47,7 +47,7 @@ public class CreateStory : MonoBehaviour
         Basics,
         Details,
         Edit,
-        Verify,
+        Debug,
         Publish
     }
 

@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_Text
-      value: Verify
+      value: Debug
       objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792502, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextId: verify
+  TextId: debug
 --- !u!1 &74489320
 GameObject:
   m_ObjectHideFlags: 0
