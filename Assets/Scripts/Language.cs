@@ -24,7 +24,7 @@ public class Language
     public static Language[] list =
         {
         new Language("US", "english", "English", "English"),
-        new Language("AE", "arabic", "Arabic", "عربى"),
+        new Language("ARAB_LEAGUE", "arabic", "Arabic", "عربى"),
         new Language("BG", "bulgarian", "Bulgarian", "Български"),
         new Language("CN", "schinese", "Chinese", "中文"),
         new Language("CZ", "czech", "Czech", "čeština"),
