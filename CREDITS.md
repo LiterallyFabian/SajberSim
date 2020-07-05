@@ -25,11 +25,7 @@
 
 ## Audio (game)
 
-- Main: Dan Robinson - Vitamin U
 
-- Credits: Eric Barone - Cloth
-
-  
 
 ## Backgrounds
 

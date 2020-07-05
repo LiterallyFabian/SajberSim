@@ -102,7 +102,10 @@ public class ButtonCtrl : MonoBehaviour
     {
         if (Helper.loggedin)
         {
-            Process.Start($@"steam://openurl/{SteamAPI.GetProfile($"{SteamClient.SteamId}").Profileurl}");
+            if (Application.isEditor)
+                Process.Start($@"steam://openurl/{SteamAPI.GetProfile($"{SteamClient.SteamId}").Profileurl}");
+            else
+                SteamFriends.OpenUserOverlay(SteamClient.SteamId, "steamid");
         }
     }
     private void UpdateUI()
