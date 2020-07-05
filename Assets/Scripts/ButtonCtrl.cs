@@ -87,11 +87,14 @@ public class ButtonCtrl : MonoBehaviour
         if (Helper.loggedin)
         {
             loginstatus.text = string.Format(Translate.Get("welcomeuser"), SteamClient.Name);
-            dl.CardThumbnail(GameObject.Find("Canvas/ProfilePicture").transform, SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarfull);
+            dl.CardThumbnail(GameObject.Find("Canvas/ProfilePictureFrame/ProfilePicture").transform, SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarfull);
         }
         else
         {
             loginstatus.text = Translate.Get("offline");
+            loginstatus.transform.localPosition = new Vector3(374.16f, 318.84f, 0);
+            GameObject.Find("Canvas/ProfilePictureFrame").SetActive(false);
+
         }
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
     }
