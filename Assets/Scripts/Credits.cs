@@ -35,6 +35,7 @@ public class Credits : MonoBehaviour
     public static string storypath;
     private Download dl;
     public int speed = 45;
+    private bool messagefound = false;
     private void Start()
     {
         canvas = GameObject.Find("Canvas").transform;
@@ -66,7 +67,7 @@ public class Credits : MonoBehaviour
             if (line.ToLower().StartsWith("background|"))
                 dl.Image(Background, $"{storypath}/Backgrounds/{line.ToLower().Replace("background|", "")}.png");
 
-            else if (line.ToLower().StartsWith("music|"))
+            else if (line.ToLower().StartsWith("music|") && line.Split('|').Length > 1)
                 dl.Ogg(music, $"{storypath}/Audio/{line.Split('|')[1]}.ogg", true);
 
             else if (line.ToLower().StartsWith("color|"))
@@ -77,21 +78,25 @@ public class Credits : MonoBehaviour
                 Message.GetComponent<Text>().color = textColor;
                 Roles.color = Helper.ModifyColor(textColor, 0.8f);
             }
-            else if (line.ToLower().StartsWith("message|"))
+            else if (line.ToLower().StartsWith("message|") && line.Split('|').Length > 1)
+            {
+                messagefound = true;
                 Message.GetComponent<Text>().text = line.Split('|')[1];
+            }
 
-            else if (line.ToLower().StartsWith("speed|"))
+
+            else if (line.ToLower().StartsWith("speed|") && line.Split('|').Length > 1)
                 speed = Convert.ToInt32(line.Split('|')[1]);
 
-            else if(line != "") // Roles / people found
+            else if (line != "") // Roles / people found
             {
                 if (line.StartsWith("-"))
                 {
                     if (rolesfound)
                     {
-                        roles += $"\n\n{line.Replace("-", "")}";
-                        people += "\n\n";
-                        lines += 2;
+                        roles += $"\n{line.Replace("-", "")}";
+                        people += "\n";
+                        lines++;
                     }
                     else
                     {
@@ -107,9 +112,10 @@ public class Credits : MonoBehaviour
                 }
             }
         }
-        Message.transform.localPosition = new Vector3(0, (lines * -40 - 70), 0);
+        Message.transform.localPosition = new Vector3(0, lines * -40 - 50, 0);
         People.text = people;
         Roles.text = roles;
+        if (!messagefound) Message.GetComponent<Text>().text = "";
     }
     private void Update()
     {
@@ -118,6 +124,7 @@ public class Credits : MonoBehaviour
         {
             Message.transform.SetParent(canvas);
             EscButton.GetComponent<Animator>().Play("esc key");
+            if (!messagefound) StartCoroutine(LeaveCredits());
         }
         if (Input.GetKeyDown("escape"))
             StartCoroutine(LeaveCredits());
