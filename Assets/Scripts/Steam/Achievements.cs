@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Steamworks;
 using Steamworks.Data;
 using UnityEngine;
+using SajberSim.Helper;
 
 namespace SajberSim.Steam
 {
@@ -31,6 +32,7 @@ namespace SajberSim.Steam
         }
         public static void Grant(List achievement)
         {
+            if (!Helper.Helper.loggedin) return;
             Achievement ach = new Achievement(achievement.ToString());
             ach.Trigger(true);
         }
