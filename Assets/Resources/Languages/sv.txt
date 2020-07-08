@@ -51,7 +51,7 @@ defaulttags=Ange, dina, taggar, separerade, med, komma
 edit=Redigera
 verify=Verifiera
 publish=Publicera
-detailsDescription=Här kan du se och redigera detaljerna för din visuella roman. Namn och beskrivning behöver inte vara samma som på Steam.
+detailsdescription=Här kan du se och redigera detaljerna för din visuella roman. Namn och beskrivning behöver inte vara samma som på Steam.
 
 #Settings
 volume=Volym
