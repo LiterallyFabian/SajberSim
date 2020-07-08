@@ -48,6 +48,8 @@ everyone=Everyone
 questionable=Questionable
 mature=Mature
 defaulttags=Enter, your, tags, separated, by, a, comma
+save=Save
+revertchanges=Revert changes
 edit=Edit
 verify=Verify
 publish=Publish
@@ -58,6 +60,8 @@ testcredits=Play credits
 detailsdescription=Here you can see and edit the basic details for your visual novel. The name and description does not have to be the same as on Steam.
 editsdescription=Here you can see statistics about your visual novel and access all tools to edit it.
 
+#Creation errors (can stay in english)
+errorloaddetails=Something went wrong when trying to load your story details. A common cause for this is when editing the manifest manually. Feel free to email help@sajber.me attaching your novel folder for support if the problem persists. \n\n{0}
 
 #Visual novel stats
 statsabout=Stats about {0}

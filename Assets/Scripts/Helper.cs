@@ -248,16 +248,19 @@ namespace SajberSim.Helper
                 if (File.Exists($"{path}/manifest.json"))
                 {
                     Manifest storydata = GetManifest($"{path}/manifest.json");
-                    if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
-                        itemList.Add(new StorySort(path, storydata.name));
-                    else if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.ShortestFirst)
-                        itemList.Add(new StorySort(path, storydata.playtime));
-                    else if (args == StorySearchArgs.Author)
-                        itemList.Add(new StorySort(path, storydata.author));
-                    else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
-                        itemList.Add(new StorySort(path, storydata.publishdate));
-                    else if (args == StorySearchArgs.LastModified)
-                        itemList.Add(new StorySort(path));
+                    if (storydata != null)
+                    {
+                        if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
+                            itemList.Add(new StorySort(path, storydata.name));
+                        else if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.ShortestFirst)
+                            itemList.Add(new StorySort(path, storydata.playtime));
+                        else if (args == StorySearchArgs.Author)
+                            itemList.Add(new StorySort(path, storydata.author));
+                        else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
+                            itemList.Add(new StorySort(path, storydata.publishdate));
+                        else if (args == StorySearchArgs.LastModified)
+                            itemList.Add(new StorySort(path));
+                    }
                 }
             }
 
