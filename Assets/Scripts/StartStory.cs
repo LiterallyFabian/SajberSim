@@ -158,6 +158,14 @@ public class StartStory : MonoBehaviour
     }
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, int no, string parent = "Canvas/StoryChoice")
     {
+        if (data == null)
+        {
+            GameObject obj = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject;
+
+            obj.transform.localPosition = pos;
+            obj.name = $"template";
+            return obj;
+        }
         if (Helper.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
         string name = data.name;
         string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
