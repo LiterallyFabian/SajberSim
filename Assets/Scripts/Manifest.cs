@@ -13,19 +13,20 @@ using UnityEngine;
 public class Manifest
 {
 #pragma warning disable CS0649
-    public string name;
-    public string author;
-    public string description;
-    public string id;
-    public string language;
-    public string overlaycolor;
-    public string textcolor;
-    public bool nsfw;
-    public int playtime;
-    public int publishdate;
-    public string[] tags;
-    public string genre;
-    public string rating;
+    public string name = "Default name";
+    public string author = "Default author";
+    public int authorid = -1;
+    public string description = "Default description";
+    public string id = "0";
+    public string language = "US";
+    public string overlaycolor = "FFFFFF";
+    public string textcolor = "323232";
+    public bool nsfw = false;
+    public int playtime = 0;
+    public int publishdate = 19700101;
+    public string[] tags = new string[0];
+    public string genre = "other";
+    public string rating = "everyone";
 }
 /// <summary>
 /// Visual Novel design file
