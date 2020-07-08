@@ -15,7 +15,7 @@ public class Manifest
 #pragma warning disable CS0649
     public string name = "Default name";
     public string author = "Default author";
-    public int authorid = -1;
+    public string authorid = "-1";
     public string description = "Default description";
     public string id = "0";
     public string language = "US";
