@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SajberSim.Colors;
+using SajberSim.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,5 +56,23 @@ public class StoryDesign
     public string textcolor = ColorUtility.ToHtmlStringRGB(Colors.DarkPurple); 
     public string questioncolor = ColorUtility.ToHtmlStringRGB(Colors.IngameBlue); 
     public string questiontextcolor = ColorUtility.ToHtmlStringRGB(Colors.UnityGray);
+    public static StoryDesign Get()
+    {
+        string path = Helper.currentStoryPath + "/design.json";
+        if (!File.Exists(path))
+        {
+            UnityEngine.Debug.LogWarning($"{Helper.currentStoryPath} does not have a design manifest, continuing with default.");
+            return new StoryDesign();
+        }
+        try
+        {
+            return JsonConvert.DeserializeObject<StoryDesign>(File.ReadAllText(path));
+        }
+        catch
+        {
+            UnityEngine.Debug.LogError($"Helper/GetDesign: Something went wrong when converting manifest \"{path}/design.json\". Is it setup correctly?");
+            return null;
+        }
+    }
 }
 

@@ -390,18 +390,6 @@ namespace SajberSim.Helper
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
         }
-        public static Manifest GetManifestFromName(string name, StorySearchPaths where = StorySearchPaths.Local)
-        {
-            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
-            string path = localPath;
-            if (where == StorySearchPaths.Workshop) path = steamPath;
-            else if(where == StorySearchPaths.All || where == StorySearchPaths.NoWorkshop)
-            {
-                UnityEngine.Debug.LogError($"Tried getting manifest for story {name} but search arguments were incorrect ({where}).");
-                return null;
-            }
-            return Manifest.Get($"{path}{name}/manifest.json");
-        }
         /// <summary>
         /// Returns amount of cards in total
         /// </summary>
@@ -479,24 +467,6 @@ namespace SajberSim.Helper
             }
 
             return result;
-        }
-        public static StoryDesign GetDesign()
-        {
-            string path = currentStoryPath + "/design.json";
-            if (!File.Exists(path))
-            {
-                UnityEngine.Debug.LogWarning($"{currentStoryPath} does not have a design manifest, continuing with default.");
-                return new StoryDesign();
-            }
-            try
-            {
-                return JsonConvert.DeserializeObject<StoryDesign>(File.ReadAllText(path));
-            }
-            catch
-            {
-                UnityEngine.Debug.LogError($"Helper/GetDesign: Something went wrong when converting manifest \"{path}/design.json\". Is it setup correctly?");
-                return null;
-            }
         }
         /// <summary>
         /// Converts an int to a bool

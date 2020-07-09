@@ -534,7 +534,7 @@ public class GameManager : MonoBehaviour
     }
     private void UpdateDesign()
     {
-        StoryDesign design = Helper.GetDesign();
+        StoryDesign design = StoryDesign.Get();
 
         if (File.Exists($"{Helper.currentStoryPath}/textbox.png"))
         {
