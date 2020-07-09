@@ -419,7 +419,7 @@ public class GameManager : MonoBehaviour
         dropdownObject.GetComponent<Dropdown>().ClearOptions();
         dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
         List<string> options = new List<string>();
-        for (int i = 2; i < line.Length; i = i+2) 
+        for (int i = 2; i < line.Length; i += 2) 
         {
             options.Add(line[i]);
         }
