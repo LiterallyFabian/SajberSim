@@ -1,16 +1,1 @@
-{
-  "Name": "CyberGymnasiet öppet hus",
-  "Author": "Fabian",
-  "AuthorID": "76561198218793769",
-  "Description": "Rundvandring av CyberGymnasiet Odenplan med information om skolan, vad vi gör i alla program och mycket mer!",
-  "ID": "OpenHouse",
-  "Language": "SE",
-  "OverlayColor": "FF7FFD",
-  "TextColor": "323232",
-  "NSFW": false,
-  "Rating": "Everyone",
-  "Playtime": 15,
-  "PublishDate": 20200615,
-  "Genre": "other",
-  "Tags": ["CyberGymnasiet", "odenplan", "öppet hus"]
-}
+{"name":"CyberGymnasiet öppet hus","author":"Fabian","authorid":"76561198218793769","description":"Rundvandring av CyberGymnasiet Odenplan med information om skolan, vad vi gör i alla program och mycket mer!","id":"OpenHouse","language":"SE","overlaycolor":"FF7FFD","textcolor":"323232","nsfw":false,"playtime":15,"publishdate":20200615,"tags":["CyberGymnasiet","odenplan","öppet hus","ah",""],"genre":"other","rating":"Everyone"}
