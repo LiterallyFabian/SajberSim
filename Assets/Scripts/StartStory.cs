@@ -137,9 +137,13 @@ public class StartStory : MonoBehaviour
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
-            Manifest storydata = Helper.GetManifest(manifests[i]); 
-            Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
-            CreateCard(storyPaths[i], storydata, position, i);
+            Manifest storydata = Manifest.Get(manifests[i]);
+            if (storydata != null)
+            {
+                Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
+                CreateCard(storyPaths[i], storydata, position, i);
+            }
+            
         }
     }
     private void UpdateNoNovelNotice(int novels)
@@ -222,7 +226,7 @@ public class StartStory : MonoBehaviour
     private void CreateDetails(int n)
     {
         string folderPath = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[n];
-        Manifest data = Helper.GetManifest($"{folderPath}/manifest.json");
+        Manifest data = Manifest.Get($"{folderPath}/manifest.json");
 
         string name = data.name;
         string id = folderPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
@@ -284,8 +288,7 @@ public class StartStory : MonoBehaviour
             story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
             path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         }
-        Debug.LogWarning(path);
-        Manifest data = Helper.GetManifest($"{path}/manifest.json");
+        Manifest data = Manifest.Get($"{path}/manifest.json");
         Helper.currentStoryPath = path;
         Helper.currentStoryName = story;
         Debug.Log($"Attempting to start story with ID {id}, path {path}");
@@ -308,15 +311,16 @@ public class StartStory : MonoBehaviour
     }
     public void ChangePage(int change)
     {
-        if (Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath) == 0)
+        int pages = Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath);
+        if (pages == 0)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Animator>().Play("storycard_pageinfojump", 0, 0);
             return;
         }
 
         ClearPreviewCards();
-        if (page + change > Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)) page = 0;
-        else if (page + change < 0) page = Helper.GetCardPages(sortArgs, nsfw, searchTerm);
+        if (page + change > pages) page = 0;
+        else if (page + change < 0) page = pages;
         else page += change;
         UpdatePreviewCards();
     }

@@ -2,6 +2,7 @@
 using SajberSim.Colors;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,24 @@ public class Manifest
     public string[] tags = new string[0];
     public string genre = "other";
     public string rating = "everyone";
+
+    public static Manifest Get(string path)
+    {
+        if (!File.Exists(path))
+        {
+            UnityEngine.Debug.LogError($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
+            return null;
+        }
+        try
+        {
+            return JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(path));
+        }
+        catch
+        {
+            UnityEngine.Debug.LogError($"Helper/GetManifest: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
+            return null;
+        }
+    }
 }
 /// <summary>
 /// Visual Novel design file
@@ -37,3 +56,4 @@ public class StoryDesign
     public string questioncolor = ColorUtility.ToHtmlStringRGB(Colors.IngameBlue); 
     public string questiontextcolor = ColorUtility.ToHtmlStringRGB(Colors.UnityGray);
 }
+

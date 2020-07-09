@@ -21,9 +21,11 @@ namespace SajberSim.Helper
 {
     public class Helper : MonoBehaviour
     {
+        // genres translated
         public static string[] genres;
         // genres as how they are in the steamworks backend
         public static string[] genresSteam = new string[] { "Adventure", "Action", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
+        // genres in manifest
         public static string[] genresid = new string[] { "adventure", "action", "comedy", "drama", "fantasy", "horror", "magic", "mystery", "romance", "scifi", "sliceoflife", "supernatural", "other" };
         public static string[] audience = new string[] { "Everyone", "Questionable", "Mature" };
         public static uint AppID = 1353530;
@@ -170,7 +172,7 @@ namespace SajberSim.Helper
             return assetPaths.ToArray();
         }
         /// <summary>
-        /// Returns paths to all story manifest files
+        /// Returns paths to all story manifest files if they exist
         /// </summary>
         public static string[] GetAllManifests(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
@@ -180,7 +182,7 @@ namespace SajberSim.Helper
             {
                 if (!File.Exists($"{story}/manifest.json"))
                     UnityEngine.Debug.LogError($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
-                else
+                else if (Manifest.Get($"{story}/manifest.json") != null)
                     manifestPaths.Add($"{story}/manifest.json");
             }
             return manifestPaths.ToArray();
@@ -206,10 +208,6 @@ namespace SajberSim.Helper
             {
                 storyPaths = Directory.GetDirectories(localPath).ToList();
             }
-            else if (where == StorySearchPaths.Own)
-            {
-                storyPaths = Directory.GetDirectories(customPath).ToList();
-            }
             else if (where == StorySearchPaths.NoWorkshop)
             {
                 storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
@@ -221,6 +219,13 @@ namespace SajberSim.Helper
                 storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
                 storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
+            else if(where == StorySearchPaths.Own)
+            {
+                storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
+                storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
+                if (loggedin)
+                    storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
+            }
 
             //Sort the list
             string[] fixedPaths = SortArrayBy(storyPaths, args);
@@ -229,6 +234,8 @@ namespace SajberSim.Helper
                 fixedPaths = FilterNSFWFromCardPaths(fixedPaths.ToList());
             if (searchTerm != "")
                 fixedPaths = FilterSearchFromCardPaths(fixedPaths.ToList(), searchTerm);
+            if (where == StorySearchPaths.Own)
+                fixedPaths = FilterNonOwnedFromCardPaths(fixedPaths.ToList());
             return fixedPaths;
         }
         /// <summary>
@@ -247,7 +254,7 @@ namespace SajberSim.Helper
             {
                 if (File.Exists($"{path}/manifest.json"))
                 {
-                    Manifest storydata = GetManifest($"{path}/manifest.json");
+                    Manifest storydata = Manifest.Get($"{path}/manifest.json");
                     if (storydata != null)
                     {
                         if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
@@ -284,7 +291,7 @@ namespace SajberSim.Helper
         {
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = GetManifest($"{path}/manifest.json");
+                Manifest storydata = Manifest.Get($"{path}/manifest.json");
                 if (storydata.nsfw && remove) storyPaths.Remove(path);
                 else if (!storydata.nsfw && !remove) storyPaths.Remove(path);
             }
@@ -296,7 +303,7 @@ namespace SajberSim.Helper
             if (searchTerm == "nsfw") return FilterNSFWFromCardPaths(storyPaths, false);
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = GetManifest($"{path}/manifest.json");
+                Manifest storydata = Manifest.Get($"{path}/manifest.json");
 
                 if (!storydata.name.ToLower().Contains(searchTerm) && !storydata.tags.Contains(searchTerm) && !storydata.description.ToLower().Contains(searchTerm) && !storydata.author.ToLower().Contains(searchTerm) && !storydata.genre.ToLower().Contains(searchTerm))
                     storyPaths.Remove(path);
@@ -308,41 +315,48 @@ namespace SajberSim.Helper
         /// </summary>
         public static string[] FilterNonOwnedFromCardPaths(List<string> storyPaths)
         {
-            foreach(string path in storyPaths)
+            foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = GetManifest($"{path}/manifest.json");
-                if (storydata.author != SteamClient.Name) storyPaths.Remove(path);
+                Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                if (storydata != null)
+                {
+                    if (storydata.author != SteamClient.Name && storydata.authorid != $"{SteamClient.SteamId}") storyPaths.Remove(path);
+                }
+                else
+                    storyPaths.Remove(path);
+
+
             }
             return storyPaths.ToArray();
         }
-        public static string GetManifestPath(string storyID, StorySearchPaths where)
-        {
-            string dir;
-            switch (where)
-            {
-                case StorySearchPaths.Local:
-                    dir = localPath;
-                    break;
-                case StorySearchPaths.Workshop:
-                    if (loggedin) dir = steamPath;
-                    else dir = localPath;
-                    break;
-                case StorySearchPaths.Own:
-                    dir = customPath;
-                    break;
-                default:
-                    dir = localPath;
-                    break;
-            }
-            string path = $"{dir}/{storyID}";
-            if (File.Exists(path))
-                return path;
-            else
-            {
-                UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
-                return null;
-            }
-        }
+        //public static string GetManifestPath(string storyID, StorySearchPaths where)
+        //{
+        //    string dir;
+        //    switch (where)
+        //    {
+        //        case StorySearchPaths.Local:
+        //            dir = localPath;
+        //            break;
+        //        case StorySearchPaths.Workshop:
+        //            if (loggedin) dir = steamPath;
+        //            else dir = localPath;
+        //            break;
+        //        case StorySearchPaths.Own:
+        //            dir = customPath;
+        //            break;
+        //        default:
+        //            dir = localPath;
+        //            break;
+        //    }
+        //    string path = $"{dir}/{storyID}";
+        //    if (File.Exists(path))
+        //        return path;
+        //    else
+        //    {
+        //        UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
+        //        return null;
+        //    }
+        //}
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
@@ -356,18 +370,18 @@ namespace SajberSim.Helper
             return nameList.ToArray();
         }
         /// <summary>
-        /// Returns amount of pages needed for the preview card menu, in the correct order
+        /// Returns amount of pages needed for the preview card menu
         /// </summary>
         public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
             if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             int length = GetAllManifests(args, nsfw, searchTerm, where).Length;
-
             if (length <= 6) return 0;
+            else if (length % 6 == 0) return length / 6 - 1;
             return (length - (length % 6)) / 6;
         }
         /// <summary>
-        /// Returns amount of cards that should be on the last page
+        /// Returns amount of cards that should be on the last page (indexed at 0)
         /// </summary>
         public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
@@ -375,23 +389,6 @@ namespace SajberSim.Helper
             int n = GetAllManifests(StorySearchArgs.ID, nsfw, searchTerm, where).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
-        }
-        public static Manifest GetManifest(string path)
-        {
-            if (!File.Exists(path))
-            {
-                UnityEngine.Debug.LogError($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
-                return null;
-            }
-            try
-            {
-                return JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(path));
-            }
-            catch
-            {
-                UnityEngine.Debug.LogError($"Helper/GetManifest: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
-                return null;
-            }
         }
         public static Manifest GetManifestFromName(string name, StorySearchPaths where = StorySearchPaths.Local)
         {
@@ -403,7 +400,7 @@ namespace SajberSim.Helper
                 UnityEngine.Debug.LogError($"Tried getting manifest for story {name} but search arguments were incorrect ({where}).");
                 return null;
             }
-            return GetManifest($"{path}{name}/manifest.json");
+            return Manifest.Get($"{path}{name}/manifest.json");
         }
         /// <summary>
         /// Returns amount of cards in total
