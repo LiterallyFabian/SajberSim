@@ -17,6 +17,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using SajberSim.Steam;
 using SajberSim.Colors;
+using SajberSim.CardMenu;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -129,13 +130,13 @@ public class StartStory : MonoBehaviour
     public void UpdatePreviewCards()
     {
         Debug.Log("Request to update cards");
-        string[] storyPaths = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
-        string[] manifests = Helper.GetAllManifests(sortArgs, nsfw, searchTerm, searchPath);
+        string[] storyPaths = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
+        string[] manifests = Manifest.GetAll(sortArgs, nsfw, searchTerm, searchPath);
         UpdateNoNovelNotice(storyPaths.Count());
         ClearPreviewCards();
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)+1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)+1}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = Manifest.Get(manifests[i]);
             if (storydata != null)
@@ -170,7 +171,7 @@ public class StartStory : MonoBehaviour
             obj.name = $"template";
             return obj;
         }
-        if (Helper.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
+        if (Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
         string name = data.name;
         string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
         string language = data.language.ToUpper();
@@ -225,7 +226,7 @@ public class StartStory : MonoBehaviour
     }
     private void CreateDetails(int n)
     {
-        string folderPath = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[n];
+        string folderPath = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[n];
         Manifest data = Manifest.Get($"{folderPath}/manifest.json");
 
         string name = data.name;
@@ -285,8 +286,8 @@ public class StartStory : MonoBehaviour
         }
         else
         {
-            story = Helper.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
-            path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
+            story = Stories.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
+            path = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         }
         Manifest data = Manifest.Get($"{path}/manifest.json");
         Helper.currentStoryPath = path;
@@ -305,13 +306,13 @@ public class StartStory : MonoBehaviour
     }
     public void OpenDetails(int id)
     {
-        string path = Helper.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
+        string path = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
         Debug.Log($"Attempting to create details of local story with ID {id}, path {path}");
         CreateDetails(id);
     }
     public void ChangePage(int change)
     {
-        int pages = Helper.GetCardPages(sortArgs, nsfw, searchTerm, searchPath);
+        int pages = Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath);
         if (pages == 0)
         {
             GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Animator>().Play("storycard_pageinfojump", 0, 0);

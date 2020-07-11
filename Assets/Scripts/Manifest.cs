@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SajberSim.CardMenu;
 using SajberSim.Colors;
 using SajberSim.Helper;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static SajberSim.Helper.Helper;
 
 /// <summary>
 /// Visual Novel manifest containing all metadata
@@ -46,6 +48,22 @@ public class Manifest
             UnityEngine.Debug.LogError($"Helper/GetManifest: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
             return null;
         }
+    }
+    /// <summary>
+    /// Returns paths to all story manifest files if they exist
+    /// </summary>
+    public static string[] GetAll(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
+    {
+        if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+        List<string> manifestPaths = new List<string>();
+        foreach (string story in Stories.GetAllStoryPaths(args, nsfw, searchTerm, where))
+        {
+            if (!File.Exists($"{story}/manifest.json"))
+                UnityEngine.Debug.LogError($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
+            else if (Manifest.Get($"{story}/manifest.json") != null)
+                manifestPaths.Add($"{story}/manifest.json");
+        }
+        return manifestPaths.ToArray();
     }
 }
 /// <summary>

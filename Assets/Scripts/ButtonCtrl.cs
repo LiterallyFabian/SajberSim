@@ -18,6 +18,7 @@ using SajberSim.Translation;
 using Steamworks;
 using Steamworks.Data;
 using SajberSim.Steam;
+using SajberSim.CardMenu;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -113,7 +114,7 @@ public class ButtonCtrl : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "menu")
         {
             List<string> charpaths = new List<string>();
-            foreach (string path in Helper.GetAllStoryAssetPaths("characters"))
+            foreach (string path in Stories.GetAllStoryAssetPaths("characters"))
             {
                 if (path.Contains("happy")) charpaths.Add(path);
             }
