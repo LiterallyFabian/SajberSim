@@ -11,15 +11,16 @@ namespace SajberSim.CardMenu
 {
     public class Stories
     {
-        public static string[] storyPaths;
+        private static string[] storyPaths;
+        //if the path list above needs to be updated or if it is up-to-date already
         public static bool pathUpdateNeeded = true;
+
         /// <summary>
         /// Returns paths to all story folders, eg app/Story/OpenHouse. Main method for most stuff here
         /// </summary>
         /// <param name="args">Search arguments</param>
         /// <param name="nsfw">Include NSFW</param>
         /// <returns>Array with paths to all local story folders</returns>
-
         public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
             if (!pathUpdateNeeded) return Stories.storyPaths;
@@ -64,6 +65,7 @@ namespace SajberSim.CardMenu
                 fixedPaths = FilterSearchFromCardPaths(fixedPaths.ToList(), searchTerm);
             if (where == StorySearchPaths.Own)
                 fixedPaths = FilterNonOwnedFromCardPaths(fixedPaths.ToList());
+            Stories.pathUpdateNeeded = false;
             Stories.storyPaths = fixedPaths;
             return fixedPaths;
         }

@@ -77,6 +77,7 @@ public class StartStory : MonoBehaviour
         searchPath = n ? Helper.StorySearchPaths.Own : Helper.StorySearchPaths.All;
         Debug.Log(n ? "Card menu changed to only show own novels" : "Card menu changed to show all novels");
         if (page != 0) ResetPage();
+        Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
     public void UserUpdateNsfw(bool n)
@@ -92,6 +93,7 @@ public class StartStory : MonoBehaviour
             nsfw = false;
             if(page != 0) ResetPage();
         }
+        Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
     public void UserUpdateSort(int n)
@@ -99,6 +101,7 @@ public class StartStory : MonoBehaviour
         sortArgs = (Helper.StorySearchArgs)n;
         Debug.Log($"Sorting arguments changed: {sortArgs}");
         PlayerPrefs.SetInt("sorting", n);
+        Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
     public void UserUpdateSearch(string search) //runs at lost focus or enter
@@ -106,6 +109,7 @@ public class StartStory : MonoBehaviour
         Debug.Log($"Search term changed: {search}");
         searchTerm = search;
         if (page != 0) ResetPage();
+        Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
     public void UserEditSearch(string search) //runs every single letter
@@ -114,6 +118,7 @@ public class StartStory : MonoBehaviour
         {
             Debug.Log($"Search term reset.");
             searchTerm = "";
+            Stories.pathUpdateNeeded = true;
             UpdatePreviewCards();
         }
     }
