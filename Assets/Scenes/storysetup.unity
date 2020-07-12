@@ -2444,7 +2444,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This scene is deprecated and will probably not be updated in the future.
+  m_Text: Hello, how did you find this? anyways, this will probably not be continued,
     F in the chat :(
 --- !u!222 &333645657
 CanvasRenderer:
