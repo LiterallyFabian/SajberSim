@@ -139,9 +139,10 @@ public class StartStory : MonoBehaviour
         string[] manifests = Manifest.GetAll(sortArgs, nsfw, searchTerm, searchPath);
         UpdateNoNovelNotice(storyPaths.Count());
         ClearPreviewCards();
+        int cardPages = Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath) + 1;
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath)+1}";
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = $"{Translate.Fields["page"]} {page + 1}/{cardPages}";
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = Manifest.Get(manifests[i]);
             if (storydata != null)
