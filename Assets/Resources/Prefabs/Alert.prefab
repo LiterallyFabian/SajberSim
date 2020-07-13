@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1455611699085097676}
   - component: {fileID: 6870490878302901184}
   m_Layer: 5
-  m_Name: Alert(Clone)
+  m_Name: Alert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 20
+    m_MinSize: 17
     m_MaxSize: 25
     m_Alignment: 1
     m_AlignByGeometry: 0
