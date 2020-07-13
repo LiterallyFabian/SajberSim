@@ -283,6 +283,21 @@ namespace SajberSim.Helper
         {
             return File.ReadAllBytes(fileName);
         }
+        public static string UwUTranslator(string text)
+        {
+            if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
+            else
+            {
+                text = text.Replace('l', 'w');
+                text = text.Replace('r', 'w');
+                text = text.Replace(" f", " f-f");
+                text = text.Replace('L', 'W');
+                text = text.Replace('R', 'W');
+                text = text.Replace(" F", " F-F");
+                if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
+            }
+            return text;
+        }
     }
 }
 /// <summary>

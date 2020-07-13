@@ -16,6 +16,8 @@ using System.Runtime.CompilerServices;
 using SajberSim.Steam;
 using SajberSim.Helper;
 using SajberSim.Colors;
+using UnityEditor.UIElements;
+using SajberSim.Translation;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -25,9 +27,17 @@ public class GameManager : MonoBehaviour
     public static bool textdone = false; // False if a text is currently writing out
     public static int dialoguepos = 0;
     public static float charactersize = 0.8f; // This is the size of game characters, not letters
+
+    //Textbox
     public GameObject textbox;
-    public GameObject alertbox;
     public GameObject portrait;
+    public Text comment; //The normal text
+    public Text nametag; //The nametag
+    public Text commentPort; //The normal text
+    public Text nametagPort; //The nametag
+
+    public GameObject alertbox;
+    
     public GameObject background;
     public GameObject music;
     public GameObject uwuwarning;
@@ -45,8 +55,7 @@ public class GameManager : MonoBehaviour
     public GameObject qbutton2;
     private bool settingsopen = false;
     public static bool paused = false;
-    public Text comment; //The normal text
-    public Text personname; //The nametag
+    
     public Text alert;
     public Text question;
     public Text alt1t;
@@ -59,28 +68,28 @@ public class GameManager : MonoBehaviour
     public Character[] people = ButtonCtrl.people;
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
-    Download dl;
+    public Download dl;
+    public Textbox Action_Textbox;
 
     public static string storyName;
     public static string storyAuthor;
-
-
+    public static string scriptPath;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        dl = new GameObject("downloadobj").AddComponent<Download>();
-        lang.NumberDecimalSeparator = "."; 
-
+        lang.NumberDecimalSeparator = ".";
         paused = false;
         dialoguepos = 0;
         ready = true;
         textdone = false;
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-
-        story = File.ReadAllLines($"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt");
+        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt";
+        if (File.Exists(scriptPath))
+        story = File.ReadAllLines(scriptPath);
+        
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
         UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
@@ -135,7 +144,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    void RunNext()
+    public void RunNext()
     {
         if (!ready) return;
 
@@ -150,22 +159,16 @@ public class GameManager : MonoBehaviour
 
         else if (line[0] == "t") //textbox
         {
-            Character talker = people[0];
-            if (int.TryParse(line[1], out int x))
-                talker = people[int.Parse(line[1])];
-            else
-                talker = new Character(line[1], "", 0);
-
-            string text = FillVars(line[2]);
-            UnityEngine.Debug.Log($"{talker.name} says: {text}");
-            co = StartCoroutine(SpawnTextBox(talker, UwUTranslator(text)));
             dialoguepos++;
+            Action_Textbox.Run(line);
+            
+            
         }
         else if (line[0] == "alert") //general box
         {
             string text = FillVars(line[1]);
             Debug.Log($"Alert: {text}");
-            StartCoroutine(SpawnAlert(UwUTranslator(text)));
+            StartCoroutine(SpawnAlert(Helper.UwUTranslator(text)));
         }
         else if (line[0] == "bg") //new background
         {
@@ -300,33 +303,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Text
-    private IEnumerator SpawnTextBox(Character talker, string target) //ID 0
-    {
-        textdone = false;
-        textbox.SetActive(true);
-        dl.Image(portrait, $"file://{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png");
-        personname.text = talker.name;
-
-        if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
-        {
-            string written = target[0].ToString(); //written = det som står hittills
-
-            for (int i = 1; i < target.Length; i++)
-            {
-                written = written + target[i];
-                yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
-                if (textdone) //avbryt och skriv hela
-                {
-                    comment.text = target;
-                    textdone = true;
-                    break;
-                }
-                comment.text = written;
-            }
-        }
-        comment.text = target;
-        textdone = true;
-    }
+    
 
     private IEnumerator SpawnAlert(string target) //ID 0
     {
@@ -349,22 +326,7 @@ public class GameManager : MonoBehaviour
         alert.text = target;
         textdone = true;
     }
-    private string UwUTranslator(string text)
-    {
-        if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
-        else
-        {
-            text = text.Replace('l', 'w');
-            text = text.Replace('r', 'w');
-            text = text.Replace(" f", " f-f");
-            text = text.Replace('L', 'W');
-            text = text.Replace('R', 'W');
-            text = text.Replace(" F", " F-F");
-            if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
-        }
-        return text;
-    }
-    private string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
+    public string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
 
@@ -384,7 +346,10 @@ public class GameManager : MonoBehaviour
     }
     private void ClearText()
     {
+        commentPort.text = "";
         comment.text = "";
+        nametag.text = "";
+        nametagPort.text = "";
         alert.text = "";
         question.text = "";
         alt1t.text = "";
@@ -467,9 +432,11 @@ public class GameManager : MonoBehaviour
         string path = $"{Helper.currentStoryPath}/Dialogues/{storyx}.txt";
         if (!File.Exists(path))
         {
+            Helper.Alert(string.Format(Translate.Get("invalidstory"), path));
             Debug.LogError($"Visual Novel: Tried to start non-existing story: {path}");
             return;
         }
+        scriptPath = path;
         Debug.Log($"New story loaded: {storyx}");
         PlayerPrefs.SetString("script", storyx);
         StartCoroutine(SaveInfo());
