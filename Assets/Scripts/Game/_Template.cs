@@ -12,7 +12,11 @@ public class _Template : MonoBehaviour
     public GameManager Game;
     public void Run(string[] line)
     {
-
+        if (Working(line) != "")
+        {
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line)));
+            return;
+        }
     }
     public string Working(string[] line)
     {

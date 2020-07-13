@@ -42,7 +42,7 @@ public class Manifest
     {
         if (!File.Exists(path))
         {
-            UnityEngine.Debug.LogError($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
+            UnityEngine.Debug.LogWarning($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
             return null;
         }
         try
