@@ -9,14 +9,13 @@ using UnityEngine.UI;
 
 public class Textbox : MonoBehaviour
 {
-    public GameManager Game;
     Text textobj;
     Text nameobj;
+    public GameManager Game;
     public void Start()
     {
         Text textObj = Game.commentPort;
         Text nameObj = Game.nametagPort;
-        Game = GameObject.Find("GameManagerObj").GetComponent<GameManager>();
     }
 
     public void Run(string[] line)
@@ -24,7 +23,7 @@ public class Textbox : MonoBehaviour
         GameManager.textdone = false;
         if (Working(line) != "")
         {
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line)));
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line), "T|person|text|(showportrait)"));
             GameManager.textdone = true;
             return;
         }

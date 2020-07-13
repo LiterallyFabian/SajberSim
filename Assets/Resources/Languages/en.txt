@@ -85,7 +85,7 @@ hassteam=Has Steam icon: {0}
 hascredits=Has credits: {0}
 
 #Debug
-erroratline=An error occurred at line {0} in the script {1}.\n\n<b>Line:</b> {2}\n\n<b>Result from debugger:</b> {3}
+erroratline=An error occurred at line {0} in the script {1}.\n\n<b>Line:</b> {2}\n\n<b>Result from debugger:</b> {3}\n\n<b>Correct syntax:</b> {4}
 invalidstory=An error occurred: Tried to start non-existing story:\n{0}.\n\nIf you are the creator of this novel, make sure no typos are involved.
 
 #Settings
