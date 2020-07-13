@@ -12,9 +12,11 @@ public class _Template : MonoBehaviour
     public GameManager Game;
     public void Run(string[] line)
     {
-        if (Working(line) != "")
+        string status = Working(line);
+        if (status != "")
         {
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line)));
+            UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "syntax"));
             return;
         }
     }

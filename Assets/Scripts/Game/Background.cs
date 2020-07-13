@@ -13,9 +13,11 @@ public class Background : MonoBehaviour
     public GameManager Game;
     public void Run(string[] line)
     {
-        if (Working(line) != "")
+        string status = Working(line);
+        if (status != "")
         {
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line), "BG|name|(clearcharacters)"));
+            UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "BG|name|(clearcharacters)"));
             Game.RunNext();
             return;
         }

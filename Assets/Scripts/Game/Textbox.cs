@@ -21,9 +21,11 @@ public class Textbox : MonoBehaviour
     public void Run(string[] line)
     {
         GameManager.textdone = false;
-        if (Working(line) != "")
+        string status = Working(line);
+        if (status != "")
         {
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), Working(line), "T|person|text|(showportrait)"));
+            UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "T|person|text|(showportrait)"));
             GameManager.textdone = true;
             return;
         }
