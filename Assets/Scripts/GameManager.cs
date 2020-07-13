@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     NumberFormatInfo lang = new NumberFormatInfo();
     public Download dl;
     public Textbox Action_Textbox;
+    public Alert Action_Alert;
 
     public static string storyName;
     public static string storyAuthor;
@@ -166,9 +167,8 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "alert") //general box
         {
-            string text = FillVars(line[1]);
-            Debug.Log($"Alert: {text}");
-            StartCoroutine(SpawnAlert(Helper.UwUTranslator(text)));
+            dialoguepos++;
+            Action_Alert.Run(line);
         }
         else if (line[0] == "bg") //new background
         {
@@ -304,28 +304,6 @@ public class GameManager : MonoBehaviour
 
     #region Text
     
-
-    private IEnumerator SpawnAlert(string target) //ID 0
-    {
-        textdone = false;
-        alertbox.SetActive(true);
-        string written = target[0].ToString(); //written = det som står hittills
-
-        for (int i = 1; i < target.Length; i++)
-        {
-            written = written + target[i];
-            yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
-            if (textdone) //avbryt och skriv hela
-            {
-                alert.text = target;
-                textdone = true;
-                break;
-            }
-            alert.text = written;
-        }
-        alert.text = target;
-        textdone = true;
-    }
     public string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group

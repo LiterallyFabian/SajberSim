@@ -1694,6 +1694,7 @@ MonoBehaviour:
   musicplaying: 
   dl: {fileID: 1603576964}
   Action_Textbox: {fileID: 1603576965}
+  Action_Alert: {fileID: 1603576966}
 --- !u!4 &422655721
 Transform:
   m_ObjectHideFlags: 0
@@ -2089,7 +2090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &553735959
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4885,8 +4886,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1603576963}
   - component: {fileID: 1603576962}
-  - component: {fileID: 1603576965}
   - component: {fileID: 1603576964}
+  - component: {fileID: 1603576965}
+  - component: {fileID: 1603576966}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -4942,6 +4944,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5eef1b847457e844f9785d8ece19b388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Game: {fileID: 422655720}
+--- !u!114 &1603576966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603576961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9240acca3e6d94ba2d5c83107e4523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Game: {fileID: 422655720}
