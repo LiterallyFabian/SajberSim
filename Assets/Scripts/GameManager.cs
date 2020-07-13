@@ -16,7 +16,6 @@ using System.Runtime.CompilerServices;
 using SajberSim.Steam;
 using SajberSim.Helper;
 using SajberSim.Colors;
-using UnityEditor.UIElements;
 using SajberSim.Translation;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
