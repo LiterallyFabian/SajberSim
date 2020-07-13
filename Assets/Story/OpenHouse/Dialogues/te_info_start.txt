@@ -1,4 +1,4 @@
-BG|matsal|x
+BG|matsal|true
 PLAYMUSIC|ambient corp
 CHAR|0|happy|-4.14|-0.17|-1
 T|0|Välkommen till Teknik: Informations- och mediateknik!

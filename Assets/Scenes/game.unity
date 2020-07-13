@@ -1695,6 +1695,7 @@ MonoBehaviour:
   dl: {fileID: 1603576964}
   Action_Textbox: {fileID: 1603576965}
   Action_Alert: {fileID: 1603576966}
+  Action_Background: {fileID: 1603576967}
 --- !u!4 &422655721
 Transform:
   m_ObjectHideFlags: 0
@@ -4889,6 +4890,7 @@ GameObject:
   - component: {fileID: 1603576964}
   - component: {fileID: 1603576965}
   - component: {fileID: 1603576966}
+  - component: {fileID: 1603576967}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -4957,6 +4959,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c9240acca3e6d94ba2d5c83107e4523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Game: {fileID: 422655720}
+--- !u!114 &1603576967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603576961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3939eac620b7c854e9f469c3b9490e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Game: {fileID: 422655720}

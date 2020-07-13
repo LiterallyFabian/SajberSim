@@ -68,13 +68,16 @@ public class GameManager : MonoBehaviour
     public Character[] people = ButtonCtrl.people;
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
+
     public Download dl;
     public Textbox Action_Textbox;
     public Alert Action_Alert;
+    public Background Action_Background;
 
     public static string storyName;
     public static string storyAuthor;
     public static string scriptPath;
+    public static string shortScriptPath;
 
 
     // Start is called before the first frame update
@@ -90,7 +93,9 @@ public class GameManager : MonoBehaviour
         scriptPath = $"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt";
         if (File.Exists(scriptPath))
         story = File.ReadAllLines(scriptPath);
-        
+        shortScriptPath = new DirectoryInfo(Helper.currentStoryPath).Name;
+
+
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
 
         UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
@@ -162,8 +167,6 @@ public class GameManager : MonoBehaviour
         {
             dialoguepos++;
             Action_Textbox.Run(line);
-            
-            
         }
         else if (line[0] == "alert") //general box
         {
@@ -172,9 +175,8 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "bg") //new background
         {
-            if (line.Length > 2) RemoveCharacters();
             dialoguepos++;
-            ChangeBackground(line[1]);
+            Action_Background.Run(line);
         }
         else if (line[0] == "char") //move or create character
         {
@@ -398,13 +400,6 @@ public class GameManager : MonoBehaviour
         ready = true;
         RunNext();
     }
-
-    private void ChangeBackground(string bg) //ID 1
-    {
-        dl.Image(background, $"file://{Helper.currentStoryPath}/Backgrounds/{bg}.png");
-        RunNext();
-    }
-
     public void LoadScript(string storyx)
     {
         string path = $"{Helper.currentStoryPath}/Dialogues/{storyx}.txt";

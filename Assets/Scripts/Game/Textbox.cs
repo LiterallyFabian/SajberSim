@@ -42,13 +42,13 @@ public class Textbox : MonoBehaviour
 
     public string Working(string[] line)
     {
-        if (line.Length > 4 || line.Length < 3) return $"The length of the line is {line.Length}, while it should be 3 or 4.";
+        if (line.Length > 4 || line.Length < 3) return $"The length of the line is {line.Length}, while the expected is 3 or 4.";
         return "";
     }
     public IEnumerator SpawnTextBox(Character talker, string target, bool port) //ID 0
     {
         ChangeTextboxType(port);
-        Download dl = new GameObject("downloadobj").AddComponent<Download>();
+        Download dl = GameObject.Find("Helper").GetComponent<Download>();
         Game.textbox.SetActive(true);
         dl.Image(Game.portrait, $"file://{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png");
         nameobj.text = talker.name;
@@ -72,7 +72,6 @@ public class Textbox : MonoBehaviour
         }
         textobj.text = target;
         GameManager.textdone = true;
-        Destroy(dl.gameObject);
     }
     private void ChangeTextboxType(bool portrait)
     {
