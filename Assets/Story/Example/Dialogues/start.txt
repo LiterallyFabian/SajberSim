@@ -1,7 +1,9 @@
 BG|main
 PLAYMUSIC|takeyourpick
 CHAR|Lumi|neutral|3.36|-0.17|1
-T|Lumi|Välkommen till SajberSim, och CyberGymnasiets virtuella öppna hus!
-T|Lumi|När detta spel är klart inför hösten kommer du kunna få reda på information om skolan, alla program och mycket mer!
-T|Lumi|Ifall du är en ambassadör som laddat ner spelet och vill hjälpa till med något kan du kontakta fabian.lindgren@elev.cybergymnasiet.se :)
-LOADSTORY|intro
+T|Lumi|Hello, and welcome to the SajberSim tutorial novel!
+T|Lumi|In this example novel we are going to demonstrate the most important features in SajberSim, showing you what we have to offer.
+T|Lumi|If you want to start creating right away and are only interested in the scripting language, head over to the Steam guide you can find in the story creation menu.
+CHAR|Lumi|happy
+T|Lumi|Let's get started with the demo!
+LOADSTORY|lines_notice
