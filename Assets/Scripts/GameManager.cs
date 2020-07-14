@@ -35,43 +35,53 @@ public class GameManager : MonoBehaviour
     public Text commentPort; //The normal text
     public Text nametagPort; //The nametag
 
+    //Alert
     public GameObject alertbox;
-    
+    public Text alert;
+
+    //UI
     public GameObject background;
     public GameObject music;
     public GameObject uwuwarning;
-    public GameObject questionbox;
     public GameObject fadeimage;
     public GameObject saveinfo;
     public GameObject SFX;
     public GameObject pausemenu;
+    public GameObject SettingsMenu;
+
+    //Dropdown
+    public Text dropdownQ;
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
     public GameObject dropdownItemBackground;
     public GameObject dropdownBackground;
-    public GameObject SettingsMenu;
+
+    //Question
+    public GameObject questionbox;
     public GameObject qbutton1;
     public GameObject qbutton2;
-    private bool settingsopen = false;
-    public static bool paused = false;
-    
-    public Text alert;
     public Text question;
     public Text alt1t;
     public Text alt2t;
-    public Text dropdownQ;
     public string story1;
     public string story2;
+
+    private bool settingsopen = false;
+    public static bool paused = false;
+    
     public static string[] story;
     public Coroutine co;
-    public Character[] people = ButtonCtrl.people;
+    public Person[] people = ButtonCtrl.people;
     public string musicplaying = "none";
     NumberFormatInfo lang = new NumberFormatInfo();
 
-    public Download dl;
-    public Textbox Action_Textbox;
-    public Alert Action_Alert;
-    public Background Action_Background;
+    #region Classes
+    public GameObject HelperObj;
+    private Download dl;
+    private Alert Action_Alert;
+    private Background Action_Background;
+    private Textbox Action_Textbox;
+    #endregion
 
     public static string storyName;
     public static string storyAuthor;
@@ -79,9 +89,19 @@ public class GameManager : MonoBehaviour
     public static string shortScriptPath;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void SetActionClasses()
     {
+        dl = HelperObj.AddComponent<Download>();
+        Action_Alert = HelperObj.AddComponent<Alert>();
+        Action_Alert.Game = this.GetComponent<GameManager>();
+        Action_Background = HelperObj.AddComponent<Background>();
+        Action_Background.Game = this.GetComponent<GameManager>();
+        Action_Textbox = HelperObj.AddComponent<Textbox>();
+        Action_Textbox.Game = this.GetComponent<GameManager>();
+    }
+    private void Start()
+    {
+        SetActionClasses();
         lang.NumberDecimalSeparator = ".";
         paused = false;
         dialoguepos = 0;
@@ -103,7 +123,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1)) //toggles debug stuff
         {

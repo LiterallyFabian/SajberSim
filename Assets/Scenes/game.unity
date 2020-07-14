@@ -1668,34 +1668,31 @@ MonoBehaviour:
   commentPort: {fileID: 1581312854}
   nametagPort: {fileID: 815056377}
   alertbox: {fileID: 1655645837}
+  alert: {fileID: 176187048}
   background: {fileID: 129074069}
   music: {fileID: 837362668}
   uwuwarning: {fileID: 912574182}
-  questionbox: {fileID: 1854069909}
   fadeimage: {fileID: 400989036}
   saveinfo: {fileID: 1547354982}
   SFX: {fileID: 724218706}
   pausemenu: {fileID: 1883442097}
+  SettingsMenu: {fileID: 502484250491994824, guid: d6eec46110c52b141aa80b012ff05892,
+    type: 3}
+  dropdownQ: {fileID: 1343774802}
   dropdownObject: {fileID: 232211442}
   dropdownMenu: {fileID: 1190060698}
   dropdownItemBackground: {fileID: 728561566}
   dropdownBackground: {fileID: 1923269935}
-  SettingsMenu: {fileID: 502484250491994824, guid: d6eec46110c52b141aa80b012ff05892,
-    type: 3}
+  questionbox: {fileID: 1854069909}
   qbutton1: {fileID: 541432771}
   qbutton2: {fileID: 2002440154}
-  alert: {fileID: 176187048}
   question: {fileID: 1724962229}
   alt1t: {fileID: 1472527520}
   alt2t: {fileID: 19070919}
-  dropdownQ: {fileID: 1343774802}
   story1: 
   story2: 
   musicplaying: 
-  dl: {fileID: 1603576964}
-  Action_Textbox: {fileID: 1603576965}
-  Action_Alert: {fileID: 1603576966}
-  Action_Background: {fileID: 1603576967}
+  HelperObj: {fileID: 1603576961}
 --- !u!4 &422655721
 Transform:
   m_ObjectHideFlags: 0
@@ -4887,10 +4884,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1603576963}
   - component: {fileID: 1603576962}
-  - component: {fileID: 1603576964}
-  - component: {fileID: 1603576965}
-  - component: {fileID: 1603576966}
-  - component: {fileID: 1603576967}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -4924,57 +4917,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1603576964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603576961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11fb3a6de7091cc4ca3ee3c5559e599f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1603576965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603576961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eef1b847457e844f9785d8ece19b388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Game: {fileID: 422655720}
---- !u!114 &1603576966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603576961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c9240acca3e6d94ba2d5c83107e4523, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Game: {fileID: 422655720}
---- !u!114 &1603576967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603576961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3939eac620b7c854e9f469c3b9490e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Game: {fileID: 422655720}
 --- !u!1 &1655645837
 GameObject:
   m_ObjectHideFlags: 0

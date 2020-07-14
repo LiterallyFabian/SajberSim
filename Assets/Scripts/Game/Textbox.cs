@@ -29,11 +29,11 @@ public class Textbox : MonoBehaviour
             GameManager.textdone = true;
             return;
         }
-        Character talker;
+        Person talker;
         if (int.TryParse(line[1], out int x))
             talker = Game.people[int.Parse(line[1])];
         else
-            talker = new Character(line[1], "", 0);
+            talker = new Person(line[1], "", 0);
         string text = Game.FillVars(line[2]);
 
         bool port = true;
@@ -47,7 +47,7 @@ public class Textbox : MonoBehaviour
         if (line.Length > 4 || line.Length < 3) return $"The length of the line is {line.Length}, while the expected is 3 or 4.";
         return "";
     }
-    public IEnumerator SpawnTextBox(Character talker, string target, bool port) //ID 0
+    public IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
     {
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();

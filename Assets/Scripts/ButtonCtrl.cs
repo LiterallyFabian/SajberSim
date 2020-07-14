@@ -35,7 +35,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject SettingsMenu;
     public Button DebugButton;
     public GameObject BehindSettings;
-    public static Character[] people = new Character[4];
+    public static Person[] people = new Person[4];
     public GameObject fadeimage;
     public AudioSource music;
     public static string charpath;
@@ -170,11 +170,11 @@ public class ButtonCtrl : MonoBehaviour
         if (!File.Exists(configPath)) return;
         string[] config = File.ReadAllLines(configPath);
 
-        people = new Character[config.Length]; //change size to amount of ppl
+        people = new Person[config.Length]; //change size to amount of ppl
         PlayerPrefs.SetInt("characters", config.Length); //amount of characters
 
         for (int i = 0; i < config.Length; i++) //fill array from file
-            people[i] = new Character(config[i].Split(',')[0], config[i].Split(',')[1], i);
+            people[i] = new Person(config[i].Split(',')[0], config[i].Split(',')[1], i);
 
         people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
 
@@ -186,12 +186,12 @@ public class ButtonCtrl : MonoBehaviour
         string path = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
         if (!File.Exists(path)) return;
         string[] config = File.ReadAllLines(path);
-        people = new Character[PlayerPrefs.GetInt("characters", 1)];
+        people = new Person[PlayerPrefs.GetInt("characters", 1)];
 
         for (int i = 0; i < people.Length; i++) //fill array from save
         {
             int tempID = PlayerPrefs.GetInt($"character{i}", 0);
-            people[i] = new Character(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
+            people[i] = new Person(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
         }
     }
     public void Continue() //just opens everything SAVED
