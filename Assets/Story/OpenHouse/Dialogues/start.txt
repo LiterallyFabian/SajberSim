@@ -2,7 +2,7 @@
 
 BG|main
 PLAYMUSIC|takeyourpick
-CHAR|Lumi|neutral|3.36|-0.17|1
+CHAR|Lumi|neutral|3.36|-0.17|1|true
 T|Lumi|Välkommen till SajberSim, och CyberGymnasiets virtuella öppna hus!
 ALERT|Hey
 T|Lumi|När detta spel är klart inför hösten kommer du kunna få reda på information om skolan, alla program och mycket mer!
