@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     public Coroutine co;
     public Person[] people = ButtonCtrl.people;
     public string musicplaying = "none";
-    NumberFormatInfo lang = new NumberFormatInfo();
+    public NumberFormatInfo lang = new NumberFormatInfo();
 
     #region Classes
     public GameObject HelperObj;
@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     private Alert Action_Alert;
     private Background Action_Background;
     private Textbox Action_Textbox;
+    public Character Action_Character;
     #endregion
 
     public static string storyName;
@@ -98,6 +99,8 @@ public class GameManager : MonoBehaviour
         Action_Background.Game = this.GetComponent<GameManager>();
         Action_Textbox = HelperObj.AddComponent<Textbox>();
         Action_Textbox.Game = this.GetComponent<GameManager>();
+        Action_Character = HelperObj.AddComponent<Character>();
+        Action_Character.Game = this.GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -199,16 +202,8 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "char") //move or create character
         {
-            string name = "";
-            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
-            else name = line[1];
-
-            string mood = line[2];
-            float x = (float)Convert.ToDouble(line[3], lang);
-            float y = (float)Convert.ToDouble(line[4], lang);
-            int align = int.Parse(line[5]);
             dialoguepos++;
-            CreateCharacter(name.ToLower(), mood, x, y, align);
+            Action_Character.Run(line);
         }
         else if (line[0] == "del") //delete character
         {
@@ -284,32 +279,7 @@ public class GameManager : MonoBehaviour
 
 
     #region Characters
-    private void CreateCharacter(string name, string mood, float x, float y, int align) //ID 2
-    {
-        if (GameObject.Find(name) == null) //karaktär finns ej
-        {
-            //skapa gameobj
-            GameObject character = new GameObject(name);
-            character.gameObject.tag = "character";
-            character.AddComponent<SpriteRenderer>();
-            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
 
-            //sätt size + pos
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charactersize * align, charactersize, 0.6f);
-        }
-        else //karaktär finns
-        {
-            //ändra pos
-            GameObject character = GameObject.Find(name);
-            character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(charactersize * align, charactersize, 0.6f);
-
-            //ändra mood
-            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
-        }
-        RunNext();
-    }
     public static void RemoveCharacters() //used in setup too
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
