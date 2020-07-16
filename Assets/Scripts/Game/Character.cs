@@ -12,10 +12,9 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     public GameManager Game;
-    public Download dl;
+
     public void Run(string[] line)
     {
-        dl = GameObject.Find("Helper").GetComponent<Download>();
         string status = Working(line);
         if (status != "")
         {
@@ -62,7 +61,7 @@ public class Character : MonoBehaviour
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
-            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
+            Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -76,7 +75,7 @@ public class Character : MonoBehaviour
             character.transform.localScale = new Vector3(size * (flip ? 1 : -1), size, 0.6f);
 
             //ändra mood
-            dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
+            Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
         }
     }
 }
