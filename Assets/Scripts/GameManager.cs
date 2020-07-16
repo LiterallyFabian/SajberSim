@@ -17,6 +17,7 @@ using SajberSim.Steam;
 using SajberSim.Helper;
 using SajberSim.Colors;
 using SajberSim.Translation;
+using System.Reflection;
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     #region Classes
     public GameObject HelperObj;
-    private Download dl;
+    public Download dl;
     private Alert Action_Alert;
     private Background Action_Background;
     private Textbox Action_Textbox;
@@ -90,20 +91,26 @@ public class GameManager : MonoBehaviour
     public static string scriptPath;
     public static string shortScriptPath;
 
+    public interface INovelAction
+    {
+        void Run(string[] line);
+        string Working(string[] line);
+    }
 
     private void SetActionClasses()
     {
         dl = HelperObj.AddComponent<Download>();
         Action_Alert = HelperObj.AddComponent<Alert>();
-        Action_Alert.Game = this.GetComponent<GameManager>();
         Action_Background = HelperObj.AddComponent<Background>();
-        Action_Background.Game = this.GetComponent<GameManager>();
         Action_Textbox = HelperObj.AddComponent<Textbox>();
-        Action_Textbox.Game = this.GetComponent<GameManager>();
         Action_Character = HelperObj.AddComponent<Character>();
-        Action_Character.Game = this.GetComponent<GameManager>();
         Action_DelCharacter = HelperObj.AddComponent<DelCharacter>();
-        Action_DelCharacter.Game = this.GetComponent<GameManager>();
+
+        Action_Alert.Game = GetComponent<GameManager>();
+        Action_Background.Game = GetComponent<GameManager>();
+        Action_Textbox.Game = GetComponent<GameManager>();
+        Action_Character.Game = GetComponent<GameManager>();
+        Action_DelCharacter.Game = GetComponent<GameManager>();
     }
     private void Start()
     {

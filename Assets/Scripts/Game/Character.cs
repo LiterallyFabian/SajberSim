@@ -9,7 +9,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, GameManager.INovelAction
 {
     public GameManager Game;
 

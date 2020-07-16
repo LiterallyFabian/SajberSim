@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class _Template : MonoBehaviour
+public class _Template : MonoBehaviour, GameManager.INovelAction
 {
     public GameManager Game;
     public void Run(string[] line)

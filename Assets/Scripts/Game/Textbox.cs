@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Textbox : MonoBehaviour
+public class Textbox : MonoBehaviour, GameManager.INovelAction
 {
     Text textobj;
     Text nameobj;

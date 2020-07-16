@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DelCharacter : MonoBehaviour
+public class DelCharacter : MonoBehaviour, GameManager.INovelAction
 {
     public GameManager Game;
 

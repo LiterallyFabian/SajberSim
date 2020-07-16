@@ -8,7 +8,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Background : MonoBehaviour
+public class Background : MonoBehaviour, GameManager.INovelAction
 {
     public GameManager Game;
     public void Run(string[] line)
