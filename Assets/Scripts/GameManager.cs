@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     private Alert Action_Alert;
     private Background Action_Background;
     private Textbox Action_Textbox;
-    public Character Action_Character;
+    private Character Action_Character;
     #endregion
 
     public static string storyName;
