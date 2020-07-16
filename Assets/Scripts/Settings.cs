@@ -28,10 +28,10 @@ public class Settings : MonoBehaviour
 
         
         transform.Find("Speed/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
-        transform.Find("Volume/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f) * 100)}%";
+        transform.Find("Volume/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 0.5f) * 100)}%";
 
         transform.Find("Speed/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("delay", 0.04f));
-        transform.Find("Volume/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 1f));
+        transform.Find("Volume/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 0.5f));
 
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1)
@@ -49,8 +49,8 @@ public class Settings : MonoBehaviour
     public void ChangeVolume(float newVolume)
     {
         PlayerPrefs.SetFloat("volume", newVolume);
-        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        transform.Find("Volume/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 1f) * 100)}%";
+        AudioListener.volume = PlayerPrefs.GetFloat("volume", 0.4f);
+        transform.Find("Volume/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 0.4f) * 100)}%";
     }
     public void UwUToggle(bool uwu)
     {
