@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     private Background Action_Background;
     private Textbox Action_Textbox;
     private Character Action_Character;
+    private DelCharacter Action_DelCharacter;
     #endregion
 
     public static string storyName;
@@ -101,6 +102,8 @@ public class GameManager : MonoBehaviour
         Action_Textbox.Game = this.GetComponent<GameManager>();
         Action_Character = HelperObj.AddComponent<Character>();
         Action_Character.Game = this.GetComponent<GameManager>();
+        Action_DelCharacter = HelperObj.AddComponent<DelCharacter>();
+        Action_DelCharacter.Game = this.GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -207,12 +210,8 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "del") //delete character
         {
-            string name = "";
-            if (int.TryParse(line[1], out int xd)) name = people[int.Parse(line[1])].name; //ID if possible, else name
-            else name = line[1];
             dialoguepos++;
-            Destroy(UnityEngine.GameObject.Find(name.ToLower()));
-            RunNext();
+            Action_DelCharacter.Run(line);
         }
         else if (line[0] == "question") //question
         {
