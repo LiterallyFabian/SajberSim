@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
             if(PlayerPrefs.GetInt("devmenu", 0) == 0)
             {
                 PlayerPrefs.SetInt("devmenu", 1);
-                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one; // might be a dumb approach but can't use .SetActive together with .Find
+                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
             }
             else
             {
