@@ -9,14 +9,9 @@ using UnityEngine.UI;
 
 public class Textbox : MonoBehaviour, GameManager.INovelAction
 {
-    Text textobj;
-    Text nameobj;
+    private Text textobj;
+    private Text nameobj;
     public GameManager Game;
-    public void Start()
-    {
-        Text textObj = Game.commentPort;
-        Text nameObj = Game.nametagPort;
-    }
 
     public void Run(string[] line)
     {
