@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     private Textbox Action_Textbox;
     private Character Action_Character;
     private DelCharacter Action_DelCharacter;
+    private Question Action_Question;
     #endregion
 
     public static string storyName;
@@ -114,12 +115,14 @@ public class GameManager : MonoBehaviour
         Action_Textbox = HelperObj.AddComponent<Textbox>();
         Action_Character = HelperObj.AddComponent<Character>();
         Action_DelCharacter = HelperObj.AddComponent<DelCharacter>();
+        Action_Question = HelperObj.AddComponent<Question>();
 
         Action_Alert.Game = GetComponent<GameManager>();
         Action_Background.Game = GetComponent<GameManager>();
         Action_Textbox.Game = GetComponent<GameManager>();
         Action_Character.Game = GetComponent<GameManager>();
         Action_DelCharacter.Game = GetComponent<GameManager>();
+        Action_Question.Game = GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -234,19 +237,7 @@ public class GameManager : MonoBehaviour
         {
             fadeimage.SetActive(false);
             ready = false;
-            if (line.Length == 6) //Normal 2 alt questions
-            {
-                string quest = line[1];
-                string alt1 = line[2];
-                story1 = line[3];
-                string alt2 = line[4];
-                story2 = line[5];
-                OpenQuestion(quest, alt1, alt2);
-            }
-            else //More questions - dropdown menu
-            {
-                OpenQuestionDD(line);
-            }
+            Action_Question.Run(line);
         }
         else if (line[0] == "loadstory") //open new story (no question)
         {
@@ -345,14 +336,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Questions
-    private void OpenQuestion(string text, string alt1, string alt2)
-    {
-        textdone = false;
-        questionbox.SetActive(true);
-        question.text = text;
-        alt1t.text = alt1;
-        alt2t.text = alt2;
-    }
     public void AnswerQuestion(int id)
     {
         Stats.Add(Stats.List.decisionsmade);
@@ -363,19 +346,6 @@ public class GameManager : MonoBehaviour
             Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
         #endregion openhouse
         questionbox.SetActive(false);
-    }
-    private void OpenQuestionDD(string[] line) 
-    {
-        dropdownObject.GetComponent<Dropdown>().ClearOptions();
-        dropdownObject.GetComponent<Dropdown>().AddOptions(new List<string> {" "}); //adds preselected blank
-        List<string> options = new List<string>();
-        for (int i = 2; i < line.Length; i += 2) 
-        {
-            options.Add(line[i]);
-        }
-        dropdownQ.text = line[1];
-        dropdownObject.GetComponent<Dropdown>().AddOptions(options);
-        dropdownMenu.SetActive(true);
     }
     public void AnswerQuestionDD(int select)
     {
