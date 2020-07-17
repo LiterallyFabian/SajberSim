@@ -132,12 +132,12 @@ public class ButtonCtrl : MonoBehaviour
     
     public void StartNew() //Just checks if a new story should be started
     {
-        if (PlayerPrefs.GetString("story", "none") != "none")
-        {
-            //story found
-            OverwriteAlert.transform.localScale = Vector3.one;
-        }
-        else
+        //if (PlayerPrefs.GetString("story", "none") != "none")
+        //{
+        //    //story found
+        //    OverwriteAlert.transform.localScale = Vector3.one;
+        //}
+        //else
             StartNewConfirmed();
     }
 
