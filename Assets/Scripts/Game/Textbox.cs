@@ -42,7 +42,7 @@ public class Textbox : MonoBehaviour, GameManager.INovelAction
         if (line.Length > 4 || line.Length < 3) return $"The length of the line is {line.Length}, while the expected is 3 or 4.";
         return "";
     }
-    public IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
+    private IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
     {
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();
