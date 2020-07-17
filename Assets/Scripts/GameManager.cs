@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     private Character Action_Character;
     private DelCharacter Action_DelCharacter;
     private Question Action_Question;
+    private LoadScript Action_LoadScript;
     #endregion
 
     public static string storyName;
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         Action_Character = HelperObj.AddComponent<Character>();
         Action_DelCharacter = HelperObj.AddComponent<DelCharacter>();
         Action_Question = HelperObj.AddComponent<Question>();
+        Action_LoadScript = HelperObj.AddComponent<LoadScript>();
 
         Action_Alert.Game = GetComponent<GameManager>();
         Action_Background.Game = GetComponent<GameManager>();
@@ -123,6 +125,7 @@ public class GameManager : MonoBehaviour
         Action_Character.Game = GetComponent<GameManager>();
         Action_DelCharacter.Game = GetComponent<GameManager>();
         Action_Question.Game = GetComponent<GameManager>();
+        Action_LoadScript.Game = GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -241,9 +244,7 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "loadstory") //open new story (no question)
         {
-            LoadScript(line[1]);
-            if (line.Length > 2)
-                RemoveCharacters();
+            Action_LoadScript.Run(line);
         }
         else if (line[0] == "openscene") //delay
         {
@@ -340,7 +341,7 @@ public class GameManager : MonoBehaviour
     {
         Stats.Add(Stats.List.decisionsmade);
         string[] stories = { story1, story2 };
-        LoadScript(stories[id - 1]);
+        Action_LoadScript.Load(stories[id - 1]);
         #region openhouse
         if (Helper.currentStoryName == "OpenHouse") // Made to get data about a campaign for https://cybergymnasiet.se/
             Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
@@ -360,7 +361,7 @@ public class GameManager : MonoBehaviour
         if(Helper.currentStoryName == "OpenHouse") // Made to get data about a campaign for https://cybergymnasiet.se/
             Analytics.CustomEvent("program_picked", new Dictionary<string, object> {{ "program", options[select-1] }});
         #endregion openhouse
-        LoadScript(options[select-1]);
+        Action_LoadScript.Load(options[select-1]);
         dropdownMenu.SetActive(false);
     }
 
@@ -375,25 +376,6 @@ public class GameManager : MonoBehaviour
         ready = true;
         RunNext();
     }
-    public void LoadScript(string storyx)
-    {
-        string path = $"{Helper.currentStoryPath}/Dialogues/{storyx}.txt";
-        if (!File.Exists(path))
-        {
-            Helper.Alert(string.Format(Translate.Get("invalidstory"), path));
-            Debug.LogError($"Visual Novel: Tried to start non-existing story: {path}");
-            return;
-        }
-        scriptPath = path;
-        Debug.Log($"New story loaded: {storyx}");
-        PlayerPrefs.SetString("script", storyx);
-        StartCoroutine(SaveInfo());
-        dialoguepos = 0;
-        story = File.ReadAllLines(path);
-        ready = true;
-        RunNext();
-    }
-
     public void StopSounds()
     {
         music.GetComponent<AudioSource>().Stop();

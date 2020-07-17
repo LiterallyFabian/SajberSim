@@ -46,7 +46,7 @@ public class Character : MonoBehaviour, GameManager.INovelAction
         if (int.TryParse(line[1], out int xd)) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
 
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png")) return $"This character and/or mood could not be found, expected the file Backgrounds/{name}{line[2]}.png.";
+        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png")) return $"This character and/or mood could not be found, expected the file Characters/{name}{line[2]}.png.";
         try { float temp = (float)Convert.ToDouble(line[3], Game.lang); } catch { return $"The X coordinate <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)"; }
         try { float temp = (float)Convert.ToDouble(line[4], Game.lang); } catch { return $"The Y coordinate <b>{line[4]}</b> is not a valid float (eg 7.5 or 2)"; }
         if (line.Length == 5) return "";
