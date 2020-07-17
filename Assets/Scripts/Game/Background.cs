@@ -30,7 +30,7 @@ public class Background : MonoBehaviour, GameManager.INovelAction
     {
         if (line.Length > 3) return $"Incorrect length, found {line.Length} arguments and expected 2 or 3.";
         if (line.Length < 2) return $"Missing arguments.";
-        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return $"Image not found. Maybe there is a typo?\nExpected path: {GameManager.shortScriptPath}/Backgrounds/{line[1]}.png";
+        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return $"Image not found. Maybe there is a typo?\nExpected path: {GameManager.shortStoryPath}/Backgrounds/{line[1]}.png";
         return "";
     }
 }

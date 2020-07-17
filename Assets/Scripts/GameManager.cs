@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
     public static string storyName;
     public static string storyAuthor;
     public static string scriptPath;
-    public static string shortScriptPath;
+    public static string shortStoryPath;
+    public static string scriptName;
 
     public interface INovelAction
     {
@@ -135,12 +136,13 @@ public class GameManager : MonoBehaviour
         dialoguepos = 0;
         ready = true;
         textdone = false;
+        scriptName = "start";
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
         scriptPath = $"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt";
         if (File.Exists(scriptPath))
         story = File.ReadAllLines(scriptPath);
-        shortScriptPath = new DirectoryInfo(Helper.currentStoryPath).Name;
+        shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
 
 
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
@@ -155,16 +157,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1)) //toggles debug stuff
         {
-            if(PlayerPrefs.GetInt("devmenu", 0) == 0)
-            {
-                PlayerPrefs.SetInt("devmenu", 1);
-                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
-            }
-            else
-            {
-                PlayerPrefs.SetInt("devmenu", 0);
-                GameObject.Find("/Canvas/dev").transform.localScale = Vector3.zero;
-            }
+            ToggleDevmenu();
         }
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
@@ -197,12 +190,25 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void ToggleDevmenu(bool forceopen = false)
+    {
+        if (PlayerPrefs.GetInt("devmenu", 0) == 0 || forceopen)
+        {
+            PlayerPrefs.SetInt("devmenu", 1);
+            GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("devmenu", 0);
+            GameObject.Find("/Canvas/dev").transform.localScale = Vector3.zero;
+        }
+    }
     public void RunNext()
     {
         if (!ready) return;
 
         string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
-        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nstory = {PlayerPrefs.GetString("tempstory", "start")}\n\n{story[dialoguepos]}";
+        GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nscript: = {scriptName}\n\n{story[dialoguepos]}";
         line[0] = line[0].ToLower();
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
         {

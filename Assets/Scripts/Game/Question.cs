@@ -18,10 +18,7 @@ public class Question : MonoBehaviour, GameManager.INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "QUESTION|title|alt1_text|alt1_path|alt2_text|alt2_path|(altN_text|altN_path)"));
-            
-            //Open dev menu
-            PlayerPrefs.SetInt("devmenu", 1);
-            GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
+            Game.ToggleDevmenu(true);
 
             return;
         }
