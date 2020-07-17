@@ -1,14 +1,14 @@
 BG|matsal
 PLAYMUSIC|ambient corp
-CHAR|1|happy|-4.4|-0.17|-1
+CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1
 T|1|Ahh, spelutveckling. Förmodligen anledningen till att du är här!
 T|1|Ska du eller jag ta det, {0.name}?
-CHAR|1|blush|-4.4|-0.17|-1
+CHAR|1|blush|-4.4|-0.17|1|true
 T|0|Detta kan du bättre än mig, kör på!
 CHAR|0|happy|4.6|-0.17|1
 T|1|Heh... alright!
-CHAR|1|happy|-4.4|-0.17|-1
+CHAR|1|happy|-4.4|-0.17|1|true
 T|1|I inriktningen Informations- och mediateknik kommer alla läsa både speldesign och spelprogrammering. Detta gör vi i kurserna Digitalt Skapande 1 och Programmering 1.
 T|1|Detta är för att ge dig en inblick i hur båda områdena är, ifall man till exempel är osäker eller helt enkelt vill göra båda.
 T|1|I årskurs 2 får man välja vad man vill fördjupa sina kunskaper i: Digitalt Skapande 2 eller Programmering 2.
@@ -20,23 +20,23 @@ T|1|Ifall du gillar programmering kanske du vill fortsätta läsa programmering 
 T|1|SajberSim som du spelar just nu är främst gjort på Fabinas fritid, men hon har även jobbat med spelet på programmeringen.
 T|1|Programmering, precis som mycket annat passar helt enkelt inte alla. Ifall du känner att du hellre vill hålla på med att designa spel kan du fördjupa dig i Digitalt skapande!
 T|0|Ska jag hämta {3.name} eller tar du detta?
-CHAR|1|blush|-4.4|-0.17|-1
+CHAR|1|blush|-4.4|-0.17|1|true
 T|1|Jag går och tar en kaffe och ber {3.name} att komma och fortsätta, heh
 WAIT|0.5
 DEL|1
-CHAR|3|neutral|-4.4|-0.17|-1
+CHAR|3|neutral|-4.4|-0.17|1|true
 WAIT|1
-CHAR|3|happy|-4.4|-0.17|-1
+CHAR|3|happy|-4.4|-0.17|1|true
 T|3|Digitalt skapande? Perfekt! 
 T|3|I digitalt skapande behöver du, precis som i programmering inga förkunskaper. 
 T|3|Vi börjar med grunderna i Photoshop, som erbjuds gratis till alla teknikelever tillsammans med ungefär 20 andra Adobeprogram.
 T|3|Utöver Photoshop lär vi oss att göra korta animationer i Adobe Animate, sätta ihop bilder vi har gjort med färdig kod i Unity,
-CHAR|1|neutral|-8.4|-0.17|-1
+CHAR|1|neutral|-8.4|-0.17|1|true
 T|3|göra 3d-modeller i Autodesk Maya, animera en stillbild i Adobe After Effects och mycket mer.
 T|3|Denna kurs är även väldigt fri, du får skapa i stort sett vad du vill!
 CHAR|3|happy|-4.4|-0.17|1
 T|3|Välkommen tillbaka {1.name}, jag blev nyss klar. Ifall ni har några fler frågor kan ni alltid kontakta en ambassadör!
 DEL|3
-CHAR|1|happy|-4.4|-0.17|-1
+CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|happy|4.6|-0.17|1
 QUESTION|Vill du ha mer information om något annat?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik

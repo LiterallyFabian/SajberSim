@@ -1,6 +1,6 @@
 BG|matsal
 PLAYMUSIC|ambient corp
-CHAR|1|happy|-4.4|-0.17|-1
+CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1
 T|1|Teknik 1 är en utav de längsta kurserna vi har på skolan, hela 150 poäng, under ett och ett halvt läsår.
 T|1|Tidigt i kursen lär oss mycket om teknikhistoria; hur saker har utvecklats, när produkter och idéer kom till etc.

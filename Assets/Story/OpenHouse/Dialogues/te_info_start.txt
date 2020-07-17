@@ -1,13 +1,13 @@
 BG|matsal|true
 PLAYMUSIC|ambient corp
-CHAR|0|happy|-4.14|-0.17|-1
+CHAR|0|happy|-4.14|-0.17|1|true
 T|0|Välkommen till Teknik: Informations- och mediateknik!
 T|0|Just nu är vi i matsalen, men jag lovar att vi har klassrum!
 T|0|Jag heter {0.name}, och jag ska prata om hur programmet ser ut, vad vi gör under dagarna, och allt möjligt du kanske undrar!
-CHAR|0|angry|-4.14|-0.17|-1
+CHAR|0|angry|-4.14|-0.17|1|true
 T|0|Min kompis {1.name} skulle vara med, men missade tunnelbanan och blir lite sen...
 WAIT|0.5
-CHAR|0|happy|-4.14|-0.17|-1
+CHAR|0|happy|-4.14|-0.17|1|true
 T|0|Vi sätter igång!
 T|0|Som ni säkert redan vet så finns det tre inriktningar i teknikprogrammet: Info & media, design & produktutveckling, och samhällsbyggande & miljö.
 T|0|Denna inriktning fokuserar främst på programmering och design inom spelvärlden, men med kunskaperna du får kan du göra väldigt mycket mer än bara spel!
@@ -20,12 +20,12 @@ T|0|Som ni säkert redan hört är det väldigt mycket matte i denna inriktning,
 T|0|Alla har 1c, 2c och 3c som standard, och sen kan man lägga till matte 4c, och matte 5 som är i samarbete med KTH (Kungliga tekniska högskolan).
 T|0|Ifall man har svårt med matte är det okej, varje vecka har vi läxhjälp med mattelärare närvarande där man kan få hjälp
 CHAR|0|neutral|-2.34|-0.17|1
-CHAR|1|neutral|-7.14|-0.17|-1
+CHAR|1|neutral|-7.14|-0.17|1|true
 T|1|Hej {0.name}! Hoppas jag inte blev för sen...
 CHAR|0|happy|-2.34|-0.17|1
 T|0|Nejdå! Jag har dragit en kort introduktion om kurserna vi har, du kan börja prata om hur dagarna ser ut innan vi går in på kurserna mer noga.
 T|1|Alright!
-CHAR|1|happy|-4.4|-0.17|-1
+CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1
 T|1|Våra scheman skiljer sig väldigt mycket från klass till klass, men generellt så är våra dagar mellan 9-15, plus minus en timme. 
 T|1|Vi har alltid 5-20 minuter rast mellan lektionerna, med en lunchrast på ungefär 45 minuter någon gång när matsalen är öppen, dvs 10:30-13:30.
