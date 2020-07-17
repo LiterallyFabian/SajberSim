@@ -74,8 +74,11 @@ namespace SajberSim.Helper
         }
         public static void Alert(string text)
         {
-            GameObject alert = Instantiate(Resources.Load("Prefabs/Alert", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
-            alert.transform.Find("title").GetComponent<Text>().text = text;
+            string size = "Small";
+            if (text.Length > 150) size = "Medium";
+            if (text.Length > 400) size = "Large";
+            GameObject alert = Instantiate(Resources.Load($"Prefabs/Alert{size}", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+            alert.transform.Find("AlertText").GetComponent<Text>().text = text;
             alert.transform.localPosition = Vector3.zero;
         }
 
