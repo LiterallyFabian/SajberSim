@@ -421,7 +421,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("menu");
     }
-    private IEnumerator StartCredits() //Avslutar & återställer spelet och startar credits
+    public IEnumerator StartCredits(bool addStats = true) //Avslutar & återställer spelet och startar credits
     {
         StartCoroutine(FadeOut(music.GetComponent<AudioSource>(), 1.3f, 0));
         Credits.storypath = Helper.currentStoryPath;
@@ -431,7 +431,7 @@ public class GameManager : MonoBehaviour
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
         fadeimage.GetComponent<Animator>().Play("darken");
         yield return new WaitForSeconds(0.5f);
-        Stats.Add(Stats.List.novelsfinished);
+        if (addStats) Stats.Add(Stats.List.novelsfinished);
         SceneManager.LoadScene("credits");
     }
     public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
