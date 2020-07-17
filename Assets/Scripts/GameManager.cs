@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour
 
         else if (line[0] == "t") //textbox
         {
+            fadeimage.SetActive(false);
             dialoguepos++;
             Action_Textbox.Run(line);
         }
@@ -231,6 +232,7 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "question") //question
         {
+            fadeimage.SetActive(false);
             ready = false;
             if (line.Length == 6) //Normal 2 alt questions
             {
@@ -345,7 +347,6 @@ public class GameManager : MonoBehaviour
     #region Questions
     private void OpenQuestion(string text, string alt1, string alt2)
     {
-        fadeimage.SetActive(false);
         textdone = false;
         questionbox.SetActive(true);
         question.text = text;
