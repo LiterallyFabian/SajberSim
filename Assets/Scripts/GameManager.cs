@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
     public static string scriptPath;
     public static string shortStoryPath;
     public static string scriptName;
+    public static bool backgroundHasChanged = false;
+    public static string currentBackground;
 
     public interface INovelAction
     {
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetActionClasses();
+        backgroundHasChanged = false;
         paused = false;
         dialoguepos = 0;
         ready = true;
@@ -222,7 +225,6 @@ public class GameManager : MonoBehaviour
 
         else if (line[0] == "t") //textbox
         {
-            fadeimage.SetActive(false);
             dialoguepos++;
             Action_Textbox.Run(line);
         }
@@ -381,6 +383,7 @@ public class GameManager : MonoBehaviour
     {
         paused = n;
         pausemenu.SetActive(n);
+        fadeimage.SetActive(false);
     }
     public void OpenSettings()
     {

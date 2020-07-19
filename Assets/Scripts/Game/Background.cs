@@ -21,10 +21,11 @@ public class Background : MonoBehaviour, GameManager.INovelAction
             Game.RunNext();
             return;
         }
-        Download dl = GameObject.Find("Helper").GetComponent<Download>();
-        dl.Image(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{line[1]}.png");
+        if (GameManager.currentBackground == line[1])
+            Game.RunNext();
+        else
+            StartCoroutine(SetBackground(line[1]));
         if (line.Length > 2) if (line[2] == "true") GameManager.RemoveCharacters();
-        Game.RunNext();
     }
     public string Working(string[] line)
     {
@@ -32,5 +33,27 @@ public class Background : MonoBehaviour, GameManager.INovelAction
         if (line.Length < 2) return $"Missing arguments.";
         if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return $"Image not found. Maybe there is a typo?\nExpected path: {GameManager.shortStoryPath}/Backgrounds/{line[1]}.png";
         return "";
+    }
+    private IEnumerator SetBackground(string back)
+    {
+        Game.fadeimage.SetActive(true);
+        if (GameManager.backgroundHasChanged)
+        {
+            Game.fadeimage.GetComponent<Animator>().Play("darken");
+            yield return new WaitForSeconds(0.5f);
+            Game.dl.Image(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.RunNext();
+            Game.fadeimage.GetComponent<Animator>().Play("Fadein");
+            yield return new WaitForSeconds(0.8f);
+            Game.fadeimage.SetActive(false);
+        }
+        else
+        {
+            Game.dl.Image(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.RunNext();
+        }
+        GameManager.currentBackground = back;
+        GameManager.backgroundHasChanged = true;
+       
     }
 }
