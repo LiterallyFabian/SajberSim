@@ -13,7 +13,7 @@ public class Language
     public static NumberFormatInfo Format = new NumberFormatInfo();
     static Language()
     {
-        Format.NumberDecimalSeparator = "";
+        Format.NumberDecimalSeparator = ".";
     }
     public Language(string code, string name, string formal, string localized)
     {
