@@ -43,14 +43,13 @@ public class Character : MonoBehaviour, GameManager.INovelAction
         if (line.Length > 7 || line.Length < 5) return $"The length of the line is {line.Length}, while the expected is 5-7.";
         string name = "";
 
-        if (int.TryParse(line[1], out int xd)) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
+        if (Helper.IsNum(line[1])) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
-
         if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png")) return $"This character and/or mood could not be found, expected the file Characters/{name}{line[2]}.png.";
-        try { float temp = (float)Convert.ToDouble(line[3], Game.lang); } catch { return $"The X coordinate <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)"; }
-        try { float temp = (float)Convert.ToDouble(line[4], Game.lang); } catch { return $"The Y coordinate <b>{line[4]}</b> is not a valid float (eg 7.5 or 2)"; }
+        if (Helper.IsFloat(line[3])) return $"The X coordinate <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)";
+        if(Helper.IsFloat(line[4])) return $"The Y coordinate <b>{line[4]}</b> is not a valid float (eg 7.5 or 2)"; 
         if (line.Length == 5) return "";
-        try { float temp = (float)Convert.ToDouble(line[5], Game.lang); } catch { return $"The size \"{line[5]}\" is not a valid float (eg 7.5 or 2)"; }
+        if (Helper.IsFloat(line[5])) return $"The size \"{line[5]}\" is not a valid float (eg 7.5 or 2)"; 
         return "";
     }
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2

@@ -1,6 +1,7 @@
 ﻿using SajberSim.Web;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,11 @@ using UnityEngine.UI;
 
 public class Language
 {
+    public static NumberFormatInfo Format = new NumberFormatInfo();
+    static Language()
+    {
+        Format.NumberDecimalSeparator = "";
+    }
     public Language(string code, string name, string formal, string localized)
     {
         flag_code = code;

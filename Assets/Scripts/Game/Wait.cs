@@ -27,7 +27,7 @@ public class Wait : MonoBehaviour, GameManager.INovelAction
     public string Working(string[] line)
     {
         if (line.Length != 2) return $"The length of the line is {line.Length}, while the expected is 2.";
-        try { Convert.ToDouble(line[1], Game.lang); } catch { return $"The time <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)"; };
+        if(Helper.IsFloat(line[1])) return $"The time <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)";
         return "";
     }
     private IEnumerator Delay(float time) //ID 7

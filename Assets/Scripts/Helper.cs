@@ -235,6 +235,21 @@ namespace SajberSim.Helper
         {
             return n ? 1 : 0;
         }
+        /// <summary>
+        /// Checks if input is a float value
+        /// </summary>
+        public static bool IsFloat(string n)
+        {
+            try
+            {
+                float x = (float)Convert.ToDouble(n, Language.Format);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
         public static bool GetBoolFromPrefs(string key, int def)
         {
             if (PlayerPrefs.GetInt(key, def) == 1) return true;
