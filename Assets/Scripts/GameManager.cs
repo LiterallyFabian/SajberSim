@@ -18,6 +18,8 @@ using SajberSim.Helper;
 using SajberSim.Colors;
 using SajberSim.Translation;
 using System.Reflection;
+using Steamworks;
+
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
 /// </summary>
@@ -318,8 +320,13 @@ public class GameManager : MonoBehaviour
 
             text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter 
         }
-        text = text.Replace("{path}", Helper.currentStoryPath);
+        if (!text.Contains("{")) return text;
         text = text.Replace("\\n", Environment.NewLine);
+        text = text.Replace("{path}", Helper.currentStoryPath);
+        text = text.Replace("{time}", DateTime.Now.ToString("HH:mm"));
+        text = text.Replace("{date}", DateTime.Now.ToString("d"));
+        text = text.Replace("{year}", DateTime.Now.ToString("yyyy"));
+        text = text.Replace("{steamuser}", Helper.loggedin ? SteamClient.Name : "User");
         return text;
     }
     private void ClearText()
