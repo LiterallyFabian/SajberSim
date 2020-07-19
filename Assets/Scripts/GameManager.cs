@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     private Question Action_Question;
     private LoadScript Action_LoadScript;
     private Wait Action_Wait;
+    private PlayAudio Action_PlayAudio;
     #endregion
 
     public static string storyName;
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
         Action_Question = HelperObj.AddComponent<Question>();
         Action_LoadScript = HelperObj.AddComponent<LoadScript>();
         Action_Wait = HelperObj.AddComponent<Wait>();
+        Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
 
         Action_Alert.Game = GetComponent<GameManager>();
         Action_Background.Game = GetComponent<GameManager>();
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
         Action_Question.Game = GetComponent<GameManager>();
         Action_LoadScript.Game = GetComponent<GameManager>();
         Action_Wait.Game = GetComponent<GameManager>();
+        Action_PlayAudio.Game = GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -258,24 +261,15 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             Action_Wait.Run(line);
         }
-        else if (line[0] == "playmusic")
+        else if (line[0] == "playmusic" || line[0] == "playsfx")
         {
-            string arg = line[1];
             dialoguepos++;
-            if(arg != musicplaying) dl.Ogg(music, $"file://{Helper.currentStoryPath}/Audio/{arg}.ogg", true);
-            musicplaying = arg;
-            RunNext();
+            Action_PlayAudio.Run(line);
         }
         else if (line[0] == "stopsounds")
         {
             dialoguepos++;
             StopSounds();
-        }
-        else if (line[0] == "playsfx")
-        {
-            dialoguepos++;
-            dl.Ogg(SFX, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
-            RunNext();
         }
         else if (line[0] == "finishgame")
         {
