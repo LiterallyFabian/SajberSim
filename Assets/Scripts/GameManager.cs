@@ -252,10 +252,6 @@ public class GameManager : MonoBehaviour
         {
             Action_LoadScript.Run(line);
         }
-        else if (line[0] == "openscene") //delay
-        {
-            SceneManager.LoadScene(line[1]);
-        }
         else if (line[0] == "wait") //delay
         {
             StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
