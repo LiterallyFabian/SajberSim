@@ -125,15 +125,15 @@ public class GameManager : MonoBehaviour
         Action_Wait = HelperObj.AddComponent<Wait>();
         Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
 
-        Action_Alert.Game = GetComponent<GameManager>();
-        Action_Background.Game = GetComponent<GameManager>();
-        Action_Textbox.Game = GetComponent<GameManager>();
-        Action_Character.Game = GetComponent<GameManager>();
-        Action_DelCharacter.Game = GetComponent<GameManager>();
-        Action_Question.Game = GetComponent<GameManager>();
-        Action_LoadScript.Game = GetComponent<GameManager>();
-        Action_Wait.Game = GetComponent<GameManager>();
-        Action_PlayAudio.Game = GetComponent<GameManager>();
+        Action_Alert.Game = this;
+        Action_Background.Game = this;
+        Action_Textbox.Game = this;
+        Action_Character.Game = this;
+        Action_DelCharacter.Game = this;
+        Action_Question.Game = this;
+        Action_LoadScript.Game = this;
+        Action_Wait.Game = this;
+        Action_PlayAudio.Game = this;
     }
     private void Start()
     {
