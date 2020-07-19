@@ -28,12 +28,12 @@ public class Character : MonoBehaviour, GameManager.INovelAction
         else name = line[1];
 
         string mood = line[2];
-        float x = (float)Convert.ToDouble(line[3], Game.lang);
-        float y = (float)Convert.ToDouble(line[4], Game.lang);
+        float x = (float)Convert.ToDouble(line[3], Language.Format);
+        float y = (float)Convert.ToDouble(line[4], Language.Format);
         bool flip = false;
         float size = GameManager.charactersize;
         
-        if (line.Length > 5) size = size * (float)Convert.ToDouble(line[5], Game.lang);
+        if (line.Length > 5) size = size * (float)Convert.ToDouble(line[5], Language.Format);
         if (line.Length == 7) if (line[6].ToLower() == "true") flip = true;
         CreateCharacter(name.ToLower(), mood, x, y, size, flip);
         Game.RunNext();

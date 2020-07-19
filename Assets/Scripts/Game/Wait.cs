@@ -21,7 +21,7 @@ public class Wait : MonoBehaviour, GameManager.INovelAction
             Game.RunNext();
             return;
         }
-        StartCoroutine(Delay((float)Convert.ToDouble(line[1], Game.lang)));
+        StartCoroutine(Delay((float)Convert.ToDouble(line[1], Language.Format)));
 
     }
     public string Working(string[] line)

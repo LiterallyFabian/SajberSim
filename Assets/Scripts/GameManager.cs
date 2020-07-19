@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
     public Coroutine co;
     public Person[] people = ButtonCtrl.people;
     public string musicplaying = "none";
-    public NumberFormatInfo lang = new NumberFormatInfo();
 
     #region Classes
     public GameObject HelperObj;
@@ -134,7 +133,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetActionClasses();
-        lang.NumberDecimalSeparator = ".";
         paused = false;
         dialoguepos = 0;
         ready = true;
