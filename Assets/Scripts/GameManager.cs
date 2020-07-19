@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     private DelCharacter Action_DelCharacter;
     private Question Action_Question;
     private LoadScript Action_LoadScript;
+    private Wait Action_Wait;
     #endregion
 
     public static string storyName;
@@ -119,6 +120,7 @@ public class GameManager : MonoBehaviour
         Action_DelCharacter = HelperObj.AddComponent<DelCharacter>();
         Action_Question = HelperObj.AddComponent<Question>();
         Action_LoadScript = HelperObj.AddComponent<LoadScript>();
+        Action_Wait = HelperObj.AddComponent<Wait>();
 
         Action_Alert.Game = GetComponent<GameManager>();
         Action_Background.Game = GetComponent<GameManager>();
@@ -127,6 +129,7 @@ public class GameManager : MonoBehaviour
         Action_DelCharacter.Game = GetComponent<GameManager>();
         Action_Question.Game = GetComponent<GameManager>();
         Action_LoadScript.Game = GetComponent<GameManager>();
+        Action_Wait.Game = GetComponent<GameManager>();
     }
     private void Start()
     {
@@ -254,7 +257,8 @@ public class GameManager : MonoBehaviour
         }
         else if (line[0] == "wait") //delay
         {
-            StartCoroutine(Delay((float)Convert.ToDouble(line[1], lang)));
+            dialoguepos++;
+            Action_Wait.Run(line);
         }
         else if (line[0] == "playmusic")
         {
@@ -370,14 +374,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Generic
-    private IEnumerator Delay(float time) //ID 7
-    {
-        ready = false;
-        yield return new WaitForSeconds(time);
-        dialoguepos++;
-        ready = true;
-        RunNext();
-    }
     public void StopSounds()
     {
         music.GetComponent<AudioSource>().Stop();
