@@ -28,7 +28,7 @@ namespace SajberSim.Helper
         // genres in manifest
         public static string[] genresid = new string[] { "adventure", "action", "comedy", "drama", "fantasy", "horror", "magic", "mystery", "romance", "scifi", "sliceoflife", "supernatural", "other" };
         public static string[] audience = new string[] { "Everyone", "Questionable", "Mature" };
-        public static uint AppID = 1353530;
+        public const uint AppID = 1353530;
         public static bool loggedin = false;
         public static int id = -1;
         public static string localPath = "";
