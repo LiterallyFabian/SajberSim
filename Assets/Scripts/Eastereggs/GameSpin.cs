@@ -9,24 +9,15 @@ public class GameSpin : MonoBehaviour
     public AudioSource music;
     public GameObject character;
     private bool running = false;
-    string keySequence = "helpmepls";
-    int currKey = 0;
 
 
-    void Update()
+    public void StartSpin()
+    {
+        if(!running) StartCoroutine(Run());
+    }
+    private void Update()
     {
         if (running) Camera.main.transform.Rotate(0, 0, Time.deltaTime * 25f);
-        if (Input.GetKeyDown(KeyCode.H) && keySequence[currKey] == 'h') currKey++;
-        else if (Input.GetKeyDown(KeyCode.E) && keySequence[currKey] == 'e') currKey++;
-        else if (Input.GetKeyDown(KeyCode.L) && keySequence[currKey] == 'l') currKey++;
-        else if (Input.GetKeyDown(KeyCode.P) && keySequence[currKey] == 'p') currKey++;
-        else if (Input.GetKeyDown(KeyCode.M) && keySequence[currKey] == 'm') currKey++;
-        else if (Input.GetKeyDown(KeyCode.E) && keySequence[currKey] == 'e') currKey++;
-        else if (Input.GetKeyDown(KeyCode.P) && keySequence[currKey] == 'p') currKey++;
-        else if (Input.GetKeyDown(KeyCode.L) && keySequence[currKey] == 'l') currKey++;
-        else if (Input.GetKeyDown(KeyCode.S) && keySequence[currKey] == 's') currKey++;
-        else if (keySequence.Length == currKey && !running) StartCoroutine(Run());
-        else if (Input.anyKeyDown) currKey = 0;
     }
     private IEnumerator Run()
     {
