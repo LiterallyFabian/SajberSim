@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SajberSim.Helper;
+using Steamworks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +39,7 @@ class Vault : MonoBehaviour
                     return;
                 }
                 GameObject.Find("Eastereggs").GetComponent<GameSpin>().StartSpin();
-                Lore.text = "Jeez...";
+                Lore.text = $"Jeez{(Helper.loggedin ? " " + SteamClient.Name : "")}...";
                 break;
         }
     }

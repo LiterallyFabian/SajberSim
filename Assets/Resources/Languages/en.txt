@@ -96,6 +96,8 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
+vaulttitle=Fabinas secret vault
+vaultlore=Oh, so you found my vault?\nI hope you got the code ^^\n	-Fabina
 
 #Time
 about=about {0} {1} ago
