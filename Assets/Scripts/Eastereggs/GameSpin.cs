@@ -28,7 +28,7 @@ public class GameSpin : MonoBehaviour
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().size = 1.5f;
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().BPM /= 2;
         yield return new WaitForSeconds(6);
-        StartCoroutine(ChangeAudio(0.7f, 1, 9f));
+        StartCoroutine(ChangeAudio(0.7f, 1, 8.4f));
         yield return new WaitForSeconds(7);
         StartCoroutine(ChangeCharacter(3, 1, 0.7f));
         yield return new WaitForSeconds(1.4f);

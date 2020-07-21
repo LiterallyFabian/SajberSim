@@ -1058,6 +1058,7 @@ GameObject:
   - component: {fileID: 88853171}
   - component: {fileID: 88853170}
   - component: {fileID: 88853172}
+  - component: {fileID: 88853173}
   m_Layer: 5
   m_Name: FabinasVault
   m_TagString: Untagged
@@ -1141,6 +1142,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 2079868463}
   Lore: {fileID: 757856305}
+--- !u!95 &88853173
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88853168}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4b634202a906fb94cbff7c8ef1498f2a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &89794987
 GameObject:
   m_ObjectHideFlags: 0
@@ -13184,8 +13204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -168.5, y: -141.8}
-  m_SizeDelta: {x: 177.31989, y: 54.825127}
+  m_AnchoredPosition: {x: -87.79, y: -141.8}
+  m_SizeDelta: {x: 338.7461, y: 54.825127}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &757856305
 MonoBehaviour:

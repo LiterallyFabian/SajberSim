@@ -40,6 +40,7 @@ class Vault : MonoBehaviour
                 }
                 GameObject.Find("Eastereggs").GetComponent<GameSpin>().StartSpin();
                 Lore.text = $"Jeez{(Helper.loggedin ? " " + SteamClient.Name : "")}...";
+                GetComponent<Animator>().Play("vaultDrop");
                 break;
         }
     }
