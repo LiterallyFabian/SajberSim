@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using SajberSim.Steam;
+using Steamworks.Data;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +30,7 @@ public class GameSpin : MonoBehaviour
     }
     private IEnumerator Run()
     {
+        Achievements.Grant(Achievements.List.ACHIEVEMENT_menuspin);
         running = true;
         StartCoroutine(ChangeAudio(1, 0.7f, 5));
         StartCoroutine(ChangeCharacter(1, 3, 13f));
