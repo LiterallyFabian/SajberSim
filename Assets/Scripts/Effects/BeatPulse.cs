@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class BeatPulse : MonoBehaviour
 {
 
-    public float BPM = 100f;
-    public float size = 1.05f;
+    public float BPM;
+    public float size = 1.055f;
     public GameObject ray;
 
     // Update is called once per frame
