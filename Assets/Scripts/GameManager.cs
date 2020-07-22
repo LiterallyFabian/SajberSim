@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     private LoadScript Action_LoadScript;
     private Wait Action_Wait;
     private PlayAudio Action_PlayAudio;
+    private StopAudio Action_StopAudio;
     #endregion
 
     public static string storyName;
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
         Action_LoadScript = HelperObj.AddComponent<LoadScript>();
         Action_Wait = HelperObj.AddComponent<Wait>();
         Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
+        Action_StopAudio = HelperObj.AddComponent<StopAudio>();
 
         Action_Alert.Game = this;
         Action_Background.Game = this;
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
         Action_LoadScript.Game = this;
         Action_Wait.Game = this;
         Action_PlayAudio.Game = this;
+        Action_StopAudio.Game = this;
     }
     private void Start()
     {
@@ -270,10 +273,10 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             Action_PlayAudio.Run(line);
         }
-        else if (line[0] == "stopsounds")
+        else if (line[0] == "stopsounds" || line[0] == "stopmusic" || line[0] == "stopsfx")
         {
             dialoguepos++;
-            StopSounds();
+            Action_StopAudio.Run(line);
         }
         else if (line[0] == "finishgame")
         {
@@ -375,13 +378,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Generic
-    public void StopSounds()
-    {
-        music.GetComponent<AudioSource>().Stop();
-        SFX.GetComponent<AudioSource>().Stop();
-        musicplaying = "none";
-        RunNext();
-    }
 
     #endregion
 
