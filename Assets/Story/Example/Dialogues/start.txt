@@ -1,4 +1,4 @@
-BG|main
+BACKGROUND|main
 PLAYMUSIC|takeyourpick
 CHAR|Lumi|neutral|3.36|-0.17|1
 T|Lumi|Hello, and welcome to the SajberSim tutorial novel!

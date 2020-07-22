@@ -1,9 +1,9 @@
-BG|main
+BACKGROUND|main
 PLAYMUSIC|onegai
 WAIT|1.2
 CHAR|sakura|eat|-3|0|4
 ALERT|Onegai MASSURU
-DEL|sakura
+DELETE|sakura
 CHAR|uehara|happy|0|0|5|true
 ALERT|Meccha motetai
 CHAR|uehara|happy|0|0|5|false
@@ -12,12 +12,12 @@ CHAR|uehara|happy|0|0|5|true
 WAIT|0.35
 CHAR|uehara|happy|0|0|5|false
 ALERT|Onegai MASSURU
-DEL|uehara
+DELETE|uehara
 CHAR|soryuin|happy|3|1
 ALERT|Meccha yasetai, YES
 ALERT|Onegai MASSURU
 ALERT|Meccha motetai kara
-DEL|soryuin
+DELETE|soryuin
 CHAR|UEHARA|drink|-5|-0.5|1|true
 ALERT|Wu! (Kireteru yo!)
 CHAR|machio|normal|0|-1|1|true
@@ -40,7 +40,7 @@ CHAR|machio|macho|0|-1|0.9|true
 T|Machio-san|(Daikyoukin ga aruiteru!)
 T|Machio-san|(Shiagatteru yo! Shiagatteru yo!
 T|Machio-san|Kinniku honpo! Hai ZUDOUN!)
-DEL|uehara
+DELETE|uehara
 CHAR|machio|macho|-5|-1|0.9|true
 CHAR|sakura|happy|0|-0.4|1.3|true
 T|Sakura|Risou no jibun wo omoi egaitara

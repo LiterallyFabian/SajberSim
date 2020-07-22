@@ -1,6 +1,6 @@
 // Did you know that you can add comments in your scripts? the more you know!
 
-BG|wallpaper
+BACKGROUND|wallpaper
 CHAR|Fabina|neutral|3.36|-0.17|1
 T|Fabina|You have successfully set up your game!
 T|Fabina|Now it's time to start edit the files, this visual novel is saved at {path}

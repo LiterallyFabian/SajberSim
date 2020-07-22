@@ -1,4 +1,4 @@
-BG|matsal
+BACKGROUND|matsal
 PLAYMUSIC|ambient corp
 CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1
@@ -23,7 +23,7 @@ T|0|Ska jag hämta {3.name} eller tar du detta?
 CHAR|1|blush|-4.4|-0.17|1|true
 T|1|Jag går och tar en kaffe och ber {3.name} att komma och fortsätta, heh
 WAIT|0.5
-DEL|1
+DELETE|1
 CHAR|3|neutral|-4.4|-0.17|1|true
 WAIT|1
 CHAR|3|happy|-4.4|-0.17|1|true
@@ -36,7 +36,7 @@ T|3|göra 3d-modeller i Autodesk Maya, animera en stillbild i Adobe After Effect
 T|3|Denna kurs är även väldigt fri, du får skapa i stort sett vad du vill!
 CHAR|3|happy|-4.4|-0.17|1
 T|3|Välkommen tillbaka {1.name}, jag blev nyss klar. Ifall ni har några fler frågor kan ni alltid kontakta en ambassadör!
-DEL|3
+DELETE|3
 CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|happy|4.6|-0.17|1
 QUESTION|Vill du ha mer information om något annat?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik

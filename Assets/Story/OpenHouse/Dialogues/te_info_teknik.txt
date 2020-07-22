@@ -1,4 +1,4 @@
-BG|matsal
+BACKGROUND|matsal
 PLAYMUSIC|ambient corp
 CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1

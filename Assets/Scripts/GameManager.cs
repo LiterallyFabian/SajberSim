@@ -238,7 +238,7 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             Action_Alert.Run(line);
         }
-        else if (line[0] == "bg") //new background
+        else if (line[0] == "background") //new background
         {
             dialoguepos++;
             Action_Background.Run(line);
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             Action_Character.Run(line);
         }
-        else if (line[0] == "del") //delete character
+        else if (line[0] == "delete") //delete character
         {
             dialoguepos++;
             Action_DelCharacter.Run(line);

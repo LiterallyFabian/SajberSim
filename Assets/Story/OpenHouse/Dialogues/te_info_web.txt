@@ -1,10 +1,10 @@
-BG|matsal
+BACKGROUND|matsal
 PLAYMUSIC|ambient corp
 CHAR|1|happy|-4.4|-0.17|1|true
 CHAR|0|neutral|4.6|-0.17|1
 T|1|Webbutveckling, alright!
 T|1|Jag tror att {2.name} gärna skulle vilja gå igenom den kursen, en sekund!
-DEL|1
+DELETE|1
 T|0|...
 WAIT|1.4
 CHAR|2|neutral|-3.4|-0.17|1|true
@@ -26,6 +26,6 @@ T|2|Tack för att ni lyssnat, nu måste jag skynda tillbaka!
 CHAR|1|neutral|-3.4|-0.17|1|true
 CHAR|2|neutral|-8.4|-0.17|1|true
 WAIT|0.5
-DEL|2
+DELETE|2
 T|1|Då kanske du vill lära dig om något nytt?
 QUESTION|Vad vill du lära dig mer om?|Spelutveckling|te_info_spel|Webbutveckling|te_info_web|Teknik 1 (kurs)|te_info_teknik
