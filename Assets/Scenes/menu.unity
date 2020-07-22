@@ -17079,6 +17079,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 591715122870181122, guid: 5247818795116ef4183966c47ce37890,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 591715122870181124, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_Text
@@ -39297,6 +39302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   music: {fileID: 863821249}
   character: {fileID: 983074971}
+  invert: {fileID: 4800000, guid: db86d869c26c4cd4fbf044fbae345027, type: 3}
 --- !u!4 &1964023514
 Transform:
   m_ObjectHideFlags: 0

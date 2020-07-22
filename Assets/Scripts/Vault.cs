@@ -36,6 +36,7 @@ class Vault : MonoBehaviour
     }
     private void Correct(string hash)
     {
+        Lore.color = Colors.SfwGreen;
         switch (hash)
         {
             case "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28":

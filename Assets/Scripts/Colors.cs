@@ -15,6 +15,8 @@ namespace SajberSim.Colors
         public static Color UnityGray = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
         // Dark red
         public static Color NsfwRed = new Color(0.5f, 0, 0, 1);
+        // Dark green
+        public static Color SfwGreen = new Color(0, 0.5f, 0, 1);
         // Slightly brighter purple used for outlining buttons
         public static Color ButtonOutline = new Color(0.4230333f, 0.07903168f, 0.4528302f, 1);
         // Boring purple-gray-ish used for titles
