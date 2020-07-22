@@ -102,7 +102,6 @@ public class Settings : MonoBehaviour
     public void OpenVault()
     {
         GameObject vault = Instantiate(Resources.Load($"Prefabs/Vault", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
-        CloseMenu();
         vault.transform.localPosition = Vector3.zero;
     }
 }

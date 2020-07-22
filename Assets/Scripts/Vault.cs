@@ -1,6 +1,9 @@
-﻿using SajberSim.Helper;
+﻿using SajberSim.Colors;
+using SajberSim.Helper;
+using SajberSim.Translation;
 using Steamworks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +29,10 @@ class Vault : MonoBehaviour
     }
     private void Error()
     {
-        Debug.Log("no");
+        Debug.Log($"VAULT: {input.text} wasn't a code, how sad!");
+        StartCoroutine(ResetField());
+        Lore.color = Colors.NsfwRed;
+        Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 5)}");
     }
     private void Correct(string hash)
     {
@@ -40,8 +46,27 @@ class Vault : MonoBehaviour
                 }
                 GameObject.Find("Eastereggs").GetComponent<GameSpin>().StartSpin();
                 Lore.text = $"Jeez{(Helper.loggedin ? " " + SteamClient.Name : "")}...";
+                GetComponent<Animator>().enabled = true;
                 GetComponent<Animator>().Play("vaultDrop");
                 break;
         }
+    }
+    private IEnumerator ResetField()
+    {
+        input.GetComponent<AudioSource>().Play();
+        float time = 0.3f;
+        for (float t = 0f; t < time; t += Time.deltaTime)
+        {
+            input.transform.localScale = new Vector3(1, Mathf.Lerp(1, 0, t / time), 1);
+            yield return null;
+        }
+        input.transform.localScale = new Vector3(1, 0, 1);
+        input.text = "";
+        for (float t = 0f; t < time; t += Time.deltaTime)
+        {
+            input.transform.localScale = new Vector3(1, Mathf.Lerp(0, 1, t / time), 1);
+            yield return null;
+        }
+        input.transform.localScale = new Vector3(1, 1, 1);
     }
 }

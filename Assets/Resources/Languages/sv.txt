@@ -61,8 +61,15 @@ language=Språk
 autologin=Logga in automatiskt
 setstory=Byt skript...
 uwumode=UwU-läget är aktiverat... :3
+
+#Vault
 vaulttitle=Fabinas hemliga valv
 vaultlore=Oh, du hittade mitt valv?\nJag hoppas att du har koden ^^\n	-Fabina
+vaulterror0=Brute forcing hjälper dig inte här!
+vaulterror1=Det där ser inte rätt ut...
+vaulterror2=Nope!
+vaulterror3=Seriöst?
+vaulterror4=Hmm, jag känner inte igen den där koden...
 
 #Time
 about=för ungefär {0} {1} sedan
