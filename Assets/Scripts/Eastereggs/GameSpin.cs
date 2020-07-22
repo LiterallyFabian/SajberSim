@@ -1,8 +1,11 @@
 ﻿using SajberSim.Steam;
+using SajberSim.Translation;
 using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSpin : MonoBehaviour
 {
@@ -19,19 +22,42 @@ public class GameSpin : MonoBehaviour
     {
         if (running) Camera.main.transform.Rotate(0, 0, Time.deltaTime * 25f);
     }
-    private IEnumerator Run()
+    private IEnumerator Run() //time: 14.4s
     {
-        Achievements.Grant(Achievements.List.ACHIEVEMENT_menuspin);
         running = true;
-        StartCoroutine(ChangeAudio(1, 0.7f, 5));
+        Achievements.Grant(Achievements.List.ACHIEVEMENT_menuspin);
+        
+        StartCoroutine(ChangeAudio(1, 0.5f, 5));
         StartCoroutine(ChangeCharacter(1, 3, 13f));
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().size = 1.5f;
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().BPM /= 2;
-        yield return new WaitForSeconds(6);
-        StartCoroutine(ChangeAudio(0.7f, 1, 8.4f));
+        
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Canvas/ButtonQuit").GetComponent<Button>().interactable = false;
+        GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Canvas/ButtonCreate").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Canvas/ButtonQuit").GetComponent<Text>().text = "h e l p m e";
+        yield return new WaitForSeconds(1);
+        StartCoroutine(ChangeAudio(0.5f, 1, 8.4f));
+
         yield return new WaitForSeconds(7);
+
         StartCoroutine(ChangeCharacter(3, 1, 0.7f));
+        GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("play");
+        GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("novels");
+        GameObject.Find("Canvas/ButtonCreate").GetComponent<Text>().text = Translate.Get("create");
+        GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("settings");
+        
         yield return new WaitForSeconds(1.4f);
+
+        GameObject.Find("Canvas/ButtonQuit").GetComponent<Text>().text = Translate.Get("quit");
+        GameObject.Find("Canvas/ButtonQuit").GetComponent<Button>().interactable = true;
         Camera.main.transform.rotation = Quaternion.identity;
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().size = 1.055f;
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().BPM *= 2;
