@@ -105,6 +105,8 @@ vaulterror1=That doesn't seem right...
 vaulterror2=Nope!
 vaulterror3=Seriously?
 vaulterror4=Hmm, I don't recognize that code...
+vaulterror5=Oh.. that's like... totally wrong!
+vaulterror6=No matching lock found.
 
 #Time
 about=about {0} {1} ago

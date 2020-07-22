@@ -70,6 +70,8 @@ vaulterror1=Det där ser inte rätt ut...
 vaulterror2=Nope!
 vaulterror3=Seriöst?
 vaulterror4=Hmm, jag känner inte igen den där koden...
+vaulterror5=Oh.. den där koden är helt fel!
+vaulterror6=Ingen matchande kombination hittad.
 
 #Time
 about=för ungefär {0} {1} sedan
