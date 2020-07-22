@@ -91,6 +91,10 @@ public class Settings : MonoBehaviour
     }
     public void CloseMenu()
     {
+        if(GameObject.Find("ButtonCtrl") != null)
+        {
+            GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>().BehindSettings.SetActive(false);
+        }
         GetComponent<Animator>().Play("closeStorymenu");
         StartCoroutine(StartStory.DelCard(this.gameObject));
     }
