@@ -1,1 +1,1 @@
-QUESTION|Tills dess att spelet blir klart kan du få lite information om Teknik: Info- och medieteknik, annars får du nog bäst hjälp i samtalen med våra ambassadörer! :)|Info & media|te_info_start|Avsluta|quit
+Question|This question have multiple alternatives you can choose from. All of them leads to a different path|Pick cheese|main|Pick tomato|main|Pick cucumber|main|Go with a plain sandwich|main
