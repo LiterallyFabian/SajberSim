@@ -62,7 +62,7 @@ namespace SajberSim.Translation
             if (textAsset == null)
             {
                 textAsset = Resources.Load(@"Languages/en") as TextAsset;
-                Debug.LogError($"Translation: Could not find a translation file for {lang} - using English instead");
+                Debug.LogWarning($"Translation: Could not find a translation file for {lang} - using English instead");
             }
 
             string allTexts = (textAsset as TextAsset).text;
