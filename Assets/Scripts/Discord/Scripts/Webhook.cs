@@ -81,6 +81,7 @@ class Credentials
             {
                 UnityEngine.Debug.LogError($"Webhook: Tried to send message with text {msgSend} failed, error message:\n\n{e}");
             }
+            discordValues = new NameValueCollection();
         }
 
         public void Dispose()
