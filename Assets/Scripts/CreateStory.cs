@@ -214,7 +214,7 @@ public class CreateStory : MonoBehaviour
         int backgroundchanges = 0;
         int decisions = 0;
         int participants = 0;
-        int filesize = 0;
+        string filesize = $"{Math.Round(Helper.BytesTo(Helper.DirSize(new DirectoryInfo(currentlyEditingPath)), Helper.DataSize.Megabyte)), 1} Mb";
         bool hasstart = false;
         bool hascredits = false;
         bool hasthumbnail = false;
