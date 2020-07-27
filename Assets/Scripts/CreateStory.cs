@@ -16,8 +16,8 @@ using UnityEngine.UI;
 
 public class CreateStory : MonoBehaviour
 {
-    public static string currentlyEditingPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse"; //Base path, should be root/SajberSim_Data/MyStories/X
-    public static string currentlyEditingName = "Cybergymnasiet Öppet hus";
+    public static string currentlyEditingPath = "";
+    public static string currentlyEditingName = "";
 
     public InputField B_inputName;
     public InputField B_inputDescription;
