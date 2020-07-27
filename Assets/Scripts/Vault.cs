@@ -1,4 +1,5 @@
-﻿using SajberSim.Colors;
+﻿using SajberSim.CardMenu;
+using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using Steamworks;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,8 +18,10 @@ class Vault : MonoBehaviour
 {
     public InputField input;
     public Text Lore;
+    public static int attempts = 0;
     public void RunCode()
     {
+        attempts++;
         string code = input.text.ToLower().Hash();
         string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28" };
         if (correctHashes.Contains(code)) Correct(code);
@@ -33,6 +37,11 @@ class Vault : MonoBehaviour
         StartCoroutine(ResetField());
         Lore.color = Colors.NsfwRed;
         Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 7)}");
+        if (attempts > 30 && Helper.loggedin && UnityEngine.Random.Range(0, 3) == 0) 
+        {
+            string[] allstories = Manifest.GetAll();
+            Lore.text = $"Really {SteamClient.Name}, {attempts} attempts? Try playing {Manifest.Get(allstories[UnityEngine.Random.Range(0, allstories.Length)]).name}, I have heard it's fun!";
+        }
     }
     private void Correct(string hash)
     {
