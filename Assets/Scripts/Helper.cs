@@ -72,6 +72,13 @@ namespace SajberSim.Helper
             Local, //only official stories
             Own //only custom stories
         }
+        public enum DataSize
+        {
+            Byte,
+            Kilobyte,
+            Megabyte,
+            Gigabyte
+        }
         public static void Alert(string text)
         {
             string size = "Small";
@@ -291,6 +298,17 @@ namespace SajberSim.Helper
                 size += DirSize(di);
             }
             return size;
+        }
+        public static double BytesTo(long bytes, DataSize size)
+        {
+            switch (size)
+            {
+                case (DataSize.Byte): return bytes;
+                case (DataSize.Kilobyte): return bytes / 1024;
+                case (DataSize.Megabyte): return bytes / 1024 / 1024;
+                case (DataSize.Gigabyte): return bytes / 1024 / 1024 / 1024;
+            }
+            return 0;
         }
         public static string UwUTranslator(string text)
         {
