@@ -40,7 +40,7 @@ namespace SajberSim.Web
                 }
             }
         }
-        private IEnumerator UpdateAndSetAlpha(GameObject item, string path)
+        private IEnumerator UpdateAndSetAlpha(Image item, string path)
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
             {
@@ -54,14 +54,14 @@ namespace SajberSim.Web
                     try
                     {
                         var texture = DownloadHandlerTexture.GetContent(uwr);
-                        if (item) item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                        if (item) item.sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     }
                     catch (Exception e)
                     {
                         Debug.LogError($"Download: Tried to download {path} which caused an error.\n{e}");
                     }
                 }
-                if (item) item.GetComponent<Image>().color = Color.white;
+                if (item) item.color = Color.white;
             }
         }
         private IEnumerator Setogg(GameObject item, string path, bool play)
@@ -83,9 +83,9 @@ namespace SajberSim.Web
                 }
             }
         }
-        public void CardThumbnail(Transform item, string path)
+        public void CardThumbnail(Image item, string path)
         {
-            StartCoroutine(UpdateAndSetAlpha(item.gameObject, path));
+            StartCoroutine(UpdateAndSetAlpha(item, path));
         }
         public void Image(GameObject item, string path)
         {
