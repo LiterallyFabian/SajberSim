@@ -2,10 +2,12 @@
 using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Web;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,6 +15,7 @@ using UnityEngine.UI;
 
 public class StoryCard : MonoBehaviour
 {
+    public bool myNovel = false;
     private Manifest data;
     public Text Title;
     public Image Clock;
@@ -24,6 +27,8 @@ public class StoryCard : MonoBehaviour
     public string storyPath;
     private StartStory storyManager;
     public Download dl;
+    public DetailsCard detailsCard;
+    public GameObject detailsTemplate;
 
     void Start()
     {
@@ -35,9 +40,19 @@ public class StoryCard : MonoBehaviour
     {
         
     }
+    private void CheckOwnerStatus()
+    {
+        if (data == null) return;
+        myNovel = storyPath.Contains("SajberSim_Data/MyStories") || storyPath.Contains("SajberSim_Data\\MyStories");
+        if (Helper.loggedin)
+        {
+            if (data.authorid == $"{SteamClient.SteamId}") myNovel = true;
+        }
+    }
     public void SetData(Manifest storyData, string path)
     {
         data = storyData;
+        CheckOwnerStatus();
         storyPath = path;
         if (File.Exists($"{storyPath}/thumbnail.png"))
             dl.CardThumbnail(Thumbnail, $"{storyPath}/thumbnail.png");
@@ -84,5 +99,13 @@ public class StoryCard : MonoBehaviour
         Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
         Stats.Add(Stats.List.novelsstarted);
         StartCoroutine(main.FadeToScene("game"));
+    }
+    public void Details()
+    {
+        GameObject details = Instantiate(detailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
+        details.transform.localPosition = new Vector3(0, 0, 1);
+        details.name = $"Details card for {data.name}";
+        details.GetComponent<DetailsCard>().card = this;
+        details.GetComponent<DetailsCard>().UpdateDetails(data, Thumbnail);
     }
 }

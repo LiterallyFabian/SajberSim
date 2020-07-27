@@ -35,7 +35,7 @@ public class StartStory : MonoBehaviour
 
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
-    public bool detailsOpen = false;
+    public static bool detailsOpen = false;
     private Helper.StorySearchPaths searchPath = Helper.StorySearchPaths.All;
     public static bool storymenuOpen = false;
     public static bool creatingStory = false;

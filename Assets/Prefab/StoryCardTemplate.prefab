@@ -474,6 +474,9 @@ MonoBehaviour:
   NSFW: {fileID: 3951897066409422811}
   storyPath: 
   dl: {fileID: 1711485762483669137}
+  detailsCard: {fileID: 0}
+  detailsTemplate: {fileID: 3012068439776714815, guid: 0952d1f5b5d414846ae1741c5a3290cd,
+    type: 3}
 --- !u!114 &1711485762483669137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,12 +770,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3020521122933438574}
-        m_MethodName: 
+      - m_Target: {fileID: 350712997874284053}
+        m_MethodName: Details
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
