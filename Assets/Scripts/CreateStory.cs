@@ -180,6 +180,7 @@ public class CreateStory : MonoBehaviour
                 serializer.Serialize(writer, data);
             }
             StartCoroutine(B_SetStatus(Translate.Get("saved")));
+            storyMenu.UpdatePreviewCards();
         }
         catch(Exception e)
         {

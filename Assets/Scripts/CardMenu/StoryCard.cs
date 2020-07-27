@@ -43,17 +43,18 @@ public class StoryCard : MonoBehaviour
     private void CheckOwnerStatus()
     {
         if (data == null) return;
-        myNovel = storyPath.Contains("SajberSim_Data/MyStories") || storyPath.Contains("SajberSim_Data\\MyStories");
+        myNovel = storyPath.Contains("SajberSim_Data/MyStories") || storyPath.Contains("SajberSim_Data\\MyStories") || (Application.isEditor && storyPath.Contains("MyStories"));
         if (Helper.loggedin)
         {
             if (data.authorid == $"{SteamClient.SteamId}") myNovel = true;
         }
+        Debug.Log(data.authorid +  $"           {SteamClient.SteamId}");
     }
     public void SetData(Manifest storyData, string path)
     {
         data = storyData;
-        CheckOwnerStatus();
         storyPath = path;
+        CheckOwnerStatus();
         if (File.Exists($"{storyPath}/thumbnail.png"))
             dl.CardThumbnail(Thumbnail, $"{storyPath}/thumbnail.png");
         else
@@ -107,5 +108,13 @@ public class StoryCard : MonoBehaviour
         details.name = $"Details card for {data.name}";
         details.GetComponent<DetailsCard>().card = this;
         details.GetComponent<DetailsCard>().UpdateDetails(data, Thumbnail);
+    }
+    public void Edit()
+    {
+        CreateStory createManager = GameObject.Find("Canvas/CreateMenu").GetComponent<CreateStory>();
+        CreateStory.currentlyEditingName = data.name;
+        CreateStory.currentlyEditingPath = storyPath;
+        createManager.SetWindow(1);
+        createManager.ToggleMenu(true);
     }
 }
