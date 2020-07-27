@@ -15810,6 +15810,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonPublish
       objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702787, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3135627379047702908, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_Color.r
@@ -19548,7 +19553,7 @@ PrefabInstance:
     - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
@@ -19590,6 +19595,36 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1107955154}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1273872606}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_Text

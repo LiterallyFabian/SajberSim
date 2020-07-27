@@ -31,7 +31,7 @@ public class StartStory : MonoBehaviour
 
     
     Helper.StorySearchArgs sortArgs;
-    Download dl;
+    public Download dl;
 
     private int page = 0; //current page in story card menu, starting at 0
     public bool nsfw;
@@ -148,7 +148,7 @@ public class StartStory : MonoBehaviour
             if (storydata != null)
             {
                 Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
-                CreateCard(storyPaths[i], storydata, position, i);
+                CreateCard(storyPaths[i], storydata, position);
             }
             
         }
@@ -167,12 +167,11 @@ public class StartStory : MonoBehaviour
         }
         else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
     }
-    public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, int no, string parent = "Canvas/StoryChoice")
+    public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, string parent = "Canvas/StoryChoice")
     {
         if (data == null)
         {
             GameObject obj = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject;
-
             obj.transform.localPosition = pos;
             obj.name = $"template";
             return obj;
@@ -191,43 +190,14 @@ public class StartStory : MonoBehaviour
         
         menu.transform.localPosition = pos;
         //menu.transform.localScale = Vector3.one;
-        menu.name = $"Card {no}";
+        menu.name = $"Card {data.name}";
+        StoryCard cardDetails = menu.GetComponent<StoryCard>();
+        cardDetails.SetData(data, storyPath);
 
 
 
         //Fill with data
-        if (File.Exists($"{storyPath}/thumbnail.png"))
-            dl.CardThumbnail(menu.transform.Find($"Thumbnail"), $"{storyPath}/thumbnail.png");
-        else
-            menu.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
 
-        Color splashColor = Color.white;
-        ColorUtility.TryParseHtmlString($"#{overlaycolor}", out splashColor);
-        menu.transform.Find("Overlay").GetComponent<Image>().color = splashColor;
-
-        Color textColor = Colors.UnityGray; 
-        ColorUtility.TryParseHtmlString($"#{textcolor}", out textColor);
-        menu.transform.Find("Title").GetComponent<Text>().color = textColor;
-        
-        Transform clock = menu.transform.Find("Clock");
-        clock.GetComponent<Image>().color = textColor;
-        clock.transform.Find("TimeNumber").GetComponent<Text>().color = textColor;
-        clock.transform.Find("TimeNumber").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
-        
-        if (!isnsfw)
-        {
-            menu.transform.Find("NSFW").GetComponent<Text>().color = new Color(0, 0, 0, 0); //hide
-            clock.transform.localPosition = new Vector3(clock.transform.localPosition.x, 47, 0);
-        }
-        else if (isnsfw) // easier to read than just an else 
-        {
-            menu.transform.Find("NSFW").GetComponent<Text>().color = textColor; //show
-            clock.transform.localPosition = new Vector3(clock.transform.localPosition.x, 57, 0);
-        }
-
-        menu.transform.Find("Title").GetComponent<Text>().text = name;
-
-        menu.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
         return menu;
     }
     private void CreateDetails(int n)
@@ -252,7 +222,7 @@ public class StartStory : MonoBehaviour
         details.name = $"Detailscard {n}";
 
         if (File.Exists($"{folderPath}/thumbnail.png"))
-            dl.CardThumbnail(details.transform.Find($"Thumbnail"), $"{folderPath}/thumbnail.png");
+            dl.CardThumbnail(details.transform.Find($"Thumbnail").GetComponent<Image>(), $"{folderPath}/thumbnail.png");
         else
             details.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
 

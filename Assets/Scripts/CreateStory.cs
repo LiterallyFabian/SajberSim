@@ -102,6 +102,8 @@ public class CreateStory : MonoBehaviour
             case 0: // Create story and set basics
                 currentWindow = CreateWindows.Basics;
                 ButtonDetails.interactable = false;
+                ButtonEdit.interactable = false;
+                ButtonVerify.interactable = false;
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("createnewnovel");
                 Description.text = Translate.Get("createnewdesc");
@@ -204,7 +206,7 @@ public class CreateStory : MonoBehaviour
     }
     public void UpdateStats()
     {
-        GameObject card = storyMenu.CreateCard(currentlyEditingPath, Manifest.Get(currentlyEditingPath + "/manifest.json"), new Vector3(680.6f, -45.3f, 0), -1, "Canvas/CreateMenu/EditMenu");
+        GameObject card = storyMenu.CreateCard(currentlyEditingPath, Manifest.Get(currentlyEditingPath + "/manifest.json"), new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
         card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
         int dialogues = 0;
         int alerts = 0;
