@@ -271,35 +271,26 @@ namespace SajberSim.Helper
             return color;
         }
         /// <summary>
-        /// Tries to zip a directory and put it in the origin folder (Folder -> Folder/Folder.zip)
+        /// Calculates the total size of a directory
         /// </summary>
-        /// <param name="origin"></param>
-        /// <returns>True for successful compressions, otherwise false</returns>
-        //public static bool ZipDirectory(string origin)
-        //{
-        //    if (!Directory.Exists(origin))
-        //    {
-        //        UnityEngine.Debug.LogError($"Helper: Tried to zip directory {origin} which does not exist.");
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-        //            string result = new DirectoryInfo(origin).Name + ".zip";
-        //            ZipFile.CreateFromDirectory(origin, result);
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            UnityEngine.Debug.LogError($"Helper: Could not zip directory {origin}.\n{e}");
-        //            return false;
-        //        }
-        //    }
-        //}
-        public byte[] ConvertZipToData(string fileName)
+        /// <param name="d"></param>
+        /// <returns>Directory size in bytes</returns>
+        public static long DirSize(DirectoryInfo d)
         {
-            return File.ReadAllBytes(fileName);
+            long size = 0;
+            // Add file sizes.
+            FileInfo[] fis = d.GetFiles();
+            foreach (FileInfo fi in fis)
+            {
+                size += fi.Length;
+            }
+            // Add subdirectory sizes.
+            DirectoryInfo[] dis = d.GetDirectories();
+            foreach (DirectoryInfo di in dis)
+            {
+                size += DirSize(di);
+            }
+            return size;
         }
         public static string UwUTranslator(string text)
         {
