@@ -39,7 +39,7 @@ public class Textbox : MonoBehaviour, GameManager.INovelAction
 
     public string Working(string[] line)
     {
-        if (line.Length > 4 || line.Length < 3) return $"The length of the line is {line.Length}, while the expected is 3 or 4.";
+        if (line.Length > 4 || line.Length < 3) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4"); //Incorrect length, found LENGTH arguments but the action expects 3-4.
         return "";
     }
     private IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0

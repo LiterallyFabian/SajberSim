@@ -26,8 +26,9 @@ public class PlayAudio : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length != 2) return $"Incorrect length, found {line.Length} arguments and expected 2";
-        if (!File.Exists($"{Helper.currentStoryPath}/Audio/{line[1]}.ogg")) return $"Audio \"{line[1]}\" not found. Maybe there is a typo?\nExpected path: {GameManager.shortStoryPath}/Audio/{line[1]}.ogg";
+        string path = $"{Helper.currentStoryPath}/Audio/{line[1]}.ogg";
+        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
+        if (!File.Exists(path)) return string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg");
         return "";
     }
     private void Play(string[] line)

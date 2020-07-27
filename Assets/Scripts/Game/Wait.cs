@@ -17,7 +17,7 @@ public class Wait : MonoBehaviour, GameManager.INovelAction
         if (status != "")
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "WAIT|seconds"));
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, $"WAIT|{Translate.Get("seconds")}"));
             Game.RunNext();
             return;
         }
@@ -26,8 +26,8 @@ public class Wait : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length != 2) return $"The length of the line is {line.Length}, while the expected is 2.";
-        if(!Helper.IsFloat(line[1])) return $"The time <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)";
+        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2); //Incorrect length, found LENGTH arguments but the action expects 2.
+        if (!Helper.IsFloat(line[1])) return string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_time"), line[1]); //The time <b>TIME</b> is not a valid float (eg 7.5 or 2).
         return "";
     }
     private IEnumerator Delay(float time) //ID 7

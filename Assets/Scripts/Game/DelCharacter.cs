@@ -29,7 +29,7 @@ public class DelCharacter : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length != 2) return $"The length of the line is {line.Length}, while the expected is 2.";
+        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
         return "";
     }
 }

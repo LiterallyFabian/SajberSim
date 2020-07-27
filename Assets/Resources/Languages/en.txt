@@ -88,6 +88,18 @@ hascredits=Has credits: {0}
 #Debug
 erroratline=An error occurred at line {0} in the script\n{1}.\n\n<b>Line:</b> {2}\n\n<b>Result from debugger:</b> {3}\n\n<b>Correct syntax:</b> {4}
 invalidstory=An error occurred: Tried to start non-existing story:\n{0}.\n\nIf you are the creator of this novel, make sure no typos are involved.
+invalidargumentlength=Incorrect length, found {0} arguments but the action expects {1}.
+missingarguments=Missing arguments, only found {0} arguments but the action expects {1}.
+missingaudio=Audio "{0}" not found. Maybe there is a typo?\nExpected path: {1}.
+missingcharacter=Character and/or mood not found. Maybe there is a typo?\nExpected path: {0}.
+missingimage=Image not found. Maybe there is a typo?\nExpected path: {0}.
+invalidfloat=The {0} <b>{1}</b> is not a valid float (eg 7.5 or 2).
+
+#Action arguments, replacing {0} in "invalidfloat" above
+arg_time=time
+arg_size=size
+arg_coordinate=coordinate
+
 
 #Settings
 volume=Volume

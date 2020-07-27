@@ -38,8 +38,8 @@ public class Question : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length < 6) return $"Missing arguments, the length of the line is {line.Length}, while the expected is 6 or higher.";
-        if ((line.Length - 2) % 2 != 0) return $"The length of the line is {line.Length}, while the expected is alternatives * 2 + 2";
+        if (line.Length < 6) return string.Format(Translate.Get("missingarguments"), line.Length, "6+"); //Missing arguments, only found LENGTH arguments but the action expects 6+.
+        if ((line.Length - 2) % 2 != 0) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "alternatives * 2 + 2"); //Incorrect length, found LENGTH arguments but the action expects alternatives * 2 + 2.
         int script = 0;
         for (int i = 3; i < line.Length; i += 2)
         {

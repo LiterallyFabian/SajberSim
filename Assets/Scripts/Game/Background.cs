@@ -29,9 +29,8 @@ public class Background : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length > 3) return $"Incorrect length, found {line.Length} arguments and expected 2 or 3.";
-        if (line.Length < 2) return $"Missing arguments.";
-        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return $"Image not found. Maybe there is a typo?\nExpected path: {GameManager.shortStoryPath}/Backgrounds/{line[1]}.png";
+        if (line.Length > 3 || line.Length < 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3");
+        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png");
         return "";
     }
     private IEnumerator SetBackground(string back)
@@ -54,6 +53,5 @@ public class Background : MonoBehaviour, GameManager.INovelAction
         }
         GameManager.currentBackground = back;
         GameManager.backgroundHasChanged = true;
-       
     }
 }

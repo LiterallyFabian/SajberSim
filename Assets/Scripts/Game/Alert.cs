@@ -24,7 +24,7 @@ public class Alert : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length != 2) return $"The length of the line is {line.Length}, while it should be 2.";
+        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
         return "";
     }
     private IEnumerator SpawnAlert(string target) //ID 0

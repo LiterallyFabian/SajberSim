@@ -26,7 +26,7 @@ public class LoadScript : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length != 2) return $"The length of the line is {line.Length}, while it should be 2.";
+        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
         if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[1]}.txt")) return $"The script \"{line[1]}\" does not exist. Expected path: {GameManager.shortStoryPath}/Dialogues/{line[1]}.txt";
         return "";
     }

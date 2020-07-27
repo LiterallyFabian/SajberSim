@@ -40,16 +40,16 @@ public class Character : MonoBehaviour, GameManager.INovelAction
     }
     public string Working(string[] line)
     {
-        if (line.Length > 7 || line.Length < 5) return $"The length of the line is {line.Length}, while the expected is 5-7.";
+        if (line.Length > 7 || line.Length < 5) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7");
         string name = "";
 
         if (Helper.IsNum(line[1])) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png")) return $"This character and/or mood could not be found, expected the file Characters/{name}{line[2]}.png.";
-        if (!Helper.IsFloat(line[3])) return $"The X coordinate <b>{line[3]}</b> is not a valid float (eg 7.5 or 2)";
-        if(!Helper.IsFloat(line[4])) return $"The Y coordinate <b>{line[4]}</b> is not a valid float (eg 7.5 or 2)"; 
+        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png")) return string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png");
+        if (!Helper.IsFloat(line[3])) return string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]);
+        if (!Helper.IsFloat(line[4])) return string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]);
         if (line.Length == 5) return "";
-        if (!Helper.IsFloat(line[5])) return $"The size \"{line[5]}\" is not a valid float (eg 7.5 or 2)"; 
+        if (!Helper.IsFloat(line[5])) return string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]);
         return "";
     }
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2
