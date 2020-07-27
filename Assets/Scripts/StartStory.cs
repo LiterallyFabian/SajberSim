@@ -183,43 +183,6 @@ public class StartStory : MonoBehaviour
         cardDetails.SetData(data, storyPath);
         return menu;
     }
-    private void CreateDetails(int n)
-    {
-        string folderPath = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[n];
-        Manifest data = Manifest.Get($"{folderPath}/manifest.json");
-
-        string name = data.name;
-        string id = folderPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
-        string language = data.language.ToUpper();
-        bool isnsfw = data.nsfw;
-        int playtime = data.playtime;
-        string[] tags = data.tags;
-        string genre = data.genre;
-        string author = data.author;
-        string description = data.description;
-        int publishdate = data.publishdate;
-
-        GameObject details = Instantiate(DetailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
-        Vector3 startPos = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(n - (page * 6))];
-        details.transform.localPosition = new Vector3(0, startPos.y, 1);
-        details.name = $"Detailscard {n}";
-
-        if (File.Exists($"{folderPath}/thumbnail.png"))
-            dl.CardThumbnail(details.transform.Find($"Thumbnail").GetComponent<Image>(), $"{folderPath}/thumbnail.png");
-        else
-            details.transform.Find("Thumbnail").GetComponent<Image>().color = Color.white;
-
-        details.transform.Find("Title").GetComponent<Text>().text = name;
-        details.transform.Find("Author").GetComponent<Text>().text = $"{string.Format(Translate.Get("publishedby"), $"<b>{author}</b>")} {Helper.TimeAgo(DateTime.ParseExact(publishdate.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture))}";
-        details.transform.Find("Description").GetComponent<Text>().text = description;
-        details.transform.Find("TagsTitle/Tags").GetComponent<Text>().text = string.Join(", ", tags);
-        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().text = isnsfw ? Translate.Get("yes") : Translate.Get("no");
-        details.transform.Find("NsfwTitle/nsfw").GetComponent<Text>().color = isnsfw ? Colors.NsfwRed : Colors.UnityGray;
-        details.transform.Find("GenreTitle/Genre").GetComponent<Text>().text = Translate.Get(genre);
-        details.transform.Find("LengthTitle/Length").GetComponent<Text>().text = TimeSpan.FromMinutes(playtime).ToString(@"h\hmm\m");
-        details.transform.Find("Flag").GetComponent<Image>().sprite = dl.Flag(language);
-        detailsOpen = true;
-    }
     public void DeleteDetails()
     {
         GameObject card = GameObject.FindGameObjectWithTag("DetailsCard");
@@ -232,12 +195,6 @@ public class StartStory : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(card);
-    }
-    public void OpenDetails(int id)
-    {
-        string path = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
-        Debug.Log($"Attempting to create details of local story with ID {id}, path {path}");
-        CreateDetails(id);
     }
     public void ChangePage(int change)
     {
