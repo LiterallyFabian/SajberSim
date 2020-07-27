@@ -52,7 +52,12 @@ public class DetailsCard : MonoBehaviour
     public void GoBack()
     {
         StartStory.detailsOpen = false;
-        card.GetComponent<Animator>().Play("detailsClose");
-        Destroy(this.gameObject, 1);
+        GetComponent<Animator>().Play("detailsClose");
+        Destroy(gameObject, 2);
+    }
+    public void EditCard()
+    {
+        GoBack();
+        card.Edit();
     }
 }
