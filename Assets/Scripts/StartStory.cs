@@ -169,35 +169,18 @@ public class StartStory : MonoBehaviour
     }
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, string parent = "Canvas/StoryChoice")
     {
-        if (data == null)
-        {
-            GameObject obj = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject;
-            obj.transform.localPosition = pos;
-            obj.name = $"template";
-            return obj;
-        }
         if (Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
-        string name = data.name;
-        string id = storyPath.Replace($"{UnityEngine.Application.dataPath}/Story/", "");
-        string language = data.language.ToUpper();
-        string overlaycolor = data.overlaycolor.Replace("#", "");
-        string textcolor = data.textcolor.Replace("#", "");
-        bool isnsfw = data.nsfw;
-        int playtime = data.playtime;
-        if (GameObject.Find($"Canvas/StoryChoice/{id}")) Destroy(GameObject.Find($"Canvas/StoryChoice/{id}").gameObject);
+
+        if (GameObject.Find($"Canvas/StoryChoice/Card {data.name}")) Destroy(GameObject.Find($"Canvas/StoryChoice/Card {data.name}").gameObject);
+
         //spawn, place and resize
         GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject; 
-        
         menu.transform.localPosition = pos;
-        //menu.transform.localScale = Vector3.one;
         menu.name = $"Card {data.name}";
+
+        //fill with data
         StoryCard cardDetails = menu.GetComponent<StoryCard>();
         cardDetails.SetData(data, storyPath);
-
-
-
-        //Fill with data
-
         return menu;
     }
     private void CreateDetails(int n)
@@ -249,36 +232,6 @@ public class StartStory : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(card);
-    }
-
-    public void Play(int id, string name = "", string editpath = "")
-    {
-        string story;
-        string path;
-        if (id == -1)
-        {
-            story = name;
-            path = editpath;
-        }
-        else
-        {
-            story = Stories.GetAllStoryNames(sortArgs, nsfw, searchTerm, searchPath)[id];
-            path = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath)[id];
-        }
-        Manifest data = Manifest.Get($"{path}/manifest.json");
-        Helper.currentStoryPath = path;
-        Helper.currentStoryName = story;
-        Debug.Log($"Attempting to start story with ID {id}, path {path}");
-        PlayerPrefs.SetString("story", story);
-        PlayerPrefs.SetString("script", "start");
-        ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-        main.CreateCharacters();
-        storymenuOpen = false;
-        GameManager.storyAuthor = data.author;
-        GameManager.storyName = data.name;
-        Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
-        Stats.Add(Stats.List.novelsstarted);
-        StartCoroutine(main.FadeToScene("game"));
     }
     public void OpenDetails(int id)
     {
