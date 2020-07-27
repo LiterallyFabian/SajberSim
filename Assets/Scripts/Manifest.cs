@@ -18,9 +18,9 @@ public class Manifest
 {
 #pragma warning disable CS0649
     //Metadata
-    public string name = "Default name";
-    public string description = "Default description";
-    public string language = "US";
+    public string name = "NAME_MISSING";
+    public string description = "DESCRIPTION_MISSING";
+    public string language = "UNKNOWN";
     public bool nsfw = false;
     public int playtime = 0;
     public int publishdate = 19700101;
@@ -29,7 +29,7 @@ public class Manifest
     public string rating = "everyone";
 
     //IDs
-    public string author = "Default author";
+    public string author = "Unknown";
     public string authorid = "-1";
     public string id = "0";
     
