@@ -221,64 +221,63 @@ public class GameManager : MonoBehaviour
 
         string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
         GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nscript: = {scriptName}\n\n{story[dialoguepos]}";
-        line[0] = line[0].ToLower();
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
         {
             dialoguepos++;
             RunNext();
         }
 
-        else if (line[0] == "t") //textbox
+        else if (line[0] == "T") //textbox
         {
             dialoguepos++;
             Action_Textbox.Run(line);
         }
-        else if (line[0] == "alert") //general box
+        else if (line[0] == "ALERT") //general box
         {
             dialoguepos++;
             Action_Alert.Run(line);
         }
-        else if (line[0] == "background") //new background
+        else if (line[0] == "BACKGROUND") //new background
         {
             dialoguepos++;
             Action_Background.Run(line);
         }
-        else if (line[0] == "char") //move or create character
+        else if (line[0] == "CHAR") //move or create character
         {
             dialoguepos++;
             Action_Character.Run(line);
         }
-        else if (line[0] == "delete") //delete character
+        else if (line[0] == "DELETE") //delete character
         {
             dialoguepos++;
             Action_DelCharacter.Run(line);
         }
-        else if (line[0] == "question") //question
+        else if (line[0] == "QUESTION") //question
         {
             fadeimage.SetActive(false);
             ready = false;
             Action_Question.Run(line);
         }
-        else if (line[0] == "loadstory") //open new story (no question)
+        else if (line[0] == "LOADSTORY") //open new story (no question)
         {
             Action_LoadScript.Run(line);
         }
-        else if (line[0] == "wait") //delay
+        else if (line[0] == "WAIT") //delay
         {
             dialoguepos++;
             Action_Wait.Run(line);
         }
-        else if (line[0] == "playmusic" || line[0] == "playsfx")
+        else if (line[0] == "PLAYMUSIC" || line[0] == "PLAYSFX")
         {
             dialoguepos++;
             Action_PlayAudio.Run(line);
         }
-        else if (line[0] == "stopsounds" || line[0] == "stopmusic" || line[0] == "stopsfx")
+        else if (line[0] == "STOPSOUNDS" || line[0] == "STOPMUSIC" || line[0] == "STOPSFX")
         {
             dialoguepos++;
             Action_StopAudio.Run(line);
         }
-        else if (line[0] == "finishgame")
+        else if (line[0] == "FINISHGAME")
         {
             StartCoroutine(StartCredits());
         }

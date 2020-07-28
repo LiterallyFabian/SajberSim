@@ -16,10 +16,10 @@ public class StopAudio : MonoBehaviour, GameManager.INovelAction
         if (status != "")
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "syntax"));
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "STOPSOUNDS"));
             return;
         }
-        StopSound(line[0].ToLower().Replace("stop", ""));
+        StopSound(line[0].ToLower().Replace("STOP", ""));
         Game.RunNext();
     }
     public string Working(string[] line)
@@ -28,16 +28,16 @@ public class StopAudio : MonoBehaviour, GameManager.INovelAction
     }
     private void StopSound(string source)
     {
-        if (source == "music")
+        if (source == "MUSIC")
         {
             Game.music.GetComponent<AudioSource>().Stop();
             Game.musicplaying = "none";
         }
 
-        else if (source == "sfx")
+        else if (source == "SFX")
             Game.SFX.GetComponent<AudioSource>().Stop();
 
-        else if (source == "sounds")
+        else if (source == "SOUNDS")
         {
             Game.music.GetComponent<AudioSource>().Stop();
             Game.SFX.GetComponent<AudioSource>().Stop();

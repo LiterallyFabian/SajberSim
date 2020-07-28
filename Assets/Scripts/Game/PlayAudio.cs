@@ -33,7 +33,7 @@ public class PlayAudio : MonoBehaviour, GameManager.INovelAction
     }
     private void Play(string[] line)
     {
-        if (line[0] == "playsfx")
+        if (line[0] == "PLAYSFX")
             Game.dl.Ogg(Game.SFX, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
         else if(Game.musicplaying != line[1])
             Game.dl.Ogg(Game.music, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
