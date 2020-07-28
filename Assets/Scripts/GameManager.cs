@@ -151,9 +151,11 @@ public class GameManager : MonoBehaviour
         scriptName = "start";
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script", "start")}.txt";
+        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
         if (File.Exists(scriptPath))
         story = File.ReadAllLines(scriptPath);
+        else
+            Helper.Alert(string.Format(Translate.Get("missingstartscript"), $"{shortStoryPath}/Dialogues/start.txt"));
         shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
 
 
