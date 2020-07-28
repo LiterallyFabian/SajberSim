@@ -39,7 +39,6 @@ namespace SajberSim.Helper
 
         public static AS_AccountInfo acc;
 
-
         /// <summary>
         /// Positions for all 6 icons in the story menu
         /// </summary>
@@ -79,16 +78,16 @@ namespace SajberSim.Helper
             Megabyte,
             Gigabyte
         }
-        public static void Alert(string text)
+        public static void Alert(string text, string buttonText = null)
         {
             string size = "Small";
             if (text.Length > 150) size = "Medium";
             if (text.Length > 400) size = "Large";
             GameObject alert = Instantiate(Resources.Load($"Prefabs/Alert{size}", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+            if (buttonText != null) alert.transform.Find("continue/text").GetComponent<Text>().text = buttonText;
             alert.transform.Find("AlertText").GetComponent<Text>().text = text;
             alert.transform.localPosition = Vector3.zero;
         }
-
         private static bool _filledlist = false;
         private void Start()
         {
