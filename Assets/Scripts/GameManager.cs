@@ -143,20 +143,29 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetActionClasses();
+
+        //Reset static values
         backgroundHasChanged = false;
         paused = false;
         dialoguepos = 0;
         ready = true;
         textdone = false;
         scriptName = "start";
+        story = new string[0];
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
-        if (File.Exists(scriptPath))
-        story = File.ReadAllLines(scriptPath);
-        else
-            Helper.Alert(string.Format(Translate.Get("missingstartscript"), $"{shortStoryPath}/Dialogues/start.txt"));
         shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
+        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
+
+        if (File.Exists(scriptPath))
+            story = File.ReadAllLines(scriptPath);
+        else
+        {
+            background = Helper.Alert(string.Format(Translate.Get("missingstartscript"), $"{shortStoryPath}/Dialogues/start.txt"));
+            Debug.LogError($"Visual Novel/Start: Starting script for story {shortStoryPath} is missing.");
+        }
+            
+        
 
 
         PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
@@ -169,11 +178,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!background.activeSelf) StartCoroutine(GoToMain());
         if (Input.GetKeyDown(KeyCode.F1)) //toggles debug stuff
         {
             ToggleDevmenu();
         }
-
+        if (story.Length == 0) return;
         if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialoguepos] == "" || story[dialoguepos].StartsWith("//")) && !paused)
@@ -219,7 +229,7 @@ public class GameManager : MonoBehaviour
     }
     public void RunNext()
     {
-        if (!ready) return;
+        if (!ready || story.Length == 0) return;
 
         string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
         GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nscript: = {scriptName}\n\n{story[dialoguepos]}";
@@ -396,8 +406,14 @@ public class GameManager : MonoBehaviour
         x.transform.localPosition = Vector3.zero;
         x.name = "Settings";
     }
-    public void GoToMain()
+    public void SettingsQuit()
     {
+        StartCoroutine(GoToMain());
+    }
+    IEnumerator GoToMain()
+    {
+        fadeimage.GetComponent<Animator>().Play("darken");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("menu");
     }
     public IEnumerator StartCredits(bool addStats = true) //Avslutar & återställer spelet och startar credits

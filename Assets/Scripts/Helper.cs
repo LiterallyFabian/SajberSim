@@ -78,7 +78,7 @@ namespace SajberSim.Helper
             Megabyte,
             Gigabyte
         }
-        public static void Alert(string text, string buttonText = null)
+        public static GameObject Alert(string text, string buttonText = null)
         {
             string size = "Small";
             if (text.Length > 150) size = "Medium";
@@ -87,6 +87,7 @@ namespace SajberSim.Helper
             if (buttonText != null) alert.transform.Find("continue/text").GetComponent<Text>().text = buttonText;
             alert.transform.Find("AlertText").GetComponent<Text>().text = text;
             alert.transform.localPosition = Vector3.zero;
+            return alert;
         }
         private static bool _filledlist = false;
         private void Start()

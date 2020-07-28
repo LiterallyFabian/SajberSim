@@ -38365,8 +38365,8 @@ MonoBehaviour:
     type: 3}
   CloseButtonBehind: {fileID: 2118695609}
   sortWay: {fileID: 1330237966}
+  dl: {fileID: 0}
   nsfw: 0
-  detailsOpen: 0
 --- !u!95 &1834734307
 Animator:
   serializedVersion: 3
