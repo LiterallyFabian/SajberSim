@@ -22,6 +22,9 @@ class Vault : MonoBehaviour
     public void RunCode()
     {
         attempts++;
+        // Why are the codes hashed you might ask? Well, since you're reading this I don't think I have to explain
+        // tbf tho, these are not anything secret but mostly used for unlisted novels
+        // https://www.youtube.com/watch?v=9InoLZ-ErQU
         string code = input.text.ToLower().Hash();
         string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28" };
         if (correctHashes.Contains(code)) Correct(code);
