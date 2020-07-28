@@ -284,8 +284,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Helper.Alert($"An invalid action was found at line {dialoguepos} in script {PlayerPrefs.GetString("script")}.txt. \"{line[0]}\" is not a valid action.");
-            Debug.LogError($"Visual Novel/Runnext: Error at line {dialoguepos} in {Helper.currentStoryPath}/Dialogues/{PlayerPrefs.GetString("script")}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
+            Helper.Alert(string.Format(Translate.Get("invalidaction"), dialoguepos, scriptName, line[0]));
+            Debug.LogError($"Visual Novel/Runnext: Error at line {dialoguepos} in {Helper.currentStoryPath}/Dialogues/{scriptName}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
             dialoguepos++;
             RunNext();
         }

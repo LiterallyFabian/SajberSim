@@ -94,6 +94,7 @@ missingaudio=Audio "{0}" not found. Maybe there is a typo?\nExpected path: {1}.
 missingcharacter=Character and/or mood not found. Maybe there is a typo?\nExpected path: {0}.
 missingimage=Image not found. Maybe there is a typo?\nExpected path: {0}.
 invalidfloat=The {0} <b>{1}</b> is not a valid float (eg 7.5 or 2).
+invalidaction=An invalid action was found at line {0} in script {1}.txt.\n\n"{2}" is not a valid action.\n\nRemember that all actions are in UPPER CASE. If you want to comment your scripts, the lines should start with //
 
 #Action arguments, replacing {0} in "invalidfloat" above
 arg_time=time
