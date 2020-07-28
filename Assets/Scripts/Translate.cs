@@ -37,13 +37,13 @@ namespace SajberSim.Translation
                 return Fields[id];
             else if(EnglishFields.ContainsKey(id))
             {
-                Debug.LogWarning($"Translation: Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
+                Debug.LogWarning($"Translation/Get: Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
                 return EnglishFields[id];
             }
             else
             {
-                Debug.LogError($"Translation: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning ID. This request was called from {location}");
-                Webhook.Log($"Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN");
+                Debug.LogError($"Translation/Get: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning ID. This request was called from {location}");
+                Webhook.Log($"Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN.\n<@211521218896068609>");
                 return id;
             }
         }

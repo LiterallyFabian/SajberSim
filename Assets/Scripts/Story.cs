@@ -29,7 +29,7 @@ namespace SajberSim.Story
            path = $"{Application.dataPath}/Modding/Dialogues/{name}.txt";
             if (!File.Exists(path))
             {
-                Debug.LogError($"Tried to create story \"{name}\" which does not exist. (PATH: {path})");
+                Debug.LogError($"Story/Constructor: Tried to create story \"{name}\" which does not exist. (PATH: {path})");
                 return;
             }
             alltext = File.ReadAllLines(path);

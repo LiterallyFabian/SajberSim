@@ -28,7 +28,7 @@ namespace SajberSim.Web
                 if (uwr.isNetworkError) 
                     Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
                 else if (!File.Exists(path.Replace("file://", "")))
-                    Debug.LogError($"Download: Tried to download {path} which does not exist");
+                    Debug.LogError($"Download/PNG: Tried to download {path} which does not exist");
                 else
                 {
                     Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
@@ -48,7 +48,7 @@ namespace SajberSim.Web
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError)
-                    Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
+                    Debug.LogError($"Download/PNGAlpha: Could not download {path}\n{uwr.error}");
                 else if (File.Exists(path.Replace("file://", "")) || path.Contains("https://"))
                 {
                     try
@@ -58,7 +58,7 @@ namespace SajberSim.Web
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError($"Download: Tried to download {path} which caused an error.\n{e}");
+                        Debug.LogError($"Download/PNGAlpha: Tried to download {path} which caused an error.\n{e}");
                     }
                 }
                 if (item) item.color = Color.white;
@@ -71,11 +71,11 @@ namespace SajberSim.Web
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError)
-                    Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
+                    Debug.LogError($"Download/Ogg: Could not download {path}\n{uwr.error}");
                 else if (!File.Exists(path.Replace("file://", "")))
-                    Debug.LogError($"Download: Tried to download {path} which does not exist");
+                    Debug.LogError($"Download/Ogg: Tried to download {path} which does not exist");
                 else if(item.GetComponent<AudioSource>() == null)
-                    Debug.LogError($"Download: Tried to set audio {path} on gameobject {item.name} which does not have an audio source component.");
+                    Debug.LogError($"Download/Ogg: Tried to set audio {path} on gameobject {item.name} which does not have an audio source component.");
                 else
                 {
                     item.GetComponent<AudioSource>().clip = DownloadHandlerAudioClip.GetContent(uwr);

@@ -42,7 +42,7 @@ public class Manifest
     {
         if (!File.Exists(path))
         {
-            UnityEngine.Debug.LogWarning($"Helper: Tried getting manifest for path \"{path}\" which does not exist");
+            UnityEngine.Debug.LogWarning($"Manifest/Get: Tried getting manifest for path \"{path}\" which does not exist");
             return null;
         }
         try
@@ -51,7 +51,7 @@ public class Manifest
         }
         catch
         {
-            UnityEngine.Debug.LogError($"Helper/GetManifest: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
+            UnityEngine.Debug.LogError($"Manifest/Get: Something went wrong when converting manifest \"{path}\". Is it setup correctly?");
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class Manifest
         foreach (string story in Stories.GetAllStoryPaths(args, nsfw, searchTerm, where))
         {
             if (!File.Exists($"{story}/manifest.json"))
-                UnityEngine.Debug.LogWarning($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
+                UnityEngine.Debug.LogWarning($"Manifest/GetAll: Tried getting manifest for {story} which does not exist.");
             else if (Manifest.Get($"{story}/manifest.json") != null)
                 manifestPaths.Add($"{story}/manifest.json");
         }
@@ -85,7 +85,7 @@ public class StoryDesign
         string path = Helper.currentStoryPath + "/design.json";
         if (!File.Exists(path))
         {
-            UnityEngine.Debug.LogWarning($"{Helper.currentStoryPath} does not have a design manifest, continuing with default.");
+            UnityEngine.Debug.LogWarning($"StoryLayout/Get: {Helper.currentStoryPath} does not have a design manifest, continuing with default.");
             return new StoryDesign();
         }
         try
@@ -94,7 +94,7 @@ public class StoryDesign
         }
         catch
         {
-            UnityEngine.Debug.LogError($"Helper/GetDesign: Something went wrong when converting manifest \"{path}/design.json\". Is it setup correctly?");
+            UnityEngine.Debug.LogError($"StoryLayout/Get: Something went wrong when converting manifest \"{path}/design.json\". Is it setup correctly?");
             return null;
         }
     }

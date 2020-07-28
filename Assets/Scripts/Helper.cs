@@ -112,7 +112,7 @@ namespace SajberSim.Helper
                 localPath = Application.dataPath + "/Story/";
                 if(loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
-                UnityEngine.Debug.Log($"Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
+                UnityEngine.Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
             Directory.CreateDirectory($"{Application.dataPath}/MyStories");
@@ -185,7 +185,7 @@ namespace SajberSim.Helper
             if (Directory.Exists(fullpath))
                 Process.Start(fullpath);
             else
-                UnityEngine.Debug.LogError($"Helper/Folder: Tried to open path {fullpath} which does not exist");
+                UnityEngine.Debug.LogError($"Helper/OpenFolder: Tried to open path {fullpath} which does not exist");
         }
 
         /// <param name="dateTime">Date in the past to count from</param>

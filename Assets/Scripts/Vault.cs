@@ -36,7 +36,7 @@ class Vault : MonoBehaviour
     }
     private void Error()
     {
-        Debug.Log($"VAULT: {input.text} wasn't a code, how sad!");
+        Debug.Log($"Vault: {input.text} wasn't a code, how sad!");
         StartCoroutine(ResetField());
         Lore.color = Colors.NsfwRed;
         Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 7)}");
