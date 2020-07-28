@@ -48,7 +48,6 @@ public class StoryCard : MonoBehaviour
         {
             if (data.authorid == $"{SteamClient.SteamId}") myNovel = true;
         }
-        Debug.Log(data.authorid +  $"           {SteamClient.SteamId}");
     }
     public void SetData(Manifest storyData, string path)
     {
