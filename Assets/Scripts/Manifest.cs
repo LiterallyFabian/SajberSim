@@ -65,7 +65,7 @@ public class Manifest
         foreach (string story in Stories.GetAllStoryPaths(args, nsfw, searchTerm, where))
         {
             if (!File.Exists($"{story}/manifest.json"))
-                UnityEngine.Debug.LogError($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
+                UnityEngine.Debug.LogWarning($"Helper/GetAllManifests: Tried getting manifest for {story} which does not exist.");
             else if (Manifest.Get($"{story}/manifest.json") != null)
                 manifestPaths.Add($"{story}/manifest.json");
         }
