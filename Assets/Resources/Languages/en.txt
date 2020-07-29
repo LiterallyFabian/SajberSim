@@ -92,6 +92,7 @@ invalidargumentlength=Incorrect length, found {0} arguments but the action expec
 missingarguments=Missing arguments, only found {0} arguments but the action expects {1}.
 missingaudio=Audio "{0}" not found. Maybe there is a typo?\nExpected path: {1}.
 missingcharacter=Character and/or mood not found. Maybe there is a typo?\nExpected path: {0}.
+missingcharacterport=Character portrait is requested but not found. Maybe there is a typo?\nExpected path: {0}.
 missingimage=Image not found. Maybe there is a typo?\nExpected path: {0}.
 missingstartscript=The starting script could not be found. Please rename the script you want to begin the story with to "start.txt".\n\nExpected path: {0}.
 invalidfloat=The {0} <b>{1}</b> is not a valid float (eg 7.5 or 2).

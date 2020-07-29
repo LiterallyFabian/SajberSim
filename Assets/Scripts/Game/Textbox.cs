@@ -4,6 +4,7 @@ using SajberSim.Translation;
 using SajberSim.Web;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +41,13 @@ public class Textbox : MonoBehaviour, GameManager.INovelAction
     public string Working(string[] line)
     {
         if (line.Length > 4 || line.Length < 3) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4"); //Incorrect length, found LENGTH arguments but the action expects 3-4.
+        Person talker;
+        if (int.TryParse(line[1], out int x))
+            talker = Game.people[int.Parse(line[1])];
+        else
+            talker = new Person(line[1], "", 0);
+        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png") && (line.Length == 3))
+            return string.Format(Translate.Get("missingcharacterport"), $"{GameManager.shortStoryPath}/Characters/{talker.name.ToLower()}port.png");
         return "";
     }
     private IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
@@ -47,7 +55,15 @@ public class Textbox : MonoBehaviour, GameManager.INovelAction
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();
         Game.textbox.SetActive(true);
-        dl.Image(Game.portrait, $"file://{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png");
+        if (port)
+        {
+            string path = $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png";
+            if (File.Exists(path))
+            dl.Image(Game.portrait, path);
+            else
+                dl.Image(Game.portrait, $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png");
+        }
+        
         nameobj.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
