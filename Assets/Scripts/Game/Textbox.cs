@@ -55,15 +55,15 @@ public class Textbox : MonoBehaviour, GameManager.INovelAction
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();
         Game.textbox.SetActive(true);
-        if (port)
+        if (port && GameManager.currentPortrait != talker.name)
         {
             string path = $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png";
             if (File.Exists(path))
             dl.Image(Game.portrait, path);
             else
                 dl.Image(Game.portrait, $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png");
+            GameManager.currentPortrait = talker.name;
         }
-        
         nameobj.text = talker.name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig

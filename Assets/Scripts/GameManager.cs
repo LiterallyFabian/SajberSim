@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
     public static string scriptName;
     public static bool backgroundHasChanged = false;
     public static string currentBackground;
+    public static string currentPortrait = "";
 
     public interface INovelAction
     {
