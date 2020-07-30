@@ -1,6 +1,7 @@
 ﻿using SajberSim.CardMenu;
 using SajberSim.Colors;
 using SajberSim.Helper;
+using SajberSim.Steam;
 using SajberSim.Translation;
 using Steamworks;
 using System;
@@ -8,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
@@ -19,6 +21,7 @@ class Vault : MonoBehaviour
     public InputField input;
     public Text Lore;
     public static int attempts = 0;
+    private Regex vnpattern = new Regex(@"vn\d{7,15}");
     public void RunCode()
     {
         attempts++;
@@ -28,6 +31,7 @@ class Vault : MonoBehaviour
         string code = input.text.ToLower().Hash();
         string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28" };
         if (correctHashes.Contains(code)) Correct(code);
+        else if (vnpattern.IsMatch(input.text.ToLower())) Correct(input.text.ToLower());
         else Error();
     }
     public void CloseVault()
@@ -49,6 +53,11 @@ class Vault : MonoBehaviour
     private void Correct(string hash)
     {
         Lore.color = Colors.SfwGreen;
+        if (vnpattern.IsMatch(hash))
+        {
+            if (!Workshop.Download(Convert.ToUInt64(hash.Replace("vn", "")))) Error();
+            else Lore.text = Translate.Get("vaultdownload");
+        }
         switch (hash)
         {
             case "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28":

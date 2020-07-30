@@ -103,7 +103,11 @@ namespace SajberSim.Steam
             }
             return true;
         }
-	}
+        public static bool Download(ulong id)
+        {
+            return SteamUGC.Download(id);
+        }
+    }
     class ProgressClass : IProgress<float>
     {
         float lastvalue = 0;
