@@ -36,9 +36,9 @@ public class GameSpin : MonoBehaviour
         GameObject.Find("Canvas/ButtonQuit").GetComponent<Button>().interactable = false;
         GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
-        GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
-        GameObject.Find("Canvas/ButtonCreate").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
         GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
@@ -51,7 +51,7 @@ public class GameSpin : MonoBehaviour
         StartCoroutine(ChangeCharacter(3, 1, 0.7f));
         GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("play");
         GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("novels");
-        GameObject.Find("Canvas/ButtonCreate").GetComponent<Text>().text = Translate.Get("create");
+        GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("create");
         GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("settings");
         
         yield return new WaitForSeconds(1.4f);
