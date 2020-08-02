@@ -9,7 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using static SajberSim.Helper.Helper;
+using SajberSim.Helper;
+using System.Linq.Expressions;
 
 /// <summary>
 /// Visual Novel manifest containing all metadata
@@ -32,11 +33,11 @@ public class Manifest
     public string author = "Unknown";
     public string authorid = "-1";
     public string id = "0";
-    
+
     //Designs
     public string overlaycolor = "FFFFFF";
     public string textcolor = "323232";
-    
+
 
     public static Manifest Get(string path)
     {
@@ -58,9 +59,9 @@ public class Manifest
     /// <summary>
     /// Returns paths to all story manifest files if they exist
     /// </summary>
-    public static string[] GetAll(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
+    public static string[] GetAll(Helper.StorySearchArgs args = Helper.StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", Helper.StorySearchPaths where = Helper.StorySearchPaths.All)
     {
-        if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+        if (!Helper.loggedin && where != Helper.StorySearchPaths.Own) where = Helper.StorySearchPaths.NoWorkshop;
         List<string> manifestPaths = new List<string>();
         foreach (string story in Stories.GetAllStoryPaths(args, nsfw, searchTerm, where))
         {
@@ -70,6 +71,37 @@ public class Manifest
                 manifestPaths.Add($"{story}/manifest.json");
         }
         return manifestPaths.ToArray();
+    }
+    public static void FixSteamID()
+    {
+        if (!Helper.loggedin) return;
+        string[] stories = Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop, true);
+        foreach (string path in stories)
+        {
+            string manifestPath = path + "/manifest.json";
+            if (File.Exists(manifestPath))
+            {
+                Manifest data = Get(manifestPath);
+                if (data.id != Path.GetFileName(Path.GetDirectoryName(path)))
+                {
+                    try
+                    {
+                        data.id = Path.GetFileName(Path.GetDirectoryName(path));
+                        JsonSerializer serializer = new JsonSerializer();
+                        using (StreamWriter sw = new StreamWriter(manifestPath))
+                        using (JsonWriter writer = new JsonTextWriter(sw))
+                        {
+                            serializer.Serialize(writer, data);
+                        }
+                        Debug.Log($"Fixed Steam ID for visual novel at path {manifestPath} successfully.");
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.LogError($"Something went wrong when trying to fix Steam ID for story {manifestPath}.\nError: {e}");
+                    }
+                }
+            }
+        }
     }
 }
 /// <summary>

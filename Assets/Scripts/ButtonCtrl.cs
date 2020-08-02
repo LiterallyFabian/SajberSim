@@ -89,6 +89,7 @@ public class ButtonCtrl : MonoBehaviour
         {
             loginstatus.text = string.Format(Translate.Get("welcomeuser"), SteamClient.Name);
             dl.CardThumbnail(GameObject.Find("Canvas/ProfilePictureFrame/ProfilePicture").GetComponent<UnityEngine.UI.Image>(), SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarfull);
+            Manifest.FixSteamID();
         }
         else
         {

@@ -1,6 +1,7 @@
 ﻿using Steamworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,15 @@ namespace SajberSim.CardMenu
         /// </summary>
         /// <param name="args">Search arguments</param>
         /// <param name="nsfw">Include NSFW</param>
+        /// <param name="searchTerm">If the stories should match a search term</param>
+        /// <param name="where">Location of stories</param>
+        /// <param name="forceUpdate">Wether it should ignore the cache</param>
         /// <returns>Array with paths to all local story folders</returns>
-        public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
+        public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All, bool forceUpdate = false)
         {
-            if (!pathUpdateNeeded) return Stories.storyPaths;
+            if (!pathUpdateNeeded && !forceUpdate) return Stories.storyPaths;
             if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
-
+           
             List<string> storyPaths = new List<string>();
             //This is what I call "The tired" ~
             //update, apparently the 5 line method i had here before wasn't the problem. oh well goodnight
@@ -46,7 +50,8 @@ namespace SajberSim.CardMenu
             {
                 storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
                 storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
-                storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
+                if (loggedin)
+                    storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
             else if (where == StorySearchPaths.Own)
             {
@@ -151,7 +156,7 @@ namespace SajberSim.CardMenu
                 Manifest storydata = Manifest.Get($"{path}/manifest.json");
                 if (storydata != null)
                 {
-                    if (storydata.author != SteamClient.Name && storydata.authorid != $"{SteamClient.SteamId}") storyPaths.Remove(path);
+                    if (storydata.author != SteamClient.Name && storydata.authorid != $"{SteamClient.SteamId}" && !path.Contains("MyStories")) storyPaths.Remove(path);
                 }
                 else
                     storyPaths.Remove(path);
