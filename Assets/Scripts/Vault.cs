@@ -31,7 +31,7 @@ class Vault : MonoBehaviour
         string code = input.text.ToLower().Hash();
         string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28" };
         if (correctHashes.Contains(code)) Correct(code);
-        else if (vnpattern.IsMatch(input.text.ToLower())) Correct(input.text.ToLower());
+        else if (vnpattern.IsMatch(input.text.ToLower()) && Helper.loggedin) Correct(input.text.ToLower());
         else Error();
     }
     public void CloseVault()
@@ -55,7 +55,7 @@ class Vault : MonoBehaviour
         Lore.color = Colors.SfwGreen;
         if (vnpattern.IsMatch(hash))
         {
-            if (!Workshop.Download(Convert.ToUInt64(hash.Replace("vn", "")))) Error();
+            if (!SteamUGC.Download(Convert.ToUInt64(hash.Replace("vn", "")))) Error();
             else Lore.text = Translate.Get("vaultdownload");
         }
         switch (hash)

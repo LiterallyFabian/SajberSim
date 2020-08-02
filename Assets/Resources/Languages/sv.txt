@@ -73,6 +73,8 @@ vaulterror3=Seriöst?
 vaulterror4=Hmm, jag känner inte igen den där koden...
 vaulterror5=Oh.. den där koden är helt fel!
 vaulterror6=Ingen matchande kombination hittad.
+vaulterror7=Kom ihåg att vissa koder bara fungerar online.
+vaultdownload=Romankod aktiverad.
 
 #Time
 about=för ungefär {0} {1} sedan

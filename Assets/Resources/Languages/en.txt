@@ -1,9 +1,8 @@
-#General
+#General, mostly stuff in the main menu
 newgame=New game
 continue=Continue
-findnovels=Find novels
-settings=Settings
 create=Create
+settings=Settings
 mynovels=My novels
 novels=Novels
 quit=Quit
@@ -15,6 +14,8 @@ cancel=Cancel
 paused=Paused
 logout=Log out
 saved=Saved!
+load=Load
+saves=Saves
 verified=Verified
 submit=Submit
 send=Send
@@ -112,6 +113,7 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
+saveorload=Save / Load
 
 #Vault
 vaulttitle=Fabinas secret vault
@@ -123,6 +125,8 @@ vaulterror3=Seriously?
 vaulterror4=Hmm, I don't recognize that code...
 vaulterror5=Oh.. that's like... totally wrong!
 vaulterror6=No matching lock found.
+vaulterror7=Keep in mind that some codes does not work offline.
+vaultdownload=Novel code activated!
 
 #Time
 about=about {0} {1} ago
