@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     public static string[] story;
     public Coroutine co;
     public Person[] people = ButtonCtrl.people;
-    public string musicplaying = "none";
+    public string musicplaying = null;
 
     #region Classes
     public GameObject HelperObj;
