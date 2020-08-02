@@ -12,6 +12,7 @@ using SajberSim.Translation;
 using Steamworks;
 using SajberSim.Web;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SajberSim.Steam
 {
