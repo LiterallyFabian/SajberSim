@@ -55,7 +55,7 @@ class Vault : MonoBehaviour
         Lore.color = Colors.SfwGreen;
         if (vnpattern.IsMatch(hash))
         {
-            if (!SteamUGC.Download(Convert.ToUInt64(hash.Replace("vn", "")))) Error();
+            if (!Workshop.Download(Convert.ToUInt64(hash.Replace("vn", "")))) Error();
             else Lore.text = Translate.Get("vaultdownload");
         }
         switch (hash)
