@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour
 
             text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter 
         }
-        if (!text.Contains("{")) return text;
+        if (!text.Contains("{") && !text.Contains("\\n")) return text;
         text = text.Replace("\\n", Environment.NewLine);
         text = text.Replace("{path}", Helper.currentStoryPath);
         text = text.Replace("{time}", DateTime.Now.ToString("HH:mm"));
