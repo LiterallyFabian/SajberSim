@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     public static string[] story;
     public Coroutine co;
     public Person[] people = ButtonCtrl.people;
-    public string musicplaying = null;
+    
 
     #region Classes
     public GameObject HelperObj;
@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     public static string scriptPath;
     public static string shortStoryPath;
     public static string scriptName;
+    public static string musicplaying;
     public static bool backgroundHasChanged = false;
     public static string currentBackground;
     public static string currentPortrait = "";
@@ -156,6 +157,9 @@ public class GameManager : MonoBehaviour
         usernameEntered = false;
         username = "Player";
         backgroundHasChanged = false;
+        currentBackground = null;
+        currentPortrait = "";
+        musicplaying = null;
         paused = false;
         dialoguepos = 0;
         ready = true;

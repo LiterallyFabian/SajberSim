@@ -35,8 +35,8 @@ public class PlayAudio : MonoBehaviour, GameManager.INovelAction
     {
         if (line[0] == "PLAYSFX")
             Game.dl.Ogg(Game.SFX, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
-        else if(Game.musicplaying != line[1])
+        else if(GameManager.musicplaying != line[1])
             Game.dl.Ogg(Game.music, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
-        Game.musicplaying = line[1];
+        GameManager.musicplaying = line[1];
     }
 }
