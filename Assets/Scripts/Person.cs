@@ -9,11 +9,18 @@ using UnityEngine;
 namespace SajberSim.Chararcter
 {
 
-    public class Person
+    public class Person : MonoBehaviour
     {
-        public string name;       //"Sam"
+        public string name;   //"Sam"
         public string nick;   //"Sammy"
-        public int ID;
+        public string mood;   //"happy"
+        public int ID;        //i don't think this is used
+
+
+        public float x;
+        public float y;
+        public float size;
+        public bool flipped;
 
         public Person(string name, string cutenick, int charID)
         {

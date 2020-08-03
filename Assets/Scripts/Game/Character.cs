@@ -54,12 +54,14 @@ public class Character : MonoBehaviour, GameManager.INovelAction
     }
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2
     {
+        Person p;
         if (GameObject.Find(name) == null) //karaktär finns ej
         {
             //skapa gameobj
             GameObject character = new GameObject(name);
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
+            p = character.AddComponent<Person>();
             if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
             else
@@ -81,6 +83,13 @@ public class Character : MonoBehaviour, GameManager.INovelAction
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
             else
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}/{mood}.png");
+            p = character.GetComponent<Person>();
         }
+        p.size = size;
+        p.x = x;
+        p.y = y;
+        p.flipped = flip;
+        p.mood = mood;
+        p.name = name;
     }
 }
