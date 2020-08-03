@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using SajberSim.Helper;
 using System.Linq.Expressions;
 
 /// <summary>
@@ -37,6 +36,7 @@ public class Manifest
     //Designs
     public string overlaycolor = "FFFFFF";
     public string textcolor = "323232";
+    public bool customname = false;
 
 
     public static Manifest Get(string path)

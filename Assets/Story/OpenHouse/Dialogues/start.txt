@@ -3,7 +3,7 @@
 BACKGROUND|main
 PLAYMUSIC|takeyourpick
 CHAR|Lumi|neutral|3.36|-0.17|1|true
-T|Lumi|Välkommen till SajberSim, och CyberGymnasiets virtuella öppna hus!
+T|Lumi|Välkommen till SajberSim {name}, och till CyberGymnasiets virtuella öppna hus!
 T|Lumi|När detta spel är klart inför hösten kommer du kunna få reda på information om skolan, alla program och mycket mer!
 T|Lumi|Ifall du är en ambassadör som laddat ner spelet och vill hjälpa till med något kan du kontakta fabian.lindgren@elev.cybergymnasiet.se :)
 LOADSTORY|intro

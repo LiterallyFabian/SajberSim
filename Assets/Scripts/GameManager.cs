@@ -19,6 +19,7 @@ using SajberSim.Colors;
 using SajberSim.Translation;
 using System.Reflection;
 using Steamworks;
+using System.Runtime.Remoting.Messaging;
 
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
     public static bool textdone = false; // False if a text is currently writing out
     public static int dialoguepos = 0;
     public static float charactersize = 0.8f; // This is the size of game characters, not letters
+
+    public GameObject nameInput;
 
     //Textbox
     public GameObject textbox;
@@ -91,7 +94,10 @@ public class GameManager : MonoBehaviour
     private PlayAudio Action_PlayAudio;
     private StopAudio Action_StopAudio;
     #endregion
-
+    public Manifest data;
+    public static bool usernameNeeded;
+    public static bool usernameEntered;
+    public static string username = "Player";
     public static string storyName;
     public static string storyAuthor;
     public static string scriptPath;
@@ -146,6 +152,9 @@ public class GameManager : MonoBehaviour
         SetActionClasses();
 
         //Reset static values
+        usernameNeeded = false;
+        usernameEntered = false;
+        username = "Player";
         backgroundHasChanged = false;
         paused = false;
         dialoguepos = 0;
@@ -165,7 +174,13 @@ public class GameManager : MonoBehaviour
             background = Helper.Alert(string.Format(Translate.Get("missingstartscript"), $"{shortStoryPath}/Dialogues/start.txt"));
             Debug.LogError($"Visual Novel/Start: Starting script for story {shortStoryPath} is missing.");
         }
-            
+        data = Manifest.Get(Helper.currentStoryPath + "/manifest.json");
+        if (data.customname)
+        {
+            usernameNeeded = true;
+            nameInput.SetActive(true);
+            Time.timeScale = 0;
+        }
         
 
 
@@ -231,6 +246,7 @@ public class GameManager : MonoBehaviour
     public void RunNext()
     {
         if (!ready || story.Length == 0) return;
+        if (usernameNeeded && !usernameEntered) return;
 
         string[] line = story[dialoguepos].Split('|'); //line = nuvarande raden
         GameObject.Find("/Canvas/dev/varinfo").GetComponent<Text>().text = $"line = {dialoguepos}\naction = {story[dialoguepos].Split('|')[0]}\nready = {ready}\nscript: = {scriptName}\n\n{story[dialoguepos]}";
@@ -341,7 +357,8 @@ public class GameManager : MonoBehaviour
         text = text.Replace("{time}", DateTime.Now.ToString("HH:mm"));
         text = text.Replace("{date}", DateTime.Now.ToString("d"));
         text = text.Replace("{year}", DateTime.Now.ToString("yyyy"));
-        text = text.Replace("{steamuser}", Helper.UsernameCache());
+        text = text.Replace("{steamname}", Helper.UsernameCache());
+        text = text.Replace("{name}", username);
         return text;
     }
     private void ClearText()
@@ -442,6 +459,16 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+    public void SetName()
+    {
+        InputField input = nameInput.transform.Find("InputField").GetComponent<InputField>();
+        if (input.text.Length == 0) return;
+
+        username = input.text;
+        usernameEntered = true;
+        Time.timeScale = 1;
+        Destroy(nameInput);
     }
     private void UpdateDesign()
     {
