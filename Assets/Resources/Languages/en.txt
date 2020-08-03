@@ -26,6 +26,7 @@ nocredits=Custom credits not found. You can set them up by editing the "credits.
 
 #Steam
 welcomeuser=Welcome\n<b>{0}</b>!
+goodbyeuser=Goodbye\n<b>{0}</b>!
 offline=Offline
 noconnection=SajberSim could not connect to Steam. Try launching the application from your Steam library or restart your computer.\n\nWhile offline you are still able to play and create visual novels, but you need to be online to publish or play stories from the Workshop.
 publishsuccess=Congratulations {0}, <b>{1}</b> was successfully uploaded to the Steam Workshop!  Your file ID is {2}.\n\nThanks for contributing to the SajberSim community :)

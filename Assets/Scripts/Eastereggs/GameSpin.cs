@@ -1,5 +1,7 @@
-﻿using SajberSim.Steam;
+﻿using SajberSim.Helper;
+using SajberSim.Steam;
 using SajberSim.Translation;
+using Steamworks;
 using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,17 +28,19 @@ public class GameSpin : MonoBehaviour
     {
         running = true;
         Achievements.Grant(Achievements.List.ACHIEVEMENT_menuspin);
-        
+
         StartCoroutine(ChangeAudio(1, 0.5f, 5));
         StartCoroutine(ChangeCharacter(1, 3, 13f));
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().size = 1.5f;
         GameObject.Find("Canvas/logo").GetComponent<BeatPulse>().BPM /= 2;
-        
+
         yield return new WaitForSeconds(1);
         GameObject.Find("Canvas/ButtonQuit").GetComponent<Button>().interactable = false;
         GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
         GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("help").ToLower();
+        string username = GameObject.Find("Canvas/Username").GetComponent<Text>().text;
+        GameObject.Find("Canvas/Username").GetComponent<Text>().text = string.Format(Translate.Get("goodbyeuser"), Helper.UsernameCache());
         yield return new WaitForSeconds(1);
         GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("help").ToLower();
         yield return new WaitForSeconds(1);
@@ -53,9 +57,10 @@ public class GameSpin : MonoBehaviour
         GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("novels");
         GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("create");
         GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("settings");
-        
+
         yield return new WaitForSeconds(1.4f);
 
+        GameObject.Find("Canvas/Username").GetComponent<Text>().text = username;
         GameObject.Find("Canvas/ButtonQuit").GetComponent<Text>().text = Translate.Get("quit");
         GameObject.Find("Canvas/ButtonQuit").GetComponent<Button>().interactable = true;
         Camera.main.transform.rotation = Quaternion.identity;

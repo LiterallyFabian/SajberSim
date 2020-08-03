@@ -25,6 +25,7 @@ nocredits=Denna roman har inga anpassade eftertexter. Du kan skapa egna genom at
 
 #Steam
 welcomeuser=Välkommen\n<b>{0}</b>!
+goodbyeuser=Hejdå\n<b>{0}</b>!
 offline=Offline
 noconnection=SajberSim kunde inte ansluta till Steam. Försök att starta spelet ifrån ditt steam-bibliotek eller starta om datorn.\n\nMedan du är offline kan du fortfarande spela och skapa visuella romaner, men du måste vara online för att publicera eller spela romaner från Steams workshop.
 publishsuccess=Grattis {0}, <b>{1}</b> finns nu uppladdat på Steam! Din romans ID är {2}.\n\nTack för att du har bidragit till SajberSim-communityn :)

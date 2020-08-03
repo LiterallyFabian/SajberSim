@@ -55,6 +55,7 @@ public class ButtonCtrl : MonoBehaviour
                 SteamClient.Init(Helper.AppID);
                 Helper.loggedin = true;
                 UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
+                PlayerPrefs.SetString("usernamecache", SteamClient.Name);
             }
             catch (System.Exception e)
             {

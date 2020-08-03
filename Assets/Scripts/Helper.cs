@@ -156,7 +156,11 @@ namespace SajberSim.Helper
         //        return null;
         //    }
         //}
-
+        public static string UsernameCache()
+        {
+            if (loggedin) return SteamClient.Name;
+            else return PlayerPrefs.GetString("usernamecache", "User");
+        }
         public static string[] ReverseArray(string[] arr)
         {
             Array.Reverse(arr);

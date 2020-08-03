@@ -341,7 +341,7 @@ public class GameManager : MonoBehaviour
         text = text.Replace("{time}", DateTime.Now.ToString("HH:mm"));
         text = text.Replace("{date}", DateTime.Now.ToString("d"));
         text = text.Replace("{year}", DateTime.Now.ToString("yyyy"));
-        text = text.Replace("{steamuser}", Helper.loggedin ? SteamClient.Name : "User");
+        text = text.Replace("{steamuser}", Helper.UsernameCache());
         return text;
     }
     private void ClearText()

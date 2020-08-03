@@ -72,8 +72,7 @@ public class CreateStory : MonoBehaviour
             dropdownList.Add(new Dropdown.OptionData(lang.formal_name, dl.Flag(lang.flag_code)));
         B_inputLanguage.AddOptions(dropdownList);
 
-        if (Helper.loggedin)
-            B_inputName.placeholder.GetComponent<Text>().text = string.Format(Translate.Get("defaultnameuser"), SteamClient.Name);
+        B_inputName.placeholder.GetComponent<Text>().text = string.Format(Translate.Get("defaultnameuser"), Helper.UsernameCache());
     }
 
     // Update is called once per frame

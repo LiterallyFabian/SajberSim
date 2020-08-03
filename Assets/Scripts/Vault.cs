@@ -67,7 +67,7 @@ class Vault : MonoBehaviour
                     return;
                 }
                 GameObject.Find("Eastereggs").GetComponent<GameSpin>().StartSpin();
-                Lore.text = $"Jeez{(Helper.loggedin ? " " + SteamClient.Name : "")}...";
+                Lore.text = $"Jeez {Helper.UsernameCache()}...";
                 GetComponent<Animator>().enabled = true;
                 GetComponent<Animator>().Play("vaultDrop");
                 break;
