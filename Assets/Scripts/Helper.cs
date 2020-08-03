@@ -112,7 +112,7 @@ namespace SajberSim.Helper
                 localPath = Application.dataPath + "/Story/";
                 if(loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
-                if (!Directory.Exists(steamPath)) Directory.CreateDirectory(steamPath);
+                if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
                 UnityEngine.Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
