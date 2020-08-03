@@ -55,7 +55,7 @@ public class GameSpin : MonoBehaviour
         StartCoroutine(ChangeCharacter(3, 1, 0.7f));
         GameObject.Find("Canvas/ButtonPlay").GetComponent<Text>().text = Translate.Get("play");
         GameObject.Find("Canvas/ButtonFind").GetComponent<Text>().text = Translate.Get("novels");
-        GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("create");
+        GameObject.Find("Canvas/ButtonLoad").GetComponent<Text>().text = Translate.Get("continue");
         GameObject.Find("Canvas/ButtonSettings").GetComponent<Text>().text = Translate.Get("settings");
 
         yield return new WaitForSeconds(1.4f);
