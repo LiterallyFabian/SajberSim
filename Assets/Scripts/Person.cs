@@ -9,18 +9,11 @@ using UnityEngine;
 namespace SajberSim.Chararcter
 {
 
-    public class Person : MonoBehaviour
+    public class Person
     {
-        public string name;   //"Sam"
+        public new string name;   //"Sam"
         public string nick;   //"Sammy"
-        public string mood;   //"happy"
         public int ID;        //i don't think this is used
-
-
-        public float x;
-        public float y;
-        public float size;
-        public bool flipped;
 
         public Person(string name, string cutenick, int charID)
         {
@@ -28,5 +21,14 @@ namespace SajberSim.Chararcter
             this.nick = cutenick;
             ID = charID;
         }
+    }
+    public class PersonSave
+    {
+        public string name;
+        public string mood;
+        public float x;
+        public float y;
+        public float size;
+        public bool flipped;
     }
 }
