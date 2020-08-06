@@ -17,10 +17,11 @@ namespace SajberSim.Web
 {
     public class Download : MonoBehaviour
     {
+        const bool nonReadable = true;
         enum ItemType { Image, Sprite };
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
-            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
+            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
                 uwr.timeout = 1;
                 yield return uwr.SendWebRequest();
@@ -42,7 +43,7 @@ namespace SajberSim.Web
         }
         private IEnumerator UpdateAndSetAlpha(Image item, string path)
         {
-            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path))
+            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
                 uwr.timeout = 2;
                 yield return uwr.SendWebRequest();
