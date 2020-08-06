@@ -73,8 +73,10 @@ public class GameManager : MonoBehaviour
     public string story1;
     public string story2;
 
+    public static bool savemenuopen = false;
     private bool settingsopen = false;
     public static bool paused = false;
+    public GameObject behindButton;
     
     public static string[] story;
     public Coroutine co;
@@ -161,6 +163,7 @@ public class GameManager : MonoBehaviour
     private void StartGame(Save save = null)
     {
         //Reset static values
+        savemenuopen = false;
         usernameNeeded = false;
         usernameEntered = false;
         username = "Player";
@@ -241,16 +244,21 @@ public class GameManager : MonoBehaviour
         {
             if (!paused)
             {
-                Pause(true);
+                StartCoroutine(Pause(true));
             }
             else if(paused && settingsopen)
             {
                 GameObject.Find("Canvas/Settings").GetComponent<Settings>().CloseMenu();
                 settingsopen = false;
             }
-            else if(paused && !settingsopen)
+            else if (paused && savemenuopen)
             {
-                Pause(false);
+                GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().ToggleMenu(false);
+                settingsopen = false;
+            }
+            else if(paused && !settingsopen && !savemenuopen)
+            {
+                StartCoroutine(Pause(false));
             }
         }
     }
@@ -435,11 +443,30 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region UI
-    public void Pause(bool n)
+    public void GameContinue()
+    {
+        StartCoroutine(Pause(false));
+    }
+    public IEnumerator Pause(bool n)
     {
         paused = n;
+        if (n)
+        {
+            Time.timeScale = 0;
+            ScreenCapture.CaptureScreenshot(Application.temporaryCachePath + "/lastGame.png");
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        
+        yield return new WaitForEndOfFrame();
+        
         pausemenu.SetActive(n);
         fadeimage.SetActive(false);
+        behindButton.SetActive(n);
+        GameObject settings = GameObject.Find("Canvas/Settings");
+        if (settings != null) settings.GetComponent<Settings>().CloseMenu();
     }
     public void OpenSettings()
     {

@@ -22,6 +22,8 @@ namespace SajberSim.SaveSystem
         public GameObject RightClickInfo;
         public GameObject LeftClickInfo;
         public Text nosavesnotice;
+        public GameObject CloseButtonBehind;
+        public bool menuopen = false;
         public void Start()
         {
             if(SceneManager.GetActiveScene().name != "game")
@@ -29,15 +31,28 @@ namespace SajberSim.SaveSystem
                 LeftClickInfo.transform.position = RightClickInfo.transform.position;
                 RightClickInfo.SetActive(false);
             }
+            UpdateMenu();
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && menuopen) ToggleMenu(false);
         }
         public void ToggleMenu(bool open)
         {
             if (open)
             {
-                UpdateMenu();
+                menuopen = true;
                 GetComponent<Animator>().Play("openStorymenu");
+                GameManager.savemenuopen = true;
+                CloseButtonBehind.SetActive(true);
             }
-            else GetComponent<Animator>().Play("closeStorymenu");
+            else
+            {
+                GameManager.savemenuopen = false;
+                menuopen = false;
+                GetComponent<Animator>().Play("closeStorymenu");
+                CloseButtonBehind.SetActive(false);
+            }
         }
         public void UpdateMenu()
         {

@@ -19,6 +19,7 @@ using Steamworks;
 using Steamworks.Data;
 using SajberSim.Steam;
 using SajberSim.CardMenu;
+using SajberSim.SaveSystem;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -32,6 +33,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject Logo;
     public GameObject Modding;
     public GameObject CreditsButton;
+    public GameObject SaveLoadMenu;
     public GameObject SettingsMenu;
     public Button DebugButton;
     public GameObject BehindSettings;
@@ -223,9 +225,9 @@ public class ButtonCtrl : MonoBehaviour
         Modding.SetActive(false);
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(false);
+        SaveLoadMenu.GetComponent<SaveMenu>().ToggleMenu(false);
         OverwriteAlert.transform.localScale = Vector3.zero;
         GameManager.paused = false;
-        
     }
     public void QuitGame() //nuff' said
     {

@@ -3985,6 +3985,7 @@ MonoBehaviour:
   Logo: {fileID: 863821243}
   Modding: {fileID: 1288605316}
   CreditsButton: {fileID: 290548648}
+  SaveLoadMenu: {fileID: 564276426}
   SettingsMenu: {fileID: 502484250491994824, guid: d6eec46110c52b141aa80b012ff05892,
     type: 3}
   DebugButton: {fileID: 565091647}
@@ -5374,6 +5375,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 28.12}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &564276426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8689467502574461812, guid: ce569ca148ad6b444bf7c806a33a56d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8689467503592810795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &565091643
 GameObject:
   m_ObjectHideFlags: 0
@@ -45240,7 +45247,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8689467503592810795}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 564276426}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad633d398f0f06c4998fb6029260a2d8, type: 3}
@@ -45885,6 +45892,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1239242874}
     m_Modifications:
+    - target: {fileID: 8689467502574461770, guid: ce569ca148ad6b444bf7c806a33a56d1,
+        type: 3}
+      propertyPath: CloseButtonBehind
+      value: 
+      objectReference: {fileID: 1292243164}
     - target: {fileID: 8689467502574461771, guid: ce569ca148ad6b444bf7c806a33a56d1,
         type: 3}
       propertyPath: m_LocalPosition.x

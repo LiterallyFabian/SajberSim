@@ -96,7 +96,7 @@ public class Settings : MonoBehaviour
             GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>().BehindSettings.SetActive(false);
         }
         GetComponent<Animator>().Play("closeStorymenu");
-        StartCoroutine(StartStory.DelCard(this.gameObject));
+        Destroy(this.gameObject, 0.5f);
     }
     public void CreateAndOpenLog()
     {
