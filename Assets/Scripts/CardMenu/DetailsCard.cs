@@ -13,7 +13,7 @@ using SajberSim.Colors;
 
 public class DetailsCard : MonoBehaviour
 {
-    public Image Background;
+    public RawImage Background;
     public Image Flag;
     public Text Title;
     public Text Author;
@@ -30,10 +30,10 @@ public class DetailsCard : MonoBehaviour
     {
         
     }
-    public void UpdateDetails(Manifest data, Image back)
+    public void UpdateDetails(Manifest data, RawImage back)
     {
         Edit.interactable = card.myNovel;
-        Background.sprite = back.sprite;
+        Background.texture = back.texture;
         Title.text = data.name;
         Author.text = $"{string.Format(Translate.Get("publishedby"), $"<b>{data.author}</b>")} {Helper.TimeAgo(DateTime.ParseExact(data.publishdate.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture))}";
         Description.GetComponent<Text>().text = data.description;

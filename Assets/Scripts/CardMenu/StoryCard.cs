@@ -21,7 +21,7 @@ public class StoryCard : MonoBehaviour
     public Image Clock;
     public Text Playtime;
     public Image Overlay;
-    public Image Thumbnail;
+    public RawImage Thumbnail;
     public Image Flag;
     public Text NSFW;
     public string storyPath;
