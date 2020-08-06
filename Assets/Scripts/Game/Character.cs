@@ -54,14 +54,23 @@ public class Character : MonoBehaviour, GameManager.INovelAction
     }
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2
     {
-        Person p;
-        if (GameObject.Find(name) == null) //karaktär finns ej
+        GameObject character = new GameObject();
+        bool found = false;
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("character"))
+        {
+            if (go.name.Split('|')[0] == name)
+            {
+                Destroy(character.gameObject);
+                character = go;
+                found = true;
+            }
+        }
+        if (!found) //karaktär finns ej
         {
             //skapa gameobj
-            GameObject character = new GameObject(name);
+            character.name = $"{name}|{mood}";
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
-            p = character.AddComponent<Person>();
             if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
             else
@@ -73,8 +82,8 @@ public class Character : MonoBehaviour, GameManager.INovelAction
         }
         else //karaktär finns
         {
+            
             //ändra pos
-            GameObject character = GameObject.Find(name);
             character.transform.position = new Vector3(x, y, -1f);
             character.transform.localScale = new Vector3(size * (flip ? 1 : -1), size, 0.6f);
 
@@ -83,13 +92,7 @@ public class Character : MonoBehaviour, GameManager.INovelAction
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
             else
                 Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}/{mood}.png");
-            p = character.GetComponent<Person>();
+            character.name = $"{name}|{mood}";
         }
-        p.size = size;
-        p.x = x;
-        p.y = y;
-        p.flipped = flip;
-        p.mood = mood;
-        p.name = name;
     }
 }

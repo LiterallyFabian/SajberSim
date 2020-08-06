@@ -36,6 +36,7 @@ namespace SajberSim.Helper
         public static string steamPath = "";
         public static string currentStoryPath = "";
         public static string currentStoryName = "";
+        public static string savesPath = "";
 
         public static AS_AccountInfo acc;
 
@@ -50,6 +51,18 @@ namespace SajberSim.Helper
             {3, new Vector3(0, -230, 1)},
             {4, new Vector3(330, -230, 1)},
             {5, new Vector3(660, -230, 1)}
+        };
+        public static Dictionary<int, Vector3> SavePositions = new Dictionary<int, Vector3>()
+        {
+            {0, new Vector3(-310, 195, 1)},
+            {1, new Vector3(0, 195, 1)},
+            {2, new Vector3(310, 195, 1)},
+            {3, new Vector3(-310, 0, 1)},
+            {4, new Vector3(0, 0, 1)},
+            {5, new Vector3(310, 0, 1)},
+            {6, new Vector3(-310, -195, 1)},
+            {7, new Vector3(0, -195, 1)},
+            {8, new Vector3(310, -195, 1)},
         };
         public enum StorySearchArgs
         {
@@ -110,7 +123,8 @@ namespace SajberSim.Helper
                     Translate.Get("other") };
                 customPath = Application.dataPath + "/MyStories/";
                 localPath = Application.dataPath + "/Story/";
-                if(loggedin)
+                savesPath = Application.persistentDataPath + "/Saves/";
+                if (loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
                 if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
                 UnityEngine.Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
@@ -247,6 +261,7 @@ namespace SajberSim.Helper
         {
             return n ? 1 : 0;
         }
+     
         /// <summary>
         /// Checks if input is a float value
         /// </summary>

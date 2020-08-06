@@ -20,6 +20,7 @@ using SajberSim.Translation;
 using System.Reflection;
 using Steamworks;
 using System.Runtime.Remoting.Messaging;
+using SajberSim.SaveSystem;
 
 /// <summary>
 /// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
@@ -94,7 +95,9 @@ public class GameManager : MonoBehaviour
     private PlayAudio Action_PlayAudio;
     private StopAudio Action_StopAudio;
     #endregion
+
     public Manifest data;
+    public static Save save = null;
     public static bool usernameNeeded;
     public static bool usernameEntered;
     public static string username = "Player";
@@ -103,10 +106,10 @@ public class GameManager : MonoBehaviour
     public static string scriptPath;
     public static string shortStoryPath;
     public static string scriptName;
-    public static string musicplaying;
     public static bool backgroundHasChanged = false;
     public static string currentBackground;
     public static string currentPortrait = "";
+    public static string currentMusic;
 
     public interface INovelAction
     {
@@ -151,7 +154,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetActionClasses();
+        shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
+        StartGame(save);
 
+    }
+    private void StartGame(Save save = null)
+    {
         //Reset static values
         usernameNeeded = false;
         usernameEntered = false;
@@ -159,18 +167,35 @@ public class GameManager : MonoBehaviour
         backgroundHasChanged = false;
         currentBackground = null;
         currentPortrait = "";
-        musicplaying = null;
+        currentMusic = null;
         paused = false;
         dialoguepos = 0;
         ready = true;
         textdone = false;
         scriptName = "start";
+
         story = new string[0];
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
-        shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
-        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
 
+        if (save != null)
+        {
+            Debug.Log($"GameManager/StartGame: Trying to load savefile {save.novelname}");
+            scriptName = save.script;
+            dialoguepos = save.line;
+            Action_PlayAudio.Run($"PLAYMUSIC|{save.music}".Split('|'));
+            Action_Background.Run($"BACKGROUND|{save.background}|true".Split('|'));
+            foreach (PersonSave person in save.characters)
+                Action_Character.Run($"CHAR|{person.name}|{person.mood}|{person.x}|{person.y}|{person.size}|{person.flipped}".Split('|'));
+            ready = true;
+            backgroundHasChanged = true;
+            username = save.username;
+            usernameEntered = true;
+            currentPortrait = "";
+            people = save.charconfig;
+            GameManager.save = null;
+        }
+        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
         if (File.Exists(scriptPath))
             story = File.ReadAllLines(scriptPath);
         else
@@ -179,17 +204,12 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"Visual Novel/Start: Starting script for story {shortStoryPath} is missing.");
         }
         data = Manifest.Get(Helper.currentStoryPath + "/manifest.json");
-        if (data.customname)
+        if (data.customname && !usernameEntered)
         {
             usernameNeeded = true;
             nameInput.SetActive(true);
             Time.timeScale = 0;
         }
-        
-
-
-        PlayerPrefs.SetString("tempstory", PlayerPrefs.GetString("story", "start"));
-
         UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
         UpdateDesign();
         RunNext();
@@ -513,6 +533,49 @@ public class GameManager : MonoBehaviour
         saveinfo.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         saveinfo.SetActive(false);
+    }
+    public Save Save(int id)
+    {
+        bool newCard = false;
+        if (id == -1)
+        {
+            newCard = true;
+            bool found = false;
+            while (!found)
+            {
+                id++;
+                if (!File.Exists(Helper.savesPath + $"/{id}.save")) found = true;
+            }
+        }
+        List<PersonSave> chars = new List<PersonSave>();
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("character"))
+        {
+            PersonSave save = new PersonSave
+            {
+                x = go.transform.position.x,
+                y = go.transform.position.y,
+                flipped = go.transform.localScale.x > 0,
+                size = go.transform.localScale.y / charactersize,
+                name = go.name.Split('|')[0],
+                mood = go.name.Split('|')[1]
+            };
+            chars.Add(save);
+        }
+        Save file = new Save
+        {
+            line = dialoguepos,
+            background = currentBackground,
+            music = currentMusic,
+            novelname = Helper.currentStoryName,
+            charconfig = people,
+            path = Helper.currentStoryPath,
+            username = username,
+            script = scriptName,
+            date = DateTime.Now,
+            characters = chars.ToArray()
+        };
+        SajberSim.SaveSystem.Save.Create(file, id, newCard);
+        return file;
     }
     #endregion
 }

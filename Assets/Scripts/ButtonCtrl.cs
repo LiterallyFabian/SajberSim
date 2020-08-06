@@ -67,6 +67,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Start()
     {
+        UnityEngine.Debug.Log(Application.persistentDataPath);
         if (GameObject.Find("Helper"))
         {
             dl = GameObject.Find("Helper").GetComponent<Download>();
@@ -165,7 +166,7 @@ public class ButtonCtrl : MonoBehaviour
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
 
-    public void CreateCharacters()
+    public static void CreateCharacters()
     {
         System.Random rnd = new System.Random();
         string configPath = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";

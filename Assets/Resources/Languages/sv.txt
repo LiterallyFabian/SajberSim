@@ -15,6 +15,9 @@ cancel=Avbryt
 paused=Pausat
 logout=Logga ut
 saved=Saved!
+load=Ladda
+saves=Sparfiler
+overwrite=Skriv över
 verified=Verifierad
 submit=Skicka
 send=Skicka
@@ -63,6 +66,9 @@ language=Språk
 autologin=Logga in automatiskt
 setstory=Byt skript...
 uwumode=UwU-läget är aktiverat... :3
+
+#Save menu
+donteditsaves=Det verkar som att en eller flera sparfiler har blivit kopierad eller bytt namn. Vänligen undvik att göra detta då det kan orsaka problem med att ladda sparade spel.\n\n<3
 
 #Vault
 vaulttitle=Fabinas hemliga valv

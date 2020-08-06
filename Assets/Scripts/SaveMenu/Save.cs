@@ -21,6 +21,7 @@ namespace SajberSim.SaveSystem
         public int line;
         public string username;
         public PersonSave[] characters;
+        public Person[] charconfig;
         public string background;
         public string music;
         public DateTime date;
@@ -78,7 +79,7 @@ namespace SajberSim.SaveSystem
             }
             return saves.ToArray();
         }
-        public static void Create(Save savefile, int id)
+        public static void Create(Save savefile, int id, bool isNew)
         {
             try
             {
@@ -90,8 +91,9 @@ namespace SajberSim.SaveSystem
                 }
                 string thumbnailPath = Helper.Helper.savesPath + $"{id}.png";
                 if (File.Exists(thumbnailPath)) File.Delete(thumbnailPath);
-                File.Move(Application.temporaryCachePath + "/lastGame.png", thumbnailPath);
-                Debug.Log($"Saves/Create: Game saved successfully.");
+                File.Copy(Application.temporaryCachePath + "/lastGame.png", thumbnailPath);
+                Debug.Log($"Saves/Create: Game saved successfully with ID {id}.");
+                if (isNew) GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().UpdateMenu();
             }
             catch(Exception e)
             {

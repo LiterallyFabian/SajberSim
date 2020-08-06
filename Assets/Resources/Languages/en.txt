@@ -16,6 +16,7 @@ logout=Log out
 saved=Saved!
 load=Load
 saves=Saves
+overwrite=Overwrite
 verified=Verified
 submit=Submit
 send=Send
@@ -114,7 +115,12 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
+
+#Save menu
 saveorload=Save / Load
+clicktosave=Click to save
+donteditsaves=It seems like one or more save files have been copied or renamed. Please avoid doing this as it can cause problems with loading the saves.\n\n<3
+nosavesfound=(╯°□°)╯︵ ┻━┻\n\nNo saves found!
 
 #Vault
 vaulttitle=Fabinas secret vault

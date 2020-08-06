@@ -92,7 +92,7 @@ public class StoryCard : MonoBehaviour
         Helper.currentStoryName = data.name;
         Debug.Log($"Attempting to start the novel \"{data.name}\" with path {storyPath}");
         ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-        main.CreateCharacters();
+        ButtonCtrl.CreateCharacters();
         StartStory.storymenuOpen = false;
         GameManager.storyAuthor = data.author;
         GameManager.storyName = data.name;
