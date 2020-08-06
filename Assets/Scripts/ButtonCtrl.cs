@@ -166,7 +166,6 @@ public class ButtonCtrl : MonoBehaviour
         //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
-
     public static void CreateCharacters()
     {
         System.Random rnd = new System.Random();

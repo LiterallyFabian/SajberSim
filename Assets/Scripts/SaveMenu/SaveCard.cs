@@ -20,6 +20,7 @@ namespace SajberSim.SaveSystem
         public int id;
         public Image thumbnail;
         public Image Overlay;
+        public RawImage tb2;
         public Text Title;
         public Text date;
         public Save save;
@@ -79,7 +80,7 @@ namespace SajberSim.SaveSystem
             ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
             Title.GetComponent<Text>().color = textColor;
             date.text = save.date.ToString("dddd, d MMMM HH:mm");
-            dl.CardThumbnail(thumbnail, $"{Helper.Helper.savesPath}/{id}.png");
+            dl.CardThumbnail(tb2, $"{Helper.Helper.savesPath}/{id}.png");
         }
     }
 }

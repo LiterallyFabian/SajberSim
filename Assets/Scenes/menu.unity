@@ -6350,7 +6350,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 10b15e4be9d9d7e4295954d8187568ec, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8546,7 +8545,7 @@ ParticleSystem:
         m_RotationOrder: 4
     m_Range: {x: 0, y: 1}
   ForceModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -19913,7 +19912,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0b0185234e66a31458c6fd3583185578, type: 2}
-  - {fileID: 2100000, guid: 0b0185234e66a31458c6fd3583185578, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -27986,7 +27984,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 18a410ae2a354f841a331035029d2cb6, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -39808,6 +39805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1964023514}
   - component: {fileID: 1964023513}
+  - component: {fileID: 1964023515}
   m_Layer: 0
   m_Name: Eastereggs
   m_TagString: Untagged
@@ -39828,6 +39826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 863821249}
+  profilepic: {fileID: 1805664698}
   character: {fileID: 983074971}
 --- !u!4 &1964023514
 Transform:
@@ -39843,6 +39842,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1964023515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964023512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2e3e69bb1b8424e9cec0c17ba1d581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logoObj: {fileID: 863821245}
+  afklogo: {fileID: 21300000, guid: 9fe0cc4dacf0d5240a7cabfcfcc5dd97, type: 3}
 --- !u!1 &1979353922
 GameObject:
   m_ObjectHideFlags: 0
@@ -40447,7 +40460,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
