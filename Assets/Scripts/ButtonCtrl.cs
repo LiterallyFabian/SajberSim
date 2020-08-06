@@ -69,7 +69,6 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Start()
     {
-        UnityEngine.Debug.Log(Application.persistentDataPath);
         if (GameObject.Find("Helper"))
         {
             dl = GameObject.Find("Helper").GetComponent<Download>();
