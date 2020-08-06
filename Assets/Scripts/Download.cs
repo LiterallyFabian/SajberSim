@@ -18,7 +18,7 @@ namespace SajberSim.Web
     public class Download : MonoBehaviour
     {
         const bool nonReadable = true;
-        enum ItemType { Image, Sprite };
+        enum ItemType { Image, Sprite, RawImage };
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
@@ -34,14 +34,16 @@ namespace SajberSim.Web
                 {
                     Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-                    if(type == ItemType.Image)
+                    if (type == ItemType.Image)
                         item.GetComponent<Image>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     else if (type == ItemType.Sprite)
                         item.GetComponent<SpriteRenderer>().sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    else if (type == ItemType.RawImage)
+                        item.GetComponent<RawImage>().texture = texture;
                 }
             }
         }
-        private IEnumerator UpdateAndSetAlpha(Image item, string path)
+        private IEnumerator UpdateAndSetAlpha(RawImage item, string path)
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
@@ -55,7 +57,7 @@ namespace SajberSim.Web
                     try
                     {
                         var texture = DownloadHandlerTexture.GetContent(uwr);
-                        if (item) item.sprite = UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                        if (item) item.texture = texture;
                     }
                     catch (Exception e)
                     {
@@ -84,7 +86,7 @@ namespace SajberSim.Web
                 }
             }
         }
-        public void CardThumbnail(Image item, string path)
+        public void CardThumbnail(RawImage item, string path)
         {
             StartCoroutine(UpdateAndSetAlpha(item, path));
         }
@@ -99,6 +101,10 @@ namespace SajberSim.Web
         public void Ogg(GameObject item, string path, bool play = false)
         {
             StartCoroutine(Setogg(item, path, play));
+        }
+        public void RawImage(GameObject item, string path)
+        {
+            StartCoroutine(UpdateItem(item, path, ItemType.RawImage));
         }
         /// <summary>
         /// Returns flag from given country code, or a placeholder if the code is invalid
