@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class GameSpin : MonoBehaviour
 {
     public AudioSource music;
-    public UnityEngine.UI.Image profilepic;
+    public UnityEngine.UI.RawImage profilepic;
     public GameObject character;
     private bool running = false;
 
