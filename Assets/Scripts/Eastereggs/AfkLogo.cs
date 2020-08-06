@@ -15,7 +15,7 @@ public class AfkLogo : MonoBehaviour
     }
     private void Update()
     {
-        if (SteamUtils.SecondsSinceComputerActive > 10) logoObj.sprite = afklogo;
+        if (SteamUtils.SecondsSinceComputerActive > 1800) logoObj.sprite = afklogo;
         else logoObj.sprite = logo;
     }
 }
