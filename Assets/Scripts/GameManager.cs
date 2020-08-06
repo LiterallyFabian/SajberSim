@@ -481,8 +481,11 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator GoToMain()
     {
+        fadeimage.SetActive(true);
+        fadeimage.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
         fadeimage.GetComponent<Animator>().Play("darken");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1;
         SceneManager.LoadScene("menu");
     }
     public IEnumerator StartCredits(bool addStats = true) //Avslutar & återställer spelet och startar credits
