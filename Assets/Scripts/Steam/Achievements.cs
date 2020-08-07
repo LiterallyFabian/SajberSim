@@ -33,9 +33,16 @@ namespace SajberSim.Steam
         }
         public static void Grant(List achievement)
         {
-            if (!Helper.Helper.loggedin) return;
-            Achievement ach = new Achievement(achievement.ToString());
-            ach.Trigger(true);
+            try
+            {
+                Achievement ach = new Achievement(achievement.ToString());
+                ach.Trigger(true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Steam/Achievements/Grant: Could not grant achievement {achievement.ToString()}.\nError: {e}");
+            }
+            
         }
         public void GrantName(string name)
         {
