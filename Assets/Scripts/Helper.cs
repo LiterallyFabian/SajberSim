@@ -132,6 +132,11 @@ namespace SajberSim.Helper
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
             Directory.CreateDirectory($"{Application.dataPath}/MyStories");
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
+            if (GameObject.Find("BackgroundCanvas/Background"))
+            {
+                UnityEngine.Debug.Log("found");
+                GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainBackground>().UpdateBG(); 
+            }
         }
         /// <summary>
         /// Checks if input is an int or not

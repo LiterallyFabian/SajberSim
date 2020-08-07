@@ -210,7 +210,7 @@ namespace SajberSim.CardMenu
         /// <returns>Array with all specified assets</returns>
         public static string[] GetAllStoryAssetPaths(string folder)
         {
-            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
+            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues", "main" };
             List<string> assetPaths = new List<string>();
             folder = folder.ToLower();
 
@@ -226,9 +226,13 @@ namespace SajberSim.CardMenu
                 case "dialogues":
                     extension = "*.txt";
                     break;
+                case "main":
+                    extension = "mainbg*.png";
+                    break;
             }
             foreach (string story in GetAllStoryPaths())
             {
+                if (folder == "main") folder = "backgrounds";
                 string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
                 if (Directory.Exists(path))
                     assetPaths.AddRange(Directory.GetFiles(path, extension));
