@@ -19,6 +19,13 @@ namespace SajberSim.Web
     {
         const bool nonReadable = true;
         enum ItemType { Image, Sprite, RawImage };
+        public static Download Find()
+        {
+            if (FindObjectsOfType<Download>().Length > 0)
+                return FindObjectsOfType<Download>()[0];
+            else
+                return new GameObject().AddComponent<Download>();
+        }
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
