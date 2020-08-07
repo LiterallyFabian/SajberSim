@@ -85,7 +85,7 @@ public class CreateStory : MonoBehaviour
         ButtonCreate.gameObject.SetActive(false);
         BasicsMenu.transform.localScale = Vector3.zero;
         EditsMenu.transform.localScale = Vector3.zero;
-        if (currentWindow == CreateWindows.Details) Menu_Create.SaveDetails();
+        Menu_Create.ResetFields();
         switch (window)
         {
             case 0: // Create story and set basics
@@ -110,10 +110,10 @@ public class CreateStory : MonoBehaviour
                 break;
             case 2: // Edit story 
                 currentWindow = CreateWindows.Edit;
-                ButtonEdit.interactable = false;
                 EditsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("edit");
                 Description.text = Translate.Get("editsdescription");
+                ButtonEdit.interactable = false;
                 SetEdits();
                 break;
         }

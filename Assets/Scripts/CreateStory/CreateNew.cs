@@ -22,6 +22,7 @@ public class CreateNew : MonoBehaviour
     public Dropdown B_inputGenre;
     public Dropdown B_inputAudience;
     public Dropdown B_inputLanguage;
+    public Toggle B_inputCustomName;
     public Text B_Status;
     public Text B_TagsTitle;
     public Text B_AudienceTitle;
@@ -88,7 +89,7 @@ public class CreateNew : MonoBehaviour
             B_inputTags.SetTextWithoutNotify(string.Join(", ", data.tags));
             B_inputAudience.SetValueWithoutNotify(Array.IndexOf(Helper.audience, data.rating));
             B_inputGenre.SetValueWithoutNotify(Array.IndexOf(Helper.genresid, data.genre));
-
+            B_inputCustomName.SetIsOnWithoutNotify(data.customname);
             int langIndex = Array.IndexOf(Language.ListFlagCode().ToArray(), data.language);
             if (langIndex == -1)
                 B_inputLanguage.SetValueWithoutNotify(0);
@@ -99,7 +100,7 @@ public class CreateNew : MonoBehaviour
         }
         catch (Exception e)
         {
-            Helper.Alert(string.Format(Translate.Get("errorloaddetails"), Translate.Get("helpcontact"), e));
+            Helper.Alert(string.Format(Translate.Get("errordetails"), Translate.Get("helpcontact"), e));
             Debug.LogError($"Something went wrong when trying to set details for story {CreateStory.currentlyEditingPath}: \n{e}");
         }
         Type(false);
@@ -119,6 +120,7 @@ public class CreateNew : MonoBehaviour
             data.genre = Helper.genresid[B_inputGenre.value];
             data.rating = Helper.audience[B_inputAudience.value];
             data.language = Language.ListFlagCode()[B_inputLanguage.value];
+            data.customname = B_inputCustomName.isOn;
 
             if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
             else data.nsfw = false;

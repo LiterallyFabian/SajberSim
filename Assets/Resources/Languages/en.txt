@@ -57,6 +57,7 @@ revertchanges=Revert changes
 edit=Edit
 verify=Verify
 publish=Publish
+customnametoggle=Let players select their own name
 modifyassets=Add/edit assets
 placecharacters=Place characters
 teststory=Play story
@@ -66,9 +67,10 @@ editsdescription=Here you can see statistics about your visual novel and access 
 xtags=Tags ({0})
 audiencesfw=Audience (SFW)
 audiencensfw=Audience (NSFW)
+
 #Creation errors (can stay in english)
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
-errordetails=Something went wrong when trying to load your visual novel details. A common cause for this is when editing the manifest manually.{0}\n\n{1}
+errordetails=Something went wrong when trying to load your visual novel details. A common cause for this is when editing the manifest manually.\n\n{0}\n\nError: {1}
 errorsavingdetails=Something went wrong when trying to save your visual novel details. A common cause for this is when editing the manifest manually.{0}\n\n{1}
 
 #Visual novel stats
