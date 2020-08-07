@@ -272,7 +272,7 @@ RectTransform:
   m_GameObject: {fileID: 8689467502574461812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 8689467503340792381}
   - {fileID: 8689467502670537736}
@@ -311,6 +311,8 @@ MonoBehaviour:
   RightClickInfo: {fileID: 8689467502501120959}
   LeftClickInfo: {fileID: 8689467502272732412}
   nosavesnotice: {fileID: 7896659597607152241}
+  CloseButtonBehind: {fileID: 0}
+  menuopen: 0
 --- !u!95 &8689467502574461769
 Animator:
   serializedVersion: 3
