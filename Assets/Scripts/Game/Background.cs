@@ -40,7 +40,7 @@ public class Background : MonoBehaviour, GameManager.INovelAction
         {
             Game.fadeimage.GetComponent<Animator>().Play("darken");
             yield return new WaitForSeconds(0.5f);
-            Game.dl.Image(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.dl.RawImage(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
             Game.RunNext();
             Game.fadeimage.GetComponent<Animator>().Play("Fadein");
             yield return new WaitForSeconds(0.8f);
@@ -48,7 +48,7 @@ public class Background : MonoBehaviour, GameManager.INovelAction
         }
         else
         {
-            Game.dl.Image(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.dl.RawImage(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
             Game.RunNext();
         }
         GameManager.currentBackground = back;

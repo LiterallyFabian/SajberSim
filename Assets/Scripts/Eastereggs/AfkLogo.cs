@@ -1,6 +1,8 @@
-﻿using Steamworks;
+﻿using SajberSim.Helper;
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ public class AfkLogo : MonoBehaviour
     }
     private void Update()
     {
+        if (!Helper.loggedin) return;
         if (SteamUtils.SecondsSinceComputerActive > 1800) logoObj.sprite = afklogo;
         else logoObj.sprite = logo;
     }
