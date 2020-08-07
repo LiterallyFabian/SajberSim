@@ -23,8 +23,9 @@ public class DelCharacter : MonoBehaviour, GameManager.INovelAction
         }
         string name = line[1];
         if (int.TryParse(line[1], out int xd)) name = Game.people[int.Parse(line[1])].name; //ID if possible, else 
-        GameObject character = GameObject.Find(name.ToLower());
-        if (character) Destroy(character.gameObject);
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("character");
+        foreach (GameObject character in characters)
+            if (character.name.StartsWith(name)) Destroy(character.gameObject);
         Game.RunNext();
     }
     public string Working(string[] line)
