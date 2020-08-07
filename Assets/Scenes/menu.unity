@@ -1530,11 +1530,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1273872606}
+      objectReference: {fileID: 549635273}
     - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetDetails
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CreateNew, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
@@ -2173,7 +2178,31 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: UpdateTags
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -2443,7 +2472,19 @@ MonoBehaviour:
     m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &239444981
 MonoBehaviour:
@@ -3069,11 +3110,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1273872606}
+      objectReference: {fileID: 549635273}
     - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SaveDetails
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CreateNew, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
@@ -5340,6 +5386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549635272}
+  - component: {fileID: 549635273}
   m_Layer: 5
   m_Name: DetailsMenu
   m_TagString: Untagged
@@ -5375,6 +5422,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 28.12}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &549635273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549635271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4100190a63389e4891c141b7c2201c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Main: {fileID: 1273872606}
+  B_inputName: {fileID: 629638972}
+  B_inputDescription: {fileID: 2020949176}
+  B_inputTags: {fileID: 216970447}
+  B_inputGenre: {fileID: 1291981997}
+  B_inputAudience: {fileID: 1486286748}
+  B_inputLanguage: {fileID: 239444980}
+  B_Status: {fileID: 1131277689}
+  B_TagsTitle: {fileID: 1262767961}
+  B_AudienceTitle: {fileID: 1542461222}
+  ButtonSave: {fileID: 1119349145}
+  ButtonRevert: {fileID: 1935056455}
+  hasEdited: 0
 --- !u!1 &564276426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8689467502574461812, guid: ce569ca148ad6b444bf7c806a33a56d1,
@@ -5702,7 +5774,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -16531,6 +16615,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5247818795116ef4183966c47ce37890, type: 3}
+--- !u!114 &1119349145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+    type: 3}
+  m_PrefabInstance: {fileID: 291576805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1131277687
 GameObject:
   m_ObjectHideFlags: 0
@@ -17983,13 +18079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10b025e0f2bce546b8fef93bb19ff13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  B_inputName: {fileID: 629638972}
-  B_inputDescription: {fileID: 2020949176}
-  B_inputTags: {fileID: 216970447}
-  B_inputGenre: {fileID: 1291981997}
-  B_inputAudience: {fileID: 1486286748}
-  B_inputLanguage: {fileID: 239444980}
-  B_Status: {fileID: 1131277689}
+  Menu_Create: {fileID: 549635273}
   E_StatsTitle: {fileID: 1704384884}
   E_Stats: {fileID: 1752569243}
   E_Thumbnail: {fileID: 0}
@@ -18004,6 +18094,7 @@ MonoBehaviour:
   ButtonPublish: {fileID: 282427366}
   ButtonQuit: {fileID: 956134474}
   ButtonCreate: {fileID: 747898835}
+  storyMenu: {fileID: 0}
   currentWindow: 0
 --- !u!1 &1283333984
 GameObject:
@@ -18393,7 +18484,19 @@ MonoBehaviour:
     m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1291981998
 MonoBehaviour:
@@ -25898,7 +26001,19 @@ MonoBehaviour:
     m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1486286749
 MonoBehaviour:
@@ -39605,6 +39720,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925373200}
   m_CullTransparentMesh: 0
+--- !u!114 &1935056455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+    type: 3}
+  m_PrefabInstance: {fileID: 145381020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1953201831 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 591715122870181127, guid: 5247818795116ef4183966c47ce37890,
@@ -40169,7 +40296,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 549635273}
+        m_TargetAssemblyTypeName: CreateNew, Assembly-CSharp
+        m_MethodName: Type
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}

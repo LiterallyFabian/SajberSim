@@ -19,13 +19,7 @@ public class CreateStory : MonoBehaviour
     public static string currentlyEditingPath = "";
     public static string currentlyEditingName = "";
 
-    public InputField B_inputName;
-    public InputField B_inputDescription;
-    public InputField B_inputTags;
-    public Dropdown B_inputGenre;
-    public Dropdown B_inputAudience;
-    public Dropdown B_inputLanguage;
-    public Text B_Status;
+    public CreateNew Menu_Create;
 
     public Text E_StatsTitle;
     public Text E_Stats;
@@ -46,7 +40,7 @@ public class CreateStory : MonoBehaviour
 
     private Language lang;
     Download dl;
-    StartStory storyMenu;
+    public StartStory storyMenu;
     public CreateWindows currentWindow;
     public enum CreateWindows
     {
@@ -64,15 +58,9 @@ public class CreateStory : MonoBehaviour
         transform.localScale = Vector3.zero;
         transform.localPosition = Vector3.zero;
 
-        B_inputGenre.AddOptions(Helper.genres.ToList());
-        B_inputAudience.AddOptions(Helper.audience.ToList());
+       
 
-        List<Dropdown.OptionData> dropdownList = new List<Dropdown.OptionData>();
-        foreach (Language lang in Language.list)
-            dropdownList.Add(new Dropdown.OptionData(lang.formal_name, dl.Flag(lang.flag_code)));
-        B_inputLanguage.AddOptions(dropdownList);
-
-        B_inputName.placeholder.GetComponent<Text>().text = string.Format(Translate.Get("defaultnameuser"), Helper.UsernameCache());
+        
     }
 
     // Update is called once per frame
@@ -93,16 +81,21 @@ public class CreateStory : MonoBehaviour
         ButtonEdit.interactable = true;
         ButtonVerify.interactable = true;
         ButtonPublish.interactable = true;
+        ButtonPublish.gameObject.SetActive(true);
+        ButtonCreate.gameObject.SetActive(false);
         BasicsMenu.transform.localScale = Vector3.zero;
         EditsMenu.transform.localScale = Vector3.zero;
-        if (currentWindow == CreateWindows.Details) SaveDetails();
+        if (currentWindow == CreateWindows.Details) Menu_Create.SaveDetails();
         switch (window)
         {
             case 0: // Create story and set basics
                 currentWindow = CreateWindows.Basics;
+                Menu_Create.ResetFields();
                 ButtonDetails.interactable = false;
                 ButtonEdit.interactable = false;
                 ButtonVerify.interactable = false;
+                ButtonPublish.gameObject.SetActive(false);
+                ButtonCreate.gameObject.SetActive(true);
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("createnewnovel");
                 Description.text = Translate.Get("createnewdesc");
@@ -113,7 +106,7 @@ public class CreateStory : MonoBehaviour
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("details");
                 Description.text = Translate.Get("detailsdescription");
-                SetDetails();
+                Menu_Create.SetDetails();
                 break;
             case 2: // Edit story 
                 currentWindow = CreateWindows.Edit;
@@ -125,73 +118,7 @@ public class CreateStory : MonoBehaviour
                 break;
         }
     }
-    /// <summary>
-    /// Create a basics menu for when a novel already exists and set the data
-    /// </summary>
-    public void SetDetails()
-    {
-        Manifest data = Manifest.Get(currentlyEditingPath + "/manifest.json");
-        try
-        {
-            B_inputName.SetTextWithoutNotify(data.name);
-            B_inputDescription.SetTextWithoutNotify(data.description);
-            B_inputTags.SetTextWithoutNotify(string.Join(", ", data.tags));
-            B_inputAudience.SetValueWithoutNotify(Array.IndexOf(Helper.audience, data.rating));
-            B_inputGenre.SetValueWithoutNotify(Array.IndexOf(Helper.genresid, data.genre));
 
-            int langIndex = Array.IndexOf(Language.ListFlagCode().ToArray(), data.language);
-            if (langIndex == -1)
-                B_inputLanguage.SetValueWithoutNotify(0);
-            else
-                B_inputLanguage.SetValueWithoutNotify(langIndex);
-        }
-        catch(Exception e)
-        {
-            Helper.Alert(string.Format(Translate.Get("errorloaddetails"), Translate.Get("helpcontact"), e));
-            Debug.LogError($"Something went wrong when trying to set details for story {currentlyEditingPath}: \n{e}");
-        }
-        
-    }
-    /// <summary>
-    /// Update all data in manifest with details from details fields
-    /// </summary>
-    public void SaveDetails()
-    {
-        try
-        {
-
-            string path = currentlyEditingPath + "/manifest.json";
-            Manifest data = Manifest.Get(path);
-            data.name = B_inputName.text;
-            data.description = B_inputDescription.text;
-            data.tags = B_inputTags.text.Replace(", ", ",").Replace(" ,", ",").Split(',');
-            data.genre = Helper.genresid[B_inputGenre.value];
-            data.rating = Helper.audience[B_inputAudience.value];
-            data.language = Language.ListFlagCode()[B_inputLanguage.value];
-
-            if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
-            else data.nsfw = false;
-
-            JsonSerializer serializer = new JsonSerializer();
-            using (StreamWriter sw = new StreamWriter(path))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, data);
-            }
-            StartCoroutine(B_SetStatus(Translate.Get("saved")));
-            storyMenu.UpdatePreviewCards();
-        }
-        catch(Exception e)
-        {
-            Helper.Alert(string.Format(Translate.Get("errorsavingdetails"), Translate.Get("helpcontact"), e));
-        }
-    }
-    IEnumerator B_SetStatus(string text)
-    {
-        B_Status.text = text;
-        yield return new WaitForSeconds(3);
-        B_Status.text = "";
-    }
     /// <summary>
     /// Create an edit menu and set the data
     /// </summary>

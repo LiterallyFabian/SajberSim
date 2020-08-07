@@ -16,6 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO.Compression;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 namespace SajberSim.Helper
 {
@@ -132,9 +133,10 @@ namespace SajberSim.Helper
             Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
             Directory.CreateDirectory($"{Application.dataPath}/MyStories");
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
-            if (GameObject.Find("BackgroundCanvas/Background"))
+            if (SceneManager.GetActiveScene().name == "menu")
             {
-                GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainBackground>().UpdateBG(); 
+                GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainBackground>().UpdateBG();
+                GameObject.FindObjectsOfType<CreateNew>()[0].SetDropDowns();
             }
         }
         /// <summary>
