@@ -134,7 +134,6 @@ namespace SajberSim.Helper
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (GameObject.Find("BackgroundCanvas/Background"))
             {
-                UnityEngine.Debug.Log("found");
                 GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainBackground>().UpdateBG(); 
             }
         }

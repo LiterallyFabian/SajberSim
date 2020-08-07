@@ -16,7 +16,6 @@ public class ChangeMainBackground : MonoBehaviour
     {
         Download dl = FindObjectsOfType<Download>()[0];
         string[] backgroundList = Stories.GetAllStoryAssetPaths("main"); //mainbg*.png
-        Debug.Log(backgroundList.Length);
         int id = UnityEngine.Random.Range(0, backgroundList.Length + 1);
         if (id != 0)
         {
