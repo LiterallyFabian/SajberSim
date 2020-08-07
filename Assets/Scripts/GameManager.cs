@@ -522,6 +522,8 @@ public class GameManager : MonoBehaviour
         username = input.text;
         usernameEntered = true;
         Time.timeScale = 1;
+        if(username == "Fabina") Achievements.Grant(Achievements.List.ACHIEVEMENT_imfabina);
+        Achievements.Grant(Achievements.List.ACHIEVEMENT_setname);
         Destroy(nameInput);
     }
     private void UpdateDesign()

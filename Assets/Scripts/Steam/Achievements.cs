@@ -29,7 +29,8 @@ namespace SajberSim.Steam
             ACHIEVEMENT_500questions,
             ACHIEVEMENT_setname,
             ACHIEVEMENT_miohonda,
-            ACHIEVEMENT_menuspin
+            ACHIEVEMENT_menuspin,
+            ACHIEVEMENT_imfabina
         }
         public static void Grant(List achievement)
         {
