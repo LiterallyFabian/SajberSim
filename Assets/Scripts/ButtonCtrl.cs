@@ -79,7 +79,6 @@ public class ButtonCtrl : MonoBehaviour
         }
 
         Cursor.visible = true;
-        UpdateUI();
         string storyid = PlayerPrefs.GetString("story", "none");
         //if (File.Exists($"{Application.dataPath}/Story/{storyid}/manifest.json"))
         //    GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifest(storyid).name);
@@ -113,27 +112,6 @@ public class ButtonCtrl : MonoBehaviour
                 SteamFriends.OpenUserOverlay(SteamClient.SteamId, "steamid");
         }
     }
-    private void UpdateUI()
-    {
-        if (SceneManager.GetActiveScene().name == "menu")
-        {
-            List<string> charpaths = new List<string>();
-            foreach (string path in Stories.GetAllStoryAssetPaths("characters"))
-            {
-                if (path.Contains("happy")) charpaths.Add(path);
-            }
-            if (charpaths.Count() == 0) return;
-            charpath = charpaths[UnityEngine.Random.Range(0,charpaths.Count)];
-            while (!File.Exists(charpath.Replace("happy", "blush"))) 
-            {
-                charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
-            }
-
-            //ladda in filen som texture
-            dl.Image(GameObject.Find("Character"), $"file://{charpath}");
-        }
-    }
-    
     public void StartNew() //Just checks if a new story should be started
     {
         //if (PlayerPrefs.GetString("story", "none") != "none")

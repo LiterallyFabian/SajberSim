@@ -17,14 +17,7 @@ public class MainPopup : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        if (GameObject.Find("Helper"))
-        {
-            dl = GameObject.Find("Helper").GetComponent<Download>();
-        }
-        else
-        {
-            dl = new GameObject("downloadobj").AddComponent<Download>();
-        }
+        dl = Download.Find();
     }
 
     public void Blush()
@@ -32,9 +25,9 @@ public class MainPopup : MonoBehaviour
         singlecharClicked++;
         if (singlecharClicked == 5)
         {
-            if (File.Exists(ButtonCtrl.charpath.Replace("happy", "blush")))
+            if (File.Exists(ChangeMainMenuAssets.charpath.Replace("happy", "blush")))
             {
-                dl.Image(GameObject.Find("Character"), $"file://{ButtonCtrl.charpath.Replace("happy", "blush")}");
+                dl.Image(GameObject.Find("Character"), $"file://{ChangeMainMenuAssets.charpath.Replace("happy", "blush")}");
                 Achievements.Grant(Achievements.List.ACHIEVEMENT_findblush);
             }
         }

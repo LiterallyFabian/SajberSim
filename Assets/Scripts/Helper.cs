@@ -135,8 +135,8 @@ namespace SajberSim.Helper
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (SceneManager.GetActiveScene().name == "menu")
             {
-                GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainBackground>().UpdateBG();
-                GameObject.FindObjectsOfType<CreateNew>()[0].SetDropDowns();
+                GameObject.Find("BackgroundCanvas/Background").GetComponent<ChangeMainMenuAssets>().UpdateBG();
+                FindObjectsOfType<CreateNew>()[0].SetDropDowns();
             }
         }
         /// <summary>
