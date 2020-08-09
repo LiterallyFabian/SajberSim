@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     private void SetActionClasses()
     {
-        dl = HelperObj.AddComponent<Download>();
+        dl = Download.Init();
         Action_Alert = HelperObj.AddComponent<Alert>();
         Action_Background = HelperObj.AddComponent<Background>();
         Action_Textbox = HelperObj.AddComponent<Textbox>();

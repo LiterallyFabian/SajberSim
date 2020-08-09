@@ -51,7 +51,7 @@ public class StartStory : MonoBehaviour
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
         else nsfw = true;
         GameObject.Find("Canvas/StoryChoice/NSFWtoggle").GetComponent<Toggle>().SetIsOnWithoutNotify(nsfw);
-        dl = new GameObject("downloadobj").AddComponent<Download>();
+        dl = Download.Init();
 
         string[] sorting = { Translate.Get("byname"), Translate.Get("bynamedec"), Translate.Get("bylongest"), Translate.Get("byshortest"), Translate.Get("bynewest"), Translate.Get("byoldest"), Translate.Get("byauthor"), Translate.Get("bymodified") };
         sortArgs = (Helper.StorySearchArgs)PlayerPrefs.GetInt("sorting", 0);

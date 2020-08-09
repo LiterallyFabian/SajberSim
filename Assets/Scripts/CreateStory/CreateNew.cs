@@ -34,7 +34,7 @@ public class CreateNew : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dl = Download.Find();
+        dl = Download.Init();
 
         B_inputName.placeholder.GetComponent<Text>().text = string.Format(Translate.Get("defaultnameuser"), Helper.UsernameCache());
         SetNSFW();
@@ -66,7 +66,7 @@ public class CreateNew : MonoBehaviour
     }
     public void SetDropDowns()
     {
-        if(dl == null) dl = Download.Find();
+        if(dl == null) dl = Download.Init();
         B_inputGenre.AddOptions(Helper.genres.ToList());
         B_inputAudience.AddOptions(Helper.audience.ToList());
 

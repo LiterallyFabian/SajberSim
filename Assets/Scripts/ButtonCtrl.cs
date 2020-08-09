@@ -69,14 +69,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Start()
     {
-        if (GameObject.Find("Helper"))
-        {
-            dl = GameObject.Find("Helper").GetComponent<Download>();
-        }
-        else
-        {
-            dl = new GameObject("downloadobj").AddComponent<Download>();
-        }
+        dl = Download.Init();
 
         Cursor.visible = true;
         string storyid = PlayerPrefs.GetString("story", "none");

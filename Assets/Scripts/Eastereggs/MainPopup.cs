@@ -17,7 +17,7 @@ public class MainPopup : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        dl = Download.Find();
+        dl = Download.Init();
     }
 
     public void Blush()

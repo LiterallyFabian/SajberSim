@@ -53,7 +53,7 @@ public class CreateStory : MonoBehaviour
 
     void Start()
     {
-        dl = new GameObject("downloadobj").AddComponent<Download>();
+        dl = Download.Init();
         storyMenu = GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>();
         transform.localScale = Vector3.zero;
         transform.localPosition = Vector3.zero;

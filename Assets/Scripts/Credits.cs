@@ -40,7 +40,7 @@ public class Credits : MonoBehaviour
     {
         canvas = GameObject.Find("Canvas").transform;
         cam = Camera.main;
-        dl = GameObject.Find("EventSystem").GetComponent<Download>();
+        dl = Download.Init();
         string creditsPath = storypath + "/credits.txt";
         
         if (!File.Exists(creditsPath))
