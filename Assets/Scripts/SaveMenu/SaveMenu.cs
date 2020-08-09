@@ -39,6 +39,7 @@ namespace SajberSim.SaveSystem
         }
         public void ToggleMenu(bool open)
         {
+            if (menuopen == open) return;
             if (open)
             {
                 menuopen = true;
