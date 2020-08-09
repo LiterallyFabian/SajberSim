@@ -150,8 +150,8 @@ public class StartStory : MonoBehaviour
                 Vector3 position = Helper.CardPositions[Helper.CardPositions.Keys.ElementAt(i - (page * 6))];
                 CreateCard(storyPaths[i], storydata, position);
             }
-            
         }
+        if (Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
     }
     private void UpdateNoNovelNotice(int novels)
     {
@@ -169,8 +169,6 @@ public class StartStory : MonoBehaviour
     }
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, string parent = "Canvas/StoryChoice")
     {
-        if (Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
-
         if (GameObject.Find($"Canvas/StoryChoice/Card {data.name}")) Destroy(GameObject.Find($"Canvas/StoryChoice/Card {data.name}").gameObject);
 
         //spawn, place and resize
