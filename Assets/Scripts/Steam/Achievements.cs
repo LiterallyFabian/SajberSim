@@ -34,6 +34,7 @@ namespace SajberSim.Steam
         }
         public static void Grant(List achievement)
         {
+            if (!Helper.Helper.loggedin) return;
             try
             {
                 Achievement ach = new Achievement(achievement.ToString());
