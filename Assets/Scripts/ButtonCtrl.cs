@@ -247,9 +247,9 @@ public class ButtonCtrl : MonoBehaviour
         Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
     }
     public void FindAndCloseSettings()
-    { 
-        if(GameObject.Find("Canvas/Settings(Clone)"))
-        GameObject.Find("Canvas/Settings(Clone)").GetComponent<Settings>().CloseMenu();
+    {
+        if (GameObject.Find("Canvas/Settings(Clone)"))
+            GameObject.Find("Canvas/Settings(Clone)").GetComponent<Settings>().CloseMenu();
     }
     
     public void OpenLink(string link)
