@@ -19,7 +19,10 @@ namespace SajberSim.Web
     {
         const bool nonReadable = true;
         enum ItemType { Image, Sprite, RawImage };
-        public static Download Find()
+        /// <summary>
+        /// Finds and returns a download module if found, else creates one
+        /// </summary>
+        public static Download Init()
         {
             if (FindObjectsOfType<Download>().Length > 0)
                 return FindObjectsOfType<Download>()[0];
