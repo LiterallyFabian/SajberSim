@@ -4389,8 +4389,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -127.1, y: -0.8}
-  m_SizeDelta: {x: 423.3449, y: 154.23311}
+  m_AnchoredPosition: {x: -134.3, y: 0.000002861}
+  m_SizeDelta: {x: 423.3449, y: 139.26183}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343774802
 MonoBehaviour:
@@ -4425,7 +4425,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "hey detta \xE4r en fr\xE5ga"
+  m_Text: question
 --- !u!222 &1343774803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5868,7 +5868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.07, y: 23.4}
+  m_AnchoredPosition: {x: 4, y: 24}
   m_SizeDelta: {x: 672.64905, y: 92.72818}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1724962229
@@ -5904,7 +5904,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.89
-  m_Text: 
+  m_Text: Text
 --- !u!222 &1724962230
 CanvasRenderer:
   m_ObjectHideFlags: 0
