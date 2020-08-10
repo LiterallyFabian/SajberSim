@@ -27,7 +27,12 @@ namespace SajberSim.Web
             if (FindObjectsOfType<Download>().Length > 0)
                 return FindObjectsOfType<Download>()[0];
             else
-                return new GameObject().AddComponent<Download>();
+            {
+                GameObject go = new GameObject();
+                go.AddComponent<Download>();
+                return go.GetComponent<Download>();
+            }
+                
         }
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
@@ -38,7 +43,7 @@ namespace SajberSim.Web
 
                 if (uwr.isNetworkError) 
                     Debug.LogError($"Download: Could not download {path}\n{uwr.error}");
-                else if (!File.Exists(path.Replace("file://", "")))
+                else if (!File.Exists(path.Replace("file://", "")) && !path.Contains("https://"))
                     Debug.LogError($"Download/PNG: Tried to download {path} which does not exist");
                 else
                 {
@@ -55,9 +60,10 @@ namespace SajberSim.Web
         }
         private IEnumerator UpdateAndSetAlpha(RawImage item, string path)
         {
+            Debug.Log("init " + path);
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
-                uwr.timeout = 2;
+                uwr.timeout = 4;
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError)

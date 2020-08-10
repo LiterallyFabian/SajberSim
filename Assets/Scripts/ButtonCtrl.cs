@@ -43,7 +43,7 @@ public class ButtonCtrl : MonoBehaviour
     public static string charpath;
 
 
-    private Download dl;
+    public Download dl;
 
     
     public GameObject PauseMenuGame;
@@ -69,21 +69,18 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Start()
     {
-        dl = Download.Init();
-
         Cursor.visible = true;
-        string storyid = PlayerPrefs.GetString("story", "none");
-        //if (File.Exists($"{Application.dataPath}/Story/{storyid}/manifest.json"))
-        //    GameObject.Find("Canvas/Overwrite warning/title").GetComponent<Text>().text = string.Format(Translate.Get("overwritewarning"), Helper.GetManifest(storyid).name);
-        //else
-        //    PlayerPrefs.SetString("story", "none");
-
+        GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
+        SetLogin();
+    }
+    private void SetLogin()
+    {
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
         //Set login if you are logged in
         if (Helper.loggedin)
         {
             loginstatus.text = string.Format(Translate.Get("welcomeuser"), SteamClient.Name);
-            dl.CardThumbnail(GameObject.Find("Canvas/ProfilePictureFrame/ProfilePicture").GetComponent<UnityEngine.UI.RawImage>(), SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarfull);
+            dl.Image(GameObject.Find("Canvas/ProfilePictureFrame/ProfilePicture"), SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarmedium);
             Manifest.FixSteamID();
         }
         else
@@ -93,7 +90,6 @@ public class ButtonCtrl : MonoBehaviour
             GameObject.Find("Canvas/ProfilePictureFrame").SetActive(false);
 
         }
-        GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
     }
    public void OpenSteamProfile()
     {
