@@ -60,7 +60,6 @@ namespace SajberSim.Web
         }
         private IEnumerator UpdateAndSetAlpha(RawImage item, string path)
         {
-            Debug.Log("init " + path);
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
                 uwr.timeout = 4;
