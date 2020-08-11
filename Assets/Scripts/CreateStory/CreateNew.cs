@@ -132,7 +132,6 @@ public class CreateNew : MonoBehaviour
                 serializer.Serialize(writer, data);
             }
             StartCoroutine(B_SetStatus(Translate.Get("saved")));
-            Main.storyMenu.UpdatePreviewCards();
         }
         catch (Exception e)
         {

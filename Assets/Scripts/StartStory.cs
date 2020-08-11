@@ -218,9 +218,9 @@ public class StartStory : MonoBehaviour
     public void ClearPreviewCards()
     {
         Debug.Log("Request to delete preview cards");
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("PreviewCard");
-        foreach (GameObject enemy in enemies)
-            GameObject.Destroy(enemy);
+        GameObject[] cards = GameObject.FindGameObjectsWithTag("PreviewCard");
+        foreach (GameObject card in cards)
+            Destroy(card);
     }
     public void OpenMenu(bool own = false)
     {

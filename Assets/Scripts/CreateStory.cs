@@ -71,6 +71,7 @@ public class CreateStory : MonoBehaviour
     public void ToggleMenu(bool open)
     {
         transform.localScale = open ? Vector3.one : Vector3.zero;
+        storyMenu.UpdatePreviewCards();
     }
     /// <summary>
     /// Toggles between all windows in the create menu
@@ -135,6 +136,8 @@ public class CreateStory : MonoBehaviour
     {
         GameObject card = storyMenu.CreateCard(currentlyEditingPath, Manifest.Get(currentlyEditingPath + "/manifest.json"), new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
         card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
+        card.name = "Preview card";
+        card.tag = "Untagged";
         int dialogues = 0;
         int alerts = 0;
         int words = 0;
@@ -204,7 +207,7 @@ public class CreateStory : MonoBehaviour
                 $"{string.Format(Translate.Get("totalbgchanges"), backgroundchanges)}\n" +
                 $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n\n" +
                 $"{string.Format(Translate.Get("totalparticipants"), participants)}\n" +
-                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
+                $"{string.Format(Translate.Get("filesize"), filesize)}\n" +
                 $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
                 $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
                 $"";
