@@ -82,7 +82,7 @@ vaulterror7=Kom ihåg att vissa koder bara fungerar online.
 vaultdownload=Romankod aktiverad.
 
 #Time
-about=för ungefär {0} {1} sedan
+abouttimeago=för ungefär {0} {1} sedan
 abouta=för ungefär {0} sedan
 seconds=sekunder
 minute=en minut

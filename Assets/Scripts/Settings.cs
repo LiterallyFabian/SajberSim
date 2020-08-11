@@ -108,4 +108,9 @@ public class Settings : MonoBehaviour
         GameObject vault = Instantiate(Resources.Load($"Prefabs/Vault", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
         vault.transform.localPosition = Vector3.zero;
     }
+    public void OpenAbout()
+    {
+        GameObject about = Instantiate(Resources.Load($"Prefabs/About", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+        about.transform.localPosition = Vector3.zero;
+    }
 }

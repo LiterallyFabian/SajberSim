@@ -119,6 +119,13 @@ setstory=Change script...
 uwumode=UwU mode is activated... :3
 about=About
 
+#About dialog
+abouttitle=About SajberSim {0}
+aboutversion=Version v{0}
+aboutcopyright=Copyright © 2020 LiterallyFabian\nAll rights reserved.
+aboutwebsite=Website: {0}
+aboutsupport=Support: {0}
+
 #Save menu
 saveorload=Save / Load
 clicktosave=Click to save
