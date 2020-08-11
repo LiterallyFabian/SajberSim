@@ -23,7 +23,6 @@ submit=Skicka
 send=Skicka
 debug=Felsök
 help=Hjälp
-overwritewarning=Vill du fortsätta spela <b>{0}</b> eller vill du starta ett nytt spel?
 nocredits=Denna roman har inga anpassade eftertexter. Du kan skapa egna genom att redigera "credits.txt" i dina spelfiler.
 
 #Steam
@@ -63,7 +62,6 @@ volume=Volym
 writingspeed=Utskriftshastighet
 openlogs=Öppna loggfiler
 language=Språk
-autologin=Logga in automatiskt
 setstory=Byt skript...
 uwumode=UwU-läget är aktiverat... :3
 
@@ -147,41 +145,3 @@ clearall=Ta bort alla
 changebackground=Byt bakgrund
 backtomain=Tillbaka till huvudmenyn
 codeplaceholder=Din kod visas här...
-
-################################################################
-#Discontinued, following strings does not need to be translated#
-################################################################
-#Account
-signin=Logga in
-accountnotice=Ett SajberSim-konto behövs inte för att spela, men du behöver vara inloggad för att publicera egna romaner.
-login=Logga in
-username=Användarnamn
-password=Lösenord
-email=E-post
-loading=Laddar...
-createacc=Skapa konto
-forgotpass=Glömt lösenordet?
-recovery=Återställning av lösenord
-recoverysent=Återställningslänk skickad!
-accountemail=E-post:
-recoverytext=Ange ditt kontos e-postadress för att få en länk för återställning av lösenord.
-processing=Bearbetar...
-createdaccount=Nytt konto registrerat!
-signupnote=När du har registrerat dig och verifierat ditt konto kommer du kunna lägga till mer valfri information (social medier, profilbild osv.) på din profil.
-requiredfields=Fyll i alla obligatoriska fält.
-
-#Account errors
-error=Fel: 
-invalidemail=Fel: Det gick inte att hitta ett konto med den e-postadressen
-fieldempty=Fel: {0} kan inte vara tomt!
-accinactive=Fel: Kontot är inaktivt - Kontrollera din e-post för att aktivera.
-invalidinfo=Fel: Ogiltigt användarnamn / lösenord.
-passwordnomatch=LFel: ösenorden matchar inte.
-emailnomatch=Fel: E-postadressen matchar inte.
-emailinvalid=Fel: E-postadressen är ogiltig eller redan registrerad.
-emailerror=Error: Could not email password reset link.
-usernameshort=Fel: Användarnamnet "{0}" är för kort.
-emailnull=Det gick inte att hitta ett konto med den e-postadressen.
-fielddupe=Det finns ett befintligt konto med det {0}.
-phperror=Fel: Det gick inte att skicka en återställningslänk - se till att detta är en giltigt e-postadress eller försök igen senare.
-accounterror=Fel: Det gick inte att registrera ett konto, försök igen senare.

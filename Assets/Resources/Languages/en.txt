@@ -105,7 +105,7 @@ missingstartscript=The starting script could not be found. Please rename the scr
 invalidfloat=The {0} <b>{1}</b> is not a valid float (eg 7.5 or 2).
 invalidaction=An invalid action was found at line {0} in script {1}.txt.\n\n"{2}" is not a valid action.\n\nRemember that all actions are in UPPER CASE. If you want to comment your scripts, the lines should start with //
 
-#Action arguments, replacing {0} in "invalidfloat" above
+#Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time
 arg_size=size
 arg_coordinate=coordinate
@@ -115,7 +115,6 @@ volume=Volume
 writingspeed=Writing speed
 openlogs=Open log folder
 language=Language
-autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
 about=About
@@ -203,41 +202,3 @@ clearall=Remove all
 changebackground=Change background
 backtomain=Back to main
 codeplaceholder=Your code will be shown here...
-
-################################################################
-#Discontinued, following strings does not need to be translated#
-################################################################
-#Account
-signin=Sign in
-accountnotice=A SajberSim account is not required for playing, but you need to be logged in if you want to publish your own visual novels or save stats.
-login=Login
-username=Username
-password=Password
-email=Email
-loading=Loading...
-createacc=Create an account
-forgotpass=Forgot password?
-recovery=Password recovery
-recoverysent=Emailed password reset link!
-accountemail=Account email:
-recoverytext=Enter your user account's email address to get a password reset link.
-processing=Processing...
-createdaccount=New account registered successfully!
-signupnote=After signing up and verifying your account you will be able to add more optional info (socials, a profile picture etc) on your profile.
-requiredfields=Please fill in the required fields.
-
-#Account errors
-error=Error: 
-invalidemail=Error: Could not find an account with that email
-fieldempty=Error: {0} can not be empty!
-accinactive=Error: Account is inactive - Please check your email.
-invalidinfo=Error: Invalid username / password.
-passwordnomatch=Error: Passwords do not match.
-emailnomatch=Error: Emails do not match.
-emailinvalid=Error: Email is invalid or already taken.
-emailerror=Error: Could not email password reset link.
-usernameshort=Error: Username "{0}" is too short.
-emailnull=Could not find an account with that email.
-fielddupe=There is an existing account with that {0}.
-phperror=Error: Could not email you a reset link - make sure this is a valid email or try again later.
-accounterror=Error: Could not create account, please try again later.
