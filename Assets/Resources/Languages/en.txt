@@ -21,8 +21,8 @@ verified=Verified
 submit=Submit
 send=Send
 debug=Debug
+close=Close
 help=Help
-overwritewarning=Do you want to continue playing <b>{0}</b> or start a new game?
 nocredits=Custom credits not found. You can set them up by editing the "credits.txt" file in your game directory.
 
 #Steam
@@ -110,7 +110,6 @@ arg_time=time
 arg_size=size
 arg_coordinate=coordinate
 
-
 #Settings
 volume=Volume
 writingspeed=Writing speed
@@ -119,6 +118,7 @@ language=Language
 autologin=Log in automatically
 setstory=Change script...
 uwumode=UwU mode is activated... :3
+about=About
 
 #Save menu
 saveorload=Save / Load
@@ -140,7 +140,7 @@ vaulterror7=Keep in mind that some codes does not work offline.
 vaultdownload=Novel code activated!
 
 #Time
-about=about {0} {1} ago
+abouttimeago=about {0} {1} ago
 abouta=about {0} ago
 seconds=seconds
 minute=a minute
