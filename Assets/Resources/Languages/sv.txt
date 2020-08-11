@@ -6,6 +6,7 @@ settings=Inställningar
 create=Skapa
 mynovels=Mina romaner
 quit=Avsluta
+close=Close
 credits=Medverkande
 novels=Romaner
 yes=Ja
@@ -56,6 +57,58 @@ edit=Redigera
 verify=Verifiera
 publish=Publicera
 detailsdescription=Här kan du se och redigera detaljerna för din visuella roman. Namn och beskrivning behöver inte vara samma som på Steam.
+save=Spara
+revertchanges=Ångra ändringar
+customnametoggle=Låt spelarna välja sitt eget namn
+modifyassets=Lägg till/ändra tillgångar
+placecharacters=Placera karaktärer
+teststory=Spela romanen
+testcredits=Spela eftertexterna
+editsdescription=Här kan du se statistik om din visuella roman och använda alla verktyg för att redigera den.
+xtags=Taggar ({0})
+audiencesfw=Publik (SFW)
+audiencensfw=Publik (NSFW)
+
+helpcontact=Mejla gärna help@sajber.me med din romanmapp bifogad om problemet kvarstår.
+errordetails=Något gick fel när du försökte ladda din visuella romans detaljer. En vanlig orsak till detta är när man manuellt redigerar manifestet.\n\n{0}\n\nFel: {1}
+errorsavingdetails=Något gick fel när du försökte spara din visuella romans detaljer. En vanlig orsak till detta är när man manuellt redigerar manifestet.{0}\n\nFel: {1}
+
+#Visual novel stats
+statsabout=Statistik för {0}
+totalscripts=Skript: {0}
+totallines=Skriptrader: {0}
+totalcharacters=Karaktärbilder: {0}
+totalaudio=Ljudklipp: {0}
+totalbackgrounds=Bakgrunder: {0}
+totaldialogues=Dialoger: {0}
+totalalerts=Meddelanden: {0}
+totalwords=Ord: {0}
+totalbgchanges=Bakgrundsförändringar: {0}
+totaldecisions=Beslut: {0}
+totalparticipants=Medverkande (i eftertexterna): {0}
+filesize=Filstorlek: {0}
+hasstart=Har ett startskripts: {0}
+hasthumbnail=Har en miniatyrbild: {0}
+hassteam=Har Steam ikon: {0}
+hascredits=Har eftertexter: {0}
+
+#Debug
+erroratline=Ett fel inträffade på rad {0} i skriptet \n{1}.\n\n<b>Rad:</b> {2}\n\n<b>RResultat från felsökare:</b> {3}\n\n<b>Rätt syntax:</b> {4}
+invalidstory=Ett fel inträffade: Försökte öppna ett skript som inte finns:\n{0}.\n\nOm du är skaparen av denna roman, se till att inga stavfel är inblandade.
+invalidargumentlength=Felaktig längd, hittade {0} argument men åtgärden förväntar sig {1}.
+missingarguments=Saknade argument, hittade bara {0} argument men åtgärden förväntar sig {1}.
+missingaudio=Ljudet "{0}" hittades inte. Kanske finns det ett stavfel? \nFörväntad sökväg: {1}.
+missingcharacter=Karaktär och / eller humör hittades inte. Kanske finns det ett stavfel? \nFörväntad sökväg: {1}.
+missingcharacterport=Karaktärsporträtt begärdes men hittades inte. Kanske finns det ett stavfel? \nFörväntad sökväg: {1}.
+missingimage=Bild ej hittad. Kanske finns det ett stavfel? \nFörväntad sökväg: {1}.
+missingstartscript=Startskriptet kunde inte hittas. Byt namn på skriptet du vill börja romanen med till "start.txt".\n\nFörväntad sökväg: {0}.
+invalidfloat={0} <b>{1}</b> är inte en giltig float (t.ex. 7.5 eller 2).
+invalidaction=En ogiltig åtgärd hittades på rad {0} i skriptet {1}.txt.\n\n"{2}" är inte en giltig åtgärd\n\nKom ihåg att alla åtgärder skrivs i VERSALER. Om du vill kommentera dina skript ska raderna börja med //
+
+#Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
+arg_time=Tiden
+arg_size=Storleken
+arg_coordinate=Koordinaten
 
 #Settings
 volume=Volym
@@ -64,6 +117,19 @@ openlogs=Öppna loggfiler
 language=Språk
 setstory=Byt skript...
 uwumode=UwU-läget är aktiverat... :3
+about=Om
+
+#About dialog
+abouttitle=Om SajberSim {0}
+aboutversion=Version v{0}
+aboutcopyright=Copyright © 2020 LiterallyFabian\nAll rights reserved.
+aboutwebsite=Hemsida: {0}
+aboutsupport=Support: {0}
+
+#Save menu
+saveorload=Spara / Ladda
+clicktosave=Klicka för att spara
+nosavesfound=(╯°□°)╯︵ ┻━┻\n\nInga sparfiler hittade!
 
 #Save menu
 donteditsaves=Det verkar som att en eller flera sparfiler har blivit kopierad eller bytt namn. Vänligen undvik att göra detta då det kan orsaka problem med att ladda sparade spel.\n\n<3
