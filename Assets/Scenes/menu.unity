@@ -40622,7 +40622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 863821249}
-  profilepic: {fileID: 0}
+  profilepic: {fileID: 928297210}
   character: {fileID: 983074971}
 --- !u!4 &1964023514
 Transform:
