@@ -43,7 +43,7 @@ namespace SajberSim.Translation
             else
             {
                 Debug.LogError($"Translation/Get: Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN, returning ID. This request was called from {location}");
-                Webhook.Log($"Translation for \"{id}\" does not exist in {lang.ToUpper()} or EN. This was called from game version v{Application.version}\n<@211521218896068609>");
+                Webhook.Log($"<@&743158406948585593>\n\nTranslation for \"{id}\" does not exist in {lang.ToUpper()} or EN. This was called from game version v{Application.version}");
                 return id;
             }
         }
