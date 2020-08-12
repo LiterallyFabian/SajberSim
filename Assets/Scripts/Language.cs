@@ -89,5 +89,12 @@ public class Language
             lang.Add(language.language_code);
         return lang;
     }
+    public static List<string> ListLCIDCode()
+    {
+        List<string> lang = new List<string>();
+        foreach (Language language in list)
+            lang.Add(language.LCID_code);
+        return lang;
+    }
 }
 
