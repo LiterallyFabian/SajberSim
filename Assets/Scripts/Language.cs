@@ -17,16 +17,16 @@ public class Language
     }
     public Language(string code, string name, string formal, string localized)
     {
-        flag_code = code;
+        iso_code = code;
         language_code = name;
         formal_name = formal;
         localized_name = localized;
     }
 
-    public string flag_code;
-    public string language_code;
-    public string formal_name;
-    public string localized_name;
+    public string iso_code; //DK, the code used for flags
+    public string language_code; //danish, the code used for steam
+    public string formal_name; //Danish, formal name in english
+    public string localized_name; //Dansk, formal name in original language
     public static Language[] list =
         {
         new Language("US", "english", "English", "English"),
@@ -75,7 +75,7 @@ public class Language
     {
         List<string> lang = new List<string>();
         foreach (Language language in list)
-            lang.Add(language.flag_code);
+            lang.Add(language.iso_code);
         return lang;
     }
     public static List<string> ListSteamName()

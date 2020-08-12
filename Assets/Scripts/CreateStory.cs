@@ -57,10 +57,6 @@ public class CreateStory : MonoBehaviour
         storyMenu = GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>();
         transform.localScale = Vector3.zero;
         transform.localPosition = Vector3.zero;
-
-       
-
-        
     }
 
     // Update is called once per frame

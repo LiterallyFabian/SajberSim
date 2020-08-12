@@ -72,7 +72,7 @@ public class CreateNew : MonoBehaviour
 
         List<Dropdown.OptionData> dropdownList = new List<Dropdown.OptionData>();
         foreach (Language lang in Language.list)
-            dropdownList.Add(new Dropdown.OptionData(lang.formal_name, dl.Flag(lang.flag_code)));
+            dropdownList.Add(new Dropdown.OptionData(lang.formal_name, dl.Flag(lang.iso_code)));
             
         B_inputLanguage.AddOptions(dropdownList);
     }
