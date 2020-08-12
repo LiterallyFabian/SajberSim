@@ -10,6 +10,8 @@ using UnityEngine.EventSystems;
 using Unity.VectorGraphics;
 using UnityEngine.SceneManagement;
 using SajberSim.Steam;
+using System.Globalization;
+using System.Linq;
 
 namespace SajberSim.SaveSystem
 {
@@ -79,7 +81,8 @@ namespace SajberSim.SaveSystem
             Color textColor = Colors.Colors.UnityGray;
             ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
             Title.GetComponent<Text>().color = textColor;
-            date.text = save.date.ToString("dddd, d MMMM HH:mm");
+            string datetext = save.date.ToString("dddd, d MMMM HH:mm", Language.Culture);
+            date.text = datetext.First().ToString().ToUpper() + datetext.Substring(1);
             dl.CardThumbnail(tb2, $"{Helper.Helper.savesPath}/{id}.png");
         }
     }

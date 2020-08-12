@@ -1,4 +1,5 @@
-﻿using SajberSim.Web;
+﻿using SajberSim.Translation;
+using SajberSim.Web;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,7 +16,7 @@ public class Language
     static Language()
     {
         Format.NumberDecimalSeparator = ".";
-        Culture = new CultureInfo("en-us");
+        Culture = new CultureInfo(Languages[Translate.lang.ToUpper()].LCID_code);
     }
 
     public Language(string code, string name, string formal, string localized, string lcid)
