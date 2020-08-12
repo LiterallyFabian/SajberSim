@@ -49,12 +49,19 @@ public class CreateNew : MonoBehaviour
     public void Type(bool hasTyped)
     {
         hasEdited = hasTyped;
-        Main.ButtonQuit.interactable = !hasTyped;
-        Main.ButtonEdit.interactable = !hasTyped;
-        Main.ButtonVerify.interactable = !hasTyped;
-        Main.ButtonPublish.interactable = !hasTyped;
-        ButtonRevert.interactable = hasTyped;
-        ButtonSave.interactable = hasTyped;
+        if (Main.currentWindow != CreateStory.CreateWindows.Basics)
+        {
+            Main.ButtonQuit.interactable = !hasTyped;
+            Main.ButtonEdit.interactable = !hasTyped;
+            Main.ButtonVerify.interactable = !hasTyped;
+            Main.ButtonPublish.interactable = !hasTyped;
+            ButtonRevert.interactable = hasTyped;
+            ButtonSave.interactable = hasTyped;
+        }
+        else
+        {
+            Main.ButtonCreate.interactable = B_inputName.text != "";
+        }
     }
     public void UpdateTags(string input)
     {
