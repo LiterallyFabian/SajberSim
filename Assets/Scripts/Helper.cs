@@ -38,6 +38,7 @@ namespace SajberSim.Helper
         public static string currentStoryPath = "";
         public static string currentStoryName = "";
         public static string savesPath = "";
+        public static string templatePath = "";
 
         public static AS_AccountInfo acc;
 
@@ -125,6 +126,7 @@ namespace SajberSim.Helper
                 customPath = Application.dataPath + "/MyStories/";
                 localPath = Application.dataPath + "/Story/";
                 savesPath = Application.persistentDataPath + "/Saves/";
+                templatePath = Application.dataPath + "/NovelTemplate";
                 if (loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
                 if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);

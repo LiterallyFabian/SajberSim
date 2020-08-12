@@ -96,6 +96,8 @@ public class CreateStory : MonoBehaviour
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("createnewnovel");
                 Description.text = Translate.Get("createnewdesc");
+                currentlyEditingPath = "NEW";
+                currentlyEditingName = "New novel";
                 break;
             case 1: // Story created, fill fields with predefined info
                 currentWindow = CreateWindows.Details;

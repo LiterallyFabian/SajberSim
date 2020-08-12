@@ -30,6 +30,7 @@ public class CreateNew : MonoBehaviour
     public Button ButtonSave;
     public Button ButtonRevert;
     public bool hasEdited;
+    static readonly char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
     // Start is called before the first frame update
     void Start()
@@ -106,13 +107,33 @@ public class CreateNew : MonoBehaviour
         Type(false);
     }
     /// <summary>
-    /// UPDATE all data in manifest with details from details fields
+    /// UPDATE or SAVE all data in manifest with details from details fields
     /// </summary>
     public void SaveDetails()
     {
+        bool changewindow = false;
+        JsonSerializer serializer = new JsonSerializer();
         try
         {
-            string path = CreateStory.currentlyEditingPath + "/manifest.json";
+            string path = "";
+            if(CreateStory.currentlyEditingPath == "NEW") //CREATE NEW
+            {
+                string fixedName = new string(B_inputName.text.Select(ch => invalidFileNameChars.Contains(ch) ? '_' : ch).ToArray());
+                string destPath = $"{Helper.customPath}/{fixedName}";
+
+                //Copy all directories from template
+                foreach (string dirPath in Directory.GetDirectories(Helper.templatePath, "*", SearchOption.AllDirectories))
+                    Directory.CreateDirectory(dirPath.Replace(Helper.templatePath, destPath));
+
+                //Copy all files from template
+                foreach (string newPath in Directory.GetFiles(Helper.templatePath, "*.*", SearchOption.AllDirectories))
+                    File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
+                CreateStory.currentlyEditingPath = destPath;
+                CreateStory.currentlyEditingName = B_inputName.text;
+                changewindow = true;
+            }
+
+            path = CreateStory.currentlyEditingPath + "/manifest.json";
             Manifest data = Manifest.Get(path);
             data.name = B_inputName.text;
             data.description = B_inputDescription.text;
@@ -125,12 +146,12 @@ public class CreateNew : MonoBehaviour
             if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
             else data.nsfw = false;
 
-            JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(path))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, data);
             }
+            if (changewindow) Main.SetWindow(2);
             StartCoroutine(B_SetStatus(Translate.Get("saved")));
         }
         catch (Exception e)
