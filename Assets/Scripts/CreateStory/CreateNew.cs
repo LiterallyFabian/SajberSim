@@ -71,7 +71,7 @@ public class CreateNew : MonoBehaviour
         B_inputAudience.AddOptions(Helper.audience.ToList());
 
         List<Dropdown.OptionData> dropdownList = new List<Dropdown.OptionData>();
-        foreach (Language lang in Language.list)
+        foreach (Language lang in Language.Languages.Values)
             dropdownList.Add(new Dropdown.OptionData(lang.formal_name, dl.Flag(lang.iso_code)));
             
         B_inputLanguage.AddOptions(dropdownList);
