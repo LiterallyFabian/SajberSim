@@ -9,6 +9,7 @@ TagManager:
   - PreviewCard
   - DetailsCard
   - SaveCard
+  - Download
   layers:
   - Default
   - TransparentFX

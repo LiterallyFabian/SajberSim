@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 84514704}
   m_Layer: 0
   m_Name: Helper
-  m_TagString: Untagged
+  m_TagString: Download
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4222,7 +4222,7 @@ MonoBehaviour:
   BehindSettings: {fileID: 1292243164}
   fadeimage: {fileID: 329098048}
   music: {fileID: 863821249}
-  dl: {fileID: 84514704}
+  dl: {fileID: 0}
   PauseMenuGame: {fileID: 949310008}
   SettingsMenuGame: {fileID: 949310008}
 --- !u!4 &371701550

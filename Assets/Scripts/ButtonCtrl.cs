@@ -69,6 +69,7 @@ public class ButtonCtrl : MonoBehaviour
     }
     public void Start()
     {
+        dl = Download.Init();
         Cursor.visible = true;
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
         SetLogin();

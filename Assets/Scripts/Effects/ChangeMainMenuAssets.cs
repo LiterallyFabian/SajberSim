@@ -16,7 +16,7 @@ public class ChangeMainMenuAssets : MonoBehaviour
     public static string charpath;
     public void UpdateBG()
     {
-        Download dl = FindObjectsOfType<Download>()[0];
+        Download dl = Download.Init();
         UpdateCharacter();
         string[] backgroundList = Stories.GetAllStoryAssetPaths("main"); //mainbg*.png
         int id = UnityEngine.Random.Range(0, backgroundList.Length + 1);
@@ -33,7 +33,7 @@ public class ChangeMainMenuAssets : MonoBehaviour
     }
     public void UpdateCharacter()
     {
-        Download dl = FindObjectsOfType<Download>()[0];
+        Download dl = Download.Init();
         List<string> charpaths = new List<string>();
         foreach (string path in Stories.GetAllStoryAssetPaths("characters"))
         {
