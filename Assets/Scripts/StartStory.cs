@@ -134,7 +134,7 @@ public class StartStory : MonoBehaviour
     }
     public void UpdatePreviewCards()
     {
-        Debug.Log("Request to update cards");
+        Debug.Log("StoryMenu/Update: Request to update cards");
         string[] storyPaths = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
         string[] manifests = Manifest.GetAll(sortArgs, nsfw, searchTerm, searchPath);
         UpdateNoNovelNotice(storyPaths.Count());
@@ -217,7 +217,7 @@ public class StartStory : MonoBehaviour
     }
     public void ClearPreviewCards()
     {
-        Debug.Log("Request to delete preview cards");
+        Debug.Log("StoryMenu/Clear: Request to delete preview cards");
         GameObject[] cards = GameObject.FindGameObjectsWithTag("PreviewCard");
         foreach (GameObject card in cards)
             Destroy(card);
