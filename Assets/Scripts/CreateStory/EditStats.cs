@@ -4,12 +4,14 @@ using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EditStats : MonoBehaviour
@@ -18,6 +20,7 @@ public class EditStats : MonoBehaviour
     public Text E_Stats;
     public ColorPicker E_ColorPickerText;
     public ColorPicker E_ColorPickerSplash;
+    public GameObject fadeimage;
     private GameObject Card;
     private StoryCard CardComp;
 
@@ -148,6 +151,12 @@ public class EditStats : MonoBehaviour
     {
         if (CardComp == null) return;
         CardComp.Play();
+    }
+    public void PlayCredits()
+    {
+        ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
+        Credits.storypath = CreateStory.currentlyEditingPath;
+        StartCoroutine(main.FadeToScene("credits"));
     }
 }
 

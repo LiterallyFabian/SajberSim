@@ -16035,6 +16035,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Play
       objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1283333986}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayCredits
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EditStats, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
       propertyPath: m_Text
@@ -19753,6 +19768,7 @@ MonoBehaviour:
   E_Stats: {fileID: 1752569243}
   E_ColorPickerText: {fileID: 809155096367451456}
   E_ColorPickerSplash: {fileID: 9177157953245830591}
+  fadeimage: {fileID: 329098048}
 --- !u!1 &1284053184
 GameObject:
   m_ObjectHideFlags: 0
