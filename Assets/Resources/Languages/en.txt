@@ -67,6 +67,8 @@ editsdescription=Here you can see statistics about your visual novel and access 
 xtags=Tags ({0})
 audiencesfw=Audience (SFW)
 audiencensfw=Audience (NSFW)
+textcolor=Text color
+backcolor=Background color
 
 #Creation errors (can stay in english)
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
