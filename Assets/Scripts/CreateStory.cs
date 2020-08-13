@@ -83,6 +83,7 @@ public class CreateStory : MonoBehaviour
         BasicsMenu.transform.localScale = Vector3.zero;
         EditsMenu.transform.localScale = Vector3.zero;
         Menu_Create.ResetFields();
+        Menu_Edit.SaveColors();
         switch (window)
         {
             case 0: // Create story and set basics

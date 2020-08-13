@@ -1,4 +1,5 @@
-﻿using SajberSim.CardMenu;
+﻿using Newtonsoft.Json;
+using SajberSim.CardMenu;
 using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Translation;
@@ -126,6 +127,22 @@ public class EditStats : MonoBehaviour
     {
         if (CardComp == null) return;
         CardComp.Overlay.color = c;
+    }
+    public void SaveColors()
+    {
+        if (Main.currentWindow != CreateStory.CreateWindows.Edit) return;
+        string manifestPath = CreateStory.currentlyEditingPath + "/manifest.json";
+        Manifest data = Manifest.Get(manifestPath);
+
+        data.textcolor = ColorUtility.ToHtmlStringRGB(CardComp.Title.color);
+        data.overlaycolor = ColorUtility.ToHtmlStringRGB(CardComp.Overlay.color);
+
+        JsonSerializer serializer = new JsonSerializer();
+        using (StreamWriter sw = new StreamWriter(manifestPath))
+        using (JsonWriter writer = new JsonTextWriter(sw))
+        {
+            serializer.Serialize(writer, data);
+        }
     }
 }
 
