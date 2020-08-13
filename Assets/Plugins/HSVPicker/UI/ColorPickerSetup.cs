@@ -25,7 +25,11 @@ namespace Assets.HSVPicker
             {
                 for (int cnt = 0; cnt < Elements.Length; cnt++)
                 {
-                    Elements[cnt].gameObject.SetActive(active);
+                    try
+                    {
+                        Elements[cnt].gameObject.SetActive(active);
+                    }
+                    catch { }
                 }
             }
 
