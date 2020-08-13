@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SajberSim.Chararcter;
 using SajberSim.Web;
-using SajberSim.StoryDebug;
 using SajberSim.Story;
 using SajberSim.Helper;
 using SajberSim.Translation;
