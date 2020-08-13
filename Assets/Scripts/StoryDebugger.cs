@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+// REPLACED BY NovelDebugger
+
+
+/*
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -126,3 +131,4 @@ namespace SajberSim.StoryDebug
         }
     }
 }
+*/

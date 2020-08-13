@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SajberSim.CardMenu;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using SajberSim.Web;
@@ -159,6 +160,7 @@ public class CreateNew : MonoBehaviour
                 serializer.Serialize(writer, data);
             }
             if (changewindow) Main.SetWindow(2);
+            Stories.pathUpdateNeeded = true;
             StartCoroutine(B_SetStatus(Translate.Get("saved")));
         }
         catch (Exception e)
