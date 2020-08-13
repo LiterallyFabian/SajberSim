@@ -55,6 +55,7 @@ defaulttags=Enter, your, tags, separated, by, a, comma
 save=Save
 revertchanges=Revert changes
 edit=Edit
+editstats=Edit & statistics
 verify=Verify
 publish=Publish
 customnametoggle=Let players select their own name
@@ -62,8 +63,8 @@ modifyassets=Add/edit assets
 placecharacters=Place characters
 teststory=Play story
 testcredits=Play credits
-detailsdescription=Here you can see and edit the basic details for your visual novel. The name and description does not have to be the same as on Steam.
-editsdescription=Here you can see statistics about your visual novel and access all tools to edit it.
+detailsdescription=Here you can see and edit the basic details for {0}. The name and description does not have to be the same as on Steam.
+editsdescription=Here you can see statistics about {0} and access all tools to edit it.
 xtags=Tags ({0})
 audiencesfw=Audience (SFW)
 audiencensfw=Audience (NSFW)
@@ -76,7 +77,6 @@ errordetails=Something went wrong when trying to load your visual novel details.
 errorsavingdetails=Something went wrong when trying to save your visual novel details. A common cause for this is when editing the manifest manually.{0}\n\n{1}
 
 #Visual novel stats
-statsabout=Stats about {0}
 totalscripts=Scripts: {0}
 totallines=Script lines: {0}
 totalcharacters=Character sprites: {0}

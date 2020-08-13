@@ -56,7 +56,7 @@ defaulttags=Ange, dina, taggar, separerade, med, komma
 edit=Redigera
 verify=Verifiera
 publish=Publicera
-detailsdescription=Här kan du se och redigera detaljerna för din visuella roman. Namn och beskrivning behöver inte vara samma som på Steam.
+detailsdescription=Här kan du se och redigera detaljerna för {0}. Namn och beskrivning behöver inte vara samma som på Steam.
 save=Spara
 revertchanges=Ångra ändringar
 customnametoggle=Låt spelarna välja sitt eget namn
@@ -64,7 +64,7 @@ modifyassets=Lägg till/ändra tillgångar
 placecharacters=Placera karaktärer
 teststory=Spela romanen
 testcredits=Spela eftertexterna
-editsdescription=Här kan du se statistik om din visuella roman och använda alla verktyg för att redigera den.
+editsdescription=Här kan du se statistik om {0} och använda alla verktyg för att redigera den.
 xtags=Taggar ({0})
 audiencesfw=Publik (SFW)
 audiencensfw=Publik (NSFW)
@@ -74,7 +74,6 @@ errordetails=Något gick fel när du försökte ladda din visuella romans detalj
 errorsavingdetails=Något gick fel när du försökte spara din visuella romans detaljer. En vanlig orsak till detta är när man manuellt redigerar manifestet.{0}\n\nFel: {1}
 
 #Visual novel stats
-statsabout=Statistik för {0}
 totalscripts=Skript: {0}
 totallines=Skriptrader: {0}
 totalcharacters=Karaktärbilder: {0}

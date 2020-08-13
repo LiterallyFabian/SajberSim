@@ -106,14 +106,14 @@ public class CreateStory : MonoBehaviour
                 ButtonDetails.interactable = false;
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("details");
-                Description.text = Translate.Get("detailsdescription");
+                Description.text = string.Format(Translate.Get("detailsdescription"), currentlyEditingName);
                 Menu_Create.SetDetails();
                 break;
             case 2: // Edit story 
                 currentWindow = CreateWindows.Edit;
                 EditsMenu.transform.localScale = Vector3.one;
-                Title.text = Translate.Get("edit");
-                Description.text = Translate.Get("editsdescription");
+                Title.text = Translate.Get("editstats");
+                Description.text = string.Format(Translate.Get("editsdescription"), currentlyEditingName);
                 ButtonEdit.interactable = false;
                 Menu_Edit.UpdateStats();
                 break;

@@ -1,4 +1,5 @@
 ﻿using SajberSim.CardMenu;
+using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Translation;
 using System;
@@ -13,15 +14,28 @@ using UnityEngine.UI;
 public class EditStats : MonoBehaviour
 {
     public CreateStory Main;
-    public Text E_StatsTitle;
     public Text E_Stats;
+    public ColorPicker E_ColorPickerText;
+    public ColorPicker E_ColorPickerSplash;
+    private GameObject Card;
+    private StoryCard CardComp;
 
     public void UpdateStats()
     {
-        GameObject card = Main.storyMenu.CreateCard(CreateStory.currentlyEditingPath, Manifest.Get(CreateStory.currentlyEditingPath + "/manifest.json"), new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
-        card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
-        card.name = "Preview card";
-        card.tag = "Untagged";
+        Manifest data = Manifest.Get(CreateStory.currentlyEditingPath + "/manifest.json");
+        Card = Main.storyMenu.CreateCard(CreateStory.currentlyEditingPath, data, new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
+        Card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
+        Card.name = "Preview card";
+        Card.tag = "Untagged";
+        CardComp = Card.GetComponent<StoryCard>();
+
+        Color textColor = Colors.UnityGray;
+        ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
+        E_ColorPickerText.AssignColor(textColor);
+        Color splashColor = Colors.UnityGray;
+        ColorUtility.TryParseHtmlString($"#{data.overlaycolor.Replace("#", "")}", out splashColor);
+        E_ColorPickerSplash.AssignColor(splashColor);
+
         int dialogues = 0;
         int alerts = 0;
         int words = 0;
@@ -34,7 +48,6 @@ public class EditStats : MonoBehaviour
         bool hasthumbnail = false;
         bool hassteam = false;
 
-        E_StatsTitle.text = string.Format(Translate.Get("statsabout"), CreateStory.currentlyEditingName);
         string[] scriptPaths = Stories.GetStoryAssetPaths("dialogues", CreateStory.currentlyEditingPath);
         List<string> scriptLines = new List<string>();
         foreach (string path in scriptPaths)
@@ -101,6 +114,18 @@ public class EditStats : MonoBehaviour
             E_Stats.text = $"Something went wrong when trying to show stats: \n{e}";
             Debug.LogError($"Something went wrong when trying to show stats: \n{e}");
         }
+    }
+    public void UpdateTextColor(Color c)
+    {
+        if (CardComp == null) return;
+        CardComp.Title.color = c;
+        CardComp.Clock.color = c;
+        CardComp.Playtime.color = c;
+    }
+    public void UpdateSplashColor(Color c)
+    {
+        if (CardComp == null) return;
+        CardComp.Overlay.color = c;
     }
 }
 
