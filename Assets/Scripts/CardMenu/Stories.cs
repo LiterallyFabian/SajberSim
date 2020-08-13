@@ -24,12 +24,13 @@ namespace SajberSim.CardMenu
         /// <param name="searchTerm">If the stories should match a search term</param>
         /// <param name="where">Location of stories</param>
         /// <param name="forceUpdate">Wether it should ignore the cache</param>
-        /// <returns>Array with paths to all local story folders</returns>
+        /// <returns>Array with paths to all local story folders</returns>Helper.customPath
         public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All, bool forceUpdate = false)
         {
+            UnityEngine.Debug.Log("a");
             if (!pathUpdateNeeded && !forceUpdate) return Stories.storyPaths;
             if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
-           
+            UnityEngine.Debug.Log("b");
             List<string> storyPaths = new List<string>();
             //This is what I call "The tired" ~
             //update, apparently the 5 line method i had here before wasn't the problem. oh well goodnight

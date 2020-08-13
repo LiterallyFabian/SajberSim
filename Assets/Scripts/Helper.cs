@@ -130,10 +130,11 @@ namespace SajberSim.Helper
                 if (loggedin)
                 steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
                 if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
+                if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
+                if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
                 UnityEngine.Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
-            Directory.CreateDirectory($"{Application.dataPath}/Story"); //to avoid errors when booting after build
-            Directory.CreateDirectory($"{Application.dataPath}/MyStories");
+            
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (SceneManager.GetActiveScene().name == "menu")
             {

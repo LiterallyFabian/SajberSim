@@ -41,9 +41,11 @@ public class ChangeMainMenuAssets : MonoBehaviour
         }
         if (charpaths.Count() == 0) return;
         charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
-        while (!File.Exists(charpath.Replace("happy", "blush")))
+        int tries = 0;
+        while (!File.Exists(charpath.Replace("happy", "blush")) && tries < 3)
         {
             charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
+            tries++;
         }
 
         //ladda in filen som texture
