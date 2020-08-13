@@ -144,5 +144,10 @@ public class EditStats : MonoBehaviour
             serializer.Serialize(writer, data);
         }
     }
+    public void PlayNovel()
+    {
+        if (CardComp == null) return;
+        CardComp.Play();
+    }
 }
 
