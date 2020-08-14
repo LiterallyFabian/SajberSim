@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SajberSim.CardMenu;
 using SajberSim.Helper;
+using SajberSim.Steam;
 using SajberSim.Translation;
 using SajberSim.Web;
 using System;
@@ -139,6 +140,8 @@ public class CreateNew : MonoBehaviour
                 CreateStory.currentlyEditingPath = destPath;
                 CreateStory.currentlyEditingName = B_inputName.text;
                 changewindow = true;
+                Achievements.Grant(Achievements.List.ACHIEVEMENT_create);
+                Stats.Add(Stats.List.novelscreated);
             }
 
             path = CreateStory.currentlyEditingPath + "/manifest.json";
