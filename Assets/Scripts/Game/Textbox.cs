@@ -28,7 +28,7 @@ public class Textbox : MonoBehaviour, INovelAction
         }
         Person talker;
         if (int.TryParse(line[1], out int x))
-            talker = Game.people[int.Parse(line[1])];
+            talker = GameManager.people[int.Parse(line[1])];
         else
             talker = new Person(line[1], "", 0);
         string text = Game.FillVars(line[2]);
@@ -44,7 +44,7 @@ public class Textbox : MonoBehaviour, INovelAction
         if (line.Length > 4 || line.Length < 3) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4")); //Incorrect length, found LENGTH arguments but the action expects 3-4.
         Person talker;
         if (int.TryParse(line[1], out int x))
-            talker = Game.people[int.Parse(line[1])];
+            talker = GameManager.people[int.Parse(line[1])];
         else
             talker = new Person(line[1], "", 0);
         if (!File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png") && (line.Length == 3))

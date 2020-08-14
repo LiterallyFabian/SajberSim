@@ -20,7 +20,7 @@ public class Character : MonoBehaviour, INovelAction
             return;
         }
         string name = "";
-        if (int.TryParse(line[1], out int xd)) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
+        if (int.TryParse(line[1], out int xd)) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
 
         string mood = line[2];
@@ -40,7 +40,7 @@ public class Character : MonoBehaviour, INovelAction
         if (line.Length > 7 || line.Length < 5) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
         string name = "";
 
-        if (Helper.IsNum(line[1])) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
+        if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
         if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return NovelDebugInfo.Error(string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png"));
         if (!Helper.IsFloat(line[3])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]));

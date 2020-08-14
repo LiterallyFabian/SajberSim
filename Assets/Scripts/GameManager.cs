@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     
     public static string[] story;
     public Coroutine co;
-    public Person[] people = ButtonCtrl.people;
+    public static Person[] people;
     
 
     #region Classes
@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour
         ready = true;
         textdone = false;
         scriptName = "start";
+        people = ButtonCtrl.people;
 
         story = new string[0];
         Cursor.visible = true;
