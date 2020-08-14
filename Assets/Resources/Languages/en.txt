@@ -123,7 +123,7 @@ erroractions=Actions with errors: {0}
 debugitemtemplate=<b>Line: {0}  -  Action: {1}</b>\n{2}\n\n
 noerrors=※\(^o^)/※ \nNo errors! You are ready for publishing!
 refresh=Refresh
-opendialogues=Open dialogue folder
+opendialogues=Open scripts
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time

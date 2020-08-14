@@ -8,6 +8,7 @@ using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -24,7 +25,7 @@ public class CreateStory : MonoBehaviour
     public EditStats Menu_Edit;
     public DebugNovel Menu_Debug;
 
-    
+
 
     public GameObject ButtonGroup;
     public GameObject BasicsMenu;
@@ -136,5 +137,16 @@ public class CreateStory : MonoBehaviour
     {
         Credits.storypath = currentlyEditingPath;
         SceneManager.LoadScene("credits");
+    }
+    public void OpenDirectory()
+    {
+        if (Directory.Exists(currentlyEditingPath))
+            Process.Start(currentlyEditingPath);
+    }
+    public void OpenScripts()
+    {
+        string path = currentlyEditingPath + "/Dialogues";
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            Process.Start(path);
     }
 }
