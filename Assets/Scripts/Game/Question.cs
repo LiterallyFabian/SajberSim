@@ -39,15 +39,20 @@ public class Question : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length < 6) return NovelDebugInfo.Error(string.Format(Translate.Get("missingarguments"), line.Length, "6+")); //Missing arguments, only found LENGTH arguments but the action expects 6+.
-        if ((line.Length - 2) % 2 != 0) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "alternatives * 2 + 2")); //Incorrect length, found LENGTH arguments but the action expects alternatives * 2 + 2.
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
+        if (line.Length < 6) NDI.Message = string.Format(Translate.Get("missingarguments"), line.Length, "6+"); //Missing arguments, only found LENGTH arguments but the action expects 6+.
+        if ((line.Length - 2) % 2 != 0) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, "alternatives * 2 + 2"); //Incorrect length, found LENGTH arguments but the action expects alternatives * 2 + 2.
         int script = 0;
         for (int i = 3; i < line.Length; i += 2)
         {
             script++;
-            if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[i]}.txt")) return NovelDebugInfo.Error($"Alternative {script} \"{line[i-1]}\" leads to the script \"{line[i]}\" which does not exist.");
+            if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[i]}.txt")) NDI.Message = $"Alternative {script} \"{line[i-1]}\" leads to the script \"{line[i]}\" which does not exist.";
         }
-        return NovelDebugInfo.OK();
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
     private void OpenQuestion(string question, string alt1, string alt2)
     {

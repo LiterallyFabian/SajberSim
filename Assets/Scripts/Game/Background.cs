@@ -30,9 +30,14 @@ public class Background : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length > 3 || line.Length < 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3"));
-        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return NovelDebugInfo.Error(string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png"));
-        return NovelDebugInfo.OK();
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
+        if (line.Length > 3 || line.Length < 2) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3");
+        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) NDI.Message = string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png");
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
     private IEnumerator SetBackground(string back)
     {

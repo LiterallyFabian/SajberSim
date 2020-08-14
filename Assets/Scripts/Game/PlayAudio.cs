@@ -27,10 +27,15 @@ public class PlayAudio : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
         string path = $"{Helper.currentStoryPath}/Audio/{line[1]}.ogg";
-        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
-        if (!File.Exists(path)) return NovelDebugInfo.Error(string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg"));
-        return NovelDebugInfo.OK();
+        if (line.Length != 2) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
+        if (!File.Exists(path)) NDI.Message = string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg");
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
     private void Play(string[] line)
     {

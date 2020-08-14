@@ -37,17 +37,26 @@ public class Character : MonoBehaviour, INovelAction
 
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length > 7 || line.Length < 5) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
+        if (line.Length > 7 || line.Length < 5) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7");
         string name = "";
 
         if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return NovelDebugInfo.Error(string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png"));
-        if (!Helper.IsFloat(line[3])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]));
-        if (!Helper.IsFloat(line[4])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]));
-        if (line.Length == 5) return NovelDebugInfo.OK();
-        if (!Helper.IsFloat(line[5])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]));
-        return NovelDebugInfo.OK();
+        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) NDI.Message = string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png");
+        if (!Helper.IsFloat(line[3])) NDI.Message = string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]);
+        if (!Helper.IsFloat(line[4])) NDI.Message = string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]);
+        if (line.Length == 5) 
+        {
+            if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+            return NDI;
+        }
+        if (!Helper.IsFloat(line[5])) NDI.Message = string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]);
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
 
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2

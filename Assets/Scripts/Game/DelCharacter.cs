@@ -31,7 +31,12 @@ public class DelCharacter : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
-        return NovelDebugInfo.OK();
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
+        if (line.Length != 2) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
 }

@@ -27,9 +27,13 @@ public class LoadScript : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
-        if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[1]}.txt")) return NovelDebugInfo.Error($"The script \"{line[1]}\" does not exist. Expected path: {GameManager.shortStoryPath}/Dialogues/{line[1]}.txt");
-        return NovelDebugInfo.OK();
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+        if (line.Length != 2) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
+        if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[1]}.txt")) NDI.Message = $"The script \"{line[1]}\" does not exist. Expected path: {GameManager.shortStoryPath}/Dialogues/{line[1]}.txt";
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
     public void Load(string storyID)
     {

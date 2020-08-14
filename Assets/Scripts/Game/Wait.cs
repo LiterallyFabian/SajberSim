@@ -26,9 +26,14 @@ public class Wait : MonoBehaviour, INovelAction
     }
     public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2)); //Incorrect length, found LENGTH arguments but the action expects 2.
-        if (!Helper.IsFloat(line[1])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_time"), line[1])); //The time <b>TIME</b> is not a valid float (eg 7.5 or 2).
-        return NovelDebugInfo.OK();
+        NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
+
+        if (line.Length != 2) NDI.Message = string.Format(Translate.Get("invalidargumentlength"), line.Length, 2); //Incorrect length, found LENGTH arguments but the action expects 2.
+        if (!Helper.IsFloat(line[1])) NDI.Message = string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_time"), line[1]); //The time <b>TIME</b> is not a valid float (eg 7.5 or 2).
+
+        //Done
+        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
+        return NDI;
     }
     private IEnumerator Delay(float time) //ID 7
     {
