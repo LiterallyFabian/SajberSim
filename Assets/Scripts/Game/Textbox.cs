@@ -8,7 +8,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Textbox : MonoBehaviour, GameManager.INovelAction
+public class Textbox : MonoBehaviour, INovelAction
 {
     private Text textobj;
     private Text nameobj;

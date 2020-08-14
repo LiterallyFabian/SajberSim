@@ -8,7 +8,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayAudio : MonoBehaviour, GameManager.INovelAction
+public class PlayAudio : MonoBehaviour, INovelAction
 {
     public GameManager Game;
     public void Run(string[] line)

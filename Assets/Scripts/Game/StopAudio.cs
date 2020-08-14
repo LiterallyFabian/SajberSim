@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StopAudio : MonoBehaviour, GameManager.INovelAction
+public class StopAudio : MonoBehaviour, INovelAction
 {
     public GameManager Game;
     public void Run(string[] line)
