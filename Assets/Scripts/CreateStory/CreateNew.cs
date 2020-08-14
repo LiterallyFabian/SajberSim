@@ -120,7 +120,7 @@ public class CreateNew : MonoBehaviour
     /// </summary>
     public void SaveDetails()
     {
-        bool changewindow = false;
+        bool isNew = false;
         JsonSerializer serializer = new JsonSerializer();
         try
         {
@@ -139,7 +139,7 @@ public class CreateNew : MonoBehaviour
                     File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
                 CreateStory.currentlyEditingPath = destPath;
                 CreateStory.currentlyEditingName = B_inputName.text;
-                changewindow = true;
+                isNew = true;
                 Achievements.Grant(Achievements.List.ACHIEVEMENT_create);
                 Stats.Add(Stats.List.novelscreated);
             }
@@ -153,6 +153,8 @@ public class CreateNew : MonoBehaviour
             data.rating = Helper.audience[B_inputAudience.value];
             data.language = Language.ListFlagCode()[B_inputLanguage.value];
             data.customname = B_inputCustomName.isOn;
+            if(isNew) data.uploaddate = DateTime.Now;
+            data.lastEdit = DateTime.Now;
 
             if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
             else data.nsfw = false;
@@ -162,7 +164,7 @@ public class CreateNew : MonoBehaviour
             {
                 serializer.Serialize(writer, data);
             }
-            if (changewindow) Main.SetWindow(2);
+            if (isNew) Main.SetWindow(2);
             Stories.pathUpdateNeeded = true;
             StartCoroutine(B_SetStatus(Translate.Get("saved")));
         }

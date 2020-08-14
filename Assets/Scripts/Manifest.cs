@@ -23,7 +23,8 @@ public class Manifest
     public string language = "UNKNOWN";
     public bool nsfw = false;
     public int playtime = 0;
-    public int publishdate = 19700101;
+    public DateTime uploaddate = new DateTime(1970, 1, 1, 0, 0, 0);
+    public DateTime lastEdit = new DateTime(1970, 1, 1, 0, 0, 0);
     public string[] tags = new string[0];
     public string genre = "other";
     public string rating = "everyone";

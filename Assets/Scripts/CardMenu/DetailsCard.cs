@@ -35,7 +35,7 @@ public class DetailsCard : MonoBehaviour
         Edit.interactable = card.myNovel;
         Background.texture = back.texture;
         Title.text = data.name;
-        Author.text = $"{string.Format(Translate.Get("publishedby"), $"<b>{data.author}</b>")} {Helper.TimeAgo(DateTime.ParseExact(data.publishdate.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture))}";
+        Author.text = $"{string.Format(Translate.Get("publishedby"), $"<b>{data.author}</b>")} {Helper.TimeAgo(data.uploaddate)}";
         Description.GetComponent<Text>().text = data.description;
         Tags.text = string.Join(", ", data.tags);
         NsfwStatus.text = data.nsfw ? Translate.Get("yes") : Translate.Get("no");

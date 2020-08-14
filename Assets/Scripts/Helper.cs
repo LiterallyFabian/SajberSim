@@ -225,7 +225,7 @@ namespace SajberSim.Helper
 
             if (timeSpan <= TimeSpan.FromSeconds(60))
             {
-                result = string.Format(Translate.Get("abouta"), timeSpan.Seconds, Translate.Get("seconds"));
+                result = string.Format(Translate.Get("abouttimeago"), timeSpan.Seconds, Translate.Get("seconds"));
             }
             else if (timeSpan <= TimeSpan.FromMinutes(60))
             {

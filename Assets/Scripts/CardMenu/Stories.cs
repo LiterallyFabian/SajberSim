@@ -99,7 +99,7 @@ namespace SajberSim.CardMenu
                         else if (args == StorySearchArgs.Author)
                             itemList.Add(new StorySort(path, storydata.author));
                         else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
-                            itemList.Add(new StorySort(path, storydata.publishdate));
+                            itemList.Add(new StorySort(path, storydata.uploaddate.ToString("yyyymmdd")));
                         else if (args == StorySearchArgs.LastModified)
                             itemList.Add(new StorySort(path));
                     }
