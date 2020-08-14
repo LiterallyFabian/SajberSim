@@ -145,6 +145,7 @@ aboutversion=Version v{0}
 aboutcopyright=Copyright © 2020 LiterallyFabian\nAll rights reserved.
 aboutwebsite=Website: {0}
 aboutsupport=Support: {0}
+aboutcollab=In collaboration with CyberGymnasiet.
 
 #Save menu
 saveorload=Save / Load

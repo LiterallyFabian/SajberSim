@@ -124,6 +124,7 @@ aboutversion=Version v{0}
 aboutcopyright=Copyright © 2020 LiterallyFabian\nAll rights reserved.
 aboutwebsite=Hemsida: {0}
 aboutsupport=Support: {0}
+aboutcollab=I samarbete med CyberGymnasiet.
 
 #Save menu
 saveorload=Spara / Ladda

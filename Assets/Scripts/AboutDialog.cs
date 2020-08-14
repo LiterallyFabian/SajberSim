@@ -29,7 +29,9 @@ public class AboutDialog : MonoBehaviour, IPointerClickHandler
             + "\n\n"
             + string.Format(Translate.Get("aboutwebsite"), "<link=\"website\"><color=blue>https://sajber.me/</link></color>")
             + "\n"
-            + string.Format(Translate.Get("aboutsupport"), "<link=\"helpsite\"><color=blue>https://help.sajber.me/</link></color>");
+            + string.Format(Translate.Get("aboutsupport"), "<link=\"helpsite\"><color=blue>https://help.sajber.me/</link></color>")
+            + "\n"
+            + Translate.Get("aboutcollab");
 
         //set title
         gameObject.transform.parent.Find("Title").GetComponent<Text>().text = string.Format(Translate.Get("abouttitle"), Application.version);
