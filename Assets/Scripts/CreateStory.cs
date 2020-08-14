@@ -22,12 +22,14 @@ public class CreateStory : MonoBehaviour
 
     public CreateNew Menu_Create;
     public EditStats Menu_Edit;
+    public DebugNovel Menu_Debug;
 
     
 
     public GameObject ButtonGroup;
     public GameObject BasicsMenu;
     public GameObject EditsMenu;
+    public GameObject DebugMenu;
     public Text Title;
     public Text Description;
 
@@ -82,6 +84,7 @@ public class CreateStory : MonoBehaviour
         ButtonCreate.gameObject.SetActive(false);
         BasicsMenu.transform.localScale = Vector3.zero;
         EditsMenu.transform.localScale = Vector3.zero;
+        DebugMenu.transform.localScale = Vector3.zero;
         Menu_Create.ResetFields();
         Menu_Edit.SaveColors();
         switch (window)
@@ -117,6 +120,14 @@ public class CreateStory : MonoBehaviour
                 Description.text = string.Format(Translate.Get("editsdescription"), currentlyEditingName);
                 ButtonEdit.interactable = false;
                 Menu_Edit.UpdateStats();
+                break;
+            case 3: // Debug story
+                currentWindow = CreateWindows.Debug;
+                DebugMenu.transform.localScale = Vector3.one;
+                Title.text = Translate.Get("debugtitle");
+                Description.text = string.Format(Translate.Get("debugdescription"), currentlyEditingName);
+                ButtonVerify.interactable = false;
+                Menu_Debug.UpdateList();
                 break;
         }
     }

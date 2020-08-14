@@ -55,7 +55,6 @@ defaulttags=Enter, your, tags, separated, by, a, comma
 save=Save
 revertchanges=Revert changes
 edit=Edit
-editstats=Edit & statistics
 verify=Verify
 publish=Publish
 customnametoggle=Let players select their own name
@@ -63,13 +62,18 @@ modifyassets=Add/edit assets
 placecharacters=Place characters
 teststory=Play story
 testcredits=Play credits
-detailsdescription=Here you can see and edit the basic details for {0}. The name and description does not have to be the same as on Steam.
-editsdescription=Here you can see statistics about {0} and access all tools to edit it.
 xtags=Tags ({0})
 audiencesfw=Audience (SFW)
 audiencensfw=Audience (NSFW)
 textcolor=Text color
 backcolor=Background color
+
+#Creation titles / descriptions
+detailsdescription=Here you can see and edit the basic details for {0}. The name and description does not have to be the same as on Steam.
+editstats=Edit & statistics
+editsdescription=Here you can see statistics about {0} and access all tools to edit it.
+debugtitle=Debug your novel
+debugdescription=Here you can find common errors and problems with your novel that should be fixed before releasing to the global network.
 
 #Creation errors (can stay in english)
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
@@ -106,6 +110,20 @@ missingimage=Image not found. Maybe there is a typo?\nExpected path: {0}.
 missingstartscript=The starting script could not be found. Please rename the script you want to begin the story with to "start.txt".\n\nExpected path: {0}.
 invalidfloat=The {0} <b>{1}</b> is not a valid float (eg 7.5 or 2).
 invalidaction=An invalid action was found at line {0} in script {1}.txt.\n\n"{2}" is not a valid action.\n\nRemember that all actions are in UPPER CASE. If you want to comment your scripts, the lines should start with //
+invalidline=This line does not contain a valid action.
+
+#Debug menu
+script=Script: {0}\n
+scripts=Scripts: {0}
+actions=Actions: {0}
+workingscripts=Working scripts: {0}
+workingactions=Working actions: {0}
+errorscripts=Scripts with errors: {0}
+erroractions=Actions with errors: {0}
+debugitemtemplate=<b>Line: {0}  -  Action: {1}</b>\n{2}\n\n
+noerrors=※\(^o^)/※ \nNo errors! You are ready for publishing!
+refresh=Refresh
+opendialogues=Open dialogue folder
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time
