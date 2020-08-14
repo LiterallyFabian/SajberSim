@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Wait : MonoBehaviour, GameManager.INovelAction
+public class Wait : MonoBehaviour, INovelAction
 {
     public GameManager Game;
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, $"WAIT|{Translate.Get("seconds")}"));
@@ -24,11 +24,11 @@ public class Wait : MonoBehaviour, GameManager.INovelAction
         StartCoroutine(Delay((float)Convert.ToDouble(line[1], Language.Format)));
 
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2); //Incorrect length, found LENGTH arguments but the action expects 2.
-        if (!Helper.IsFloat(line[1])) return string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_time"), line[1]); //The time <b>TIME</b> is not a valid float (eg 7.5 or 2).
-        return "";
+        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2)); //Incorrect length, found LENGTH arguments but the action expects 2.
+        if (!Helper.IsFloat(line[1])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_time"), line[1])); //The time <b>TIME</b> is not a valid float (eg 7.5 or 2).
+        return NovelDebugInfo.OK();
     }
     private IEnumerator Delay(float time) //ID 7
     {
