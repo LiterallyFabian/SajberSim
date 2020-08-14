@@ -1,13 +1,8 @@
-﻿using SajberSim.Chararcter;
-using SajberSim.Helper;
+﻿using SajberSim.Helper;
 using SajberSim.Translation;
-using SajberSim.Web;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Character : MonoBehaviour, INovelAction
 {
@@ -15,8 +10,9 @@ public class Character : MonoBehaviour, INovelAction
 
     public void Run(string[] line)
     {
-       NovelDebugInfo status = Working(line);
-        if (status.Code == NovelDebugInfo.Status.Error)
+        NovelDebugInfo debugdata = Working(line);
+        string status = debugdata.Message;
+        if (debugdata.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "CHAR|person|mood|x|y|(size)|(flip)"));
@@ -32,12 +28,13 @@ public class Character : MonoBehaviour, INovelAction
         float y = (float)Convert.ToDouble(line[4], Language.Format);
         bool flip = false;
         float size = GameManager.charactersize;
-        
+
         if (line.Length > 5) size = size * (float)Convert.ToDouble(line[5], Language.Format);
         if (line.Length == 7) if (line[6].ToLower() == "true") flip = true;
         CreateCharacter(name.ToLower(), mood, x, y, size, flip);
         Game.RunNext();
     }
+
     public NovelDebugInfo Working(string[] line)
     {
         if (line.Length > 7 || line.Length < 5) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
@@ -52,6 +49,7 @@ public class Character : MonoBehaviour, INovelAction
         if (!Helper.IsFloat(line[5])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]));
         return NovelDebugInfo.OK();
     }
+
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2
     {
         GameObject character = new GameObject();
@@ -82,7 +80,6 @@ public class Character : MonoBehaviour, INovelAction
         }
         else //karaktär finns
         {
-            
             //ändra pos
             character.transform.position = new Vector3(x, y, -1f);
             character.transform.localScale = new Vector3(size * (flip ? 1 : -1), size, 0.6f);

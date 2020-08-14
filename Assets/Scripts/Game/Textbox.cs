@@ -17,8 +17,9 @@ public class Textbox : MonoBehaviour, INovelAction
     public void Run(string[] line)
     {
         GameManager.textdone = false;
-        NovelDebugInfo status = Working(line);
-        if (status.Code == NovelDebugInfo.Status.Error)
+        NovelDebugInfo debugdata = Working(line);
+        string status = debugdata.Message;
+        if (debugdata.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "T|person|text|(showportrait)"));
