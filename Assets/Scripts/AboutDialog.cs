@@ -30,7 +30,7 @@ public class AboutDialog : MonoBehaviour, IPointerClickHandler
             + string.Format(Translate.Get("aboutwebsite"), "<link=\"website\"><color=blue>https://sajber.me/</link></color>")
             + "\n"
             + string.Format(Translate.Get("aboutsupport"), "<link=\"helpsite\"><color=blue>https://help.sajber.me/</link></color>")
-            + "\n"
+            + "\n\n"
             + Translate.Get("aboutcollab");
 
         //set title
