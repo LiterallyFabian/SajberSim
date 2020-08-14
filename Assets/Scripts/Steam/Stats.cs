@@ -18,6 +18,7 @@ namespace SajberSim.Steam
         }
         public static void Add(List stat, int value = 1)
         {
+            if (!Helper.Helper.loggedin) return;
             try
             {
                 SteamUserStats.AddStat(stat.ToString(), value);
