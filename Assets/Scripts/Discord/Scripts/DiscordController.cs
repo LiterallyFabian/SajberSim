@@ -79,7 +79,7 @@ public class DiscordController : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        
+        presence.largeImageText = Helper.UsernameCache();
     }
 
     void Update()
