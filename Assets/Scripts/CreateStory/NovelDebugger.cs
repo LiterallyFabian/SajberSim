@@ -62,7 +62,7 @@ public class NovelDebugger : MonoBehaviour
             ScriptAmount++;
             GameManager.dialoguepos = 0;
             string filename = new FileInfo(script).Name;
-            string scripttitle = string.Format(Translate.Get("script"), GameManager.shortStoryPath + "/" + filename);
+            string scripttitle = string.Format(Translate.Get("script"), GameManager.shortStoryPath + "/" + filename + "\n---------------------------------------------------------");
             ErrorList.Append(scripttitle);
             foreach (string line in File.ReadAllLines(script))
             {
@@ -85,7 +85,7 @@ public class NovelDebugger : MonoBehaviour
             else
             {
                 ErrorScripts++;
-                ErrorList.Append("---------------------------------------------------------\n\n");
+                ErrorList.Append("\n");
             }
         }
 
@@ -151,11 +151,13 @@ public class NovelDebugger : MonoBehaviour
 
         else
         {
-            NovelDebugInfo NDI = Action_Textbox.Working(line); //grabs this one to get line number
-            NDI.Code = NovelDebugInfo.Status.Error;
-            NDI.Action = string.Join("|", line);
-            NDI.Message = Translate.Get("invalidline");
-            return NDI;
+            return new NovelDebugInfo
+            {
+                Line = GameManager.dialoguepos,
+                Code = NovelDebugInfo.Status.Error,
+                Action = string.Join("|", line),
+                Message = Translate.Get("invalidline")
+            }; 
         }
     }
 }
