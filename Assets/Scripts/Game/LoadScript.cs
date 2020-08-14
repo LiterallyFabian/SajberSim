@@ -13,8 +13,8 @@ public class LoadScript : MonoBehaviour, INovelAction
     public GameManager Game;
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "LOADSCRIPT|script"));
@@ -24,11 +24,11 @@ public class LoadScript : MonoBehaviour, INovelAction
         }
         Load(line[1]);
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
-        if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[1]}.txt")) return $"The script \"{line[1]}\" does not exist. Expected path: {GameManager.shortStoryPath}/Dialogues/{line[1]}.txt";
-        return "";
+        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
+        if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[1]}.txt")) return NovelDebugInfo.Error($"The script \"{line[1]}\" does not exist. Expected path: {GameManager.shortStoryPath}/Dialogues/{line[1]}.txt");
+        return NovelDebugInfo.OK();
     }
     public void Load(string storyID)
     {

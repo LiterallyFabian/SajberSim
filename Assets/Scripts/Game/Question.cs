@@ -13,8 +13,8 @@ public class Question : MonoBehaviour, INovelAction
     public GameManager Game;
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "QUESTION|title|alt1_text|alt1_path|alt2_text|alt2_path|(altN_text|altN_path)"));
@@ -36,17 +36,17 @@ public class Question : MonoBehaviour, INovelAction
             OpenQuestionDD(line);
         }
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length < 6) return string.Format(Translate.Get("missingarguments"), line.Length, "6+"); //Missing arguments, only found LENGTH arguments but the action expects 6+.
-        if ((line.Length - 2) % 2 != 0) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "alternatives * 2 + 2"); //Incorrect length, found LENGTH arguments but the action expects alternatives * 2 + 2.
+        if (line.Length < 6) return NovelDebugInfo.Error(string.Format(Translate.Get("missingarguments"), line.Length, "6+")); //Missing arguments, only found LENGTH arguments but the action expects 6+.
+        if ((line.Length - 2) % 2 != 0) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "alternatives * 2 + 2")); //Incorrect length, found LENGTH arguments but the action expects alternatives * 2 + 2.
         int script = 0;
         for (int i = 3; i < line.Length; i += 2)
         {
             script++;
-            if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[i]}.txt")) return $"Alternative {script} \"{line[i-1]}\" leads to the script \"{line[i]}\" which does not exist.";
+            if (!File.Exists($"{Helper.currentStoryPath}/Dialogues/{line[i]}.txt")) return NovelDebugInfo.Error($"Alternative {script} \"{line[i-1]}\" leads to the script \"{line[i]}\" which does not exist.");
         }
-        return "";
+        return NovelDebugInfo.OK();
     }
     private void OpenQuestion(string question, string alt1, string alt2)
     {

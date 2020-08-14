@@ -13,8 +13,8 @@ public class Background : MonoBehaviour, INovelAction
     public GameManager Game;
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "BG|name|(clearcharacters)"));
@@ -27,11 +27,11 @@ public class Background : MonoBehaviour, INovelAction
             StartCoroutine(SetBackground(line[1]));
         if (line.Length > 2) if (line[2] == "true") GameManager.RemoveCharacters();
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length > 3 || line.Length < 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3");
-        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png");
-        return "";
+        if (line.Length > 3 || line.Length < 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3"));
+        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return NovelDebugInfo.Error(string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png"));
+        return NovelDebugInfo.OK();
     }
     private IEnumerator SetBackground(string back)
     {

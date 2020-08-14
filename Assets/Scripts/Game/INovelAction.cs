@@ -14,6 +14,5 @@ public interface INovelAction
     /// Debugs the action and returns appropriate feedback
     /// </summary>
     /// <param name="line">Full line to debug</param>
-    /// <returns>"" if everything works, else an error message</returns>
-    string Working(string[] line);
+    NovelDebugInfo Working(string[] line);
 }

@@ -15,8 +15,8 @@ public class Character : MonoBehaviour, INovelAction
 
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+       NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "CHAR|person|mood|x|y|(size)|(flip)"));
@@ -38,19 +38,19 @@ public class Character : MonoBehaviour, INovelAction
         CreateCharacter(name.ToLower(), mood, x, y, size, flip);
         Game.RunNext();
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length > 7 || line.Length < 5) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7");
+        if (line.Length > 7 || line.Length < 5) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
         string name = "";
 
         if (Helper.IsNum(line[1])) name = Game.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png");
-        if (!Helper.IsFloat(line[3])) return string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]);
-        if (!Helper.IsFloat(line[4])) return string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]);
-        if (line.Length == 5) return "";
-        if (!Helper.IsFloat(line[5])) return string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]);
-        return "";
+        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return NovelDebugInfo.Error(string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png"));
+        if (!Helper.IsFloat(line[3])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]));
+        if (!Helper.IsFloat(line[4])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]));
+        if (line.Length == 5) return NovelDebugInfo.OK();
+        if (!Helper.IsFloat(line[5])) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidfloat"), Translate.Get("arg_size"), line[5]));
+        return NovelDebugInfo.OK();
     }
     private void CreateCharacter(string name, string mood, float x, float y, float size, bool flip) //ID 2
     {

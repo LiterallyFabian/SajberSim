@@ -13,8 +13,8 @@ public class DelCharacter : MonoBehaviour, INovelAction
 
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "DEL|char"));
@@ -28,9 +28,9 @@ public class DelCharacter : MonoBehaviour, INovelAction
             if (character.name.StartsWith(name)) Destroy(character.gameObject);
         Game.RunNext();
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
-        return "";
+        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
+        return NovelDebugInfo.OK();
     }
 }

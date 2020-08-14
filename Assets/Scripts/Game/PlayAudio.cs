@@ -13,8 +13,8 @@ public class PlayAudio : MonoBehaviour, INovelAction
     public GameManager Game;
     public void Run(string[] line)
     {
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, $"{line[0].ToUpper()}|audio"));
@@ -24,12 +24,12 @@ public class PlayAudio : MonoBehaviour, INovelAction
         Play(line);
         Game.RunNext();
     }
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
         string path = $"{Helper.currentStoryPath}/Audio/{line[1]}.ogg";
-        if (line.Length != 2) return string.Format(Translate.Get("invalidargumentlength"), line.Length, 2);
-        if (!File.Exists(path)) return string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg");
-        return "";
+        if (line.Length != 2) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
+        if (!File.Exists(path)) return NovelDebugInfo.Error(string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg"));
+        return NovelDebugInfo.OK();
     }
     private void Play(string[] line)
     {

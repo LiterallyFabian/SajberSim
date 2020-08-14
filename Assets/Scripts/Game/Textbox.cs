@@ -17,8 +17,8 @@ public class Textbox : MonoBehaviour, INovelAction
     public void Run(string[] line)
     {
         GameManager.textdone = false;
-        string status = Working(line);
-        if (status != "")
+        NovelDebugInfo status = Working(line);
+        if (status.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "T|person|text|(showportrait)"));
@@ -38,17 +38,17 @@ public class Textbox : MonoBehaviour, INovelAction
         StartCoroutine(SpawnTextBox(talker, Helper.UwUTranslator(text), port));
     }
 
-    public string Working(string[] line)
+    public NovelDebugInfo Working(string[] line)
     {
-        if (line.Length > 4 || line.Length < 3) return string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4"); //Incorrect length, found LENGTH arguments but the action expects 3-4.
+        if (line.Length > 4 || line.Length < 3) return NovelDebugInfo.Error(string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4")); //Incorrect length, found LENGTH arguments but the action expects 3-4.
         Person talker;
         if (int.TryParse(line[1], out int x))
             talker = Game.people[int.Parse(line[1])];
         else
             talker = new Person(line[1], "", 0);
         if (!File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png") && (line.Length == 3))
-            return string.Format(Translate.Get("missingcharacterport"), $"{GameManager.shortStoryPath}/Characters/{talker.name.ToLower()}port.png");
-        return "";
+            return NovelDebugInfo.Error(string.Format(Translate.Get("missingcharacterport"), $"{GameManager.shortStoryPath}/Characters/{talker.name.ToLower()}port.png"));
+        return NovelDebugInfo.OK();
     }
     private IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
     {
