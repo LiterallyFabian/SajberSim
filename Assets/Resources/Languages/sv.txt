@@ -158,7 +158,7 @@ donteditsaves=Det verkar som att en eller flera sparfiler har blivit kopierad el
 
 #Vault
 vaulttitle=Fabinas hemliga valv
-vaultlore=Oh, du hittade mitt valv?\nJag hoppas att du har koden ^^\n	-Fabina
+vaultlore=Oh, du hittade mitt valv?\nJag hoppas att du har en kod ^^\n	-Fabina
 vaulterror0=Brute forcing hjälper dig inte här!
 vaulterror1=Det där ser inte rätt ut...
 vaulterror2=Nope!

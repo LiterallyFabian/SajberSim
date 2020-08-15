@@ -155,7 +155,7 @@ nosavesfound=(╯°□°)╯︵ ┻━┻\n\nNo saves found!
 
 #Vault
 vaulttitle=Fabinas secret vault
-vaultlore=Oh, so you found my vault?\nI hope you got the code ^^\n	-Fabina
+vaultlore=Oh, so you found my vault?\nI hope you got a code ^^\n	-Fabina
 vaulterror0=Brute forcing won't help you here!
 vaulterror1=That doesn't seem right...
 vaulterror2=Nope!
