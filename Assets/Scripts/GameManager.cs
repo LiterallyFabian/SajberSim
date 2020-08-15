@@ -196,9 +196,7 @@ public class GameManager : MonoBehaviour
         data = Manifest.Get(Helper.currentStoryPath + "/manifest.json");
         if (data.customname && !usernameEntered)
         {
-            usernameNeeded = true;
-            nameInput.SetActive(true);
-            Time.timeScale = 0;
+            RequestName();
         }
         UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
         UpdateDesign();
@@ -425,11 +423,15 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region Generic
-
-    #endregion
 
     #region UI
+    public void RequestName()
+    {
+        usernameNeeded = true;
+        nameInput.SetActive(true);
+        Time.timeScale = 0;
+        fadeimage.GetComponent<Image>().color = Color.black;
+    }
     public void GameContinue()
     {
         StartCoroutine(Pause(false));
