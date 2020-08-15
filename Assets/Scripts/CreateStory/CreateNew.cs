@@ -125,10 +125,11 @@ public class CreateNew : MonoBehaviour
         try
         {
             string path = "";
-            if(CreateStory.currentlyEditingPath == "NEW") //CREATE NEW
+            if (CreateStory.currentlyEditingPath == "NEW") //CREATE NEW
             {
                 string fixedName = new string(B_inputName.text.Select(ch => invalidFileNameChars.Contains(ch) ? '_' : ch).ToArray());
                 string destPath = $"{Helper.customPath}/{fixedName}";
+                if (Directory.Exists(destPath)) destPath += "_" + UnityEngine.Random.Range(1000, 9999);
 
                 //NO template
                 if (!Directory.Exists(Helper.templatePath))
@@ -148,7 +149,7 @@ public class CreateNew : MonoBehaviour
                         File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
                 }
 
-                
+
                 CreateStory.currentlyEditingPath = destPath;
                 CreateStory.currentlyEditingName = B_inputName.text;
                 isNew = true;
@@ -168,7 +169,7 @@ public class CreateNew : MonoBehaviour
             data.rating = Helper.audience[B_inputAudience.value];
             data.language = Language.ListFlagCode()[B_inputLanguage.value];
             data.customname = B_inputCustomName.isOn;
-            if(isNew) data.uploaddate = DateTime.Now;
+            if (isNew) data.uploaddate = DateTime.Now;
             data.lastEdit = DateTime.Now;
 
             if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
@@ -185,7 +186,7 @@ public class CreateNew : MonoBehaviour
         }
         catch (Exception e)
         {
-            Helper.Alert(string.Format(Translate.Get("errorsavingdetails"), Translate.Get("helpcontact"), e));
+            Helper.Alert(string.Format(Translate.Get("errorsavingdetails") + "\n\n", Translate.Get("helpcontact"), e));
         }
         Type(false);
     }
