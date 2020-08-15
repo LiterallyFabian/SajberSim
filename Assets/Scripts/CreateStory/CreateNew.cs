@@ -130,13 +130,25 @@ public class CreateNew : MonoBehaviour
                 string fixedName = new string(B_inputName.text.Select(ch => invalidFileNameChars.Contains(ch) ? '_' : ch).ToArray());
                 string destPath = $"{Helper.customPath}/{fixedName}";
 
-                //Copy all directories from template
-                foreach (string dirPath in Directory.GetDirectories(Helper.templatePath, "*", SearchOption.AllDirectories))
-                    Directory.CreateDirectory(dirPath.Replace(Helper.templatePath, destPath));
+                //NO template
+                if (!Directory.Exists(Helper.templatePath))
+                {
+                    Helper.Alert($"Visual novel template could not be found, it have most likely been removed. Your new novel will be saved without a template.\n\nTo reset the template, enter code \"TEMPLATE\" in Fabinas vault.");
+                    Directory.CreateDirectory(destPath);
+                }
+                //template
+                else
+                {
+                    //Copy all directories from template
+                    foreach (string dirPath in Directory.GetDirectories(Helper.templatePath, "*", SearchOption.AllDirectories))
+                        Directory.CreateDirectory(dirPath.Replace(Helper.templatePath, destPath));
 
-                //Copy all files from template
-                foreach (string newPath in Directory.GetFiles(Helper.templatePath, "*.*", SearchOption.AllDirectories))
-                    File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
+                    //Copy all files from template
+                    foreach (string newPath in Directory.GetFiles(Helper.templatePath, "*.*", SearchOption.AllDirectories))
+                        File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
+                }
+
+                
                 CreateStory.currentlyEditingPath = destPath;
                 CreateStory.currentlyEditingName = B_inputName.text;
                 isNew = true;
@@ -145,7 +157,10 @@ public class CreateNew : MonoBehaviour
             }
 
             path = CreateStory.currentlyEditingPath + "/manifest.json";
-            Manifest data = Manifest.Get(path);
+            Manifest data = new Manifest();
+            if (File.Exists(path))
+                data = Manifest.Get(path);
+
             data.name = B_inputName.text;
             data.description = B_inputDescription.text;
             data.tags = B_inputTags.text.Replace(", ", ",").Replace(" ,", ",").Split(',');
