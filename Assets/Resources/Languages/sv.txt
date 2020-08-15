@@ -39,7 +39,7 @@ nodirectory=Mappen {0} är antingen tom eller finns inte. Se till att lägga til
 openedworkshop=Försöker att öppna Steams workshop...\n\nNär du hittar en roman du vill spela, tryck "Subscribe" och kom tillbaka till SajberSim.
 
 #Create a story
-createnew=Skapa roman
+createnew=Ny roman
 createnewnovel=Skapa en ny visuell roman
 createnewdesc=Vill du skapa din egna visuella roman? Låt oss börja med grunderna! Detta kan ändras när som helst. Ifall du vill redigera en roman kan du gå tillbaka och högerklicka på den och välja "Redigera".
 name=Namn
@@ -205,6 +205,13 @@ scifi=Sci-fi
 sliceoflife=Bit av livet
 supernatural=Övernaturlig
 other=Övrigt
+
+#Online stats
+novelsstarted=Romaner påbörjade: {0}
+novelsfinished=Romaner avslutade: {0}
+novelscreated=Romaner skapade: {0}
+novelspublished=Romaner publicerade: {0}
+decisionsmade=Beslut fattade: {0}
 
 #Character positioning
 clearall=Ta bort alla

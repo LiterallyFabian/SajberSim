@@ -37,8 +37,8 @@ pictoolarge=Your Workshop thumbnail (steam.png) can not be larger than 1 MB.
 nodirectory=The directory {0} is either empty or does not exist. Make sure to add some {1} in your visual novel!
 openedworkshop=Trying to open the Steam workshop...\n\nWhen you find a visual novel you want to try, click "Subscribe" 
 
-#Create story
-createnew=Create novel
+#Create a story
+createnew=New novel
 createnewnovel=Create a new visual novel
 createnewdesc=Want to create your own visual novel? Cool, let's get started with the basics! This can be changed at any time. To edit a novel you can right-click it and select "Edit".
 name=Name
@@ -224,6 +224,14 @@ scifi=Sci-fi
 sliceoflife=Slice of life
 supernatural=Supernatural
 other=Other
+
+#Online stats
+novelsstarted=Novels started: {0}
+novelsfinished=Novels finished: {0}
+novelscreated=Novels created: {0}
+novelspublished=Novels published: {0}
+decisionsmade=Decisions made: {0}
+
 
 #Character positioning
 clearall=Remove all

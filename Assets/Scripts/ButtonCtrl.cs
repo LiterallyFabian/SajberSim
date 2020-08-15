@@ -72,6 +72,7 @@ public class ButtonCtrl : MonoBehaviour
         Cursor.visible = true;
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
         SetLogin();
+        //Stats.ShowAll();
     }
     private void SetLogin()
     {

@@ -1,7 +1,9 @@
-﻿using Steamworks;
+﻿using SajberSim.Translation;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace SajberSim.Steam
@@ -37,6 +39,14 @@ namespace SajberSim.Steam
         {
             if (!Helper.Helper.loggedin) return -1;
             return SteamUserStats.GetStatInt(stat.ToString());
+        }
+        public static void ShowAll()
+        {
+            if (!Helper.Helper.loggedin) return;
+            foreach(List stat in (List[])Enum.GetValues(typeof(List)))
+            {
+                Debug.Log(string.Format(stat.Name(), GetInt(stat)));
+            }
         }
     }
 }
