@@ -42,6 +42,7 @@ public class ChangeMainMenuAssets : MonoBehaviour
         if (charpaths.Count() == 0) return;
         charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
         int tries = 0;
+        //prioritize a character with a blush mood
         while (!File.Exists(charpath.Replace("happy", "blush")) && tries < 3)
         {
             charpath = charpaths[UnityEngine.Random.Range(0, charpaths.Count)];
