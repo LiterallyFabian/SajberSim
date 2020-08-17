@@ -2,12 +2,16 @@
 using SajberSim.Translation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Debugs a novel and sets its values to the result.
+/// </summary>
 public class NovelDebugger : MonoBehaviour
 {
     public StringBuilder ErrorList = new System.Text.StringBuilder();
@@ -50,9 +54,12 @@ public class NovelDebugger : MonoBehaviour
     #endregion
     public NovelDebugger DebugNovel(string path)
     {
+        Stopwatch st = new Stopwatch();
+        st.Start();
+
         SetActions();
         ResetVariables();
-        Debug.Log("NovelDebugger/Debug: Started debugging " + path);
+        UnityEngine.Debug.Log("NovelDebugger/Debug: Started debugging " + path);
         NovelDebugger ND = new NovelDebugger();
         if (!Directory.Exists(path + "/Dialogues")) return ND;
         SetGlobalVariables(path);
@@ -88,7 +95,8 @@ public class NovelDebugger : MonoBehaviour
                 ErrorList.Append("\n");
             }
         }
-
+        st.Stop();
+        UnityEngine.Debug.Log($"NovelDebugger/Debug: Finished debugging. Took {st.ElapsedMilliseconds}ms to execute.");
         return ND;
     }
     private void SetGlobalVariables(string path)
@@ -161,6 +169,9 @@ public class NovelDebugger : MonoBehaviour
         }
     }
 }
+/// <summary>
+/// Contains debug information about a single line.
+/// </summary>
 public class NovelDebugInfo
 {
     public enum Status
