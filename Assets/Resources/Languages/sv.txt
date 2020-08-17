@@ -236,7 +236,8 @@ novelspublished=Romaner publicerade: {0}
 decisionsmade=Beslut fattade: {0}
 
 #Character positioning
+createchar=Skapa karaktär...
 clearall=Ta bort alla
-changebackground=Byt bakgrund
-backtomain=Tillbaka till huvudmenyn
+setbackground=Byt bakgrund
+createcharacter=Skapa karaktär
 codeplaceholder=Din kod visas här...

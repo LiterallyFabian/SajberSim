@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public static bool ready = true; // If the game is ready to go to the next line (eg delays, downloads)
     public static bool textdone = false; // False if a text is currently writing out
     public static int dialoguepos = 0;
-    public static float charactersize = 0.8f; // This is the size of game characters, not letters
+    public const float charactersize = 0.8f; // This is the size of game characters, not letters
 
     public GameObject nameInput;
 

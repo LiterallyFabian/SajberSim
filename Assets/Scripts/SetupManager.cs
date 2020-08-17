@@ -253,7 +253,6 @@ public class SetupManager : MonoBehaviour
         character.AddComponent<BoxCollider2D>().size = new Vector2(3.7f, 11f);
         character.GetComponent<BoxCollider2D>().offset = new Vector2(0, -1);
         character.AddComponent<CharacterCreation>();
-        character.GetComponent<CharacterCreation>().CycleMood();
         
     }
     /// <summary>

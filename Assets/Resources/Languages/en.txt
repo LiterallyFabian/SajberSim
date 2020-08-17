@@ -79,6 +79,7 @@ debugdescription=Here you can find common errors and problems with your novel th
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
 errordetails=Something went wrong when trying to load your visual novel details. A common cause for this is when editing the manifest manually.\n\n{0}\n\nError: {1}
 errorsavingdetails=Something went wrong when trying to save your visual novel details. A common cause for this is when editing the manifest manually.{0}\n\n{1}
+pathexists=Tried to save the novel in directory 
 
 #Visual novel stats
 totalscripts=Scripts: {0}
@@ -234,7 +235,9 @@ decisionsmade=Decisions made: {0}
 
 
 #Character positioning
+createchar=Create character...
 clearall=Remove all
-changebackground=Change background
+setbackground=Set background
+createcharacter=Create character
 backtomain=Back to main
 codeplaceholder=Your code will be shown here...
