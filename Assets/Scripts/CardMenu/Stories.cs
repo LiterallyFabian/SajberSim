@@ -234,8 +234,11 @@ namespace SajberSim.CardMenu
                 if (folder == "main") folder = "backgrounds";
                 string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
                 if (Directory.Exists(path))
+                {
                     foreach (string subpath in Directory.GetDirectories(path))
                         assetPaths.AddRange(Directory.GetFiles(subpath, extension));
+                    assetPaths.AddRange(Directory.GetFiles(path, extension));
+                }       
             }
             return assetPaths.ToArray();
         }
