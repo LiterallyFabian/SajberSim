@@ -1,24 +1,19 @@
-﻿using System;
+﻿using SajberSim.Chararcter;
+using SajberSim.Helper;
+using SajberSim.SaveSystem;
+using SajberSim.Steam;
+using SajberSim.Translation;
+using SajberSim.Web;
+using Steamworks;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using SajberSim.Chararcter;
-using SajberSim.Web;
-using SajberSim.Story;
-using SajberSim.Helper;
-using SajberSim.Translation;
-using Steamworks;
-using Steamworks.Data;
-using SajberSim.Steam;
-using SajberSim.CardMenu;
-using SajberSim.SaveSystem;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -41,12 +36,11 @@ public class ButtonCtrl : MonoBehaviour
     public AudioSource music;
     public static string charpath;
 
-
     public Download dl;
 
-    
     public GameObject PauseMenuGame;
     public GameObject SettingsMenuGame;
+
     private void OnEnable()
     {
         if (!Helper.loggedin)
@@ -55,17 +49,18 @@ public class ButtonCtrl : MonoBehaviour
             {
                 SteamClient.Init(Helper.AppID);
                 Helper.loggedin = true;
-                UnityEngine.Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
+                Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
                 PlayerPrefs.SetString("usernamecache", SteamClient.Name);
             }
             catch (System.Exception e)
             {
-                UnityEngine.Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
+                Debug.LogError($"Steam: Could not connect to steam. Is it open?\n{e}");
                 Helper.Alert(Translate.Get("noconnection"));
                 Helper.loggedin = false;
             }
         }
     }
+
     public void Start()
     {
         dl = Download.Init();
@@ -74,6 +69,7 @@ public class ButtonCtrl : MonoBehaviour
         SetLogin();
         //Stats.ShowAll();
     }
+
     private void SetLogin()
     {
         Text loginstatus = GameObject.Find("Canvas/Username").GetComponent<Text>();
@@ -89,10 +85,10 @@ public class ButtonCtrl : MonoBehaviour
             loginstatus.text = Translate.Get("offline");
             loginstatus.transform.localPosition = new Vector3(374.16f, 318.84f, 0);
             GameObject.Find("Canvas/ProfilePictureFrame").SetActive(false);
-
         }
     }
-   public void OpenSteamProfile()
+
+    public void OpenSteamProfile()
     {
         if (Helper.loggedin)
         {
@@ -102,6 +98,7 @@ public class ButtonCtrl : MonoBehaviour
                 SteamFriends.OpenUserOverlay(SteamClient.SteamId, "steamid");
         }
     }
+
     public void StartNew() //Just checks if a new story should be started
     {
         //if (PlayerPrefs.GetString("story", "none") != "none")
@@ -110,7 +107,7 @@ public class ButtonCtrl : MonoBehaviour
         //    OverwriteAlert.transform.localScale = Vector3.one;
         //}
         //else
-            StartNewConfirmed();
+        StartNewConfirmed();
     }
 
     public void StartNewConfirmed() //confirmed that user wants to start a new
@@ -118,6 +115,7 @@ public class ButtonCtrl : MonoBehaviour
         OverwriteAlert.transform.localScale = Vector3.zero;
         GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu(false);
     }
+
     public void OpenWorkshop()
     {
         if (!Helper.loggedin)
@@ -128,12 +126,14 @@ public class ButtonCtrl : MonoBehaviour
         Helper.Alert(Translate.Get("openedworkshop"));
         Process.Start($@"steam://openurl/https://steamcommunity.com/app/1353530/workshop/");
     }
+
     public void CreateNovel()
     {
         //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
         //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
         //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
+
     public static void CreateCharacters()
     {
         System.Random rnd = new System.Random();
@@ -150,8 +150,9 @@ public class ButtonCtrl : MonoBehaviour
         people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
 
         for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
-            PlayerPrefs.SetInt($"character{i}",people[i].ID);
+            PlayerPrefs.SetInt($"character{i}", people[i].ID);
     }
+
     private void LoadCharacters() //Loads characters from playerprefs
     {
         string path = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
@@ -165,6 +166,7 @@ public class ButtonCtrl : MonoBehaviour
             people[i] = new Person(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
         }
     }
+
     public void Continue() //just opens everything SAVED
     {
         Manifest data = Manifest.Get($"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/manifest.json");
@@ -180,6 +182,7 @@ public class ButtonCtrl : MonoBehaviour
         menu.SetActive(true);
         BehindSettings.SetActive(true);
     }
+
     public void GoBack()
     {
         SettingsMenuGame.SetActive(false);
@@ -195,66 +198,75 @@ public class ButtonCtrl : MonoBehaviour
         OverwriteAlert.transform.localScale = Vector3.zero;
         GameManager.paused = false;
     }
+
     public void QuitGame() //nuff' said
     {
         Application.Quit();
     }
+
     public void ResetAll() //fucking nukes all the stats like the US during 1945
     {
         PlayerPrefs.DeleteAll();
     }
-    
+
     public void OpenFolder(string path)
     {
         if (!Directory.Exists($@"{Application.dataPath}/{path}"))
         {
-            UnityEngine.Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {Application.dataPath}/{path}");
+            Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {Application.dataPath}/{path}");
             return;
         }
-        if(path == "Logs") Helper.CreateLogfile();
+        if (path == "Logs") Helper.CreateLogfile();
         Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
     }
+
     public void FindAndCloseSettings()
     {
         if (GameObject.Find("Canvas/Settings(Clone)"))
             GameObject.Find("Canvas/Settings(Clone)").GetComponent<Settings>().CloseMenu();
     }
-    
+
     public void OpenLink(string link)
     {
         Process.Start(link);
     }
+
     public void OpenLogfile()
     {
         Process.Start($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\"));
     }
+
     /*public void Debug()
     {
         StoryDebugger.CreateLog();
         StartCoroutine(ToggleDebug());
-        
     }*/
+
     public void OpenSettings()
     {
         GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
         x.transform.localPosition = Vector3.zero;
     }
+
     public void GAMEOpenSettings()
     {
         PauseMenuGame.SetActive(false);
         SettingsMenuGame.SetActive(true);
         GameManager.paused = true;
     }
-    IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
+
+    private IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
     {
         DebugButton.interactable = false;
         yield return new WaitForSeconds(2f);
         DebugButton.interactable = true;
     }
+
     public void StartScene(string scene) //seems like i couldn't start coroutines with buttons
     {
         StartCoroutine(FadeToScene(scene));
     }
+
     public IEnumerator FadeToScene(string scene)
     {
         StartCoroutine(AudioFadeOut.FadeOut(music, 0.4f));
@@ -262,7 +274,7 @@ public class ButtonCtrl : MonoBehaviour
         MainPopup.singlecharClicked = 0;
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
 
-        for (float i = 0; i <= 1; i += Time.deltaTime/0.5f) //Starts fade, load scene when done
+        for (float i = 0; i <= 1; i += Time.deltaTime / 0.5f) //Starts fade, load scene when done
         {
             fadeimage.GetComponent<UnityEngine.UI.Image>().color = new UnityEngine.Color(0, 0, 0, i);
             if (i > 0.5f) Cursor.visible = false;
@@ -270,11 +282,11 @@ public class ButtonCtrl : MonoBehaviour
         }
         SceneManager.LoadScene(scene);
     }
+
     private void OnApplicationQuit()
     {
         DiscordRpc.Shutdown(); //Stänger Discord RPC
         SteamClient.Shutdown();
         Helper.CreateLogfile();
-
     }
 }

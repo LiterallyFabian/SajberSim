@@ -349,7 +349,7 @@ namespace SajberSim.Helper
                 text = text.Replace('L', 'W');
                 text = text.Replace('R', 'W');
                 text = text.Replace(" F", " F-F");
-                if (UnityEngine.Random.Range(0, 10) == 0) text = text + " :3";
+                if (UnityEngine.Random.Range(0, 10) == 0) text += " :3";
             }
             return text;
         }
