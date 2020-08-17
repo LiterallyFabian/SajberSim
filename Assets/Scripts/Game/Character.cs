@@ -85,13 +85,13 @@ public class Character : MonoBehaviour, INovelAction
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(size * (flip ? 1 : -1), size, 0.6f);
+            character.transform.localScale = new Vector3(size * (flip ? -1 : 1), size, 0.6f);
         }
         else //karaktär finns
         {
             //ändra pos
             character.transform.position = new Vector3(x, y, -1f);
-            character.transform.localScale = new Vector3(size * (flip ? 1 : -1), size, 0.6f);
+            character.transform.localScale = new Vector3(size * (flip ? -1 : 1), size, 0.6f);
 
             //ändra mood
             if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))

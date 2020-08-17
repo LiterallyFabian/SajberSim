@@ -17,7 +17,7 @@ public class CharacterMovement : MonoBehaviour
         if (isHeld)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
+            gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, -1);
         }
     }
     private void OnMouseOver()
@@ -32,17 +32,17 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1)) // flip
         {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, 1);
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, -1);
             modifier *= -1;
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // make bigger
         {
-            transform.localScale = new Vector3(transform.localScale.x + 0.05f * modifier, transform.localScale.y + 0.05f, 1);
+            transform.localScale = new Vector3(transform.localScale.x + 0.05f * modifier, transform.localScale.y + 0.05f, -1);
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // make smaller
         {
             if(transform.localScale.y > 0.08f)
-            transform.localScale = new Vector3(transform.localScale.x - 0.05f * modifier, transform.localScale.y - 0.05f, 1);
+            transform.localScale = new Vector3(transform.localScale.x - 0.05f * modifier, transform.localScale.y - 0.05f, -1);
         }
     }
     private void OnMouseUp()

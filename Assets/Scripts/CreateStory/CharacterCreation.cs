@@ -99,7 +99,8 @@ public class CharacterCreation : MonoBehaviour
 
     public void SetBG(int i)
     {
-        dl.Sprite(GameObject.Find("background"), $"file://{backgroundpaths[i]}");
+        dl.RawImage(GameObject.Find("BackgroundCanvas/Background"), $"file://{backgroundpaths[i]}");
+        GameObject.Find("BackgroundCanvas/Background").GetComponent<RawImage>().color = Color.white;
     }
 
     private void Update()
