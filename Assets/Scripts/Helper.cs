@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -132,7 +131,7 @@ namespace SajberSim.Helper
                 if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
-                UnityEngine.Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
+                Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
             }
             
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
@@ -175,7 +174,7 @@ namespace SajberSim.Helper
         //        return path;
         //    else
         //    {
-        //        UnityEngine.Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
+        //        Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
         //        return null;
         //    }
         //}
@@ -211,9 +210,9 @@ namespace SajberSim.Helper
         {
             string fullpath = $@"{Application.dataPath}/{path}";
             if (Directory.Exists(fullpath))
-                Process.Start(fullpath);
+                System.Diagnostics.Process.Start(fullpath);
             else
-                UnityEngine.Debug.LogError($"Helper/OpenFolder: Tried to open path {fullpath} which does not exist");
+                Debug.LogError($"Helper/OpenFolder: Tried to open path {fullpath} which does not exist");
         }
 
         /// <param name="dateTime">Date in the past to count from</param>
