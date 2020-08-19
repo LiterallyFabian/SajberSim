@@ -25,7 +25,6 @@ namespace SajberSim.SaveSystem
         public string background;
         public string music;
         public DateTime date;
-        public string epic = "aHR0cHM6Ly9zYWpiZXIubWUvS2FndXlhLXBvbmcv";
         public Save(string npath, string nnovelname, string nscript, int nline, string nusername, PersonSave[] ncharacters, string nbackground, string nmusic)
         {
             path = npath;
