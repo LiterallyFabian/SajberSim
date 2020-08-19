@@ -287,6 +287,7 @@ public class ButtonCtrl : MonoBehaviour
     {
         DiscordRpc.Shutdown(); //Stänger Discord RPC
         SteamClient.Shutdown();
+        PlayerPrefs.Save();
         Helper.CreateLogfile();
     }
 }

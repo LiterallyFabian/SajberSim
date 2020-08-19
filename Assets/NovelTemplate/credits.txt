@@ -1,7 +1,6 @@
 Background|credits
 Music|Credits_loop
 Color|FFE5F2
-Speed|45
 Message|This message will show up after all the people have been shown, and this will stay on the screen. Add new roles with a dash (-)
 
 -Creators

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 /// <summary>
@@ -24,14 +25,16 @@ public class Settings : MonoBehaviour
         shelper = GameObject.Find("Helper").GetComponent<Helper>();
         if (PlayerPrefs.GetString("language", "none") != "none")
             transform.Find("Language/Dropdown").GetComponent<Dropdown>().SetValueWithoutNotify(Array.IndexOf(Translate.languages, PlayerPrefs.GetString("language")));
-        dl = new GameObject("downloadobj").AddComponent<Download>();
+        dl = Download.Init();
 
         
-        transform.Find("Speed/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
+        transform.Find("WritingSpeed/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
         transform.Find("Volume/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("volume", 0.5f) * 100)}%";
+        transform.Find("CreditsSpeed/Value").GetComponent<Text>().text = $"{PlayerPrefs.GetFloat("creditspeed", 50)}";
 
-        transform.Find("Speed/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("delay", 0.04f));
+        transform.Find("WritingSpeed/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("delay", 0.04f));
         transform.Find("Volume/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("volume", 0.5f));
+        transform.Find("CreditsSpeed/Slider").GetComponent<Slider>().SetValueWithoutNotify(PlayerPrefs.GetFloat("creditspeed", 50f));
 
 
         if (PlayerPrefs.GetInt("uwu", 0) == 1)
@@ -44,7 +47,7 @@ public class Settings : MonoBehaviour
     public void ChangeSpeed(float value) //runs when the speed slider is changed
     {
         PlayerPrefs.SetFloat("delay", value);
-        transform.Find("Speed/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
+        transform.Find("WritingSpeed/Value").GetComponent<Text>().text = $"{Math.Round(PlayerPrefs.GetFloat("delay", 0.04f) * 1000)}ms";
     }
     public void ChangeVolume(float newVolume)
     {
@@ -70,6 +73,13 @@ public class Settings : MonoBehaviour
         Translate.lang = Translate.languages[n];
         PlayerPrefs.SetString("language", Translate.languages[n]);
         transform.Find("Language/UpdateNotif").GetComponent<Text>().text = "Language change will take effect when you restart the game.";
+    }
+    public void ChangeCreditsSpeed(float value)
+    {
+        PlayerPrefs.SetFloat("creditspeed", value);
+        transform.Find("CreditsSpeed/Value").GetComponent<Text>().text = $"{PlayerPrefs.GetFloat("creditspeed", 50)}";
+        Debug.Log(value);
+        PlayerPrefs.Save();
     }
     public void ReturnToMain()
     {

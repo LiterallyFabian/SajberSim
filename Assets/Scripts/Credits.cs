@@ -34,10 +34,11 @@ public class Credits : MonoBehaviour
     private string[] creditsraw;
     public static string storypath;
     private Download dl;
-    public int speed = 45;
+    private float speed = 50;
     private bool messagefound = false;
     private void Start()
     {
+        speed = PlayerPrefs.GetFloat("creditspeed", 50);
         canvas = GameObject.Find("Canvas").transform;
         cam = Camera.main;
         dl = Download.Init();
@@ -83,10 +84,6 @@ public class Credits : MonoBehaviour
                 messagefound = true;
                 Message.GetComponent<Text>().text = line.Split('|')[1];
             }
-
-
-            else if (line.ToLower().StartsWith("speed|") && line.Split('|').Length > 1)
-                speed = Convert.ToInt32(line.Split('|')[1]);
 
             else if (line != "") // Roles / people found
             {

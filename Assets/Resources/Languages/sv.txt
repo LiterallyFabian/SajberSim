@@ -134,6 +134,7 @@ arg_coordinate=Koordinaten
 #Settings
 volume=Volym
 writingspeed=Utskriftshastighet
+creditsspeed=Eftertextshastighet
 openlogs=Öppna loggfiler
 language=Språk
 setstory=Byt skript...
