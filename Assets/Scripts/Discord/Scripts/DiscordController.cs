@@ -87,10 +87,22 @@ public class DiscordController : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "menu":
-                presence.details = "In the main menu";
-                if (StartStory.storymenuOpen) presence.state = "Looking for a story";
-                else if (StartStory.creatingStory) presence.state = "Editing a story";
-                else presence.state = "";
+
+                if (StartStory.creatingStory)
+                {
+                    presence.details = "Editing a story";
+                    presence.state = CreateStory.currentlyEditingName;
+                }
+                else if (StartStory.storymenuOpen)
+                {
+                    presence.details = "Looking for a story";
+                    presence.state = "";
+                }
+                else
+                {
+                    presence.details = "In the main menu";
+                    presence.state = "";
+                }
                 break;
             case "game":
                 presence.details = $"Playing \"{GameManager.storyName}\"";
@@ -98,11 +110,11 @@ public class DiscordController : MonoBehaviour
                 break;
             case "credits":
                 presence.details = "Watching credits";
-                presence.state = "";
+                presence.state = $"\"{GameManager.storyName}\" by {GameManager.storyAuthor}";
                 break;
             case "characterpos":
                 presence.details = "Setting up characters";
-                presence.state = "";
+                presence.state = CreateStory.currentlyEditingName;
                 break;
             default:
                 presence.details = "Unknown state";

@@ -56,6 +56,7 @@ public class CreateStory : MonoBehaviour
 
     void Start()
     {
+        StartStory.creatingStory = false;
         dl = Download.Init();
         storyMenu = GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>();
         transform.localScale = Vector3.zero;
@@ -71,6 +72,7 @@ public class CreateStory : MonoBehaviour
     {
         transform.localScale = open ? Vector3.one : Vector3.zero;
         storyMenu.UpdatePreviewCards();
+        StartStory.creatingStory = open;
     }
     /// <summary>
     /// Toggles between all windows in the create menu

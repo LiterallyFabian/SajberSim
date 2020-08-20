@@ -237,6 +237,4 @@ public class StartStory : MonoBehaviour
         DeleteDetails();
         storymenuOpen = false;
     }
-    
-    
 }
