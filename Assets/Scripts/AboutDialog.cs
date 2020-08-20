@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AboutDialog : MonoBehaviour, IPointerClickHandler
@@ -14,27 +15,34 @@ public class AboutDialog : MonoBehaviour, IPointerClickHandler
 
     void Awake()
     {
-        m_TextMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
-        m_Canvas = gameObject.GetComponentInParent<Canvas>();
-        if (m_Canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-            m_Camera = null;
-        else
-            m_Camera = m_Canvas.worldCamera;
+        try
+        {
+            m_TextMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
+            m_Canvas = gameObject.GetComponentInParent<Canvas>();
+            if (m_Canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                m_Camera = null;
+            else
+                m_Camera = m_Canvas.worldCamera;
 
-        //set about info
-        m_TextMeshPro.text =
-            string.Format(Translate.Get("aboutversion"), Application.version)
-            + "\n"
-            + Translate.Get("aboutcopyright")
-            + "\n\n"
-            + string.Format(Translate.Get("aboutwebsite"), "<link=\"website\"><color=blue>https://sajber.me/</link></color>")
-            + "\n"
-            + string.Format(Translate.Get("aboutsupport"), "<link=\"helpsite\"><color=blue>https://help.sajber.me/</link></color>")
-            + "\n\n"
-            + Translate.Get("aboutcollab");
+            //set about info
+            m_TextMeshPro.text =
+                string.Format(Translate.Get("aboutversion"), Application.version)
+                + "\n"
+                + Translate.Get("aboutcopyright")
+                + "\n\n"
+                + string.Format(Translate.Get("aboutwebsite"), "<link=\"website\"><color=blue>https://sajber.me/</link></color>")
+                + "\n"
+                + string.Format(Translate.Get("aboutsupport"), "<link=\"helpsite\"><color=blue>https://help.sajber.me/</link></color>")
+                + "\n\n"
+                + Translate.Get("aboutcollab");
 
-        //set title
-        gameObject.transform.parent.Find("Title").GetComponent<Text>().text = string.Format(Translate.Get("abouttitle"), Application.version);
+            //set title
+            gameObject.transform.parent.Find("Title").GetComponent<Text>().text = string.Format(Translate.Get("abouttitle"), Application.version);
+        }
+        catch
+        {
+            
+        }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -61,15 +69,9 @@ public class AboutDialog : MonoBehaviour, IPointerClickHandler
         }
         catch { }
     }
-
-    void Start()
+    public void StartCredits()
     {
-        //Title.text = string.Format(Translate.Get("abouttitle"), Application.version);   
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Credits.storypath = "";
+        SceneManager.LoadScene("credits");
     }
 }
