@@ -23,7 +23,6 @@ public class Credits : MonoBehaviour
     // Assets in the scene
     public Text Roles;
     public Text People;
-    public Text NoCredits;
     public GameObject Message;
     public GameObject Logo;
     public GameObject Background;
@@ -47,7 +46,6 @@ public class Credits : MonoBehaviour
         if (!File.Exists(creditsPath))
         {
             Debug.LogError($"No credits found for {storypath}. Continuing with default.");
-            NoCredits.color = new Color(0.772549f, 0.3098039f, 0.6470588f, 1);
             return;
         }
         creditsraw = File.ReadAllLines(creditsPath);

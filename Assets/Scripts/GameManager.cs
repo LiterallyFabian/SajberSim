@@ -482,14 +482,15 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(FadeOut(music.GetComponent<AudioSource>(), 1.3f, 0));
         Credits.storypath = Helper.currentStoryPath;
-        PlayerPrefs.DeleteKey("story");
-        PlayerPrefs.DeleteKey("script");
-
+        
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
         fadeimage.GetComponent<Animator>().Play("darken");
         yield return new WaitForSeconds(0.5f);
         if (addStats) Stats.Add(Stats.List.novelsfinished);
-        SceneManager.LoadScene("credits");
+        if (File.Exists(Helper.currentStoryPath + "/credits.txt"))
+            SceneManager.LoadScene("credits");
+        else
+            SceneManager.LoadScene("main");
     }
     public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
     {

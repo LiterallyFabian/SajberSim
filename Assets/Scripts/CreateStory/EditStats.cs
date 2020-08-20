@@ -66,6 +66,7 @@ public class EditStats : MonoBehaviour
         int audio = Stories.GetStoryAssetPaths("audio", CreateStory.currentlyEditingPath).Length;
         int backgrounds = Stories.GetStoryAssetPaths("backgrounds", CreateStory.currentlyEditingPath).Length;
         int characters = Stories.GetStoryAssetPaths("characters", CreateStory.currentlyEditingPath).Length;
+        if (File.Exists($"{CreateStory.currentlyEditingPath}/credits.txt")) hascredits = true;
         try
         {
             int i = 0;
@@ -79,7 +80,7 @@ public class EditStats : MonoBehaviour
                         if (line.Split('|').Length == 3)
                             words += line.Split('|')[2].Count(f => f == ' ') + 1;
                         break;
-                    case "BG": backgroundchanges++; break;
+                    case "BACKGROUND": backgroundchanges++; break;
                     case "ALERT": alerts++; break;
                     case "QUESTION":
                         decisions++;
@@ -97,6 +98,7 @@ public class EditStats : MonoBehaviour
                 }
             }
             E_Stats.text =
+                //story
                 $"{string.Format(Translate.Get("totalscripts"), scripts)}\n" +
                 $"{string.Format(Translate.Get("totallines"), lines)}\n" +
                 $"{string.Format(Translate.Get("totalaudio"), audio)}\n" +
@@ -107,10 +109,11 @@ public class EditStats : MonoBehaviour
                 $"{string.Format(Translate.Get("totalwords"), words)}\n" +
                 $"{string.Format(Translate.Get("totalbgchanges"), backgroundchanges)}\n" +
                 $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n\n" +
+
+                //other
+                $"{string.Format(Translate.Get("hascredits"), hascredits ? Translate.Get("yes") : Translate.Get("no"))}\n" +
                 $"{string.Format(Translate.Get("totalparticipants"), participants)}\n" +
                 $"{string.Format(Translate.Get("filesize"), filesize)}\n" +
-                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
-                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n" +
                 $"";
         }
         catch (Exception e)
