@@ -69,7 +69,7 @@ public class NovelDebugger : MonoBehaviour
             ScriptAmount++;
             GameManager.dialoguepos = 0;
             string filename = new FileInfo(script).Name;
-            string scripttitle = string.Format(Translate.Get("script"), GameManager.shortStoryPath + "/" + filename + "\n---------------------------------------------------------");
+            string scripttitle = string.Format(Translate.Get("script"), GameManager.shortStoryPath + "/" + filename + "\n-----------------------------------------------------");
             ErrorList.Append(scripttitle);
             foreach (string line in File.ReadAllLines(script))
             {
