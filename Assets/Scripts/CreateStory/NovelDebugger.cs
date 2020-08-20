@@ -214,6 +214,12 @@ public class NovelDebugInfo
         Code = Status.OK;
         Message = "OK";
     }
+    public NovelDebugInfo Done(string message = "OK")
+    {
+        Message = message;
+        if (Message != "OK") Code = Status.Error;
+        return this;
+    }
     public static NovelDebugInfo Error(string message)
     {
         return new NovelDebugInfo(Status.Error, message);

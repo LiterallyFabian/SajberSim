@@ -26,9 +26,9 @@ public class _Template : MonoBehaviour, INovelAction
         NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
 
         //Start debugging:
+        if(true) return NDI.Done();
 
         //Done
-        if (NDI.Message != "OK") NDI.Code = NovelDebugInfo.Status.Error;
         return NDI;
     }
 }
