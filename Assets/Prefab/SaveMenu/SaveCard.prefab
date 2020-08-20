@@ -169,7 +169,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4714686494870517852}
         m_TargetAssemblyTypeName: SajberSim.SaveSystem.SaveCard, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -200,6 +200,7 @@ MonoBehaviour:
   tb2: {fileID: 13093712151377064}
   Title: {fileID: 4714686494987819968}
   date: {fileID: 4714686495371288419}
+  Main: {fileID: 0}
 --- !u!1 &4714686494987819970
 GameObject:
   m_ObjectHideFlags: 0
