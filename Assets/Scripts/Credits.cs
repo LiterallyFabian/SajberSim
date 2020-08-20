@@ -37,6 +37,7 @@ public class Credits : MonoBehaviour
     private bool messagefound = false;
     private void Start()
     {
+        Time.timeScale = 1;
         speed = PlayerPrefs.GetFloat("creditspeed", 50);
         canvas = GameObject.Find("Canvas").transform;
         cam = Camera.main;
