@@ -24,7 +24,6 @@ submit=Skicka
 send=Skicka
 debug=Felsök
 help=Hjälp
-nocredits=Denna roman har inga anpassade eftertexter. Du kan skapa egna genom att redigera "credits.txt" i dina spelfiler.
 
 #Steam
 welcomeuser=Välkommen\n<b>{0}</b>!
