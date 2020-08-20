@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SajberSim.CardMenu;
 using SajberSim.Chararcter;
-using SajberSim.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SajberSim.SaveSystem
@@ -16,7 +11,7 @@ namespace SajberSim.SaveSystem
     {
         public string novelname;
         public string path;
-        
+
         public string script;
         public int line;
         public string username;
@@ -25,6 +20,9 @@ namespace SajberSim.SaveSystem
         public string background;
         public string music;
         public DateTime date;
+        public string textcolor;
+        public string splashcolor;
+
         public Save(string npath, string nnovelname, string nscript, int nline, string nusername, PersonSave[] ncharacters, string nbackground, string nmusic)
         {
             path = npath;
@@ -36,6 +34,7 @@ namespace SajberSim.SaveSystem
             background = nbackground;
             music = nmusic;
         }
+
         public Save()
         {
         }
@@ -57,6 +56,7 @@ namespace SajberSim.SaveSystem
                 return null;
             }
         }
+
         /// <summary>
         /// Returns paths to all save files
         /// </summary>
@@ -64,6 +64,7 @@ namespace SajberSim.SaveSystem
         {
             return Directory.GetFiles(Application.dataPath + "/Saves", "*.save");
         }
+
         public static Save[] GetAll()
         {
             List<Save> saves = new List<Save>();
@@ -78,6 +79,7 @@ namespace SajberSim.SaveSystem
             }
             return saves.ToArray();
         }
+
         public static void Create(Save savefile, int id, bool isNew)
         {
             try
@@ -94,7 +96,7 @@ namespace SajberSim.SaveSystem
                 Debug.Log($"Saves/Create: Game saved successfully with ID {id}.");
                 if (isNew) GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().UpdateMenu();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.LogError($"Saves/Create: Something went wrong when trying to save the game.\n{e}");
             }

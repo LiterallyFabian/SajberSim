@@ -238,6 +238,7 @@ public class GameManager : MonoBehaviour
             }
             else if (paused && savemenuopen)
             {
+                if(GameObject.Find("Canvas/SaveLoadMenu"))
                 GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().ToggleMenu(false);
                 settingsopen = false;
             }
@@ -593,6 +594,8 @@ public class GameManager : MonoBehaviour
             username = username,
             script = scriptName,
             date = DateTime.Now,
+            splashcolor = data.overlaycolor,
+            textcolor = data.textcolor,
             characters = chars.ToArray()
         };
         SajberSim.SaveSystem.Save.Create(file, id, newCard);

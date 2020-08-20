@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Policy;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -62,7 +63,7 @@ namespace SajberSim.SaveSystem
             nosavesnotice.text = paths.Length == 0 ? Translate.Get("nosavesfound") : "";
             int cardPages = GetPages(paths.Length);
             ClearSaveCards();
-            pageinfo.GetComponent<Text>().text = string.Format(Translate.Get("page"), page + 1, cardPages+1);
+            pageinfo.GetComponent<Text>().text = string.Format(Translate.Get("page"), page + 1, cardPages + 1);
             for (int i = page * 9; i < page * 9 + 9; i++)
             {
                 if (paths.Length == i)
@@ -76,7 +77,9 @@ namespace SajberSim.SaveSystem
                 int cardno = StringToInt(Path.GetFileName(paths[i]).Replace(".save", ""));
                 if (cardno != -1)
                 {
-                    CreateCard(Save.Get(paths[i]), position, i - (page * 9), cardno);
+                    Save save = Save.Get(paths[i]);
+
+                    CreateCard(save, position, i - (page * 9), cardno);
                 }
                 else
                 {
@@ -90,11 +93,11 @@ namespace SajberSim.SaveSystem
             GameObject card = Instantiate(SaveCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GetComponent<Transform>()) as GameObject;
             card.transform.localPosition = pos;
             card.name = $"Card {cardno}";
-
             //fill with data
             SaveCard cardDetails = card.GetComponent<SaveCard>();
             cardDetails.save = data;
             cardDetails.id = cardno;
+            cardDetails.Main = GetComponent<SaveMenu>();
             cardDetails.Fill();
             return card;
         }

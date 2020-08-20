@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 using SajberSim.Steam;
 using System.Globalization;
 using System.Linq;
+using System.IO;
+using UnityEditor;
 
 namespace SajberSim.SaveSystem
 {
@@ -26,6 +28,8 @@ namespace SajberSim.SaveSystem
         public Text Title;
         public Text date;
         public Save save;
+        public SaveMenu Main;
+        private bool working = false;
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
@@ -39,27 +43,37 @@ namespace SajberSim.SaveSystem
             save = s;
             this.id = id;
         }
-        public void Play()
+        public void Click()
         {
-            Manifest data = Manifest.Get(save.path + "/manifest.json");
-            if(SceneManager.GetActiveScene().name != "game")
+            if(working) //story exists
             {
-                Helper.Helper.currentStoryPath = save.path;
-                Helper.Helper.currentStoryName = data.name;
-                Debug.Log($"Attempting to start the novel \"{data.name}\" with path {save.path}");
-                ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-                ButtonCtrl.CreateCharacters();
-                StartStory.storymenuOpen = false;
-                GameManager.storyAuthor = data.author;
-                GameManager.storyName = data.name;
-                GameManager.save = save;
-                Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
-                Stats.Add(Stats.List.novelsstarted);
-                StartCoroutine(main.FadeToScene("game"));
+                Manifest data = Manifest.Get(save.path + "/manifest.json");
+                if (SceneManager.GetActiveScene().name != "game") //play from main
+                {
+                    Helper.Helper.currentStoryPath = save.path;
+                    Helper.Helper.currentStoryName = data.name;
+                    Debug.Log($"Attempting to start the novel \"{data.name}\" with path {save.path}");
+                    ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
+                    ButtonCtrl.CreateCharacters();
+                    StartStory.storymenuOpen = false;
+                    GameManager.storyAuthor = data.author;
+                    GameManager.storyName = data.name;
+                    GameManager.save = save;
+                    Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
+                    Stats.Add(Stats.List.novelsstarted);
+                    StartCoroutine(main.FadeToScene("game"));
+                }
+                else //play from ingame
+                {
+
+                }
             }
-            else //ingame already
+            else if (!working)//story doesn't exist, delete card
             {
-                
+                Debug.Log($"SaveCard/Delete: Deleting card {id}");
+                if (File.Exists($"{Helper.Helper.savesPath}/{id}.png")) File.Delete($"{Helper.Helper.savesPath}/{id}.png");
+                if (File.Exists($"{Helper.Helper.savesPath}/{id}.save")) File.Delete($"{Helper.Helper.savesPath}/{id}.save");
+                Main.UpdateMenu();
             }
         }
         public void Overwrite()
@@ -71,19 +85,20 @@ namespace SajberSim.SaveSystem
         }
         public void Fill()
         {
+            if (File.Exists(save.path + "/manifest.json")) working = true;
             Download dl = GameObject.Find("Helper").GetComponent<Download>();
-            Manifest data = Manifest.Get(save.path + "/manifest.json");
             Title.text = save.novelname;
             Color splashColor = Color.white;
-            ColorUtility.TryParseHtmlString($"#{data.overlaycolor.Replace("#", "")}", out splashColor);
+            ColorUtility.TryParseHtmlString($"#{save.splashcolor}", out splashColor);
             Overlay.GetComponent<Image>().color = splashColor;
 
             Color textColor = Colors.Colors.UnityGray;
-            ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
+            ColorUtility.TryParseHtmlString($"#{save.textcolor}", out textColor);
             Title.GetComponent<Text>().color = textColor;
             string datetext = save.date.ToString("dddd, d MMMM HH:mm", Language.Culture);
             date.text = datetext.First().ToString().ToUpper() + datetext.Substring(1);
             dl.CardThumbnail(tb2, $"{Helper.Helper.savesPath}/{id}.png");
+            if (!working) tb2.color = Color.red;
         }
     }
 }
