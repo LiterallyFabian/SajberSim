@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public GameObject SFX;
     public GameObject pausemenu;
     public GameObject SettingsMenu;
+    private float timeScaleCache = 1;
 
     //Dropdown
     public Text dropdownQ;
@@ -443,18 +444,19 @@ public class GameManager : MonoBehaviour
         paused = n;
         if (n)
         {
+            timeScaleCache = Time.timeScale;
             Time.timeScale = 0;
             ScreenCapture.CaptureScreenshot(Application.temporaryCachePath + "/lastGame.png");
         }
         else
         {
-            Time.timeScale = 1;
+            Time.timeScale = timeScaleCache;
         }
         
         yield return new WaitForEndOfFrame();
         
         pausemenu.SetActive(n);
-        fadeimage.SetActive(false);
+        //fadeimage.SetActive(false);
         behindButton.SetActive(n);
         GameObject settings = GameObject.Find("Canvas/Settings");
         if (settings != null) settings.GetComponent<Settings>().CloseMenu();
