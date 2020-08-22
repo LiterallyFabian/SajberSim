@@ -247,6 +247,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(Pause(false));
             }
         }
+        if (data.customname && !usernameEntered && Input.GetKeyDown(KeyCode.Return)) SetName();
     }
     public void ToggleDevmenu(bool forceopen = false)
     {
@@ -528,7 +529,6 @@ public class GameManager : MonoBehaviour
         }
 
         Color textColor = Colors.FromRGB(design.textcolor);
-        Debug.Log(textColor);
         commentPort.color = textColor;
         comment.color = textColor;
         dropdownQ.color = textColor;

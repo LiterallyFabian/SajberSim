@@ -32,7 +32,6 @@ namespace SajberSim.Colors
 
         public static Color FromRGB(string rgb)
         {
-            Debug.Log(rgb);
             ColorUtility.TryParseHtmlString(rgb, out Color c);
             return c;
         }
