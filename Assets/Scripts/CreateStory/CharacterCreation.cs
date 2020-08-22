@@ -109,12 +109,13 @@ public class CharacterCreation : MonoBehaviour
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("character");
         foreach (GameObject character in gameObjects)
         {
-            bool flipped = false;
-            if (character.transform.localScale.x < 0) flipped = true;
+            string namemood = $"{character.name}|[MOOD]";
             if (!character.name.Contains("/"))
-                codetext += $"CHAR|{character.name}|[MOOD]|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|{Math.Round(character.transform.localScale.y / GameManager.charactersize, 2)}|{flipped}\n";
-            else
-                codetext += $"CHAR|{character.name.Split('/')[0]}|{character.name.Split('/')[1]}|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|{Math.Round(character.transform.localScale.y / GameManager.charactersize, 2)}|{flipped}\n";
+                namemood = $"{character.name.Split('/')[0]}|{character.name.Split('/')[1]}";
+
+            bool flipped = character.transform.localScale.x < 0;
+
+            codetext += $"CHAR|{namemood}|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|{Math.Round(character.transform.localScale.y / GameManager.charactersize, 2)}|{flipped}\n";
         }
         code.text = codetext;
     }
