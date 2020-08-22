@@ -590,7 +590,7 @@ public class GameManager : MonoBehaviour
             {
                 x = go.transform.position.x,
                 y = go.transform.position.y,
-                flipped = go.transform.localScale.x > 0,
+                flipped = go.transform.localScale.x < 0,
                 size = go.transform.localScale.y / charactersize,
                 name = go.name.Split('|')[0],
                 mood = go.name.Split('|')[1]
