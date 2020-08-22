@@ -209,7 +209,7 @@ namespace SajberSim.CardMenu
         /// <returns>Array with all specified assets</returns>
         public static string[] GetAllStoryAssetPaths(string folder)
         {
-            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues", "main" };
+            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues", "main", "ports" };
             List<string> assetPaths = new List<string>();
             folder = folder.ToLower();
 
@@ -228,10 +228,14 @@ namespace SajberSim.CardMenu
                 case "main":
                     extension = "mainbg*.png";
                     break;
+                case "ports":
+                    extension = "*port.png";
+                    break;
             }
             foreach (string story in GetAllStoryPaths())
             {
                 if (folder == "main") folder = "backgrounds";
+                if (folder == "ports") folder = "characters";
                 string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
                 if (Directory.Exists(path))
                 {
@@ -244,7 +248,7 @@ namespace SajberSim.CardMenu
         }
         public static string[] GetStoryAssetPaths(string folder, string path)
         {
-            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues" };
+            string[] validPaths = { "audio", "backgrounds", "characters", "dialogues", "ports" };
             List<string> assetPaths = new List<string>();
             folder = folder.ToLower();
 
@@ -260,9 +264,16 @@ namespace SajberSim.CardMenu
                 case "dialogues":
                     extension = "*.txt";
                     break;
+                case "ports":
+                    extension = "*port.png";
+                    break;
             }
-            if (Directory.Exists($"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}"))
-                assetPaths.AddRange(Directory.GetFiles($"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}", extension));
+            if (folder == "ports") folder = "characters";
+            path = $"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
+            if (Directory.Exists(path))
+                foreach (string subpath in Directory.GetDirectories(path))
+                    assetPaths.AddRange(Directory.GetFiles(subpath, extension));
+            assetPaths.AddRange(Directory.GetFiles(path, extension));
             return assetPaths.ToArray();
         }
     }

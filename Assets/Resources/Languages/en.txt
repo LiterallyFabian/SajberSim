@@ -243,3 +243,5 @@ setbackground=Set background
 createcharacter=Create character
 backtomain=Back to main
 codeplaceholder=Your code will be shown here...
+showingame=Show in-game preview
+textboxplaceholder=Hello! I am a text box showcasing how this scene would look in-game. Cool huh?

@@ -110,7 +110,7 @@ public class CharacterCreation : MonoBehaviour
         foreach (GameObject character in gameObjects)
         {
             string namemood = $"{character.name}|[MOOD]";
-            if (!character.name.Contains("/"))
+            if (character.name.Contains("/"))
                 namemood = $"{character.name.Split('/')[0]}|{character.name.Split('/')[1]}";
 
             bool flipped = character.transform.localScale.x < 0;
