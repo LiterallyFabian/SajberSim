@@ -493,7 +493,7 @@ public class GameManager : MonoBehaviour
         if (File.Exists(Helper.currentStoryPath + "/credits.txt"))
             SceneManager.LoadScene("credits");
         else
-            SceneManager.LoadScene("main");
+            SceneManager.LoadScene("menu");
     }
     public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
     {
