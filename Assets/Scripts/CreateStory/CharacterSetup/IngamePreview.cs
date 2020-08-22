@@ -60,8 +60,7 @@ public class IngamePreview : MonoBehaviour
             dl.Image(Textbox, $"{CreateStory.currentlyEditingPath}/textbox.png");
         }
 
-        Color textColor = Colors.DarkPurple;
-        ColorUtility.TryParseHtmlString($"#{design.textcolor.Replace("#", "")}", out textColor);
-        comment.color = textColor;
+        comment.color = Colors.FromRGB(design.textcolor);
+        PortName.color = Colors.FromRGB(design.namecolor);
     }
 }

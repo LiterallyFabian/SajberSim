@@ -527,26 +527,28 @@ public class GameManager : MonoBehaviour
             dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
         }
 
-        Color textColor = Colors.DarkPurple;
-        ColorUtility.TryParseHtmlString($"#{design.textcolor.Replace("#", "")}", out textColor);
+        Color textColor = Colors.FromRGB(design.textcolor);
+        Debug.Log(textColor);
+        commentPort.color = textColor;
         comment.color = textColor;
         dropdownQ.color = textColor;
         question.color = textColor;
         alert.color = textColor;
 
-        Color buttonColor = Colors.IngameBlue;
-        ColorUtility.TryParseHtmlString($"#{design.questioncolor.Replace("#", "")}", out buttonColor);
+        Color buttonColor = Colors.FromRGB(design.questioncolor);
         qbutton1.GetComponent<Image>().color = buttonColor;
         qbutton2.GetComponent<Image>().color = buttonColor;
         dropdownObject.GetComponent<Image>().color = buttonColor;
         dropdownBackground.GetComponent<Image>().color = Helper.ModifyColor(buttonColor, 1.05f);
         dropdownItemBackground.GetComponent<Image>().color = Helper.ModifyColor(buttonColor, 1.1f);
 
-
-        Color buttonTextColor = Colors.UnityGray;
-        ColorUtility.TryParseHtmlString($"#{design.questiontextcolor.Replace("#", "")}", out buttonTextColor);
+        Color buttonTextColor = Colors.FromRGB(design.questiontextcolor);
         alt1t.color = buttonTextColor;
         alt2t.color = buttonTextColor;
+
+        Color nameColor = Colors.FromRGB(design.namecolor);
+        nametag.color = nameColor;
+        nametagPort.color = nameColor;
     }
     #endregion
 

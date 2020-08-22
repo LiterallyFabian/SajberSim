@@ -110,6 +110,7 @@ public class Manifest
 /// </summary>
 public class StoryDesign
 {
+    public string namecolor = ColorUtility.ToHtmlStringRGB(Colors.UnityGray);
     public string textcolor = ColorUtility.ToHtmlStringRGB(Colors.DarkPurple); 
     public string questioncolor = ColorUtility.ToHtmlStringRGB(Colors.IngameBlue); 
     public string questiontextcolor = ColorUtility.ToHtmlStringRGB(Colors.UnityGray);

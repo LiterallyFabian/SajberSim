@@ -29,5 +29,12 @@ namespace SajberSim.Colors
         public static Color Transparent = new Color(0, 0, 0, 0);
         // Nuff said
         public static Color AlmostTransparent = new Color(0, 0, 0, 0.08f);
+
+        public static Color FromRGB(string rgb)
+        {
+            Debug.Log(rgb);
+            ColorUtility.TryParseHtmlString(rgb, out Color c);
+            return c;
+        }
     }
 }
