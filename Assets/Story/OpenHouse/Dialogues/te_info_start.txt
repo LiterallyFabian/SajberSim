@@ -4,10 +4,10 @@ CHAR|0|happy|-4.14|-0.17|1|true
 T|0|Välkommen till Teknik: Informations- och mediateknik!
 T|0|Just nu är vi i matsalen, men jag lovar att vi har klassrum!
 T|0|Jag heter {0.name}, och jag ska prata om hur programmet ser ut, vad vi gör under dagarna, och allt möjligt du kanske undrar!
-CHAR|0|angry|-4.14|-0.17|1|true
+MOOD|0|angry
 T|0|Min kompis {1.name} skulle vara med, men missade tunnelbanan och blir lite sen...
 WAIT|0.5
-CHAR|0|happy|-4.14|-0.17|1|true
+MOOD|0|happy
 T|0|Vi sätter igång!
 T|0|Som ni säkert redan vet så finns det tre inriktningar i teknikprogrammet: Info & media, design & produktutveckling, och samhällsbyggande & miljö.
 T|0|Denna inriktning fokuserar främst på programmering och design inom spelvärlden, men med kunskaperna du får kan du göra väldigt mycket mer än bara spel!

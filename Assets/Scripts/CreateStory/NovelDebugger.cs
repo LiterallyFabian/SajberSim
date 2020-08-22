@@ -28,6 +28,7 @@ public class NovelDebugger : MonoBehaviour
     private Alert Action_Alert;
     private Background Action_Background;
     private Textbox Action_Textbox;
+    private Mood Action_Mood;
     private Character Action_Character;
     private DelCharacter Action_DelCharacter;
     private Question Action_Question;
@@ -40,6 +41,7 @@ public class NovelDebugger : MonoBehaviour
     {
         if (ActionsSet) return;
         ActionsSet = true;
+        Action_Mood = gameObject.AddComponent<Mood>();
         Action_Alert = gameObject.AddComponent<Alert>();
         Action_Background = gameObject.AddComponent<Background>();
         Action_Textbox = gameObject.AddComponent<Textbox>();
@@ -147,6 +149,9 @@ public class NovelDebugger : MonoBehaviour
 
         else if (line[0] == "WAIT") //delay
             return Action_Wait.Working(line);
+
+        else if (line[0] == "MOOD") //delay
+            return Action_Mood.Working(line);
 
         else if (line[0] == "PLAYMUSIC" || line[0] == "PLAYSFX")
             return Action_PlayAudio.Working(line);

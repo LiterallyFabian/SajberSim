@@ -84,20 +84,6 @@ public class GameManager : MonoBehaviour
     public static Person[] people;
     
 
-    #region Classes
-    public GameObject HelperObj;
-    public Download dl;
-    private Alert Action_Alert;
-    private Background Action_Background;
-    private Textbox Action_Textbox;
-    private Character Action_Character;
-    private DelCharacter Action_DelCharacter;
-    private Question Action_Question;
-    private LoadScript Action_LoadScript;
-    private Wait Action_Wait;
-    private PlayAudio Action_PlayAudio;
-    private StopAudio Action_StopAudio;
-    #endregion
 
     public Manifest data;
     public static Save save = null;
@@ -114,6 +100,20 @@ public class GameManager : MonoBehaviour
     public static string currentPortrait = "";
     public static string currentMusic;
 
+    #region Actions
+    public GameObject HelperObj;
+    public Download dl;
+    private Alert Action_Alert;
+    private Background Action_Background;
+    private Textbox Action_Textbox;
+    private Character Action_Character;
+    private DelCharacter Action_DelCharacter;
+    private Question Action_Question;
+    private LoadScript Action_LoadScript;
+    private Wait Action_Wait;
+    private PlayAudio Action_PlayAudio;
+    private StopAudio Action_StopAudio;
+    private Mood Action_Mood;
 
     private void SetActionClasses()
     {
@@ -128,8 +128,10 @@ public class GameManager : MonoBehaviour
         Action_Wait = HelperObj.AddComponent<Wait>();
         Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
         Action_StopAudio = HelperObj.AddComponent<StopAudio>();
+        Action_Mood= HelperObj.AddComponent<Mood>();
 
         Action_Alert.Game = this;
+        Action_Mood.Game = this;
         Action_Background.Game = this;
         Action_Textbox.Game = this;
         Action_Character.Game = this;
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour
         Action_PlayAudio.Game = this;
         Action_StopAudio.Game = this;
     }
+    #endregion
     private void Start()
     {
         SetActionClasses();
@@ -315,6 +318,11 @@ public class GameManager : MonoBehaviour
         {
             dialoguepos++;
             Action_Wait.Run(line);
+        }
+        else if (line[0] == "MOOD") //set mood
+        {
+            dialoguepos++;
+            Action_Mood.Run(line);
         }
         else if (line[0] == "PLAYMUSIC" || line[0] == "PLAYSFX")
         {
