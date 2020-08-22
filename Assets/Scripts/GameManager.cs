@@ -526,6 +526,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"Found textbox at path {Helper.currentStoryPath}/textbox.png and will try to update...");
             dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
+            dl.Image(alertbox, $"{Helper.currentStoryPath}/textbox.png");
         }
 
         Color textColor = Colors.FromRGB(design.textcolor);
