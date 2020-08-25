@@ -1,9 +1,12 @@
 ﻿using Steamworks;
+using Steamworks.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using static SajberSim.Helper.Helper;
@@ -242,7 +245,7 @@ namespace SajberSim.CardMenu
                     foreach (string subpath in Directory.GetDirectories(path))
                         assetPaths.AddRange(Directory.GetFiles(subpath, extension));
                     assetPaths.AddRange(Directory.GetFiles(path, extension));
-                }       
+                }
             }
             return assetPaths.ToArray();
         }
@@ -275,6 +278,84 @@ namespace SajberSim.CardMenu
                     assetPaths.AddRange(Directory.GetFiles(subpath, extension));
             assetPaths.AddRange(Directory.GetFiles(path, extension));
             return assetPaths.ToArray();
+        }
+    }
+    /// <summary>
+    /// Holds stats for a specific story
+    /// </summary>
+    public class StoryStats
+    {
+        public int words;
+        public int decisions;
+        public int actions;
+        public int lines;
+        public int textboxes;
+        public int alerts;
+        public int scripts;
+        public int backgroundchanges;
+        public string filesize;
+
+        public int audioclips;
+        public int backgrounds;
+        public int charactersprites;
+
+        public bool hascredits;
+        public int participants = 0;
+        public static StoryStats Get(string path)
+        {
+            StoryStats stats = new StoryStats();
+            string[] scriptPaths = Stories.GetStoryAssetPaths("dialogues", path);
+            List<string> scriptLines = new List<string>();
+            foreach (string scriptPath in scriptPaths)
+            {
+                if (File.Exists(scriptPath))
+                {
+                    scriptLines.AddRange(File.ReadAllLines(scriptPath));
+                }
+            }
+
+            stats.scripts = scriptPaths.Length;
+            stats.lines = scriptLines.Count();
+            foreach (string line in scriptLines)
+            {
+                string action = line.Split('|')[0];
+                switch (action)
+                {
+                    case "T":
+                        stats.textboxes++;
+                        if (line.Split('|').Length == 3)
+                            stats.words += line.Split('|')[2].Count(f => f == ' ') + 1;
+                        break;
+                    case "BACKGROUND":
+                        stats.backgroundchanges++;
+                        break;
+                    case "ALERT":
+                        stats.alerts++;
+                        if (line.Split('|').Length == 2)
+                            stats.words += line.Split('|')[1].Count(f => f == ' ') + 1;
+                        break;
+                    case "QUESTION":
+                        stats.decisions++;
+                        if (line.Split('|').Length > 1)
+                            stats.words += line.Split('|')[1].Count(f => f == ' ') + 1;
+                        break;
+                }
+                if (line.Contains('|')) stats.actions++;
+            }
+            stats.filesize = $"{Math.Round(BytesTo(DirSize(new DirectoryInfo(CreateStory.currentlyEditingPath)), DataSize.Megabyte)),1} Mb";
+            stats.audioclips = Stories.GetStoryAssetPaths("audio", CreateStory.currentlyEditingPath).Length;
+            stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", CreateStory.currentlyEditingPath).Length;
+            stats.charactersprites = Stories.GetStoryAssetPaths("characters", CreateStory.currentlyEditingPath).Length;
+
+            stats.hascredits = File.Exists($"{CreateStory.currentlyEditingPath}/credits.txt");
+            if (File.Exists(CreateStory.currentlyEditingPath + "/credits.txt"))
+            {
+                foreach (string line in File.ReadAllLines(CreateStory.currentlyEditingPath + "/credits.txt"))
+                {
+                    if (!line.Contains('|') && !line.StartsWith("-") && line != "") stats.participants++;
+                }
+            }
+            return stats;
         }
     }
 }

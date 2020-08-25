@@ -33,87 +33,34 @@ public class EditStats : MonoBehaviour
         Card.tag = "Untagged";
         CardComp = Card.GetComponent<StoryCard>();
 
-        Color textColor = Colors.UnityGray;
-        ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
-        E_ColorPickerText.AssignColor(textColor);
-        Color splashColor = Colors.UnityGray;
-        ColorUtility.TryParseHtmlString($"#{data.overlaycolor.Replace("#", "")}", out splashColor);
-        E_ColorPickerSplash.AssignColor(splashColor);
+        E_ColorPickerText.AssignColor(Colors.FromRGB(data.textcolor));
+        E_ColorPickerSplash.AssignColor(Colors.FromRGB(data.overlaycolor));
 
-        int dialogues = 0;
-        int alerts = 0;
-        int words = 0;
-        int backgroundchanges = 0;
-        int decisions = 0;
-        int participants = 0;
-        string filesize = $"{Math.Round(Helper.BytesTo(Helper.DirSize(new DirectoryInfo(CreateStory.currentlyEditingPath)), Helper.DataSize.Megabyte)),1} Mb";
         bool hasstart = false;
-        bool hascredits = false;
         bool hasthumbnail = false;
         bool hassteam = false;
 
-        string[] scriptPaths = Stories.GetStoryAssetPaths("dialogues", CreateStory.currentlyEditingPath);
-        List<string> scriptLines = new List<string>();
-        foreach (string path in scriptPaths)
-        {
-            if (File.Exists(path))
-            {
-                scriptLines.AddRange(File.ReadAllLines(path));
-            }
-        }
-        int scripts = scriptPaths.Length;
-        int lines = scriptLines.Count();
-        int audio = Stories.GetStoryAssetPaths("audio", CreateStory.currentlyEditingPath).Length;
-        int backgrounds = Stories.GetStoryAssetPaths("backgrounds", CreateStory.currentlyEditingPath).Length;
-        int characters = Stories.GetStoryAssetPaths("characters", CreateStory.currentlyEditingPath).Length;
-        if (File.Exists($"{CreateStory.currentlyEditingPath}/credits.txt")) hascredits = true;
+        
         try
         {
-            int i = 0;
-            foreach (string line in scriptLines)
-            {
-                string action = line.Split('|')[0];
-                switch (action)
-                {
-                    case "T":
-                        dialogues++;
-                        if (line.Split('|').Length == 3)
-                            words += line.Split('|')[2].Count(f => f == ' ') + 1;
-                        break;
-                    case "BACKGROUND": backgroundchanges++; break;
-                    case "ALERT": alerts++; break;
-                    case "QUESTION":
-                        decisions++;
-                        if (line.Split('|').Length > 1)
-                            words += line.Split('|')[1].Count(f => f == ' ') + 1;
-                        break;
-                }
-                i++;
-            }
-            if (File.Exists(CreateStory.currentlyEditingPath + "/credits.txt"))
-            {
-                foreach (string line in File.ReadAllLines(CreateStory.currentlyEditingPath + "/credits.txt"))
-                {
-                    if (!line.Contains('|') && !line.StartsWith("-") && line != "") participants++;
-                }
-            }
+            StoryStats stats = StoryStats.Get(CreateStory.currentlyEditingPath);
             E_Stats.text =
                 //story
-                $"{string.Format(Translate.Get("totalscripts"), scripts)}\n" +
-                $"{string.Format(Translate.Get("totallines"), lines)}\n" +
-                $"{string.Format(Translate.Get("totalaudio"), audio)}\n" +
-                $"{string.Format(Translate.Get("totalbackgrounds"), backgrounds)}\n" +
-                $"{string.Format(Translate.Get("totalcharacters"), characters)}\n" +
-                $"{string.Format(Translate.Get("totaldialogues"), dialogues)}\n" +
-                $"{string.Format(Translate.Get("totalalerts"), alerts)}\n" +
-                $"{string.Format(Translate.Get("totalwords"), words)}\n" +
-                $"{string.Format(Translate.Get("totalbgchanges"), backgroundchanges)}\n" +
-                $"{string.Format(Translate.Get("totaldecisions"), decisions)}\n\n" +
+                $"{string.Format(Translate.Get("totalscripts"), stats.scripts)}\n" +
+                $"{string.Format(Translate.Get("totallines"), stats.lines)}\n" +
+                $"{string.Format(Translate.Get("totalaudio"), stats.audioclips)}\n" +
+                $"{string.Format(Translate.Get("totalbackgrounds"), stats.backgrounds)}\n" +
+                $"{string.Format(Translate.Get("totalcharacters"), stats.charactersprites)}\n" +
+                $"{string.Format(Translate.Get("totaldialogues"), stats.textboxes)}\n" +
+                $"{string.Format(Translate.Get("totalalerts"), stats.alerts)}\n" +
+                $"{string.Format(Translate.Get("totalwords"), stats.words)}\n" +
+                $"{string.Format(Translate.Get("totalbgchanges"), stats.backgroundchanges)}\n" +
+                $"{string.Format(Translate.Get("totaldecisions"), stats.decisions)}\n\n" +
 
                 //other
-                $"{string.Format(Translate.Get("hascredits"), hascredits ? Translate.Get("yes") : Translate.Get("no"))}\n" +
-                $"{string.Format(Translate.Get("totalparticipants"), participants)}\n" +
-                $"{string.Format(Translate.Get("filesize"), filesize)}\n" +
+                $"{string.Format(Translate.Get("hascredits"), stats.hascredits ? Translate.Get("yes") : Translate.Get("no"))}\n" +
+                $"{string.Format(Translate.Get("totalparticipants"), stats.participants)}\n" +
+                $"{string.Format(Translate.Get("filesize"), stats.filesize)}\n" +
                 $"";
         }
         catch (Exception e)
