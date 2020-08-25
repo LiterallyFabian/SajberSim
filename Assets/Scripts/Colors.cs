@@ -32,7 +32,7 @@ namespace SajberSim.Colors
 
         public static Color FromRGB(string rgb)
         {
-            if (rgb[0] != '#') rgb.Insert(0, "#");
+            if (rgb[0] != '#') rgb = rgb.Insert(0, "#");
             ColorUtility.TryParseHtmlString(rgb, out Color c);
             return c;
         }
