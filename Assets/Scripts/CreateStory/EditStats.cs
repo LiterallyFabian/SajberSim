@@ -73,7 +73,7 @@ public class EditStats : MonoBehaviour
     {
         if (CardComp == null) return;
         CardComp.Title.color = c;
-        CardComp.Clock.color = c;
+        CardComp.Paper.color = c;
         CardComp.Playtime.color = c;
     }
     public void UpdateSplashColor(Color c)

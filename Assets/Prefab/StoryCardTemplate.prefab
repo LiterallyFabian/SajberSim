@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8079816583550320496}
   - component: {fileID: 7641752625251120591}
   m_Layer: 5
-  m_Name: Clock
+  m_Name: Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 7113128235428936100}
   - component: {fileID: 492779675751063648}
   m_Layer: 5
-  m_Name: TimeNumber
+  m_Name: WordCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myNovel: 0
   Title: {fileID: 3020521122866170375}
-  Clock: {fileID: 7641752625251120591}
+  Paper: {fileID: 7641752625251120591}
   Playtime: {fileID: 492779675751063648}
   Overlay: {fileID: 6492906074431180351}
   Thumbnail: {fileID: 4440433063096501929}

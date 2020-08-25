@@ -276,7 +276,8 @@ namespace SajberSim.CardMenu
             if (Directory.Exists(path))
                 foreach (string subpath in Directory.GetDirectories(path))
                     assetPaths.AddRange(Directory.GetFiles(subpath, extension));
-            assetPaths.AddRange(Directory.GetFiles(path, extension));
+            if (Directory.Exists(path))
+                assetPaths.AddRange(Directory.GetFiles(path, extension));
             return assetPaths.ToArray();
         }
     }
@@ -285,21 +286,21 @@ namespace SajberSim.CardMenu
     /// </summary>
     public class StoryStats
     {
-        public int words;
-        public int decisions;
-        public int actions;
-        public int lines;
-        public int textboxes;
-        public int alerts;
-        public int scripts;
-        public int backgroundchanges;
-        public string filesize;
+        public int words = 0;
+        public int decisions = 0;
+        public int actions = 0;
+        public int lines = 0;
+        public int textboxes = 0;
+        public int alerts = 0;
+        public int scripts = 0;
+        public int backgroundchanges = 0;
+        public string filesize = "0 Mb";
 
-        public int audioclips;
-        public int backgrounds;
-        public int charactersprites;
+        public int audioclips = 0;
+        public int backgrounds = 0;
+        public int charactersprites = 0;
 
-        public bool hascredits;
+        public bool hascredits = false;
         public int participants = 0;
         public static StoryStats Get(string path)
         {
@@ -342,15 +343,15 @@ namespace SajberSim.CardMenu
                 }
                 if (line.Contains('|')) stats.actions++;
             }
-            stats.filesize = $"{Math.Round(BytesTo(DirSize(new DirectoryInfo(CreateStory.currentlyEditingPath)), DataSize.Megabyte)),1} Mb";
-            stats.audioclips = Stories.GetStoryAssetPaths("audio", CreateStory.currentlyEditingPath).Length;
-            stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", CreateStory.currentlyEditingPath).Length;
-            stats.charactersprites = Stories.GetStoryAssetPaths("characters", CreateStory.currentlyEditingPath).Length;
+            stats.filesize = $"{Math.Round(BytesTo(DirSize(new DirectoryInfo(path)), DataSize.Megabyte)),1} Mb";
+            stats.audioclips = Stories.GetStoryAssetPaths("audio", path).Length;
+            stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", path).Length;
+            stats.charactersprites = Stories.GetStoryAssetPaths("characters", path).Length;
 
-            stats.hascredits = File.Exists($"{CreateStory.currentlyEditingPath}/credits.txt");
-            if (File.Exists(CreateStory.currentlyEditingPath + "/credits.txt"))
+            if (File.Exists(path + "/credits.txt"))
             {
-                foreach (string line in File.ReadAllLines(CreateStory.currentlyEditingPath + "/credits.txt"))
+                stats.hascredits = true;
+                foreach (string line in File.ReadAllLines(path + "/credits.txt"))
                 {
                     if (!line.Contains('|') && !line.StartsWith("-") && line != "") stats.participants++;
                 }

@@ -1,4 +1,5 @@
-﻿using SajberSim.Colors;
+﻿using SajberSim.CardMenu;
+using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Web;
@@ -18,7 +19,7 @@ public class StoryCard : MonoBehaviour
     public bool myNovel = false;
     private Manifest data;
     public Text Title;
-    public Image Clock;
+    public Image Paper;
     public Text Playtime;
     public Image Overlay;
     public RawImage Thumbnail;
@@ -29,6 +30,7 @@ public class StoryCard : MonoBehaviour
     public Download dl;
     public DetailsCard detailsCard;
     public GameObject detailsTemplate;
+    public StoryStats stats;
 
     void Start()
     {
@@ -51,6 +53,7 @@ public class StoryCard : MonoBehaviour
     }
     public void SetData(Manifest storyData, string path)
     {
+        stats = StoryStats.Get(path);
         data = storyData;
         storyPath = path;
         CheckOwnerStatus();
@@ -62,20 +65,20 @@ public class StoryCard : MonoBehaviour
         Color textColor = Colors.FromRGB(data.textcolor);
         Overlay.GetComponent<Image>().color = Colors.FromRGB(data.overlaycolor);
         Title.GetComponent<Text>().color = textColor;
-        Clock.color = textColor;
+        Paper.color = textColor;
         Playtime.color = textColor;
 
-        Playtime.text = TimeSpan.FromMinutes(data.playtime).ToString(@"h\hmm\m");
+        Playtime.text = stats.words.ToString();
 
         if (!data.nsfw)
         {
             NSFW.color = new Color(0, 0, 0, 0); //hide
-            Clock.transform.localPosition = new Vector3(Clock.transform.localPosition.x, 47, 0);
+            Paper.transform.localPosition = new Vector3(Paper.transform.localPosition.x, 47, 0);
         }
         else if (data.nsfw) // easier to read than just an else 
         {
             NSFW.color = textColor; //show
-            Clock.transform.localPosition = new Vector3(Clock.transform.localPosition.x, 57, 0);
+            Paper.transform.localPosition = new Vector3(Paper.transform.localPosition.x, 57, 0);
         }
 
         Title.GetComponent<Text>().text = data.name;
