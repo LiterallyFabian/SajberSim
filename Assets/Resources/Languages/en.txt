@@ -65,6 +65,7 @@ xtags=Tags ({0})
 audiencesfw=Audience (SFW)
 audiencensfw=Audience (NSFW)
 textcolor=Text color
+words=Words
 backcolor=Background color
 
 #Creation titles / descriptions
