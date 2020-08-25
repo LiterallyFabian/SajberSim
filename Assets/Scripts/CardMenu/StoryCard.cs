@@ -68,7 +68,7 @@ public class StoryCard : MonoBehaviour
         Paper.color = textColor;
         Playtime.color = textColor;
 
-        Playtime.text = stats.words.ToString();
+        Playtime.text = stats.wordsK;
 
         if (!data.nsfw)
         {

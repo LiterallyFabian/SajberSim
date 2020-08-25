@@ -41,7 +41,7 @@ public class DetailsCard : MonoBehaviour
         NsfwStatus.text = data.nsfw ? Translate.Get("yes") : Translate.Get("no");
         NsfwStatus.color = data.nsfw ? Colors.NsfwRed : Colors.UnityGray;
         Genre.text = Translate.Get(data.genre);
-        Length.text = card.stats.words.ToString();
+        Length.text = card.stats.wordsK;
         Flag.sprite = dl.Flag(data.language);
         StartStory.detailsOpen = true;
     }

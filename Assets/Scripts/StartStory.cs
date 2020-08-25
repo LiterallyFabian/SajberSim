@@ -18,6 +18,8 @@ using System.Globalization;
 using SajberSim.Steam;
 using SajberSim.Colors;
 using SajberSim.CardMenu;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -134,6 +136,8 @@ public class StartStory : MonoBehaviour
     }
     public void UpdatePreviewCards()
     {
+        Stopwatch st = new Stopwatch();
+        st.Start();
         Debug.Log("StoryMenu/Update: Request to update cards");
         string[] storyPaths = Stories.GetAllStoryPaths(sortArgs, nsfw, searchTerm, searchPath);
         string[] manifests = Manifest.GetAll(sortArgs, nsfw, searchTerm, searchPath);
@@ -152,6 +156,8 @@ public class StartStory : MonoBehaviour
             }
         }
         if (Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop).Length > 0) Achievements.Grant(Achievements.List.ACHIEVEMENT_download);
+        st.Stop();
+        Debug.Log($"StoryMenu/Update: Cards updated. Took {st.ElapsedMilliseconds}ms to execute.");
     }
     private void UpdateNoNovelNotice(int novels)
     {
@@ -203,7 +209,6 @@ public class StartStory : MonoBehaviour
             return;
         }
 
-        ClearPreviewCards();
         if (page + change > pages) page = 0;
         else if (page + change < 0) page = pages;
         else page += change;

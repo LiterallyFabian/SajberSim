@@ -287,6 +287,7 @@ namespace SajberSim.CardMenu
     public class StoryStats
     {
         public int words = 0;
+        public string wordsK = "0k";
         public int decisions = 0;
         public int actions = 0;
         public int lines = 0;
@@ -347,7 +348,7 @@ namespace SajberSim.CardMenu
             stats.audioclips = Stories.GetStoryAssetPaths("audio", path).Length;
             stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", path).Length;
             stats.charactersprites = Stories.GetStoryAssetPaths("characters", path).Length;
-
+            stats.wordsK = FormatNumber(stats.words);
             if (File.Exists(path + "/credits.txt"))
             {
                 stats.hascredits = true;
