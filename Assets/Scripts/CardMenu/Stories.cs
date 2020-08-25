@@ -93,12 +93,13 @@ namespace SajberSim.CardMenu
                 if (File.Exists($"{path}/manifest.json"))
                 {
                     Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                    StoryStats storystats = StoryStats.Get(path);
                     if (storydata != null)
                     {
                         if (args == StorySearchArgs.Alphabetical || args == StorySearchArgs.ReverseAlphabetical)
                             itemList.Add(new StorySort(path, storydata.name));
                         else if (args == StorySearchArgs.LongestFirst || args == StorySearchArgs.ShortestFirst)
-                            itemList.Add(new StorySort(path, storydata.playtime));
+                            itemList.Add(new StorySort(path, storystats.words));
                         else if (args == StorySearchArgs.Author)
                             itemList.Add(new StorySort(path, storydata.author));
                         else if (args == StorySearchArgs.Newest || args == StorySearchArgs.Oldest)
