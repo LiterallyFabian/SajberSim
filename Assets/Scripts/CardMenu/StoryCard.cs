@@ -59,16 +59,12 @@ public class StoryCard : MonoBehaviour
         else
             Thumbnail.color = Color.white;
 
-        Color splashColor = Color.white;
-        ColorUtility.TryParseHtmlString($"#{data.overlaycolor.Replace("#", "")}", out splashColor);
-        Overlay.GetComponent<Image>().color = splashColor;
-
-        Color textColor = Colors.UnityGray;
-        ColorUtility.TryParseHtmlString($"#{data.textcolor.Replace("#", "")}", out textColor);
+        Color textColor = Colors.FromRGB(data.textcolor);
+        Overlay.GetComponent<Image>().color = Colors.FromRGB(data.overlaycolor);
         Title.GetComponent<Text>().color = textColor;
-
         Clock.color = textColor;
         Playtime.color = textColor;
+
         Playtime.text = TimeSpan.FromMinutes(data.playtime).ToString(@"h\hmm\m");
 
         if (!data.nsfw)
