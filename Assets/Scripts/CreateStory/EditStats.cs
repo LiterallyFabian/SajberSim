@@ -1,17 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SajberSim.CardMenu;
 using SajberSim.Colors;
-using SajberSim.Helper;
 using SajberSim.Translation;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EditStats : MonoBehaviour
@@ -20,9 +13,15 @@ public class EditStats : MonoBehaviour
     public Text E_Stats;
     public ColorPicker E_ColorPickerText;
     public ColorPicker E_ColorPickerSplash;
+    public Button E_ButtonCredits;
     public GameObject fadeimage;
     private GameObject Card;
     private StoryCard CardComp;
+
+    private void Update()
+    {
+        E_ButtonCredits.interactable = File.Exists(CreateStory.currentlyEditingPath + "/credits.txt");
+    }
 
     public void UpdateStats()
     {
@@ -40,7 +39,6 @@ public class EditStats : MonoBehaviour
         bool hasthumbnail = false;
         bool hassteam = false;
 
-        
         try
         {
             StoryStats stats = StoryStats.Get(CreateStory.currentlyEditingPath);
@@ -69,6 +67,7 @@ public class EditStats : MonoBehaviour
             Debug.LogError($"Something went wrong when trying to show stats: \n{e}");
         }
     }
+
     public void UpdateTextColor(Color c)
     {
         if (CardComp == null) return;
@@ -76,11 +75,13 @@ public class EditStats : MonoBehaviour
         CardComp.Paper.color = c;
         CardComp.Playtime.color = c;
     }
+
     public void UpdateSplashColor(Color c)
     {
         if (CardComp == null) return;
         CardComp.Overlay.color = c;
     }
+
     public void SaveColors()
     {
         if (Main.currentWindow != CreateStory.CreateWindows.Edit) return;
@@ -97,11 +98,13 @@ public class EditStats : MonoBehaviour
             serializer.Serialize(writer, data);
         }
     }
+
     public void PlayNovel()
     {
         if (CardComp == null) return;
         CardComp.Play();
     }
+
     public void PlayCredits()
     {
         ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
@@ -109,4 +112,3 @@ public class EditStats : MonoBehaviour
         StartCoroutine(main.FadeToScene("credits"));
     }
 }
-
