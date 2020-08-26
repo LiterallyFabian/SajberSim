@@ -75,7 +75,7 @@ editsdescription=Here you can see statistics about {0} and access all tools to e
 debugtitle=Debug your novel
 debugdescription=Here you can find common errors and problems with your novel that should be fixed before releasing to the global network.
 publishtitle=Publish your novel
-publishdescription=It's time to show the world huh? Let's go! 
+publishdescription=It's time to show the world huh? Let's publish! To change tags and other metadata, click "{0}".
 
 #Creation errors (can stay in english)
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
@@ -140,6 +140,7 @@ privacy_private=Private
 agreement=By submitting this visual novel, you agree to the Steam Subscriber Agreement.
 publishnovel=Publish novel
 steamthumbnail=Steam thumbnail
+nothumbnail=Your visual novel doesn't have a Steam thumbnail! Please add one called steam.png in its directory.
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time

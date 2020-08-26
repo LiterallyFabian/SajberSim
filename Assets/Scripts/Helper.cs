@@ -23,6 +23,7 @@ namespace SajberSim.Helper
     {
         // genres translated
         public static string[] genres;
+        public static string[] privacysettings;
         // genres as how they are in the steamworks backend
         public static string[] genresSteam = new string[] { "Adventure", "Action", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
         // genres in manifest
@@ -122,6 +123,7 @@ namespace SajberSim.Helper
                     Translate.Get("sliceoflife"), 
                     Translate.Get("supernatural"), 
                     Translate.Get("other") };
+                privacysettings = new string[] { Translate.Get("privacy_public"), Translate.Get("privacy_friends"), Translate.Get("privacy_private") };
                 customPath = Application.dataPath + "/MyStories/";
                 localPath = Application.dataPath + "/Story/";
                 savesPath = Application.persistentDataPath + "/Saves/";

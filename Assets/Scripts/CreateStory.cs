@@ -24,6 +24,7 @@ public class CreateStory : MonoBehaviour
     public CreateNew Menu_Create;
     public EditStats Menu_Edit;
     public DebugNovel Menu_Debug;
+    public PublishMenu Menu_Publish;
 
 
 
@@ -31,6 +32,7 @@ public class CreateStory : MonoBehaviour
     public GameObject BasicsMenu;
     public GameObject EditsMenu;
     public GameObject DebugMenu;
+    public GameObject PublishMenu;
     public Text Title;
     public Text Description;
 
@@ -42,7 +44,7 @@ public class CreateStory : MonoBehaviour
     public Button ButtonCreate;
 
     private Language lang;
-    Download dl;
+    private Download dl;
     public StartStory storyMenu;
     public CreateWindows currentWindow;
     public enum CreateWindows
@@ -88,6 +90,7 @@ public class CreateStory : MonoBehaviour
         BasicsMenu.transform.localScale = Vector3.zero;
         EditsMenu.transform.localScale = Vector3.zero;
         DebugMenu.transform.localScale = Vector3.zero;
+        PublishMenu.transform.localScale = Vector3.zero;
         Menu_Create.ResetFields();
         Menu_Edit.SaveColors();
         switch (window)
@@ -99,6 +102,7 @@ public class CreateStory : MonoBehaviour
                 Menu_Create.ButtonRevert.interactable = false;
                 ButtonDetails.interactable = false;
                 ButtonEdit.interactable = false;
+                ButtonPublish.interactable = false;
                 ButtonVerify.interactable = false;
                 ButtonPublish.gameObject.SetActive(false);
                 ButtonCreate.gameObject.SetActive(true);
@@ -132,6 +136,15 @@ public class CreateStory : MonoBehaviour
                 ButtonVerify.interactable = false;
                 Menu_Debug.UpdateList();
                 break;
+            case 4: // Publish story
+                currentWindow = CreateWindows.Publish;
+                PublishMenu.transform.localScale = Vector3.one;
+                Title.text = Translate.Get("publishtitle");
+                Description.text = string.Format(Translate.Get("publishdescription"), Translate.Get("edit"));
+                ButtonPublish.interactable = false;
+                Menu_Publish.FillData();
+                break;
+
         }
     }
 

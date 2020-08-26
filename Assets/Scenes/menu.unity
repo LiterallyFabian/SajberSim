@@ -2123,6 +2123,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &139905390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2027275455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &142033640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6795,6 +6807,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+        type: 3}
       propertyPath: m_CharacterLimit
       value: 200
       objectReference: {fileID: 0}
@@ -7346,6 +7363,7 @@ GameObject:
   - component: {fileID: 576370121}
   - component: {fileID: 576370120}
   - component: {fileID: 576370119}
+  - component: {fileID: 576370122}
   m_Layer: 5
   m_Name: AgreementText
   m_TagString: Untagged
@@ -7427,6 +7445,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576370117}
   m_CullTransparentMesh: 0
+--- !u!114 &576370122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576370117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 576370120}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 371701549}
+        m_TargetAssemblyTypeName: ButtonCtrl, Assembly-CSharp
+        m_MethodName: OpenLink
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: https://store.steampowered.com/subscriber_agreement/
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &577965539
 GameObject:
   m_ObjectHideFlags: 0
@@ -14891,7 +14964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextId: title
+  TextId: steamthumbnail
 --- !u!114 &786374968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18768,6 +18841,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037662095}
   m_CullTransparentMesh: 0
+--- !u!114 &1046634114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 499601040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1048073755
 GameObject:
   m_ObjectHideFlags: 0
@@ -19150,6 +19235,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1273872606}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CreateStory, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3135627379265792497, guid: caf23664603c25f42a6648e365d4a82f,
         type: 3}
@@ -21273,10 +21383,12 @@ MonoBehaviour:
   Menu_Create: {fileID: 549635273}
   Menu_Edit: {fileID: 1283333986}
   Menu_Debug: {fileID: 1704800422}
+  Menu_Publish: {fileID: 1451188566}
   ButtonGroup: {fileID: 1263013650}
   BasicsMenu: {fileID: 549635271}
   EditsMenu: {fileID: 1283333984}
   DebugMenu: {fileID: 1704800420}
+  PublishMenu: {fileID: 1451188564}
   Title: {fileID: 2036804805}
   Description: {fileID: 1961393137}
   ButtonDetails: {fileID: 2043182681}
@@ -28977,6 +29089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1451188565}
+  - component: {fileID: 1451188566}
   m_Layer: 5
   m_Name: PublishMenu
   m_TagString: Untagged
@@ -29009,6 +29122,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1451188566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451188564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7859e1d199f481a41b307155fc6ba5c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  P_Title: {fileID: 1046634114}
+  P_Description: {fileID: 139905390}
+  P_Thumbnail: {fileID: 1538635889}
+  P_Privacy: {fileID: 1010358261}
+  P_NoThumbnailText: {fileID: 1903266496}
+  P_Publish: {fileID: 1509134022}
 --- !u!1001 &1455381810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29901,6 +30032,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1509134022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+    type: 3}
+  m_PrefabInstance: {fileID: 136873261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1515023342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30421,6 +30564,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 786374966}
+  - {fileID: 1903266497}
   m_Father: {fileID: 1451188565}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38014,7 +38158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16319.436, y: 0.00013806912}
+  m_AnchoredPosition: {x: -52798.18, y: 0.00013806912}
   m_SizeDelta: {x: -14.765015, y: 481.4351}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1728018900
@@ -44175,6 +44319,100 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890961069}
   m_CullTransparentMesh: 0
+--- !u!1 &1903266496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903266497}
+  - component: {fileID: 1903266499}
+  - component: {fileID: 1903266498}
+  - component: {fileID: 1903266500}
+  m_Layer: 5
+  m_Name: NoImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1903266497
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903266496}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538635888}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 219.71, y: 0.01}
+  m_SizeDelta: {x: 125.81949, y: 158.3864}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1903266498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903266496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.32156864, g: 0.03529412, b: 0.03529412, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ccabe4857bfa493479eefd0125b0ce2f, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Your visual novel doesn't have a Steam thumbnail! Please add one called
+    steam.png in its directory.
+--- !u!222 &1903266499
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903266496}
+  m_CullTransparentMesh: 0
+--- !u!114 &1903266500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903266496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aae633c64245542b4ad7643c20bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextId: nothumbnail
 --- !u!1 &1906246530
 GameObject:
   m_ObjectHideFlags: 0
@@ -45455,6 +45693,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103616250537014789, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+        type: 3}
       propertyPath: m_CharacterLimit
       value: 5000
       objectReference: {fileID: 0}
@@ -45479,6 +45722,16 @@ PrefabInstance:
       value: This description will be shown in the Steam Workshop. It should make
         people interested in your novel. Here you can also link team members, credits
         etc.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103616251231452428, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103616251231452428, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8103616251328093508, guid: 3524fc5e7fc53d74cb8546a6a96f6c4c,
         type: 3}
