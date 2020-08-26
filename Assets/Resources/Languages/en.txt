@@ -74,6 +74,8 @@ editstats=Edit & statistics
 editsdescription=Here you can see statistics about {0} and access all tools to edit it.
 debugtitle=Debug your novel
 debugdescription=Here you can find common errors and problems with your novel that should be fixed before releasing to the global network.
+publishtitle=Publish your novel
+publishdescription=It's time to show the world huh? Let's go! 
 
 #Creation errors (can stay in english)
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
@@ -127,6 +129,17 @@ debugitemtemplate=<b>Line: {0}  -  Action: {1}</b>\n{2}\n\n
 noerrors=※\(^o^)/※ \nNo errors! You are ready for publishing!
 refresh=Refresh
 opendialogues=Open scripts
+
+#Publishing menu
+title=Title
+descriptionplaceholder=This description will be shown in the Steam Workshop. It should make people interested in your novel. Here you can also link team members, credits etc.
+privacy_title=Visibility level
+privacy_public=Public
+privacy_friends=Friends only
+privacy_private=Private
+agreement=By submitting this visual novel, you agree to the Steam Subscriber Agreement.
+publishnovel=Publish novel
+steamthumbnail=Steam thumbnail
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time
