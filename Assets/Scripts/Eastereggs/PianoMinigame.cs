@@ -9,7 +9,8 @@ using Image = UnityEngine.UI.Image;
 
 public class PianoMinigame : MonoBehaviour
 {
-    public bool gameRunning = false;
+    private bool usePremade = false;
+    private int preMadeNo;
     public bool canPlay = true;
     private float delay = 0.8f;
     public GameObject ButtonRetry;
@@ -17,8 +18,14 @@ public class PianoMinigame : MonoBehaviour
     public List<int> sequence = new List<int>();
     public GameObject[] keys = new GameObject[9];
     private int currentPos = 0;
-
     public Text stats;
+
+    public int[][] premadeSequences = new int[][]
+    {
+        new int[] {5,3,4,3,4,3,4,5,7,3,2,8,7,8,7,6,7,6}, // crossing field
+        new int[] {1,1,8,5,4,4,3,1,3,4,0,0,8,5,4,4,3,1,3,4,0,0,7,5,4,4,3,1,3,4} // megalovania
+    };
+
 
     private void Start()
     {
@@ -54,6 +61,15 @@ public class PianoMinigame : MonoBehaviour
 
     public void PlayGame()
     {
+        if(Random.Range(0, 100) > 70)
+        {
+            usePremade = true;
+            preMadeNo = Random.Range(0, premadeSequences.Length);
+        }
+        else
+        {
+            usePremade = false;
+        }
         StartCoroutine(RunSequence());
         LossText.GetComponent<Animator>().Play("New State");
         LossText.transform.localPosition = new Vector3(1000, 0, 0);
@@ -83,12 +99,18 @@ public class PianoMinigame : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         currentPos = 0;
         if (delay > 0.3f) delay -= 0.02f;
-        sequence.Add(UnityEngine.Random.Range(0, 9));
+        if (!usePremade) sequence.Add(UnityEngine.Random.Range(0, 9));
+        else
+        {
+            if (premadeSequences[preMadeNo].Length > sequence.Count) sequence.Add(premadeSequences[preMadeNo][sequence.Count]);
+            else sequence.Add(UnityEngine.Random.Range(0, 9));
+        }
         SetStats();
         ToggleKeys(false);
         yield return new WaitForSeconds(0.9f);
         foreach (int key in sequence)
         {
+            Debug.Log(key);
             keys[key].GetComponent<PianoKey>().PlayAudio();
             keys[key].GetComponent<Image>().color = new Color(1, 0.01415092f, 0.5780373f, 1f);
             yield return new WaitForSeconds(delay / 2);
