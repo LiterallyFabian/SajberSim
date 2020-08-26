@@ -110,7 +110,6 @@ public class PianoMinigame : MonoBehaviour
         yield return new WaitForSeconds(0.9f);
         foreach (int key in sequence)
         {
-            Debug.Log(key);
             keys[key].GetComponent<PianoKey>().PlayAudio();
             keys[key].GetComponent<Image>().color = new Color(1, 0.01415092f, 0.5780373f, 1f);
             yield return new WaitForSeconds(delay / 2);
