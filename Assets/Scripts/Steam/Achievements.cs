@@ -30,7 +30,8 @@ namespace SajberSim.Steam
             ACHIEVEMENT_setname,
             ACHIEVEMENT_miohonda,
             ACHIEVEMENT_menuspin,
-            ACHIEVEMENT_imfabina
+            ACHIEVEMENT_imfabina,
+            ACHIEVEMENT_20piano
         }
         public static void Grant(List achievement)
         {

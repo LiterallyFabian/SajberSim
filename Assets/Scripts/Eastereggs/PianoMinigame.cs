@@ -1,12 +1,11 @@
-﻿using SajberSim.Translation;
-using System;
+﻿using SajberSim.Steam;
+using SajberSim.Translation;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Color = UnityEngine.Color;
+using Image = UnityEngine.UI.Image;
 
 public class PianoMinigame : MonoBehaviour
 {
@@ -20,20 +19,23 @@ public class PianoMinigame : MonoBehaviour
     private int currentPos = 0;
 
     public Text stats;
+
     private void Start()
     {
         GameObject.Find("Canvas/logo").GetComponent<AudioSource>().volume = 0.1f;
         SetStats();
         PlayGame();
     }
+
     public void Close()
     {
         GameObject.Find("Canvas/logo").GetComponent<AudioSource>().volume = 1;
         Destroy(this.gameObject);
     }
+
     public void SubmitKey(int id)
     {
-        if (id-1 != sequence[currentPos])
+        if (id - 1 != sequence[currentPos])
         {
             StartCoroutine(Fail());
         }
@@ -45,9 +47,11 @@ public class PianoMinigame : MonoBehaviour
         if (sequence.Count == currentPos)
         {
             if (PlayerPrefs.GetInt("pianostreak", 0) < currentPos) PlayerPrefs.SetInt("pianostreak", currentPos);
+            if (currentPos == 20) Achievements.Grant(Achievements.List.ACHIEVEMENT_20piano);
             StartCoroutine(RunSequence());
         }
     }
+
     public void PlayGame()
     {
         StartCoroutine(RunSequence());
@@ -60,6 +64,7 @@ public class PianoMinigame : MonoBehaviour
         sequence = new List<int>();
         delay = 0.8f;
     }
+
     private IEnumerator Fail()
     {
         LossText.GetComponent<Animator>().Play("lose text");
@@ -72,7 +77,8 @@ public class PianoMinigame : MonoBehaviour
         yield return new WaitForSeconds(2);
         ButtonRetry.SetActive(true);
     }
-    IEnumerator RunSequence()
+
+    private IEnumerator RunSequence()
     {
         yield return new WaitForSeconds(0.2f);
         currentPos = 0;
@@ -92,6 +98,7 @@ public class PianoMinigame : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         ToggleKeys(true);
     }
+
     private void ToggleKeys(bool letUserPlay)
     {
         canPlay = letUserPlay;
@@ -100,9 +107,9 @@ public class PianoMinigame : MonoBehaviour
             key.GetComponent<Button>().interactable = letUserPlay;
         }
     }
+
     private void SetStats()
     {
-        stats.text = string.Format(Translate.Get("hiscore"), PlayerPrefs.GetInt("pianostreak", 0)) + "\n" + string.Format(Translate.Get("streak"), sequence.Count-1) + "\n" + string.Format(Translate.Get("keysleft"), sequence.Count - currentPos);
+        stats.text = string.Format(Translate.Get("hiscore"), PlayerPrefs.GetInt("pianostreak", 0)) + "\n" + string.Format(Translate.Get("streak"), sequence.Count - 1) + "\n" + string.Format(Translate.Get("keysleft"), sequence.Count - currentPos);
     }
 }
-
