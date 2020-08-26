@@ -29,7 +29,7 @@ class Vault : MonoBehaviour
         // tbf tho, these are not anything secret but mostly used for unlisted novels
         // https://www.youtube.com/watch?v=9InoLZ-ErQU
         string code = input.text.ToLower().Hash();
-        string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28" };
+        string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28", "BC985B16DBDB92473DB3B49E651188B3B3813375E10B960A472D2B1410E4F6EF48C9DCB99C48465CEDFE3C34F742C283FB8B15258BD0061CBC96EE431B413200" };
         if (correctHashes.Contains(code)) Correct(code);
         else if (vnpattern.IsMatch(input.text.ToLower()) && Helper.loggedin) Correct(input.text.ToLower());
         else Error();
@@ -70,6 +70,11 @@ class Vault : MonoBehaviour
                 Lore.text = $"Jeez {Helper.UsernameCache()}...";
                 GetComponent<Animator>().enabled = true;
                 GetComponent<Animator>().Play("vaultDrop");
+                break;
+            case "BC985B16DBDB92473DB3B49E651188B3B3813375E10B960A472D2B1410E4F6EF48C9DCB99C48465CEDFE3C34F742C283FB8B15258BD0061CBC96EE431B413200":
+                GameObject game = Instantiate(Resources.Load($"Prefabs/CubeGame", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+                game.transform.localPosition = new Vector3(0, -50, 0);
+                CloseVault();
                 break;
         }
     }
