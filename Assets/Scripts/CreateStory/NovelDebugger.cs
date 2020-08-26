@@ -65,6 +65,12 @@ public class NovelDebugger : MonoBehaviour
         NovelDebugger ND = new NovelDebugger();
         if (!Directory.Exists(path + "/Dialogues")) return ND;
         SetGlobalVariables(path);
+        if(!File.Exists(path + "/Dialogues/start.txt"))
+        {
+            ErrorActions++;
+            ErrorScripts++;
+            ErrorList.Append(string.Format(Translate.Get("missingstartscript"), GameManager.shortStoryPath + "/Dialogues/start.txt") + "\n-----------------------------------------------------");
+        }
         foreach (string script in Directory.GetFiles(path + "/Dialogues", "*.txt"))
         {
             bool scriptWorking = true;
