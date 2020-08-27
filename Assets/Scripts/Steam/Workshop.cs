@@ -30,10 +30,11 @@ namespace SajberSim.Steam
         public async static void Upload(WorkshopData wdata)
         {
             Editor item;
-            //if (wdata.id == -1) 
-            //else item = new Editor((ulong)wdata.id);
+            if (wdata.id == -1) item = Steamworks.Ugc.Editor.NewCommunityFile;
+            else item = new Editor((ulong)wdata.id);
+            
 
-            item = Steamworks.Ugc.Editor.NewCommunityFile.WithTitle(wdata.title)
+             item.WithTitle(wdata.title)
             .WithDescription(wdata.description)
             .WithTag(wdata.genre)
             .WithTag(wdata.rating.ToString())
@@ -41,6 +42,7 @@ namespace SajberSim.Steam
             .InLanguage(wdata.lang)
             .WithPreviewFile(wdata.dataPath + "/steam.png")
             .WithChangeLog("Upload");
+
 
             switch (wdata.privacy)
             {
@@ -62,7 +64,7 @@ namespace SajberSim.Steam
                 if (wdata.id == -1)
                     Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds, result.FileId));
                 else
-                    Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds));
+                    Helper.Helper.Alert(string.Format(Translate.Get("updatesuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds));
                 Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
 
                 Stats.Add(Stats.List.novelspublished);

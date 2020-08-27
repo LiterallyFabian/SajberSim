@@ -70,8 +70,8 @@ public class PublishNovel : MonoBehaviour
 
             Manifest data = Manifest.Get(path + "/manifest.json");
             WorkshopData wdata = new WorkshopData();
-            wdata.title = data.name;
-            wdata.description = data.description;
+            wdata.title = Menu_Publish.P_Title.text;
+            wdata.description = Menu_Publish.P_Description.text;
             wdata.lang = Language.Languages[data.language].language_code;
             wdata.genre = Helper.genresSteam[Array.IndexOf(Helper.genresid, data.genre)];
             wdata.st = st;
