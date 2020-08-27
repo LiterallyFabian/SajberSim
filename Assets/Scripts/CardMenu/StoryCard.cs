@@ -82,8 +82,12 @@ public class StoryCard : MonoBehaviour
         }
 
         Title.GetComponent<Text>().text = data.name;
-
-        Flag.sprite = dl.Flag(data.language);
+        try
+        {
+            Flag.sprite = dl.Flag(Language.Languages[data.language].iso_code);
+        }
+        catch { }
+        
     }
     public void Play() 
     { 

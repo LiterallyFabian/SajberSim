@@ -42,7 +42,12 @@ public class DetailsCard : MonoBehaviour
         NsfwStatus.color = data.nsfw ? Colors.NsfwRed : Colors.UnityGray;
         Genre.text = Translate.Get(data.genre);
         Length.text = card.stats.wordsK;
-        Flag.sprite = dl.Flag(data.language);
+        try
+        {
+            Flag.sprite = dl.Flag(Language.Languages[data.language].iso_code);
+        }
+        catch { }
+        
         StartStory.detailsOpen = true;
     }
     public void Play()

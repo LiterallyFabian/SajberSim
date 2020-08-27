@@ -345,7 +345,7 @@ namespace SajberSim.CardMenu
                 }
                 if (line.Contains('|')) stats.actions++;
             }
-            stats.filesize = $"{Math.Round(BytesTo(DirSize(new DirectoryInfo(path)), DataSize.Megabyte)),1} Mb";
+            stats.filesize = $"{Math.Round(BytesTo(DirSize(new DirectoryInfo(path)), DataSize.Megabyte)),1} MB";
             stats.audioclips = Stories.GetStoryAssetPaths("audio", path).Length;
             stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", path).Length;
             stats.charactersprites = Stories.GetStoryAssetPaths("characters", path).Length;

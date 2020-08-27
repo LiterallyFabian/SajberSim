@@ -100,7 +100,7 @@ public class CreateNew : MonoBehaviour
             B_inputAudience.SetValueWithoutNotify(Array.IndexOf(Helper.audience, data.rating));
             B_inputGenre.SetValueWithoutNotify(Array.IndexOf(Helper.genresid, data.genre));
             B_inputCustomName.SetIsOnWithoutNotify(data.customname);
-            int langIndex = Array.IndexOf(Language.ListFlagCode().ToArray(), data.language);
+            int langIndex = Array.IndexOf(Language.ListWindowsKeys().ToArray(), data.language);
             if (langIndex == -1)
                 B_inputLanguage.SetValueWithoutNotify(0);
             else
@@ -140,13 +140,7 @@ public class CreateNew : MonoBehaviour
                 //template
                 else
                 {
-                    //Copy all directories from template
-                    foreach (string dirPath in Directory.GetDirectories(Helper.templatePath, "*", SearchOption.AllDirectories))
-                        Directory.CreateDirectory(dirPath.Replace(Helper.templatePath, destPath));
-
-                    //Copy all files from template
-                    foreach (string newPath in Directory.GetFiles(Helper.templatePath, "*.*", SearchOption.AllDirectories))
-                        File.Copy(newPath, newPath.Replace(Helper.templatePath, destPath), true);
+                    Helper.CopyDirectory(Helper.templatePath, destPath);
                 }
 
 
@@ -167,7 +161,7 @@ public class CreateNew : MonoBehaviour
             data.tags = B_inputTags.text.Replace(", ", ",").Replace(" ,", ",").Split(',');
             data.genre = Helper.genresid[B_inputGenre.value];
             data.rating = Helper.audience[B_inputAudience.value];
-            data.language = Language.ListFlagCode()[B_inputLanguage.value];
+            data.language = Language.ListWindowsKeys()[B_inputLanguage.value];
             data.customname = B_inputCustomName.isOn;
             if (isNew) data.uploaddate = DateTime.Now;
             data.lastEdit = DateTime.Now;
