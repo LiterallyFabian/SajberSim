@@ -365,6 +365,16 @@ namespace SajberSim.Helper
             }
             return num.ToString("#,0");
         }
+        public static void CopyDirectory(string source, string dest)
+        {
+            //Copy all directories
+            foreach (string dirPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(source, dest));
+
+            //Copy all files
+            foreach (string newPath in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
+                File.Copy(newPath, newPath.Replace(source, dest), true);
+        }
     }
 }
 /// <summary>

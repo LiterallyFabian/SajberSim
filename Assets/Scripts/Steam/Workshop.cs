@@ -1,48 +1,48 @@
-﻿using Steamworks.Data;
+﻿using Newtonsoft.Json;
+using SajberSim.Translation;
+using SajberSim.Web;
+using Steamworks;
 using Steamworks.Ugc;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SajberSim.Helper;
-using SajberSim.Translation;
-using Steamworks;
-using SajberSim.Web;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace SajberSim.Steam
 {
     public class Workshop
     {
+        public static float publishProgress;
+
         public enum Privacy
         {
             Public,
             FriendsOnly,
             Private
         }
+
         public enum Rating
         {
             Everyone,
             Questionable,
             Mature
         }
-        public async static void Upload(string title, string description, int tag, string dataPath, string lang, Privacy privacy, Rating rating)
-        {
-            Editor item = Steamworks.Ugc.Editor.NewCommunityFile
-                    .WithTitle(title)
-                    .WithDescription(description)
-                    .WithTag(Helper.Helper.genresSteam[tag])
-                    .WithTag(rating.ToString())
-                    .WithContent(dataPath)
-                    .InLanguage(lang)
-                    .WithPreviewFile(dataPath + "/steam.png")
-                    .WithChangeLog("First upload");
 
-            switch (privacy)
+        public async static void Upload(WorkshopData wdata)
+        {
+            Editor item;
+            //if (wdata.id == -1) 
+            //else item = new Editor((ulong)wdata.id);
+
+            item = Steamworks.Ugc.Editor.NewCommunityFile.WithTitle(wdata.title)
+            .WithDescription(wdata.description)
+            .WithTag(wdata.genre)
+            .WithTag(wdata.rating.ToString())
+            .WithContent(wdata.dataPath)
+            .InLanguage(wdata.lang)
+            .WithPreviewFile(wdata.dataPath + "/steam.png")
+            .WithChangeLog("Upload");
+
+            switch (wdata.privacy)
             {
                 case Privacy.Public:
                     item.WithPublicVisibility(); break;
@@ -51,67 +51,51 @@ namespace SajberSim.Steam
                 case Privacy.Private:
                     item.WithPrivateVisibility(); break;
             }
-
             PublishResult result = await item.SubmitAsync(new ProgressClass());
-            UnityEngine.Debug.Log($"Steam: Tried to upload a new workshop item with title {title}, path {dataPath}. \nResult from Steam: {result.Result}");
-            if(result.Success)
+            if (wdata.id == -1)
+                UnityEngine.Debug.Log($"Steam: Tried to upload a new workshop item with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
+            else
+                UnityEngine.Debug.Log($"Steam: Tried to update workshop item {wdata.id} with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
+            if (result.Success)
             {
-                Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, title, result.FileId));
+                wdata.st.Stop();
+                if (wdata.id == -1)
+                    Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds, result.FileId));
+                else
+                    Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds));
                 Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
-                
+
                 Stats.Add(Stats.List.novelspublished);
-                if (privacy == Privacy.Public) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel: \"{title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
+
+                //send the link on discord if it's public
+                if (wdata.privacy == Privacy.Public && wdata.id == -1) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel: \"{wdata.title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
+
+                JsonSerializer serializer = new JsonSerializer();
+                Manifest data = Manifest.Get(wdata.originalPath + "/manifest.json");
+                data.authorid = $"{SteamClient.SteamId}";
+                data.author = SteamClient.Name;
+                data.id = result.FileId.ToString();
+                using (StreamWriter sw = new StreamWriter(wdata.originalPath + "/manifest.json"))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, data);
+                }
             }
             else
             {
                 Helper.Helper.Alert(string.Format(Translate.Get("publishfail"), result.Result));
             }
         }
-        /// <summary>
-        /// Verifies if a folder is ready for upload.
-        /// </summary>
-        /// <param name="dataPath">Path to story folder</param>
-        /// <returns>Whether it's ready or not.</returns>
-        public static bool Verify(string dataPath)
-        {
-            string[] folders = { "Audio", "Backgrounds", "Characters", "Dialogues" };
-            if (!File.Exists($@"{dataPath}/steam.png"))
-            {
-                Helper.Helper.Alert(Translate.Get("picnotfound")); // Thumbnail for steam was not found.
-                return false;
-            }
-            else
-            {
-                FileInfo thumbnail = new FileInfo($@"{dataPath}/steam.png");
-                if (thumbnail.Length > 1000000)
-                {
-                    Helper.Helper.Alert(Translate.Get("pictoolarge")); // Thumbnail for steam was too large.
-                    return false;
-                }
-            }
-            foreach(string folder in folders)
-            {
-                if (!Directory.Exists($"{dataPath}/{folder}"))
-                {
-                    Helper.Helper.Alert(string.Format(Translate.Get("nodirectory"), folder, folder.ToLower())); //Directory not found
-                    return false;
-                }
-                else if(Directory.GetFileSystemEntries($"{dataPath}/{folder}").Length == 0)
-                {
-                    Helper.Helper.Alert(string.Format(Translate.Get("nodirectory"), folder, folder.ToLower())); //Directory empty
-                    return false;
-                }
-            }
-            return true;
-        }
+
         public static bool Download(ulong id)
         {
             return SteamUGC.Download(id);
         }
     }
-    class ProgressClass : IProgress<float>
+
+    public class ProgressClass : IProgress<float>
     {
-        float lastvalue = 0;
+        private float lastvalue = 0;
 
         public void Report(float value)
         {
@@ -119,7 +103,7 @@ namespace SajberSim.Steam
 
             lastvalue = value;
 
-            UnityEngine.Debug.Log(value);
+            Workshop.publishProgress = value;
         }
     }
 }

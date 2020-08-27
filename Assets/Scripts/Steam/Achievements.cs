@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Steamworks;
-using Steamworks.Data;
+﻿using Steamworks.Data;
+using System;
 using UnityEngine;
-using SajberSim.Helper;
 
 namespace SajberSim.Steam
 {
@@ -33,6 +27,7 @@ namespace SajberSim.Steam
             ACHIEVEMENT_imfabina,
             ACHIEVEMENT_20piano
         }
+
         public static void Grant(List achievement)
         {
             if (!Helper.Helper.loggedin) return;
@@ -45,8 +40,8 @@ namespace SajberSim.Steam
             {
                 Debug.LogError($"Steam/Achievements/Grant: Could not grant achievement {achievement.ToString()}.\nError: {e}");
             }
-            
         }
+
         public void GrantName(string name)
         {
             Achievement ach = new Achievement(name);

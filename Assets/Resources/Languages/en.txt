@@ -29,8 +29,9 @@ welcomeuser=Welcome\n<b>{0}</b>!
 goodbyeuser=Goodbye\n<b>{0}</b>!
 offline=Offline
 noconnection=SajberSim could not connect to Steam. Try launching the application from your Steam library or restart your computer.\n\nWhile offline you are still able to play and create visual novels, but you need to be online to publish or play stories from the Workshop.
-publishsuccess=Congratulations {0}, <b>{1}</b> was successfully uploaded to the Steam Workshop!  Your file ID is {2}.\n\nThanks for contributing to the SajberSim community :)
+publishsuccess=Congratulations {0}, <b>{1}</b> was successfully uploaded to the Steam Workshop!  It took {2}ms, and your file ID is {3}.\n\nThanks for contributing to the SajberSim community <3
 publishfail=Something went wrong while publishing your Visual Novel. Try again or contact support if the problem persists.\n\nError message from Steam: {0}
+updatesuccess=Congratulations {0}, <b>{1}</b> was successfully updated on the Steam Workshop! It took {3}ms.
 picnotfound=Could not find a Workshop thumbnail in your novel directory. Make sure it is named "steam.png" with dimmensions 500x500px.
 pictoolarge=Your Workshop thumbnail (steam.png) can not be larger than 1 MB.
 nodirectory=The directory {0} is either empty or does not exist. Make sure to add some {1} in your visual novel!
@@ -141,6 +142,11 @@ agreement=By submitting this visual novel, you agree to the Steam Subscriber Agr
 publishnovel=Publish novel
 steamthumbnail=Steam thumbnail
 nothumbnail=Your visual novel doesn't have a Steam thumbnail! Please add one called steam.png in its directory.
+
+#Publishing errors
+containserrors=It seems like your visual novel contains {0} invalid actions and can therefore not be published. Please run the debugger, or email help@sajber.me for support.
+dirtoolarge=Your visual novel directory is too large. It takes up {0} MB but the limit is 256 MB and can therefore not be published.
+thumbtoolarge=Your Steam thumbnail is too large. It takes up {0} MB but the limit is 1 MB and can therefore not be published.
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=time

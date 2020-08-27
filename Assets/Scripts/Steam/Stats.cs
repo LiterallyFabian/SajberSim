@@ -1,9 +1,5 @@
-﻿using SajberSim.Translation;
-using Steamworks;
+﻿using Steamworks;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 namespace SajberSim.Steam
@@ -18,6 +14,7 @@ namespace SajberSim.Steam
             novelspublished,
             decisionsmade
         }
+
         public static void Add(List stat, int value = 1)
         {
             if (!Helper.Helper.loggedin) return;
@@ -25,25 +22,28 @@ namespace SajberSim.Steam
             {
                 SteamUserStats.AddStat(stat.ToString(), value);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.LogError($"Steam/Stats/Add: Could not modify stat {stat.ToString().ToUpper()}. Error:\n{e}");
             }
         }
+
         public static int GetInt(List stat)
         {
             if (!Helper.Helper.loggedin) return -1;
             return SteamUserStats.GetStatInt(stat.ToString());
         }
+
         public static float GetFloat(List stat)
         {
             if (!Helper.Helper.loggedin) return -1;
             return SteamUserStats.GetStatInt(stat.ToString());
         }
+
         public static void ShowAll()
         {
             if (!Helper.Helper.loggedin) return;
-            foreach(List stat in (List[])Enum.GetValues(typeof(List)))
+            foreach (List stat in (List[])Enum.GetValues(typeof(List)))
             {
                 Debug.Log(string.Format(stat.Name(), GetInt(stat)));
             }

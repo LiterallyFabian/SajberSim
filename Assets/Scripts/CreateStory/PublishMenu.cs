@@ -17,6 +17,7 @@ public class PublishMenu : MonoBehaviour
     private Download dl;
     public GameObject P_NoThumbnailText;
     public Button P_Publish;
+    public PublishNovel NovelPublisher;
     private void Start()
     {
         dl = Download.Init();
@@ -40,45 +41,10 @@ public class PublishMenu : MonoBehaviour
         
         P_Privacy.ClearOptions();
         P_Privacy.AddOptions(Helper.privacysettings.ToList());
-        GetFiles(CreateStory.currentlyEditingPath);
     }
     public void TryPublish()
     {
-        Debug.Log($"PublishMenu/Publish: Started verifying {CreateStory.currentlyEditingPath} for publishing on Steam.");
-
-    }
-    private string CopyNovelToTemp(string path)
-    {
-        string tempDirectory = $"{Application.temporaryCachePath}/sbrupload/{UnityEngine.Random.Range(10000, 99999)}";
-        //Copy all directories from template
-        foreach (string dirPath in Directory.GetDirectories(CreateStory.currentlyEditingPath, "*", SearchOption.AllDirectories))
-            Directory.CreateDirectory(dirPath.Replace(CreateStory.currentlyEditingPath, tempDirectory));
-
-        //Copy all files from template
-        foreach (string newPath in Directory.GetFiles(CreateStory.currentlyEditingPath, "*.*", SearchOption.AllDirectories))
-            File.Copy(newPath, newPath.Replace(CreateStory.currentlyEditingPath, tempDirectory), true);
-
-        return tempDirectory;
-    }
-    private void DeleteUnusedFiles(string path)
-    {
-
-    }
-    public void GetFiles(string path)
-    {
-        string[] extensions = new string[] { ".png", ".txt", ".ogg", ".json" };
-        List<string> allFiles = new List<string>();
-        foreach(string subpath in Directory.GetDirectories(path))
-        {
-            DirectoryInfo di = new DirectoryInfo(subpath);
-            var files = di.GetFiles();
-
-            files.AsParallel().Where(f => !extensions.Contains(f.Extension)).ForAll((f) => allFiles.Add(f.FullName));
-        }
-        DirectoryInfo dir = new DirectoryInfo(path);
-        var files2 = dir.GetFiles();
-
-        files2.AsParallel().Where(f => !extensions.Contains(f.Extension)).ForAll((f) => allFiles.Add(f.FullName));
-        Debug.Log(string.Join("\n", allFiles));
+        P_Publish.interactable = false;
+        NovelPublisher.TryPublish(CreateStory.currentlyEditingPath);
     }
 }

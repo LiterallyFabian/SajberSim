@@ -140,7 +140,7 @@ public class CreateStory : MonoBehaviour
                 currentWindow = CreateWindows.Publish;
                 PublishMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("publishtitle");
-                Description.text = string.Format(Translate.Get("publishdescription"), Translate.Get("edit"));
+                Description.text = string.Format(Translate.Get("publishdescription"), Translate.Get("details"));
                 ButtonPublish.interactable = false;
                 Menu_Publish.FillData();
                 break;
