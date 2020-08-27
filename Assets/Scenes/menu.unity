@@ -1588,12 +1588,12 @@ PrefabInstance:
     - target: {fileID: 4982597408460098431, guid: 180357e3674c98b4a9b1676906a162b5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -30.704
+      value: -30.704002
       objectReference: {fileID: 0}
     - target: {fileID: 4982597408460098431, guid: 180357e3674c98b4a9b1676906a162b5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 20.144
+      value: 20.143997
       objectReference: {fileID: 0}
     - target: {fileID: 4982597408460098431, guid: 180357e3674c98b4a9b1676906a162b5,
         type: 3}
@@ -7094,7 +7094,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.33962262, g: 0.049661797, b: 0.26613277, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -15447,7 +15447,7 @@ PrefabInstance:
     - target: {fileID: 4982597408460098431, guid: 180357e3674c98b4a9b1676906a162b5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -30.7
+      value: -30.699997
       objectReference: {fileID: 0}
     - target: {fileID: 4982597408460098431, guid: 180357e3674c98b4a9b1676906a162b5,
         type: 3}
@@ -20284,7 +20284,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 700}
   m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -20298,7 +20298,7 @@ Canvas:
   m_GameObject: {fileID: 1239242870}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -38158,7 +38158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -52798.18, y: 0.00013806912}
+  m_AnchoredPosition: {x: -60957.914, y: -0.00012954137}
   m_SizeDelta: {x: -14.765015, y: 481.4351}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1728018900
