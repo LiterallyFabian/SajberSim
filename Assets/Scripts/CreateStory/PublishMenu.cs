@@ -1,5 +1,4 @@
-﻿using Packages.Rider.Editor.Util;
-using SajberSim.Helper;
+﻿using SajberSim.Helper;
 using SajberSim.Translation;
 using SajberSim.Web;
 using System;
