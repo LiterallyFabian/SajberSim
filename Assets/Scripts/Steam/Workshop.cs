@@ -6,6 +6,7 @@ using Steamworks.Ugc;
 using System;
 using System.Diagnostics;
 using System.IO;
+using Debug = UnityEngine.Debug;
 
 namespace SajberSim.Steam
 {
@@ -29,12 +30,13 @@ namespace SajberSim.Steam
 
         public async static void Upload(WorkshopData wdata)
         {
+            Debug.Log(wdata.id);
             Editor item;
             if (wdata.id == -1) item = Steamworks.Ugc.Editor.NewCommunityFile;
             else item = new Editor((ulong)wdata.id);
-            
 
-             item.WithTitle(wdata.title)
+
+            item = item.WithTitle(wdata.title)
             .WithDescription(wdata.description)
             .WithTag(wdata.genre)
             .WithTag(wdata.rating.ToString())
@@ -55,9 +57,9 @@ namespace SajberSim.Steam
             }
             PublishResult result = await item.SubmitAsync(new ProgressClass());
             if (wdata.id == -1)
-                UnityEngine.Debug.Log($"Steam: Tried to upload a new workshop item with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
+                Debug.Log($"Steam: Tried to upload a new workshop item with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
             else
-                UnityEngine.Debug.Log($"Steam: Tried to update workshop item {wdata.id} with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
+                Debug.Log($"Steam: Tried to update workshop item {wdata.id} with title {wdata.title}, path {wdata.dataPath}. \nResult from Steam: {result.Result}");
             if (result.Success)
             {
                 wdata.st.Stop();
