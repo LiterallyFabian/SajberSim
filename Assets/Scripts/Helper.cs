@@ -25,9 +25,9 @@ namespace SajberSim.Helper
         public static string[] genres;
         public static string[] privacysettings;
         // genres as how they are in the steamworks backend
-        public static string[] genresSteam = new string[] { "Adventure", "Action", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
+        public static string[] genresSteam = new string[] { "Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
         // genres in manifest
-        public static string[] genresid = new string[] { "adventure", "action", "comedy", "drama", "fantasy", "horror", "magic", "mystery", "romance", "scifi", "sliceoflife", "supernatural", "other" };
+        public static string[] genresid = new string[] { "action", "adventure", "comedy", "drama", "fantasy", "horror", "magic", "mystery", "romance", "scifi", "sliceoflife", "supernatural", "other" };
         public static string[] audience = new string[] { "Everyone", "Questionable", "Mature" };
         public const uint AppID = 1353530;
         public static bool loggedin = false;
