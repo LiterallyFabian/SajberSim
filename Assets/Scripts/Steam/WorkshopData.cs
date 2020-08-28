@@ -15,6 +15,7 @@ namespace SajberSim.Steam
         public string genre;
         public string dataPath;
         public string lang;
+        public string changenotes;
         public Workshop.Privacy privacy;
         public Workshop.Rating rating;
         public Stopwatch st;

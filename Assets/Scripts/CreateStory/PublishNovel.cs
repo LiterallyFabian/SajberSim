@@ -65,19 +65,22 @@ public class PublishNovel : MonoBehaviour
     }
     private void SendPublish(string path, string defaultPath, Stopwatch st)
     {
-        //try
-        //{
+        try
+        {
 
             Manifest data = Manifest.Get(path + "/manifest.json");
-            WorkshopData wdata = new WorkshopData();
-            wdata.title = Menu_Publish.P_Title.text;
-            wdata.description = Menu_Publish.P_Description.text;
-            wdata.lang = Language.Languages[data.language].language_code;
-            wdata.genre = Helper.genresSteam[Array.IndexOf(Helper.genresid, data.genre)];
-            wdata.st = st;
-            wdata.id = Convert.ToInt64(data.id);
-            wdata.originalPath = defaultPath;
-        wdata.dataPath = path;
+            WorkshopData wdata = new WorkshopData
+            {
+                title = Menu_Publish.P_Title.text,
+                description = Menu_Publish.P_Description.text,
+                lang = Language.Languages[data.language].language_code,
+                genre = Helper.genresSteam[Array.IndexOf(Helper.genresid, data.genre)],
+                st = st,
+                id = Convert.ToInt64(data.id),
+                originalPath = defaultPath,
+                changenotes = Menu_Publish.P_Notes.text,
+                dataPath = path
+            };
             switch (data.rating)
             {
                 case "mature": wdata.rating = Workshop.Rating.Mature; break;
@@ -92,11 +95,12 @@ public class PublishNovel : MonoBehaviour
             }
             Debug.Log("Step 3: PASSED. Uploading item generated and sent.");
             Workshop.Upload(wdata);
-        //}
-        //catch(Exception e)
-        //{
-        //    Debug.Log($"Step 3: FAILED. Something went wrong when trying to generate uploading item.\n{e}");
-        //}
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"Step 3: FAILED. Something went wrong when trying to generate uploading item.\n{e}");
+            Helper.Alert(string.Format(Translate.Get("unknownpublisherror"), Translate.Get("helpcontact"), e));
+        }
     }
     private void DeleteUnusedFiles(string path)
     {

@@ -35,15 +35,16 @@ namespace SajberSim.Steam
             if (wdata.id == -1) item = Steamworks.Ugc.Editor.NewCommunityFile;
             else item = new Editor((ulong)wdata.id);
 
+            if (wdata.changenotes == "") wdata.changenotes = "No change notes provided.";
 
             item = item.WithTitle(wdata.title)
             .WithDescription(wdata.description)
             .WithTag(wdata.genre)
-            .WithTag(wdata.rating.ToString())
+            .WithTag("Mature")
             .WithContent(wdata.dataPath)
             .InLanguage(wdata.lang)
             .WithPreviewFile(wdata.dataPath + "/steam.png")
-            .WithChangeLog("Upload");
+            .WithChangeLog(wdata.changenotes);
 
 
             switch (wdata.privacy)
@@ -108,6 +109,7 @@ namespace SajberSim.Steam
             lastvalue = value;
 
             Workshop.publishProgress = value;
+            Debug.Log(value);
         }
     }
 }

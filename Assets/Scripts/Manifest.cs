@@ -29,7 +29,7 @@ public class Manifest
     public string genre = "other";
     public string rating = "everyone";
 
-    //IDs
+    //Steam
     public string author = "Unknown";
     public string authorid = "-1";
     public string id = "0";
@@ -38,6 +38,7 @@ public class Manifest
     public string overlaycolor = "FFFFFF";
     public string textcolor = "323232";
     public bool customname = false;
+
 
 
     public static Manifest Get(string path)
