@@ -21,6 +21,7 @@ public class PublishMenu : MonoBehaviour
     public InputField P_Notes;
     public PublishNovel NovelPublisher;
     public GameObject P_NameNotice;
+    public Texture P_DefaultThumbnail;
     private void Start()
     {
         dl = Download.Init();
@@ -41,6 +42,7 @@ public class PublishMenu : MonoBehaviour
         {
             P_Publish.interactable = false;
             P_NoThumbnailText.SetActive(true);
+            P_Thumbnail.texture = P_DefaultThumbnail;
         }
         if (data.id == "-1")
         {
