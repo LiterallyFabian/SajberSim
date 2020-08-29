@@ -36,6 +36,7 @@ public class CharacterCreation : MonoBehaviour
         dl = Download.Init();
         Cursor.visible = true;
         string path = $@"{CreateStory.currentlyEditingPath}/Backgrounds/";
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         backgroundpaths = Directory.GetFiles(path, "*.png");
         allbacks = backgroundpaths.ToList();
         for (int i = 0; i < allbacks.Count; i++)
@@ -50,6 +51,7 @@ public class CharacterCreation : MonoBehaviour
     public void FillLists()
     {
         string charPath = $@"{CreateStory.currentlyEditingPath}/Characters/";
+        if (!Directory.Exists(charPath)) Directory.CreateDirectory(charPath);
         List<string> charPaths = Directory.GetFiles(charPath, "*.png").ToList();
         foreach (string subpath in Directory.GetDirectories(charPath))
             charPaths.AddRange(Directory.GetFiles(subpath, "*.png"));
@@ -99,6 +101,7 @@ public class CharacterCreation : MonoBehaviour
 
     public void SetBG(int i)
     {
+        if (backgroundpaths.Length == 0) return;
         dl.RawImage(GameObject.Find("BackgroundCanvas/Background"), $"file://{backgroundpaths[i]}");
         GameObject.Find("BackgroundCanvas/Background").GetComponent<RawImage>().color = Color.white;
     }
