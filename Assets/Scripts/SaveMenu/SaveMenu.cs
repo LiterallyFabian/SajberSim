@@ -59,6 +59,7 @@ namespace SajberSim.SaveSystem
         public void UpdateMenu()
         {
             Debug.Log("SaveMenu/Update: Requesting to update save menu...");
+            if (!Directory.Exists(Helper.Helper.savesPath)) Directory.CreateDirectory(Helper.Helper.savesPath);
             string[] paths = Directory.GetFiles(Helper.Helper.savesPath, "*.save");
             nosavesnotice.text = paths.Length == 0 ? Translate.Get("nosavesfound") : "";
             int cardPages = GetPages(paths.Length);
