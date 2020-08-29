@@ -175,7 +175,7 @@ public class StartStory : MonoBehaviour
     }
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, string parent = "Canvas/StoryChoice")
     {
-        if (GameObject.Find($"Canvas/StoryChoice/Card {data.name}")) Destroy(GameObject.Find($"Canvas/StoryChoice/Card {data.name}").gameObject);
+        //if (GameObject.Find($"Canvas/StoryChoice/Card {data.name}")) Destroy(GameObject.Find($"Canvas/StoryChoice/Card {data.name}").gameObject);
 
         //spawn, place and resize
         GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject; 
