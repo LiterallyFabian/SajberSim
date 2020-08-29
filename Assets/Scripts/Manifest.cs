@@ -88,13 +88,8 @@ public class Manifest
                 {
                     try
                     {
-                        data.id = Path.GetFileName(Path.GetDirectoryName(path));
-                        JsonSerializer serializer = new JsonSerializer();
-                        using (StreamWriter sw = new StreamWriter(manifestPath))
-                        using (JsonWriter writer = new JsonTextWriter(sw))
-                        {
-                            serializer.Serialize(writer, data);
-                        }
+                        data.id = Path.GetDirectoryName(path);
+                        Write(manifestPath, data);
                         Debug.Log($"Fixed Steam ID for visual novel at path {manifestPath} successfully.");
                     }
                     catch(Exception e)
@@ -103,6 +98,30 @@ public class Manifest
                     }
                 }
             }
+        }
+    }
+    /// <summary>
+    /// Replace a manifest
+    /// </summary>
+    /// <param name="path">Path to manifest</param>
+    /// <param name="data">Data to replace with</param>
+    /// <returns>Status</returns>
+    public static bool Write(string path, Manifest data)
+    {
+        try
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter sw = new StreamWriter(path))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, data);
+            }
+            return true;
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"Manifest/Write: Could not modify manifest {path}, error: \n{e}");
+            return false;
         }
     }
 }

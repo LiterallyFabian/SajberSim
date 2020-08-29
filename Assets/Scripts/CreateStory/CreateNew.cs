@@ -4,6 +4,7 @@ using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Translation;
 using SajberSim.Web;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -121,7 +122,6 @@ public class CreateNew : MonoBehaviour
     public void SaveDetails()
     {
         bool isNew = false;
-        JsonSerializer serializer = new JsonSerializer();
         try
         {
             string path = "";
@@ -163,17 +163,19 @@ public class CreateNew : MonoBehaviour
             data.rating = Helper.audience[B_inputAudience.value];
             data.language = Language.ListWindowsKeys()[B_inputLanguage.value];
             data.customname = B_inputCustomName.isOn;
+            if (Helper.loggedin)
+            {
+                data.author = SteamClient.Name;
+                data.authorid = SteamClient.SteamId.ToString();
+            }
             if (isNew) data.uploaddate = DateTime.Now;
             data.lastEdit = DateTime.Now;
 
             if (data.rating == "Questionable" || data.rating == "Mature") data.nsfw = true;
             else data.nsfw = false;
 
-            using (StreamWriter sw = new StreamWriter(path))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, data);
-            }
+            Manifest.Write(path, data);
+
             if (isNew) Main.SetWindow(2);
             Stories.pathUpdateNeeded = true;
             StartCoroutine(B_SetStatus(Translate.Get("saved")));

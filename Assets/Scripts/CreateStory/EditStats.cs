@@ -91,12 +91,7 @@ public class EditStats : MonoBehaviour
         data.textcolor = ColorUtility.ToHtmlStringRGB(CardComp.Title.color);
         data.overlaycolor = ColorUtility.ToHtmlStringRGB(CardComp.Overlay.color);
 
-        JsonSerializer serializer = new JsonSerializer();
-        using (StreamWriter sw = new StreamWriter(manifestPath))
-        using (JsonWriter writer = new JsonTextWriter(sw))
-        {
-            serializer.Serialize(writer, data);
-        }
+        Manifest.Write(manifestPath, data);
     }
 
     public void PlayNovel()
