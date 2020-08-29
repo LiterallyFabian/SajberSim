@@ -84,11 +84,11 @@ public class Manifest
             if (File.Exists(manifestPath))
             {
                 Manifest data = Get(manifestPath);
-                if (data.id != Path.GetFileName(Path.GetDirectoryName(path)))
+                if (data.id != Path.GetFileName(Path.GetDirectoryName(manifestPath)))
                 {
                     try
                     {
-                        data.id = Path.GetDirectoryName(path);
+                        data.id = Path.GetFileName(Path.GetDirectoryName(manifestPath));
                         Write(manifestPath, data);
                         Debug.Log($"Fixed Steam ID for visual novel at path {manifestPath} successfully.");
                     }
