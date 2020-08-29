@@ -78,11 +78,10 @@ debugdescription=Here you can find common errors and problems with your novel th
 publishtitle=Publish your novel
 publishdescription=It's time to show the world huh? Let's publish! To change tags and other metadata, click "{0}".
 
-#Creation errors (can stay in english)
+#Creation errors
 helpcontact=Feel free to email help@sajber.me attaching your novel folder for support if the problem persists.
 errordetails=Something went wrong when trying to load your visual novel details. A common cause for this is when editing the manifest manually.\n\n{0}\n\nError: {1}
 errorsavingdetails=Something went wrong when trying to save your visual novel details. A common cause for this is when editing the manifest manually.{0}\n\n{1}
-pathexists=Tried to save the novel in directory 
 
 #Visual novel stats
 totalscripts=Scripts: {0}

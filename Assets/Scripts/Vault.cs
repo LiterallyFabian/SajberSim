@@ -43,7 +43,7 @@ class Vault : MonoBehaviour
         Debug.Log($"Vault: {input.text} wasn't a code, how sad!");
         StartCoroutine(ResetField());
         Lore.color = Colors.NsfwRed;
-        Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 7)}");
+        Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 8)}");
         if (attempts > 30 && Helper.loggedin && UnityEngine.Random.Range(0, 3) == 0) 
         {
             string[] allstories = Manifest.GetAll();

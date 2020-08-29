@@ -30,12 +30,13 @@ welcomeuser=Välkommen\n<b>{0}</b>!
 goodbyeuser=Hejdå\n<b>{0}</b>!
 offline=Offline
 noconnection=SajberSim kunde inte ansluta till Steam. Försök att starta spelet ifrån ditt steam-bibliotek eller starta om datorn.\n\nMedan du är offline kan du fortfarande spela och skapa visuella romaner, men du måste vara online för att publicera eller spela romaner från Steams workshop.
-publishsuccess=Grattis {0}, <b>{1}</b> finns nu uppladdat på Steam! Din romans ID är {2}.\n\nTack för att du har bidragit till SajberSim-communityn :)
+publishsuccess=Grattis {0}, <b>{1}</b> finns nu uppladdat på Steam! Det tog {2}ms, och din romans ID är {2}.\n\nTack för att du har bidragit till SajberSim-communityn :)
 publishfail=Något gick fel när du publicerade din roman. Försök igen eller kontakta support om problemet kvarstår. \n\n Felmeddelande från Steam: {0}
 picnotfound=Det gick inte att hitta en workshop-thumbnail i din nya katalog. Se till att den heter "steam.png" med storleken 500x500px.
 pictoolarge=Din workshop-thumbnail (steam.png) kan inte vara större än 1 MB.
 nodirectory=Mappen {0} är antingen tom eller finns inte. Se till att lägga till några {1} i din visuella roman!
 openedworkshop=Försöker att öppna Steams workshop...\n\nNär du hittar en roman du vill spela, tryck "Subscribe" och kom tillbaka till SajberSim.
+updatesuccess=Grattis {0}, <b>{1}</b> är nu uppdaterad på Steam! Det tog {2}ms. 
 
 #Create a story
 createnew=Ny roman
@@ -69,11 +70,14 @@ audiencesfw=Publik (SFW)
 audiencensfw=Publik (NSFW)
 textcolor=Textfärg
 backcolor=Bakgrundsfärg
+words=Ord
 
 #Creation titles / descriptions
 editstats=Redigera & statistik
 debugtitle=Felsök din roman
 debugdescription=Här kan du hitta vanliga fel och problem med din roman som bör åtgärdas innan du släpper till det globala nätverket.
+publishtitle=Publicera din roman
+publishdescription=Det är dags att visa världen va? Låt oss publicera! Klicka på "{0}" om du vill ändra taggar och andra metadata.
 
 #Creation errors
 helpcontact=Mejla gärna help@sajber.me med din romanmapp bifogad om problemet kvarstår.
@@ -124,6 +128,30 @@ debugitemtemplate=<b>Rad: {0}  -  Handling: {1}</b>\n{2}\n\n
 noerrors=※\(^o^)/※ \nInga fel! Du är redo att publicera!
 refresh=Uppdatera
 opendialogues=Öppna skript
+toomanyerrors=OBS: Romanen innehåller fler fel som inte kunde passa i den här listan. Åtgärda felen ovan och kör felsökaren igen, eller skapa en felsökningslogg för att se dem.
+generatedebuglog=Skapa logg
+
+#Publishing menu
+title=Titel
+descriptionplaceholder=Denna beskrivning kommer att visas i Steams Workshop, och ska göra människor intresserade av din roman. Här kan du också länka teammedlemmar etc.
+privacy_title=Sekretessnivå
+privacy_public=Offentlig
+privacy_friends=Bara vänner
+privacy_private=Privat
+agreement=Genom att publicera den här visuella romanen godkänner du <b><color=#310952>Steam Subscriber Agreement.</color></b>
+publishnovel=Publicera roman
+steamthumbnail=Steam-thumbnail
+nothumbnail=Din visuella roman har ingen Steam-miniatyr! Lägg till en som heter steam.png i dess mapp innan du publicerar.
+changenotes=Ändringar
+changenotesdesc=Detta läggs till i din ändringslogg på Steam.
+changenotedefault=Publicera roman.
+namenotice=Eftersom din visuella roman redan har publicerats kan SajberSim inte ändra namn eller beskrivning. Klicka <b><color=#0645AD>här</color></b> för att ändra det på Steam istället.
+
+#Publishing errors
+containserrors=Det verkar som om din visuella roman innehåller {0} ogiltiga åtgärder och därför inte kan publiceras. Kör felsökaren eller maila help@sajber.me för support.
+dirtoolarge=Din visuella roman är för stor. Det tar upp {0} MB men gränsen är 256 MB och kan därför inte publiceras.
+thumbtoolarge=Din miniatyrbild för Steam är för stor. Det tar upp {0} MB men gränsen är 1 MB och kan därför inte publiceras.
+unknownpublisherror=Något gick fel när vi försökte publicera din visuella roman.\n\n{0}\n\n{1}
 
 #Action arguments, replacing {0} in "invalidfloat" above, eg "The size 5-2 is not a valid float"
 arg_time=Tiden
@@ -242,3 +270,14 @@ clearall=Ta bort alla
 setbackground=Byt bakgrund
 createcharacter=Skapa karaktär
 codeplaceholder=Din kod visas här...
+backtomain=Huvudmenyn
+showingame=Visa förhandsgranskning i spelet
+textboxplaceholder=Hallå! Jag är en textruta som visar hur den här scenen skulle se ut i spelet. Häftigt va?
+
+#Piano minigame
+streak=Nuvarande streak: {0}
+hiscore=Rekord: {0}
+keysleft=Tangenter kvar: {0}
+youlost=Du förlorade!
+tryagain=Försök igen
+pianotitle=Det episka hemliga minnestestet
