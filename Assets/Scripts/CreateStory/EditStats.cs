@@ -88,8 +88,8 @@ public class EditStats : MonoBehaviour
         string manifestPath = CreateStory.currentlyEditingPath + "/manifest.json";
         Manifest data = Manifest.Get(manifestPath);
 
-        data.textcolor = ColorUtility.ToHtmlStringRGB(CardComp.Title.color);
-        data.overlaycolor = ColorUtility.ToHtmlStringRGB(CardComp.Overlay.color);
+        data.textcolor = ColorUtility.ToHtmlStringRGB(E_ColorPickerText.CurrentColor);
+        data.overlaycolor = ColorUtility.ToHtmlStringRGB(E_ColorPickerSplash.CurrentColor);
 
         Manifest.Write(manifestPath, data);
     }
