@@ -367,6 +367,7 @@ namespace SajberSim.Helper
         }
         public static void CopyDirectory(string source, string dest)
         {
+            Directory.CreateDirectory(dest);
             //Copy all directories
             foreach (string dirPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
                 Directory.CreateDirectory(dirPath.Replace(source, dest));

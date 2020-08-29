@@ -67,7 +67,6 @@ public class PublishNovel : MonoBehaviour
     {
         try
         {
-
             Manifest data = Manifest.Get(path + "/manifest.json");
             WorkshopData wdata = new WorkshopData
             {
