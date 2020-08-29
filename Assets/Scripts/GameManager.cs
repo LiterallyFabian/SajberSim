@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
             RunNext();
         }
 
-        else if (line[0] == "T") //textbox
+        else if (line[0] == "T" || line[0] == "T2") //textbox
         {
             dialoguepos++;
             Action_Textbox.Run(line);

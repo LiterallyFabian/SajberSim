@@ -132,7 +132,7 @@ public class NovelDebugger : MonoBehaviour
         if (line[0] == "" || line[0].StartsWith("//")) //blank/comment = ignore
             return NovelDebugInfo.OK();
 
-        else if (line[0] == "T") //textbox
+        else if (line[0] == "T" || line[0] == "T2") //textbox
             return Action_Textbox.Working(line);
 
         else if (line[0] == "ALERT") //general box

@@ -36,6 +36,7 @@ public class Textbox : MonoBehaviour, INovelAction
         bool port = true;
         Debug.Log($"{talker.name} says: {text}");
         if (line.Length == 4) if (line[3] == "false") port = false;
+        if (line[0] == "T2") port = false;
         StartCoroutine(SpawnTextBox(talker, Helper.UwUTranslator(text), port));
     }
 
