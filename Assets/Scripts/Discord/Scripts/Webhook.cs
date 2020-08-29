@@ -9,25 +9,6 @@ using System.Threading.Tasks;
 
 namespace SajberSim.Web
 {
-    /// <summary>
-    /// Sends webhooks to discord for various events. 
-    /// The webhook urls are not included in the github code for security reasons, 
-    /// But you can create your own using Discord or simply cancel these methods
-    /// </summary>
-/*
-class Credentials
-{
-    public static Dictionary<string, string> webhooks = new Dictionary<string, string>()
-    {
-            {"log", "https://discordapp.com/api/webhooks/xxx" },
-            {"support", "https://discordapp.com/api/webhooks/xxx" },
-            {"stats", "https://discordapp.com/api/webhooks/xxx" }
-    };
-    public const string ftp = "ftp://";
-    public const string ftpuser = "";
-    public const string ftppass = "";
-}
-*/
     class Webhook
     {
         private static void Send(string url, string msg, string nameext, string avatar, string msgbase = "")

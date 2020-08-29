@@ -67,4 +67,3 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Assets/Scripts/Discord/Scripts/WebhookUrls.cs
-Assets/Scripts/Credentials.cs
