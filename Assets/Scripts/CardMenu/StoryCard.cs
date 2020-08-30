@@ -114,8 +114,8 @@ public class StoryCard : MonoBehaviour
     public void Edit()
     {
         CreateStory createManager = GameObject.Find("Canvas/CreateMenu").GetComponent<CreateStory>();
-        CreateStory.currentlyEditingName = data.name;
-        CreateStory.currentlyEditingPath = storyPath;
+        CreateStory.editName = data.name;
+        CreateStory.editPath = storyPath;
         createManager.SetWindow(1);
         createManager.ToggleMenu(true);
     }

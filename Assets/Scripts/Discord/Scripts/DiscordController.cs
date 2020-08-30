@@ -91,7 +91,7 @@ public class DiscordController : MonoBehaviour
                 if (StartStory.creatingStory)
                 {
                     presence.details = "Editing a story";
-                    presence.state = "" + CreateStory.currentlyEditingName;
+                    presence.state = "" + CreateStory.editName;
                 }
                 else if (StartStory.storymenuOpen)
                 {
@@ -114,7 +114,7 @@ public class DiscordController : MonoBehaviour
                 break;
             case "characterpos":
                 presence.details = "Setting up characters";
-                presence.state = "Novel: " + CreateStory.currentlyEditingName;
+                presence.state = "Novel: " + CreateStory.editName;
                 break;
             default:
                 presence.details = "Unknown state";

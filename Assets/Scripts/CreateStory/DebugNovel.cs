@@ -18,7 +18,7 @@ public class DebugNovel : MonoBehaviour
     public NovelDebugger Debugger;
     public void UpdateList()
     {
-        Debugger.DebugNovel(CreateStory.currentlyEditingPath);
+        Debugger.DebugNovel(CreateStory.editPath);
         D_scroll.value = 0.999f;
         D_Stats.text =
             $"{string.Format(Translate.Get("scripts"), Debugger.ScriptAmount)}\n" +

@@ -20,13 +20,13 @@ public class EditStats : MonoBehaviour
 
     private void Update()
     {
-        E_ButtonCredits.interactable = File.Exists(Path.Combine(CreateStory.currentlyEditingPath, "credits.txt"));
+        E_ButtonCredits.interactable = File.Exists(Path.Combine(CreateStory.editPath, "credits.txt"));
     }
 
     public void UpdateStats()
     {
-        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
-        Card = Main.storyMenu.CreateCard(CreateStory.currentlyEditingPath, data, new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.editPath, "manifest.json"));
+        Card = Main.storyMenu.CreateCard(CreateStory.editPath, data, new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
         Card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
         Card.name = "Preview card";
         Card.tag = "Untagged";
@@ -41,7 +41,7 @@ public class EditStats : MonoBehaviour
 
         try
         {
-            StoryStats stats = StoryStats.Get(CreateStory.currentlyEditingPath);
+            StoryStats stats = StoryStats.Get(CreateStory.editPath);
             E_Stats.text =
                 //story
                 $"{string.Format(Translate.Get("totalscripts"), stats.scripts)}\n" +
@@ -85,7 +85,7 @@ public class EditStats : MonoBehaviour
     public void SaveColors()
     {
         if (Main.currentWindow != CreateStory.CreateWindows.Edit) return;
-        string manifestPath = Path.Combine(CreateStory.currentlyEditingPath, "manifest.json");
+        string manifestPath = Path.Combine(CreateStory.editPath, "manifest.json");
         Manifest data = Manifest.Get(manifestPath);
 
         data.textcolor = ColorUtility.ToHtmlStringRGB(E_ColorPickerText.CurrentColor);
@@ -103,7 +103,7 @@ public class EditStats : MonoBehaviour
     public void PlayCredits()
     {
         ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-        Credits.storypath = CreateStory.currentlyEditingPath;
+        Credits.storypath = CreateStory.editPath;
         StartCoroutine(main.FadeToScene("credits"));
     }
 }

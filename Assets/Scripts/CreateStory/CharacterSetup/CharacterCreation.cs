@@ -35,7 +35,7 @@ public class CharacterCreation : MonoBehaviour
         Thread.CurrentThread.CurrentCulture = customCulture;
         dl = Download.Init();
         Cursor.visible = true;
-        string path = Path.Combine(CreateStory.currentlyEditingPath, "Backgrounds");
+        string path = Path.Combine(CreateStory.editPath, "Backgrounds");
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         backgroundpaths = Directory.GetFiles(path, "*.png");
         allbacks = backgroundpaths.ToList();
@@ -52,7 +52,7 @@ public class CharacterCreation : MonoBehaviour
 
     public void FillLists()
     {
-        string charPath = Path.Combine(CreateStory.currentlyEditingPath, "Characters");
+        string charPath = Path.Combine(CreateStory.editPath, "Characters");
         if (!Directory.Exists(charPath)) Directory.CreateDirectory(charPath);
         List<string> charPaths = Directory.GetFiles(charPath, "*.png").ToList();
         foreach (string subpath in Directory.GetDirectories(charPath))
@@ -86,7 +86,7 @@ public class CharacterCreation : MonoBehaviour
         GameObject character = new GameObject(name);
         character.gameObject.tag = "character";
         character.AddComponent<SpriteRenderer>();
-        dl.Sprite(character, Path.Combine(CreateStory.currentlyEditingPath, "Characters", name + ".png"));
+        dl.Sprite(character, Path.Combine(CreateStory.editPath, "Characters", name + ".png"));
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
         character.transform.localScale = new Vector3(GameManager.charactersize, GameManager.charactersize, 0.6f);

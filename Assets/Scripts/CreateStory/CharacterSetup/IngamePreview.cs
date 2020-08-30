@@ -37,7 +37,7 @@ public class IngamePreview : MonoBehaviour
     }
     private void UpdateChar()
     {
-        string[] ports = Stories.GetStoryAssetPaths("ports", CreateStory.currentlyEditingPath);
+        string[] ports = Stories.GetStoryAssetPaths("ports", CreateStory.editPath);
         if (ports.Length != 0 && ports != null)
         {
             string port = ports[Random.Range(0, ports.Length)];
@@ -50,13 +50,13 @@ public class IngamePreview : MonoBehaviour
     }
     private void UpdateDesign()
     {
-        Helper.currentStoryPath = CreateStory.currentlyEditingPath;
+        Helper.currentStoryPath = CreateStory.editPath;
         StoryDesign design = StoryDesign.Get();
 
-        if (File.Exists($"{CreateStory.currentlyEditingPath}/textbox.png"))
+        if (File.Exists($"{CreateStory.editPath}/textbox.png"))
         {
-            Debug.Log($"Found textbox at path {CreateStory.currentlyEditingPath}/textbox.png and will try to update...");
-            dl.Image(Textbox, $"{CreateStory.currentlyEditingPath}/textbox.png");
+            Debug.Log($"Found textbox at path {CreateStory.editPath}/textbox.png and will try to update...");
+            dl.Image(Textbox, $"{CreateStory.editPath}/textbox.png");
         }
 
         comment.color = Colors.FromRGB(design.textcolor);
