@@ -160,7 +160,7 @@ public class CreateStory : MonoBehaviour
     }
     public void OpenScripts()
     {
-        string path = currentlyEditingPath + "/Dialogues";
+        string path = Path.Combine(currentlyEditingPath, "Dialogues");
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             Process.Start(path);
     }
