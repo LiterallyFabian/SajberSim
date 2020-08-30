@@ -92,7 +92,7 @@ public class CreateNew : MonoBehaviour
     /// </summary>
     public void SetDetails()
     {
-        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.editPath, "manifest.json"));
         try
         {
             B_inputName.SetTextWithoutNotify(data.name);
@@ -112,7 +112,7 @@ public class CreateNew : MonoBehaviour
         catch (Exception e)
         {
             Helper.Alert(string.Format(Translate.Get("errordetails"), Translate.Get("helpcontact"), e));
-            Debug.LogError($"Something went wrong when trying to set details for story {CreateStory.currentlyEditingPath}: \n{e}");
+            Debug.LogError($"Something went wrong when trying to set details for story {CreateStory.editPath}: \n{e}");
         }
         Type(false);
     }
@@ -125,7 +125,7 @@ public class CreateNew : MonoBehaviour
         try
         {
             string path = "";
-            if (CreateStory.currentlyEditingPath == "NEW") //CREATE NEW
+            if (CreateStory.editPath == "NEW") //CREATE NEW
             {
                 string fixedName = new string(B_inputName.text.Select(ch => invalidFileNameChars.Contains(ch) ? '_' : ch).ToArray());
                 string destPath = Path.Combine(Helper.customPath, fixedName);
@@ -144,14 +144,14 @@ public class CreateNew : MonoBehaviour
                 }
 
 
-                CreateStory.currentlyEditingPath = destPath;
-                CreateStory.currentlyEditingName = B_inputName.text;
+                CreateStory.editPath = destPath;
+                CreateStory.editName = B_inputName.text;
                 isNew = true;
                 Achievements.Grant(Achievements.List.ACHIEVEMENT_create);
                 Stats.Add(Stats.List.novelscreated);
             }
 
-            path = Path.Combine(CreateStory.currentlyEditingPath, "manifest.json");
+            path = Path.Combine(CreateStory.editPath, "manifest.json");
             Manifest data = new Manifest();
             if (File.Exists(path))
                 data = Manifest.Get(path);

@@ -45,10 +45,10 @@ public class StoryCard : MonoBehaviour
     private void CheckOwnerStatus()
     {
         if (data == null) return;
-        myNovel = storyPath.Contains("SajberSim_Data/MyStories") || storyPath.Contains("SajberSim_Data\\MyStories") || (Application.isEditor && storyPath.Contains("MyStories"));
+        myNovel = storyPath.Contains($"SajberSim_Data{Path.DirectorySeparatorChar}MyStories") || (Application.isEditor && storyPath.Contains("MyStories"));
         if (Helper.loggedin)
         {
-            if (data.authorid == $"{SteamClient.SteamId}") myNovel = true;
+            if (data.authorid == SteamClient.SteamId.ToString()) myNovel = true;
         }
     }
     public void SetData(Manifest storyData, string path)
@@ -57,8 +57,8 @@ public class StoryCard : MonoBehaviour
         data = storyData;
         storyPath = path;
         CheckOwnerStatus();
-        if (File.Exists($"{storyPath}/thumbnail.png"))
-            dl.CardThumbnail(Thumbnail, $"{storyPath}/thumbnail.png");
+        if (File.Exists(Path.Combine(storyPath, "thumbnail.png")))
+            dl.CardThumbnail(Thumbnail, Path.Combine(storyPath, "thumbnail.png"));
         else
             Thumbnail.color = Color.white;
 
@@ -114,8 +114,8 @@ public class StoryCard : MonoBehaviour
     public void Edit()
     {
         CreateStory createManager = GameObject.Find("Canvas/CreateMenu").GetComponent<CreateStory>();
-        CreateStory.currentlyEditingName = data.name;
-        CreateStory.currentlyEditingPath = storyPath;
+        CreateStory.editName = data.name;
+        CreateStory.editPath = storyPath;
         createManager.SetWindow(1);
         createManager.ToggleMenu(true);
     }

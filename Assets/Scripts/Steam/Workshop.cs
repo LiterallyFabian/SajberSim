@@ -43,7 +43,7 @@ namespace SajberSim.Steam
             .WithTag("Mature")
             .WithContent(wdata.dataPath)
             .InLanguage(wdata.lang)
-            .WithPreviewFile(wdata.dataPath + "/steam.png")
+            .WithPreviewFile(Path.Combine(wdata.dataPath, "steam.png"))
             .WithChangeLog(wdata.changenotes);
 
 
@@ -75,16 +75,12 @@ namespace SajberSim.Steam
                 //send the link on discord if it's public
                 if (wdata.privacy == Privacy.Public && wdata.id == -1) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel: \"{wdata.title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
 
-                JsonSerializer serializer = new JsonSerializer();
-                Manifest data = Manifest.Get(wdata.originalPath + "/manifest.json");
+                string manifestPath = Path.Combine(wdata.originalPath, "manifest.json");
+                Manifest data = Manifest.Get(manifestPath);
                 data.authorid = $"{SteamClient.SteamId}";
                 data.author = SteamClient.Name;
                 data.id = result.FileId.ToString();
-                using (StreamWriter sw = new StreamWriter(wdata.originalPath + "/manifest.json"))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, data);
-                }
+                Manifest.Write(manifestPath, data);
             }
             else
             {

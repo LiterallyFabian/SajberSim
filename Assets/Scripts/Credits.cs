@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Story;
@@ -42,7 +43,7 @@ public class Credits : MonoBehaviour
         canvas = GameObject.Find("Canvas").transform;
         cam = Camera.main;
         dl = Download.Init();
-        string creditsPath = storypath + "/credits.txt";
+        string creditsPath = Path.Combine(storypath, "credits.txt");
         
         if (!File.Exists(creditsPath))
         {
@@ -59,21 +60,21 @@ public class Credits : MonoBehaviour
         string people = "";
         int lines = 0;
 
-        if(File.Exists($"{storypath}/logo.png")) 
-            dl.Image(Logo, $"{storypath}/logo.png");
+        if(File.Exists(Path.Combine(storypath, "logo.png"))) 
+            dl.Image(Logo, Path.Combine(storypath, "logo.png"));
 
         foreach(string line in creditsraw)
         {
             if (line.ToLower().StartsWith("background|"))
-                dl.Image(Background, $"{storypath}/Backgrounds/{line.ToLower().Replace("background|", "")}.png");
+                dl.Image(Background, Path.Combine(storypath, "Backgrounds", $"{line.ToLower().Replace("background|", "")}.png"));
 
-            else if (line.ToLower().StartsWith("music|") && line.Split('|').Length > 1)
-                dl.Ogg(music, $"{storypath}/Audio/{line.Split('|')[1]}.ogg", true);
+
+            else if (line.ToLower().StartsWith("music|") && line.Split('|').Length > 1)//$"{storypath}/Audio/{line.Split('|')[1]}.ogg"
+                dl.Ogg(music, Path.Combine(storypath, "Audio", line.Split('|')[1] + ".ogg"), true);
 
             else if (line.ToLower().StartsWith("color|"))
             {
-                Color textColor = new Color(0.772549f, 0.3098039f, 0.6470588f, 1); //sajbersim pink
-                ColorUtility.TryParseHtmlString($"#{line.ToLower().Replace("color|", "").Replace("#", "")}", out textColor);
+                Color textColor = Colors.FromRGB($"#{line.ToLower().Replace("color|", "").Replace("#", "")}");
                 People.color = textColor;
                 Message.GetComponent<Text>().color = textColor;
                 Roles.color = Helper.ModifyColor(textColor, 0.8f);

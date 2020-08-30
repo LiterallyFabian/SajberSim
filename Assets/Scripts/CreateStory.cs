@@ -18,8 +18,8 @@ using UnityEngine.UI;
 
 public class CreateStory : MonoBehaviour
 {
-    public static string currentlyEditingPath = "";
-    public static string currentlyEditingName = "";
+    public static string editPath = "";
+    public static string editName = "";
 
     public CreateNew Menu_Create;
     public EditStats Menu_Edit;
@@ -109,22 +109,22 @@ public class CreateStory : MonoBehaviour
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("createnewnovel");
                 Description.text = Translate.Get("createnewdesc");
-                currentlyEditingPath = "NEW";
-                currentlyEditingName = "New novel";
+                editPath = "NEW";
+                editName = "New novel";
                 break;
             case 1: // Story created, fill fields with predefined info
                 currentWindow = CreateWindows.Details;
                 ButtonDetails.interactable = false;
                 BasicsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("details");
-                Description.text = string.Format(Translate.Get("detailsdescription"), currentlyEditingName);
+                Description.text = string.Format(Translate.Get("detailsdescription"), editName);
                 Menu_Create.SetDetails();
                 break;
             case 2: // Edit story 
                 currentWindow = CreateWindows.Edit;
                 EditsMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("editstats");
-                Description.text = string.Format(Translate.Get("editsdescription"), currentlyEditingName);
+                Description.text = string.Format(Translate.Get("editsdescription"), editName);
                 ButtonEdit.interactable = false;
                 Menu_Edit.UpdateStats();
                 break;
@@ -132,7 +132,7 @@ public class CreateStory : MonoBehaviour
                 currentWindow = CreateWindows.Debug;
                 DebugMenu.transform.localScale = Vector3.one;
                 Title.text = Translate.Get("debugtitle");
-                Description.text = string.Format(Translate.Get("debugdescription"), currentlyEditingName);
+                Description.text = string.Format(Translate.Get("debugdescription"), editName);
                 ButtonVerify.interactable = false;
                 Menu_Debug.UpdateList();
                 break;
@@ -150,17 +150,17 @@ public class CreateStory : MonoBehaviour
 
     public void PlayCredits()
     {
-        Credits.storypath = currentlyEditingPath;
+        Credits.storypath = editPath;
         SceneManager.LoadScene("credits");
     }
     public void OpenDirectory()
     {
-        if (Directory.Exists(currentlyEditingPath))
-            Process.Start(currentlyEditingPath);
+        if (Directory.Exists(editPath))
+            Process.Start(editPath);
     }
     public void OpenScripts()
     {
-        string path = currentlyEditingPath + "/Dialogues";
+        string path = Path.Combine(editPath, "Dialogues");
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             Process.Start(path);
     }

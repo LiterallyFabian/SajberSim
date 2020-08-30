@@ -10,6 +10,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -211,13 +212,14 @@ public class ButtonCtrl : MonoBehaviour
 
     public void OpenFolder(string path)
     {
-        if (!Directory.Exists($@"{Application.dataPath}/{path}"))
+        string fullPath = Path.Combine(Application.dataPath, path);
+        if (!Directory.Exists(fullPath))
         {
-            Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {Application.dataPath}/{path}");
+            Debug.LogError($"Tried to open folder with argument \"{path}\" which does not exist (full path: {fullPath})");
             return;
         }
         if (path == "Logs") Helper.CreateLogfile();
-        Process.Start("explorer.exe", $@"{Application.dataPath}/{path}");
+        Process.Start(fullPath);
     }
 
     public void FindAndCloseSettings()
@@ -233,7 +235,18 @@ public class ButtonCtrl : MonoBehaviour
 
     public void OpenLogfile()
     {
-        Process.Start($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\"));
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            Process.Start(Path.Combine("~/.config/unity3d", Application.companyName, Application.productName, "Player.log"));
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            Process.Start("~/Library/Logs/Unity/Player.log");
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            Process.Start($@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/LocalLow/Te18B/SajberSim/Player.log".Replace("/", "\\"));
+        }
     }
 
     /*public void Debug()

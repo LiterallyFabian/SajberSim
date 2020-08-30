@@ -535,8 +535,8 @@ public class GameManager : MonoBehaviour
         if (File.Exists(textboxpath))
         {
             Debug.Log($"Found textbox at path {textboxpath} and will try to update...");
-            dl.Image(textbox, textboxpath);
-            dl.Image(alertbox, textboxpath);
+            dl.Image(textbox, "file://" + textboxpath);
+            dl.Image(alertbox, "file://" + textboxpath);
         }
 
         Color textColor = Colors.FromRGB(design.textcolor);
