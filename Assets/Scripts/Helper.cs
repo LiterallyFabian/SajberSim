@@ -16,6 +16,7 @@ using UnityEngine.UI;
 using System.IO.Compression;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
 namespace SajberSim.Helper
 {
@@ -110,32 +111,31 @@ namespace SajberSim.Helper
             if (!_filledlist)
             {
                 _filledlist = true;
-                genres = new string[] { Translate.Get("action"), 
-                    Translate.Get("adventure"), 
-                    Translate.Get("comedy"), 
-                    Translate.Get("drama"), 
-                    Translate.Get("fantasy"), 
-                    Translate.Get("horror"), 
-                    Translate.Get("magic"), 
-                    Translate.Get("mystery"), 
-                    Translate.Get("romance"), 
-                    Translate.Get("scifi"), 
-                    Translate.Get("sliceoflife"), 
-                    Translate.Get("supernatural"), 
+                genres = new string[] { Translate.Get("action"),
+                    Translate.Get("adventure"),
+                    Translate.Get("comedy"),
+                    Translate.Get("drama"),
+                    Translate.Get("fantasy"),
+                    Translate.Get("horror"),
+                    Translate.Get("magic"),
+                    Translate.Get("mystery"),
+                    Translate.Get("romance"),
+                    Translate.Get("scifi"),
+                    Translate.Get("sliceoflife"),
+                    Translate.Get("supernatural"),
                     Translate.Get("other") };
                 privacysettings = new string[] { Translate.Get("privacy_public"), Translate.Get("privacy_friends"), Translate.Get("privacy_private") };
-                customPath = Application.dataPath + "/MyStories/";
-                localPath = Application.dataPath + "/Story/";
-                savesPath = Application.persistentDataPath + "/Saves/";
-                templatePath = Application.dataPath + "/NovelTemplate";
+                customPath = Path.Combine(Application.dataPath, "MyStories");
+                localPath = Path.Combine(Application.dataPath, "Story");
+                savesPath = Path.Combine(Application.persistentDataPath, "Saves");
+                templatePath = Path.Combine(Application.dataPath, "NovelTemplate");
                 if (loggedin)
-                steamPath = SteamApps.AppInstallDir().Replace(@"common\SajberSim", $@"workshop\content\{AppID}\");
+                    steamPath = SteamApps.AppInstallDir().Replace($@"common{Path.DirectorySeparatorChar}SajberSim", $@"workshop{Path.DirectorySeparatorChar}content{Path.DirectorySeparatorChar}{AppID}");
                 if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
                 Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
-            }
-            
+            } 
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (SceneManager.GetActiveScene().name == "menu")
             {
@@ -200,8 +200,10 @@ namespace SajberSim.Helper
             if (Application.isEditor) return;
             DateTime now = DateTime.Now;
             string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
-            string destFile = $@"{Application.dataPath}/Logs/SajberSim {now:yyyy.MM.dd - HH.mm.ss}.txt".Replace("/", "\\");
-            System.IO.Directory.CreateDirectory($@"{Application.dataPath}\Logs");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) sourceFile = Path.Combine("~/.config/unity3d", Application.companyName, Application.productName, "Player.log";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) sourceFile = "~/Library/Logs/Unity/Player.log";
+            string destFile = Path.Combine(Application.dataPath, "Logs", $"SajberSim {now:yyyy.MM.dd - HH.mm.ss}.txt");
+            System.IO.Directory.CreateDirectory(Path.Combine(Application.dataPath, "Logs"));
             System.IO.File.Copy(sourceFile, destFile, true);
         }
         /// <summary>
@@ -210,7 +212,7 @@ namespace SajberSim.Helper
         /// <param name="path"></param>
         public static void OpenFolderFromGame(string path)
         {
-            string fullpath = $@"{Application.dataPath}/{path}";
+            string fullpath = Path.Combine(Application.dataPath, path);
             if (Directory.Exists(fullpath))
                 System.Diagnostics.Process.Start(fullpath);
             else
