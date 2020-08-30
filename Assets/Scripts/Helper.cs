@@ -200,7 +200,7 @@ namespace SajberSim.Helper
             if (Application.isEditor) return;
             DateTime now = DateTime.Now;
             string sourceFile = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/../LocalLow/LiterallyFabian/SajberSim/Player.log".Replace("/", "\\");
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) sourceFile = Path.Combine("~/.config/unity3d", Application.companyName, Application.productName, "Player.log";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) sourceFile = Path.Combine("~/.config/unity3d", Application.companyName, Application.productName, "Player.log");
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) sourceFile = "~/Library/Logs/Unity/Player.log";
             string destFile = Path.Combine(Application.dataPath, "Logs", $"SajberSim {now:yyyy.MM.dd - HH.mm.ss}.txt");
             System.IO.Directory.CreateDirectory(Path.Combine(Application.dataPath, "Logs"));

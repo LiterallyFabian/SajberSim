@@ -67,10 +67,10 @@ public class Manifest
         List<string> manifestPaths = new List<string>();
         foreach (string story in Stories.GetAllStoryPaths(args, nsfw, searchTerm, where))
         {
-            if (!File.Exists($"{story}/manifest.json"))
-                UnityEngine.Debug.LogWarning($"Manifest/GetAll: Tried getting manifest for {story} which does not exist.");
-            else if (Manifest.Get($"{story}/manifest.json") != null)
-                manifestPaths.Add($"{story}/manifest.json");
+            if (!File.Exists(Path.Combine(story, "manifest.json")))
+                Debug.LogWarning($"Manifest/GetAll: Tried getting manifest for {story} which does not exist.");
+            else if (Get(Path.Combine(story, "manifest.json")) != null)
+                manifestPaths.Add(Path.Combine(story, "manifest.json"));
         }
         return manifestPaths.ToArray();
     }
@@ -80,7 +80,7 @@ public class Manifest
         string[] stories = Stories.GetAllStoryPaths(Helper.StorySearchArgs.Alphabetical, true, "", Helper.StorySearchPaths.Workshop, true);
         foreach (string path in stories)
         {
-            string manifestPath = path + "/manifest.json";
+            string manifestPath = Path.Combine(path, "manifest.json");
             if (File.Exists(manifestPath))
             {
                 Manifest data = Get(manifestPath);
@@ -136,7 +136,7 @@ public class StoryDesign
     public string questiontextcolor = ColorUtility.ToHtmlStringRGB(Colors.UnityGray);
     public static StoryDesign Get()
     {
-        string path = Helper.currentStoryPath + "/design.json";
+        string path = Path.Combine(Helper.currentStoryPath, "design.json");
         if (!File.Exists(path))
         {
             UnityEngine.Debug.LogWarning($"StoryLayout/Get: {Helper.currentStoryPath} does not have a design manifest, continuing with default.");
