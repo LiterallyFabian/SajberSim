@@ -46,16 +46,17 @@ public class DebugNovel : MonoBehaviour
     }
     public void GenerateLog()
     {
+        string debugPath = Path.Combine(Helper.currentStoryPath, "debug.log");
         if (Debugger.ErrorScripts == 0)
-            File.WriteAllText(Helper.currentStoryPath + "/debug.log", Translate.Get("noerrors"));
+            File.WriteAllText(debugPath, Translate.Get("noerrors"));
         else
         {
             string text = Debugger.ErrorList.ToString();
             text.Replace("<b>", "");
             text.Replace("</b>", "");
-            File.WriteAllText(Helper.currentStoryPath + "/debug.log", text);
+            File.WriteAllText(debugPath, text);
         }
             
-        System.Diagnostics.Process.Start(Helper.currentStoryPath + "/debug.log");
+        System.Diagnostics.Process.Start(debugPath);
     }
 }

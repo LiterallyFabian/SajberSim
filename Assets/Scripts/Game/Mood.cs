@@ -36,8 +36,8 @@ public class Mood : MonoBehaviour, INovelAction
         string name = "";
 
         if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
-        else name = line[1];
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return NDI.Done(string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png"));
+        else name = line[1];//$"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png"
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + line[2] + ".png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png")));
 
         //Done
         return NDI;
@@ -57,10 +57,10 @@ public class Mood : MonoBehaviour, INovelAction
         }
         if (found)
         {
-            if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
+            if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
+                Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
             else
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}/{mood}.png");
+                Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
             character.name = $"{name}|{mood}";
         }
         Game.RunNext();

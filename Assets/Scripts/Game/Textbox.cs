@@ -49,9 +49,9 @@ public class Textbox : MonoBehaviour, INovelAction
         if (int.TryParse(line[1], out int x))
             talker = GameManager.people[int.Parse(line[1])];
         else
-            talker = new Person(line[1], "", 0);
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png") && (line.Length == 3))
-            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), $"{GameManager.shortStoryPath}/Characters/{talker.name.ToLower()}port.png"));
+            talker = new Person(line[1], "", 0);//$"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png"
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower() + "port.png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower(), "port.png")) && (line.Length == 3))
+            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), Path.Combine(GameManager.shortStoryPath, "Characters", talker.name.ToLower(), "port.png")));
 
         return NDI;
     }
@@ -62,11 +62,11 @@ public class Textbox : MonoBehaviour, INovelAction
         Game.textbox.SetActive(true);
         if (port && GameManager.currentPortrait != talker.name)
         {
-            string path = $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png";
+            string path = Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower() + "port.png");
             if (File.Exists(path))
-            dl.Image(Game.portrait, path);
+                dl.Image(Game.portrait, path);
             else
-                dl.Image(Game.portrait, $"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}/port.png");
+                dl.Image(Game.portrait, Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower(), "port.png"));
             GameManager.currentPortrait = talker.name;
         }
         nameobj.text = talker.name;

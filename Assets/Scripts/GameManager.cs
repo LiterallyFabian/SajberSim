@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
             people = save.charconfig;
             GameManager.save = null;
         }
-        scriptPath = $"{Helper.currentStoryPath}/Dialogues/{scriptName}.txt";
+        scriptPath = Path.Combine(Helper.currentStoryPath, "Dialogues", scriptName + ".txt");
         if (File.Exists(scriptPath))
             story = File.ReadAllLines(scriptPath);
         else
@@ -341,7 +341,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Helper.Alert(string.Format(Translate.Get("invalidaction"), dialoguepos, scriptName, line[0]));
-            Debug.LogError($"Visual Novel/Runnext: Error at line {dialoguepos} in {Helper.currentStoryPath}/Dialogues/{scriptName}.txt\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
+            Debug.LogError($"Visual Novel/Runnext: Error at line {dialoguepos} in {Path.Combine(Helper.currentStoryPath, "Dialogues", scriptName + ".txt")}\nError: \"{line[0]}\" is not a valid action. Trying to skip...\nText: {string.Join("|", line)}");
             dialoguepos++;
             RunNext();
         }
@@ -454,7 +454,7 @@ public class GameManager : MonoBehaviour
         {
             timeScaleCache = Time.timeScale;
             Time.timeScale = 0;
-            ScreenCapture.CaptureScreenshot(Application.temporaryCachePath + "/lastGame.png");
+            ScreenCapture.CaptureScreenshot(Path.Combine(Application.temporaryCachePath, "lastGame.png"));
         }
         else
         {
@@ -498,7 +498,7 @@ public class GameManager : MonoBehaviour
         fadeimage.GetComponent<Animator>().Play("darken");
         yield return new WaitForSeconds(0.5f);
         if (addStats) Stats.Add(Stats.List.novelsfinished);
-        if (File.Exists(Helper.currentStoryPath + "/credits.txt"))
+        if (File.Exists(Path.Combine(Helper.currentStoryPath, "credits.txt")))
             SceneManager.LoadScene("credits");
         else
             SceneManager.LoadScene("menu");
@@ -531,12 +531,12 @@ public class GameManager : MonoBehaviour
     private void UpdateDesign()
     {
         StoryDesign design = StoryDesign.Get();
-
-        if (File.Exists($"{Helper.currentStoryPath}/textbox.png"))
+        string textboxpath = Path.Combine(Helper.currentStoryPath, "textbox.png");
+        if (File.Exists(textboxpath))
         {
-            Debug.Log($"Found textbox at path {Helper.currentStoryPath}/textbox.png and will try to update...");
-            dl.Image(textbox, $"{Helper.currentStoryPath}/textbox.png");
-            dl.Image(alertbox, $"{Helper.currentStoryPath}/textbox.png");
+            Debug.Log($"Found textbox at path {textboxpath} and will try to update...");
+            dl.Image(textbox, textboxpath);
+            dl.Image(alertbox, textboxpath);
         }
 
         Color textColor = Colors.FromRGB(design.textcolor);
@@ -580,7 +580,7 @@ public class GameManager : MonoBehaviour
             while (!found)
             {
                 id++;
-                if (!File.Exists(Helper.savesPath + $"/{id}.save")) found = true;
+                if (!File.Exists(Path.Combine(Helper.savesPath, id + ".save"))) found = true;
             }
         }
         List<PersonSave> chars = new List<PersonSave>();

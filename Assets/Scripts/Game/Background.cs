@@ -33,8 +33,8 @@ public class Background : MonoBehaviour, INovelAction
         NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
 
         if (line.Length > 3 || line.Length < 2) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "2-3"));
-        if (!File.Exists($"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")) return NDI.Done(string.Format(Translate.Get("missingimage"), $"{GameManager.shortStoryPath}/Backgrounds/{line[1]}.png"));
-
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Backgrounds", line[1] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingimage"), Path.Combine(GameManager.shortStoryPath, "Backgrounds", line[1] + ".png")));
+        //$"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")
         return NDI;
     }
     private IEnumerator SetBackground(string back)
@@ -44,7 +44,7 @@ public class Background : MonoBehaviour, INovelAction
         {
             Game.fadeimage.GetComponent<Animator>().Play("darken");
             yield return new WaitForSeconds(0.5f);
-            Game.dl.RawImage(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.dl.RawImage(Game.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
             Game.RunNext();
             Game.fadeimage.GetComponent<Animator>().Play("Fadein");
             yield return new WaitForSeconds(0.8f);
@@ -52,7 +52,7 @@ public class Background : MonoBehaviour, INovelAction
         }
         else
         {
-            Game.dl.RawImage(Game.background, $"file://{Helper.currentStoryPath}/Backgrounds/{back}.png");
+            Game.dl.RawImage(Game.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
             Game.RunNext();
         }
         GameManager.currentBackground = back;

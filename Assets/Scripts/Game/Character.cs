@@ -44,7 +44,7 @@ public class Character : MonoBehaviour, INovelAction
 
         if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
-        if (!File.Exists($"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png") && !File.Exists($"{Helper.currentStoryPath}/Characters/{name}/{line[2]}.png")) return NDI.Done(string.Format(Translate.Get("missingcharacter"), $"{GameManager.shortStoryPath}/Characters/{name}{line[2]}.png"));
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + line[2]+".png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(GameManager.shortStoryPath, "Characters", name, line[2] + ".png")));
         if (!Helper.IsFloat(line[3])) return NDI.Done(string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]));
         if (!Helper.IsFloat(line[4])) return NDI.Done(string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]));
         if (line.Length == 5) 
@@ -75,10 +75,7 @@ public class Character : MonoBehaviour, INovelAction
             character.name = $"{name}|{mood}";
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
-            if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
-            else
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}/{mood}.png");
+            
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -90,12 +87,11 @@ public class Character : MonoBehaviour, INovelAction
             character.transform.position = new Vector3(x, y, -1f);
             character.transform.localScale = new Vector3(size * (flip ? -1 : 1), size, 0.6f);
 
-            //ändra mood
-            if (File.Exists($"{Helper.currentStoryPath}/Characters/{name}{mood}.png"))
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}{mood}.png");
-            else
-                Game.dl.Sprite(character, $"file://{Helper.currentStoryPath}/Characters/{name}/{mood}.png");
             character.name = $"{name}|{mood}";
         }
+        if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
+            Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
+        else
+            Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
     }
 }

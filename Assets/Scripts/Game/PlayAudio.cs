@@ -31,16 +31,17 @@ public class PlayAudio : MonoBehaviour, INovelAction
 
         string path = $"{Helper.currentStoryPath}/Audio/{line[1]}.ogg";
         if (line.Length != 2) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
-        if (!File.Exists(path)) return NDI.Done(string.Format(Translate.Get("missingaudio"), line[1], $"{GameManager.shortStoryPath}/Audio/{line[1]}.ogg"));
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Audio", line[1] + ".ogg"))) return NDI.Done(string.Format(Translate.Get("missingaudio"), line[1], GameManager.shortStoryPath, "Audio", line[1] + ".ogg"));
 
         return NDI;
     }
     private void Play(string[] line)
     {
+        string audioPath = "file://" + Path.Combine(Helper.currentStoryPath, "Audio", line[1] + ".ogg");
         if (line[0] == "PLAYSFX")
-            Game.dl.Ogg(Game.SFX, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
+            Game.dl.Ogg(Game.SFX, audioPath, true);
         else if(GameManager.currentMusic != line[1])
-            Game.dl.Ogg(Game.music, $"file://{Helper.currentStoryPath}/Audio/{line[1]}.ogg", true);
+            Game.dl.Ogg(Game.music, audioPath, true);
         GameManager.currentMusic = line[1];
     }
 }

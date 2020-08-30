@@ -62,7 +62,7 @@ namespace SajberSim.SaveSystem
         /// </summary>
         public static string[] GetAllPaths()
         {
-            return Directory.GetFiles(Application.dataPath + "/Saves", "*.save");
+            return Directory.GetFiles(Path.Combine(Application.dataPath, "Saves"), "*.save");
         }
 
         public static Save[] GetAll()
@@ -85,14 +85,14 @@ namespace SajberSim.SaveSystem
             try
             {
                 JsonSerializer serializer = new JsonSerializer();
-                using (StreamWriter sw = new StreamWriter(Helper.Helper.savesPath + $"{id}.save"))
+                using (StreamWriter sw = new StreamWriter(Path.Combine(Helper.Helper.savesPath, id + ".save")))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
                     serializer.Serialize(writer, savefile);
                 }
-                string thumbnailPath = Helper.Helper.savesPath + $"{id}.png";
+                string thumbnailPath = Path.Combine(Helper.Helper.savesPath, id + ".png");
                 if (File.Exists(thumbnailPath)) File.Delete(thumbnailPath);
-                File.Copy(Application.temporaryCachePath + "/lastGame.png", thumbnailPath);
+                File.Copy(Path.Combine(Application.temporaryCachePath, "lastGame.png"), thumbnailPath);
                 Debug.Log($"Saves/Create: Game saved successfully with ID {id}.");
                 if (isNew) GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().UpdateMenu();
             }
