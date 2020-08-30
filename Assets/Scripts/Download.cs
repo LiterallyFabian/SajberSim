@@ -98,6 +98,7 @@ namespace SajberSim.Web
         }
         public void CardThumbnail(RawImage item, string path)
         {
+            if (!path.Contains("https://") && !path.Contains("file://")) path = "file://" + path;
             StartCoroutine(UpdateAndSetAlpha(item, path));
         }
         public void Image(GameObject item, string path)
