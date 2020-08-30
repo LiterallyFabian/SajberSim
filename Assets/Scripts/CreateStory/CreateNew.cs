@@ -92,7 +92,7 @@ public class CreateNew : MonoBehaviour
     /// </summary>
     public void SetDetails()
     {
-        Manifest data = Manifest.Get(CreateStory.currentlyEditingPath + "/manifest.json");
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
         try
         {
             B_inputName.SetTextWithoutNotify(data.name);
@@ -128,7 +128,7 @@ public class CreateNew : MonoBehaviour
             if (CreateStory.currentlyEditingPath == "NEW") //CREATE NEW
             {
                 string fixedName = new string(B_inputName.text.Select(ch => invalidFileNameChars.Contains(ch) ? '_' : ch).ToArray());
-                string destPath = $"{Helper.customPath}/{fixedName}";
+                string destPath = Path.Combine(Helper.customPath, fixedName);
                 if (Directory.Exists(destPath)) destPath += "_" + UnityEngine.Random.Range(1000, 9999);
 
                 //NO template
@@ -151,7 +151,7 @@ public class CreateNew : MonoBehaviour
                 Stats.Add(Stats.List.novelscreated);
             }
 
-            path = CreateStory.currentlyEditingPath + "/manifest.json";
+            path = Path.Combine(CreateStory.currentlyEditingPath, "manifest.json");
             Manifest data = new Manifest();
             if (File.Exists(path))
                 data = Manifest.Get(path);

@@ -22,7 +22,7 @@ public class PublishNovel : MonoBehaviour
         Stopwatch st = new Stopwatch();
         st.Start();
         Debug.Log($"PublishNovel/Publish: Started verifying {novelPath} for publishing on Steam.");
-        string tempPath = $"{Application.temporaryCachePath}/upload/{UnityEngine.Random.Range(100000, 999999)}";
+        string tempPath = Path.Combine(Application.temporaryCachePath, "upload", UnityEngine.Random.Range(100000, 999999).ToString());
         Helper.CopyDirectory(novelPath, tempPath);
         DeleteUnusedFiles(tempPath);
         Debug.Log("Step 1: STARTED. Running debugger.");
@@ -40,7 +40,7 @@ public class PublishNovel : MonoBehaviour
         Debug.Log("Step 2: STARTED. Checking file size.");
         long filesize = Helper.DirSize(new DirectoryInfo(tempPath));
         double size = Math.Round(Helper.BytesTo(filesize, Helper.DataSize.Megabyte), 1);
-        long thumbnailsize = new FileInfo(tempPath + "/steam.png").Length;
+        long thumbnailsize = new FileInfo(Path.Combine(tempPath, "steam.png")).Length;
         if (filesize > 256000000)
         {
             Helper.Alert(string.Format(Translate.Get("dirtoolarge"), size));
@@ -67,7 +67,7 @@ public class PublishNovel : MonoBehaviour
     {
         try
         {
-            Manifest data = Manifest.Get(path + "/manifest.json");
+            Manifest data = Manifest.Get(Path.Combine(path, "manifest.json"));
             WorkshopData wdata = new WorkshopData
             {
                 title = Menu_Publish.P_Title.text,

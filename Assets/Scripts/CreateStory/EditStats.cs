@@ -20,12 +20,12 @@ public class EditStats : MonoBehaviour
 
     private void Update()
     {
-        E_ButtonCredits.interactable = File.Exists(CreateStory.currentlyEditingPath + "/credits.txt");
+        E_ButtonCredits.interactable = File.Exists(Path.Combine(CreateStory.currentlyEditingPath, "credits.txt"));
     }
 
     public void UpdateStats()
     {
-        Manifest data = Manifest.Get(CreateStory.currentlyEditingPath + "/manifest.json");
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
         Card = Main.storyMenu.CreateCard(CreateStory.currentlyEditingPath, data, new Vector3(680.6f, -45.3f, 0), "Canvas/CreateMenu/EditMenu");
         Card.transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
         Card.name = "Preview card";
@@ -85,7 +85,7 @@ public class EditStats : MonoBehaviour
     public void SaveColors()
     {
         if (Main.currentWindow != CreateStory.CreateWindows.Edit) return;
-        string manifestPath = CreateStory.currentlyEditingPath + "/manifest.json";
+        string manifestPath = Path.Combine(CreateStory.currentlyEditingPath, "manifest.json");
         Manifest data = Manifest.Get(manifestPath);
 
         data.textcolor = ColorUtility.ToHtmlStringRGB(E_ColorPickerText.CurrentColor);

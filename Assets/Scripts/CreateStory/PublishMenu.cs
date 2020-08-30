@@ -29,12 +29,12 @@ public class PublishMenu : MonoBehaviour
     }
     public void FillData()
     {
-        Manifest data = Manifest.Get($"{CreateStory.currentlyEditingPath}/manifest.json");
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
         P_Title.text = CreateStory.currentlyEditingName;
         P_Description.text = data.description;
-        if (File.Exists($"{CreateStory.currentlyEditingPath}/steam.png"))
+        if (File.Exists(Path.Combine(CreateStory.currentlyEditingPath, "steam.png")))
         {
-            dl.CardThumbnail(P_Thumbnail, $"{CreateStory.currentlyEditingPath}/steam.png");
+            dl.CardThumbnail(P_Thumbnail, Path.Combine(CreateStory.currentlyEditingPath, "steam.png"));
             P_Publish.interactable = true;
             P_NoThumbnailText.SetActive(false);
         }
@@ -68,7 +68,7 @@ public class PublishMenu : MonoBehaviour
     }
     public void OpenURLPage()
     {
-        Manifest data = Manifest.Get($"{CreateStory.currentlyEditingPath}/manifest.json");
+        Manifest data = Manifest.Get(Path.Combine(CreateStory.currentlyEditingPath, "manifest.json"));
         System.Diagnostics.Process.Start($"steam://openurl/https://steamcommunity.com/sharedfiles/itemedittext/?id={data.id}");
     }
 }

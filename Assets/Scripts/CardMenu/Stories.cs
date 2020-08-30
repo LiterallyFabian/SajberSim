@@ -90,9 +90,9 @@ namespace SajberSim.CardMenu
             //Add everything to a list
             foreach (string path in storyPaths)
             {
-                if (File.Exists($"{path}/manifest.json"))
+                if (File.Exists(Path.Combine(path, "manifest.json")))
                 {
-                    Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                    Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
                     StoryStats storystats = StoryStats.Get(path);
                     if (storydata != null)
                     {
@@ -130,7 +130,7 @@ namespace SajberSim.CardMenu
         {
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
                 if (storydata.nsfw && remove) storyPaths.Remove(path);
                 else if (!storydata.nsfw && !remove) storyPaths.Remove(path);
             }
@@ -142,7 +142,7 @@ namespace SajberSim.CardMenu
             if (searchTerm == "nsfw") return FilterNSFWFromCardPaths(storyPaths, false);
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
 
                 if (!storydata.name.ToLower().Contains(searchTerm) && !storydata.tags.Contains(searchTerm) && !storydata.description.ToLower().Contains(searchTerm) && !storydata.author.ToLower().Contains(searchTerm) && !storydata.genre.ToLower().Contains(searchTerm))
                     storyPaths.Remove(path);
@@ -156,7 +156,7 @@ namespace SajberSim.CardMenu
         {
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = Manifest.Get($"{path}/manifest.json");
+                Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
                 if (storydata != null)
                 {
                     if (storydata.author != SteamClient.Name && storydata.authorid != $"{SteamClient.SteamId}" && !path.Contains("MyStories")) storyPaths.Remove(path);
@@ -240,7 +240,7 @@ namespace SajberSim.CardMenu
             {
                 if (folder == "main") folder = "backgrounds";
                 if (folder == "ports") folder = "characters";
-                string path = $"{story}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
+                string path = Path.Combine(story, folder.FirstCharToUpper());
                 if (Directory.Exists(path))
                 {
                     foreach (string subpath in Directory.GetDirectories(path))
@@ -273,7 +273,7 @@ namespace SajberSim.CardMenu
                     break;
             }
             if (folder == "ports") folder = "characters";
-            path = $"{path}/{Char.ToUpper(folder[0]) + folder.Remove(0, 1)}";
+            path = Path.Combine(path, folder.FirstCharToUpper());
             if (Directory.Exists(path))
                 foreach (string subpath in Directory.GetDirectories(path))
                     assetPaths.AddRange(Directory.GetFiles(subpath, extension));
@@ -350,10 +350,10 @@ namespace SajberSim.CardMenu
             stats.backgrounds = Stories.GetStoryAssetPaths("backgrounds", path).Length;
             stats.charactersprites = Stories.GetStoryAssetPaths("characters", path).Length;
             stats.wordsK = FormatNumber(stats.words);
-            if (File.Exists(path + "/credits.txt"))
+            if (File.Exists(Path.Combine(path, "credits.txt")))
             {
                 stats.hascredits = true;
-                foreach (string line in File.ReadAllLines(path + "/credits.txt"))
+                foreach (string line in File.ReadAllLines(Path.Combine(path, "credits.txt")))
                 {
                     if (!line.Contains('|') && !line.StartsWith("-") && line != "") stats.participants++;
                 }
