@@ -35,13 +35,15 @@ public class CharacterCreation : MonoBehaviour
         Thread.CurrentThread.CurrentCulture = customCulture;
         dl = Download.Init();
         Cursor.visible = true;
-        string path = $@"{CreateStory.currentlyEditingPath}/Backgrounds/";
+        string path = Path.Combine(CreateStory.currentlyEditingPath, "Backgrounds");
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         backgroundpaths = Directory.GetFiles(path, "*.png");
         allbacks = backgroundpaths.ToList();
         for (int i = 0; i < allbacks.Count; i++)
         {
-            allbacks[i] = allbacks[i].Replace(path, "").Replace(".png", "");
+            allbacks[i] = allbacks[i].Replace(path, "")
+                .Trim(Path.DirectorySeparatorChar)
+                .Replace(".png", "");
         }
         DDsetback.AddOptions(allbacks);
         FillLists();
@@ -50,14 +52,16 @@ public class CharacterCreation : MonoBehaviour
 
     public void FillLists()
     {
-        string charPath = $@"{CreateStory.currentlyEditingPath}/Characters/";
+        string charPath = Path.Combine(CreateStory.currentlyEditingPath, "Characters");
         if (!Directory.Exists(charPath)) Directory.CreateDirectory(charPath);
         List<string> charPaths = Directory.GetFiles(charPath, "*.png").ToList();
         foreach (string subpath in Directory.GetDirectories(charPath))
             charPaths.AddRange(Directory.GetFiles(subpath, "*.png"));
         for (int i = 0; i < charPaths.Count; i++)
         {
-            allchars.Add(charPaths[i].Replace(charPath, "").Replace("\\", "/").Replace(".png", ""));
+            allchars.Add(charPaths[i].Replace(charPath, "")
+                .Trim(Path.DirectorySeparatorChar)
+                .Replace(".png", ""));
         }
         allchars = allchars.Except(allspawned).ToList(); //remove already spawned characters
         allchars.RemoveAll(u => u.EndsWith("port"));
@@ -82,8 +86,7 @@ public class CharacterCreation : MonoBehaviour
         GameObject character = new GameObject(name);
         character.gameObject.tag = "character";
         character.AddComponent<SpriteRenderer>();
-        dl.Sprite(character, $"{CreateStory.currentlyEditingPath}/Characters/{name}.png");
-
+        dl.Sprite(character, Path.Combine(CreateStory.currentlyEditingPath, "Characters", name + ".png"));
         //sätt size + pos
         character.transform.position = new Vector3(0, 0, -1f);
         character.transform.localScale = new Vector3(GameManager.charactersize, GameManager.charactersize, 0.6f);

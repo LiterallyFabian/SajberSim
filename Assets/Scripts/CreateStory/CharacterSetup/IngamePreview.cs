@@ -42,9 +42,8 @@ public class IngamePreview : MonoBehaviour
         {
             string port = ports[Random.Range(0, ports.Length)];
             dl.Image(Portrait, port);
-
             string name = Path.GetFileName(port).Replace("port.png", "");
-            if (port.Contains("\\port.png")) name = Path.GetFileName(Path.GetDirectoryName(port));
+            if (Path.GetFileName(port) == "port.png") name = Path.GetFileName(Path.GetDirectoryName(port));
             
             PortName.text = name.FirstCharToUpper();
         }
