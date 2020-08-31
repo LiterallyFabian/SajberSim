@@ -158,9 +158,9 @@ public class GameManager : MonoBehaviour
         usernameEntered = false;
         username = "Player";
         backgroundHasChanged = false;
-        currentBackground = null;
+        currentBackground = "";
         currentPortrait = "";
-        currentMusic = null;
+        currentMusic = "";
         paused = false;
         dialoguepos = 0;
         ready = true;
@@ -177,8 +177,8 @@ public class GameManager : MonoBehaviour
             Debug.Log($"GameManager/StartGame: Trying to load savefile {save.novelname}");
             scriptName = save.script;
             dialoguepos = save.line;
-            Action_PlayAudio.Run($"PLAYMUSIC|{save.music}".Split('|'));
-            Action_Background.Run($"BACKGROUND|{save.background}|true".Split('|'));
+            if(save.music != "") Action_PlayAudio.Run($"PLAYMUSIC|{save.music}".Split('|'));
+            if(save.background != "") Action_Background.Run($"BACKGROUND|{save.background}|true".Split('|'));
             foreach (PersonSave person in save.characters)
                 Action_Character.Run($"CHAR|{person.name}|{person.mood}|{person.x}|{person.y}|{person.size}|{person.flipped}".Split('|'));
             ready = true;

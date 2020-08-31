@@ -32,7 +32,7 @@ public class StopAudio : MonoBehaviour, INovelAction
         if (source == "MUSIC")
         {
             Game.music.GetComponent<AudioSource>().Stop();
-            GameManager.currentMusic = null;
+            GameManager.currentMusic = "";
         }
 
         else if (source == "SFX")
@@ -42,7 +42,7 @@ public class StopAudio : MonoBehaviour, INovelAction
         {
             Game.music.GetComponent<AudioSource>().Stop();
             Game.SFX.GetComponent<AudioSource>().Stop();
-            GameManager.currentMusic = null;
+            GameManager.currentMusic = "";
         }
     }
 }
