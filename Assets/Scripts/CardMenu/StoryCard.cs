@@ -109,7 +109,8 @@ public class StoryCard : MonoBehaviour
         details.transform.localPosition = new Vector3(0, 0, 1);
         details.name = $"Details card for {data.name}";
         details.GetComponent<DetailsCard>().card = this;
-        details.GetComponent<DetailsCard>().UpdateDetails(data, Thumbnail);
+        details.GetComponent<DetailsCard>().data = data;
+        details.GetComponent<DetailsCard>().UpdateDetails(Thumbnail);
     }
     public void Edit()
     {

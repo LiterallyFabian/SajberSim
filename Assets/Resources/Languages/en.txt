@@ -23,6 +23,8 @@ send=Send
 debug=Debug
 close=Close
 help=Help
+gotit=Got it
+delete=Delete
 
 #Steam
 welcomeuser=Welcome\n<b>{0}</b>!
@@ -68,7 +70,9 @@ audiencensfw=Audience (NSFW)
 textcolor=Text color
 words=Words
 backcolor=Background color
-
+deletenovel=Are you sure you want to delete "{0}"? This can not be undone and you will not be able to retrieve the novel unless you have it backed up.
+deletingnovel=Visual novel "{0}" will be deleted in 60 seconds. Close game to cancel.
+ 
 #Creation titles / descriptions
 detailsdescription=Here you can see and edit the basic details for {0}. The name and description does not have to be the same as on Steam.
 editstats=Edit & statistics
@@ -260,7 +264,6 @@ novelsfinished=Novels finished: {0}
 novelscreated=Novels created: {0}
 novelspublished=Novels published: {0}
 decisionsmade=Decisions made: {0}
-
 
 #Character positioning
 createchar=Create character...

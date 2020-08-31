@@ -25,12 +25,13 @@ public class DetailsCard : MonoBehaviour
     public Button Edit;
     public Download dl;
     public StoryCard card;
+    public Manifest data;
 
     void Start()
     {
         
     }
-    public void UpdateDetails(Manifest data, RawImage back)
+    public void UpdateDetails(RawImage back)
     {
         Edit.interactable = card.myNovel;
         Background.texture = back.texture;
@@ -64,5 +65,13 @@ public class DetailsCard : MonoBehaviour
     {
         GoBack();
         card.Edit();
+    }
+    public void SendDeleteRequest()
+    {
+        GameObject box = Instantiate(Resources.Load($"Prefabs/DeleteBox", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
+        box.transform.localPosition = Vector3.zero;
+        DeleteNovel dn = box.GetComponent<DeleteNovel>();
+        dn.path = card.storyPath;
+        dn.data = data;
     }
 }
