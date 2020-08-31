@@ -223,8 +223,6 @@ public class GameManager : MonoBehaviour
             if (textdone && ready)
             {
                 ClearText();
-                textbox.SetActive(false);
-                alertbox.SetActive(false);
                 RunNext();
             }
             else textdone = true;
@@ -257,6 +255,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("devmenu", 0) == 0 || forceopen)
         {
+            fadeimage.SetActive(false);
             PlayerPrefs.SetInt("devmenu", 1);
             GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
         }
@@ -391,6 +390,9 @@ public class GameManager : MonoBehaviour
     }
     private void ClearText()
     {
+        textbox.SetActive(false);
+        alertbox.SetActive(false);
+        questionbox.SetActive(false);
         commentPort.text = "";
         comment.text = "";
         nametag.text = "";
@@ -449,6 +451,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator Pause(bool n)
     {
+        fadeimage.SetActive(false);
         paused = n;
         if (n)
         {
@@ -515,6 +518,13 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+    public void SetStoryFromDev(string story)
+    {
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Dialogues", story + ".txt"))) return;
+        Action_StopAudio.Run("STOPSOUNDS".Split('|'));
+        Action_LoadScript.Run($"LOADSCRIPT|{story}".Split('|'));
+        RemoveCharacters();
     }
     public void SetName()
     {
