@@ -80,50 +80,57 @@ public class DiscordController : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         presence.largeImageText = Helper.UsernameCache();
+        presence.largeImageKey = "rpc_logo_2";
     }
 
     void Update()
     {
+        string details;
+        string state;
         switch (SceneManager.GetActiveScene().name)
         {
             case "menu":
 
                 if (StartStory.creatingStory)
                 {
-                    presence.details = "Editing a story";
-                    presence.state = "" + CreateStory.editName;
+                    details = "Editing a story";
+                    state = "" + CreateStory.editName;
                 }
                 else if (StartStory.storymenuOpen)
                 {
-                    presence.details = "Looking for a story";
-                    presence.state = "";
+                    details = "Looking for a story";
+                    state = "";
                 }
                 else
                 {
-                    presence.details = "In the main menu";
-                    presence.state = "";
+                    details = "In the main menu";
+                    state = "";
                 }
                 break;
             case "game":
-                presence.details = $"Playing \"{GameManager.storyName}\"";
-                presence.state = $"Published by {GameManager.storyAuthor}";
+                details = $"Playing \"{GameManager.storyName}\"";
+                state = $"Published by {GameManager.storyAuthor}";
                 break;
             case "credits":
-                presence.details = "Watching credits";
-                presence.state = $"\"{GameManager.storyName}\" by {GameManager.storyAuthor}";
+                details = "Watching credits";
+                state = $"\"{GameManager.storyName}\" by {GameManager.storyAuthor}";
                 break;
             case "characterpos":
-                presence.details = "Setting up characters";
-                presence.state = "Novel: " + CreateStory.editName;
+                details = "Setting up characters";
+                state = "Novel: " + CreateStory.editName;
                 break;
             default:
-                presence.details = "Unknown state";
-                presence.state = "";
+                details = "Unknown state";
+                state = "";
                 break;
         }
-        presence.largeImageKey = "rpc_logo_2";
-        DiscordRpc.UpdatePresence(presence);
-        DiscordRpc.RunCallbacks();
+        if (presence.details != details || presence.state != state)
+        {
+            presence.details = details;
+            presence.state = state;
+            DiscordRpc.UpdatePresence(presence);
+            DiscordRpc.RunCallbacks();
+        }
     }
 
     void OnEnable()
