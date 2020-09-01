@@ -18,7 +18,7 @@ public class Background : MonoBehaviour, INovelAction
         if (debugdata.Code == NovelDebugInfo.Status.Error)
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
-            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "BG|name|(clearcharacters)"));
+            Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "BACKGROUND|name|(clearcharacters)"));
             Game.RunNext();
             return;
         }
