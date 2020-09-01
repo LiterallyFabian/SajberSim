@@ -121,7 +121,7 @@ public class CharacterCreation : MonoBehaviour
 
             bool flipped = character.transform.localScale.x < 0;
 
-            codetext += $"CHAR|{namemood}|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|{Math.Round(character.transform.localScale.y / GameManager.charactersize, 2)}|{flipped}\n";
+            codetext += $"CHAR|{namemood}|{Math.Round(character.transform.position.x, 1)}|{Math.Round(character.transform.position.y, 1)}|{Math.Round(character.transform.localScale.y / GameManager.charactersize, 2)}|{flipped.ToString().ToLower()}\n";
         }
         code.text = codetext;
     }
