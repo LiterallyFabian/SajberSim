@@ -1,4 +1,2 @@
-Mellie,Mellie
-Batrik,Byttez
-Alfredo,Affie
-Sam,Sammy
+Fabina,Fabi
+Alfredo,Alfred

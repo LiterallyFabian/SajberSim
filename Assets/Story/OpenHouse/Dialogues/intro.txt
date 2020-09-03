@@ -1,1 +1,0 @@
-QUESTION|Tills dess att spelet blir klart kan du få lite information om Teknik: Info- och medieteknik, annars får du nog bäst hjälp i samtalen med våra ambassadörer! :)|Info & media|te_info_start|Avsluta|quit
