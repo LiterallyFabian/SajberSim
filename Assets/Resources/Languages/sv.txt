@@ -6,7 +6,7 @@ settings=Inställningar
 create=Skapa
 mynovels=Mina romaner
 quit=Avsluta
-close=Close
+close=Stäng
 credits=Medverkande
 novels=Romaner
 yes=Ja
@@ -74,7 +74,7 @@ textcolor=Textfärg
 backcolor=Bakgrundsfärg
 words=Ord
 deletenovel=Är du säker på att du vill ta bort "{0}"? Detta kan inte ångras och du kommer inte att kunna få tillbaka romanen om du inte har säkerhetskopierat den.
-deletingnovel=Visuella romanen "{0}" raderas om 60 sekunder. Stäng spelet för att avbryta.
+deletingnovel=Visuella romanen "{0}" kommer raderas om 60 sekunder. Stäng spelet för att avbryta.
 
 #Creation titles / descriptions
 editstats=Redigera & statistik
