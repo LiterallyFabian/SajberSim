@@ -21,11 +21,12 @@ public class Background : MonoBehaviour, INovelAction
             GameManager.Instance.RunNext();
             return;
         }
-        if (GameManager.currentBackground == line[1])
+        bool clear = false;
+        if (line.Length > 2) clear = line[2].ToLower() == "true";
+                if (GameManager.currentBackground == line[1])
             GameManager.Instance.RunNext();
         else
-            StartCoroutine(SetBackground(line[1]));
-        if (line.Length > 2) if (line[2] == "true") GameManager.RemoveCharacters();
+            StartCoroutine(SetBackground(line[1], clear));
     }
     public NovelDebugInfo Working(string[] line)
     {
@@ -36,7 +37,7 @@ public class Background : MonoBehaviour, INovelAction
         //$"{Helper.currentStoryPath}/Backgrounds/{line[1]}.png")
         return NDI;
     }
-    private IEnumerator SetBackground(string back)
+    private IEnumerator SetBackground(string back, bool clearCharacters)
     {
         GameManager.Instance.fadeimage.SetActive(true);
         if (GameManager.backgroundHasChanged)
@@ -44,6 +45,7 @@ public class Background : MonoBehaviour, INovelAction
             GameManager.Instance.fadeimage.GetComponent<Animator>().Play("darken");
             yield return new WaitForSeconds(0.5f);
             GameManager.Instance.dl.RawImage(GameManager.Instance.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
+            GameManager.RemoveCharacters();
             GameManager.Instance.RunNext();
             GameManager.Instance.fadeimage.GetComponent<Animator>().Play("Fadein");
             yield return new WaitForSeconds(0.8f);
