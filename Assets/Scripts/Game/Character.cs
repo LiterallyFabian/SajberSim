@@ -47,7 +47,7 @@ public class Character : MonoBehaviour, INovelAction
         int customCharacters = 0;
         string configPath = Path.Combine(Helper.currentStoryPath, "Characters", "characterconfig.txt");
         if (File.Exists(configPath)) customCharacters = File.ReadAllLines(configPath).Length;
-        if (Helper.IsNum(line[1])) if (int.Parse(line[1]) > customCharacters) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], customCharacters, Path.Combine("Characters", "characterconfig.txt")));
+        if (Helper.IsNum(line[1])) if (int.Parse(line[1]) >= customCharacters) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], customCharacters, Path.Combine("Characters", "characterconfig.txt")));
         if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
         else name = line[1];
 

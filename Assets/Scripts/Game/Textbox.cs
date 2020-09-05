@@ -44,14 +44,20 @@ public class Textbox : MonoBehaviour, INovelAction
     {
         NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
 
+        ///Check length
         if (line.Length > 4 || line.Length < 3) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4")); //Incorrect length, found LENGTH arguments but the action expects 3-4.
-        Person talker;
-        if (int.TryParse(line[1], out int x))
-            talker = GameManager.people[int.Parse(line[1])];
-        else
-            talker = new Person(line[1], "", 0);//$"{Helper.currentStoryPath}/Characters/{talker.name.ToLower()}port.png"
-        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower() + "port.png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower(), "port.png")) && (line.Length == 3))
-            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), Path.Combine(GameManager.shortStoryPath, "Characters", talker.name.ToLower(), "port.png")));
+
+        ///Check character config & assign name
+        string name;
+        int customCharacters = 0;
+        string configPath = Path.Combine(Helper.currentStoryPath, "Characters", "characterconfig.txt");
+        if (File.Exists(configPath)) customCharacters = File.ReadAllLines(configPath).Length;
+        if (Helper.IsNum(line[1])) if (int.Parse(line[1]) >= customCharacters) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], customCharacters, Path.Combine("Characters", "characterconfig.txt")));
+        if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
+        else name = line[1];
+
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower() + "port.png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png")) && (line.Length == 3))
+            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), Path.Combine(GameManager.shortStoryPath, "Characters", name.ToLower(), "port.png")));
 
         return NDI;
     }
