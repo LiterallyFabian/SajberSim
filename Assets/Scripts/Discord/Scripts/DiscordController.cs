@@ -1,4 +1,5 @@
 ﻿using SajberSim.Helper;
+using Steamworks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -87,39 +88,50 @@ public class DiscordController : MonoBehaviour
     {
         string details;
         string state;
+        string steamkey;
+        string steamarg = " ";
         switch (SceneManager.GetActiveScene().name)
         {
             case "menu":
 
                 if (StartStory.creatingStory)
                 {
+                    steamkey = "#EditingStory";
                     details = "Editing a story";
                     state = "" + CreateStory.editName;
                 }
                 else if (StartStory.storymenuOpen)
                 {
+                    steamkey = "#LookingForStory";
                     details = "Looking for a story";
                     state = "";
                 }
                 else
                 {
+                    steamkey = "#InMain";
                     details = "In the main menu";
                     state = "";
                 }
                 break;
             case "game":
+                steamkey = "#PlayingNovel";
+                steamarg = Helper.currentStoryName;
                 details = $"Playing \"{GameManager.storyName}\"";
                 state = $"Published by {GameManager.storyAuthor}";
                 break;
             case "credits":
+                steamkey = "#InCredits";
                 details = "Watching credits";
                 state = $"\"{GameManager.storyName}\" by {GameManager.storyAuthor}";
                 break;
             case "characterpos":
+                steamkey = "#InCharacters";
                 details = "Setting up characters";
                 state = "Novel: " + CreateStory.editName;
                 break;
             default:
+                steamarg = " ";
+                steamkey = "#Unknown";
                 details = "Unknown state";
                 state = "";
                 break;
@@ -128,6 +140,9 @@ public class DiscordController : MonoBehaviour
         {
             presence.details = details;
             presence.state = state;
+            SteamFriends.SetRichPresence("status", details);
+            SteamFriends.SetRichPresence("steam_display", steamkey);
+            if (steamkey == "#PlayingNovel") SteamFriends.SetRichPresence("novel", steamarg);
             DiscordRpc.UpdatePresence(presence);
             DiscordRpc.RunCallbacks();
         }

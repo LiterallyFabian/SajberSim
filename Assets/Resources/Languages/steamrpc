@@ -1,0 +1,29 @@
+"lang"
+{
+	"english"
+	{
+		"tokens"
+		{
+			"#EditingStory"	"Editing a novel"
+			"#LookingForStory"	"Looking for a novel"
+			"#InMain"	"At the main menu"
+			"#PlayingNovel"	"Playing %novel%"
+			"#InCredits"	"Watching credits"
+			"#InCharacters"	"Setting up characters"
+			"#Unknwon" "Unknown state"
+		}
+	}
+	"swedish"
+	{
+		"tokens"
+		{
+			"#EditingStory"	"Redigerar en roman"
+			"#LookingForStory"	"Letar efter en roman"
+			"#InMain"	"I huvudmenyn"
+			"#PlayingNovel"	"Spelar %novel%"
+			"#InCredits"	"Kollar på eftertexter"
+			"#InCharacters"	"Konfigurerar karaktärer"
+			"#Unknwon" "Okänt läge"
+		}
+	}
+}
