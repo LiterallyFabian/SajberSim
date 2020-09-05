@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject nameInput;
 
+    public static GameManager Instance;
     //Textbox
     public GameObject textbox;
     public GameObject portrait;
@@ -145,10 +146,10 @@ public class GameManager : MonoBehaviour
     #endregion
     private void Start()
     {
+        Instance = this;
         SetActionClasses();
         shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
         StartGame(save);
-
     }
     private void StartGame(Save save = null)
     {
@@ -370,6 +371,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Match match in matches)
         {
+            if (people.Length < int.Parse(match.Groups[1].Value)) break;
             string replace = "";
             if (match.Groups[2].Value == "name")
                 replace = people[int.Parse(match.Groups[1].Value)].name;

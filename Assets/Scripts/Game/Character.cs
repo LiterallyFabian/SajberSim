@@ -42,14 +42,10 @@ public class Character : MonoBehaviour, INovelAction
         ///Check length
         if (line.Length > 7 || line.Length < 5) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
 
-        ///Check character config & assign name
-        string name;
-        int customCharacters = 0;
-        string configPath = Path.Combine(Helper.currentStoryPath, "Characters", "characterconfig.txt");
-        if (File.Exists(configPath)) customCharacters = File.ReadAllLines(configPath).Length;
-        if (Helper.IsNum(line[1])) if (int.Parse(line[1]) >= customCharacters) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], customCharacters, Path.Combine("Characters", "characterconfig.txt")));
-        if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
-        else name = line[1];
+        ///Assign name
+        _CharacterConfig CC = _CharacterConfig.TryGetNameFromLine(line[1]);
+        string name = CC.name;
+        if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt")));
 
         ///Check arguments 
         if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + line[2] + ".png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(GameManager.shortStoryPath, "Characters", name, line[2] + ".png")));
