@@ -26,18 +26,18 @@ public class Textbox : MonoBehaviour, INovelAction
             GameManager.textdone = true;
             return;
         }
-        Person talker;
+        string name;
         if (int.TryParse(line[1], out int x))
-            talker = GameManager.people[int.Parse(line[1])];
+            name = GameManager.people[int.Parse(line[1])].name;
         else
-            talker = new Person(line[1], "", 0);
+            name = line[1];
         string text = Game.FillVars(line[2]);
 
         bool port = true;
-        Debug.Log($"{talker.name} says: {text}");
+        Debug.Log($"{name} says: {text}");
         if (line.Length == 4) if (line[3] == "false") port = false;
         if (line[0] == "T2") port = false;
-        StartCoroutine(SpawnTextBox(talker, Helper.UwUTranslator(text), port));
+        StartCoroutine(SpawnTextBox(name, Helper.UwUTranslator(text), port));
     }
 
     public NovelDebugInfo Working(string[] line)
@@ -55,21 +55,21 @@ public class Textbox : MonoBehaviour, INovelAction
 
         return NDI;
     }
-    private IEnumerator SpawnTextBox(Person talker, string target, bool port) //ID 0
+    private IEnumerator SpawnTextBox(string name, string target, bool port) //ID 0
     {
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();
         Game.textbox.SetActive(true);
-        if (port && GameManager.currentPortrait != talker.name)
+        if (port && GameManager.currentPortrait != name)
         {
-            string path = Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower() + "port.png");
+            string path = Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower() + "port.png");
             if (File.Exists(path))
                 dl.Image(Game.portrait, path);
             else
-                dl.Image(Game.portrait, Path.Combine(Helper.currentStoryPath, "Characters", talker.name.ToLower(), "port.png"));
-            GameManager.currentPortrait = talker.name;
+                dl.Image(Game.portrait, Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png"));
+            GameManager.currentPortrait = name;
         }
-        nameobj.text = talker.name;
+        nameobj.text = name;
 
         if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
         {
