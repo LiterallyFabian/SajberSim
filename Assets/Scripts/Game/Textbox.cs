@@ -12,7 +12,6 @@ public class Textbox : MonoBehaviour, INovelAction
 {
     private Text textobj;
     private Text nameobj;
-    public GameManager Game;
 
     public void Run(string[] line)
     {
@@ -31,7 +30,7 @@ public class Textbox : MonoBehaviour, INovelAction
             name = GameManager.people[int.Parse(line[1])].name;
         else
             name = line[1];
-        string text = Game.FillVars(line[2]);
+        string text = GameManager.Instance.FillVars(line[2]);
 
         bool port = true;
         Debug.Log($"{name} says: {text}");
@@ -61,14 +60,14 @@ public class Textbox : MonoBehaviour, INovelAction
     {
         ChangeTextboxType(port);
         Download dl = GameObject.Find("Helper").GetComponent<Download>();
-        Game.textbox.SetActive(true);
+        GameManager.Instance.textbox.SetActive(true);
         if (port && GameManager.currentPortrait != name)
         {
             string path = Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower() + "port.png");
             if (File.Exists(path))
-                dl.Image(Game.portrait, path);
+                dl.Image(GameManager.Instance.portrait, path);
             else
-                dl.Image(Game.portrait, Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png"));
+                dl.Image(GameManager.Instance.portrait, Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png"));
             GameManager.currentPortrait = name;
         }
         nameobj.text = name;
@@ -97,15 +96,15 @@ public class Textbox : MonoBehaviour, INovelAction
     {
         if (portrait)
         {
-            textobj = Game.commentPort;
-            nameobj = Game.nametagPort;
-            Game.portrait.transform.localScale = Vector3.one;
+            textobj = GameManager.Instance.commentPort;
+            nameobj = GameManager.Instance.nametagPort;
+            GameManager.Instance.portrait.transform.localScale = Vector3.one;
         }
         else
         {
-            textobj = Game.comment;
-            nameobj = Game.nametag;
-            Game.portrait.transform.localScale = Vector3.zero;
+            textobj = GameManager.Instance.comment;
+            nameobj = GameManager.Instance.nametag;
+            GameManager.Instance.portrait.transform.localScale = Vector3.zero;
         }
     }
 }

@@ -9,8 +9,6 @@ using UnityEngine.UI;
 
 public class DelCharacter : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
-
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,7 +17,7 @@ public class DelCharacter : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "DEL|char"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         string name = line[1];
@@ -27,7 +25,7 @@ public class DelCharacter : MonoBehaviour, INovelAction
         GameObject[] characters = GameObject.FindGameObjectsWithTag("character");
         foreach (GameObject character in characters)
             if (character.name.StartsWith(name.ToLower())) Destroy(character.gameObject);
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
     public NovelDebugInfo Working(string[] line)
     {

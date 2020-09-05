@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class Alert : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -34,7 +33,7 @@ public class Alert : MonoBehaviour, INovelAction
     private IEnumerator SpawnAlert(string target) //ID 0
     {
         GameManager.textdone = false;
-        Game.alertbox.SetActive(true);
+        GameManager.Instance.alertbox.SetActive(true);
         string written = target[0].ToString(); //written = det som står hittills
 
         for (int i = 1; i < target.Length; i++)
@@ -43,13 +42,13 @@ public class Alert : MonoBehaviour, INovelAction
             yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
             if (GameManager.textdone) //avbryt och skriv hela
             {
-                Game.alert.text = target;
+                GameManager.Instance.alert.text = target;
                 GameManager.textdone = true;
                 break;
             }
-            Game.alert.text = written;
+            GameManager.Instance.alert.text = written;
         }
-        Game.alert.text = target;
+        GameManager.Instance.alert.text = target;
         GameManager.textdone = true;
     }
 }

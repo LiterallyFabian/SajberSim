@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class LoadScript : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,7 +18,7 @@ public class LoadScript : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "LOADSCRIPT|script"));
-            Game.ToggleDevmenu(true);
+            GameManager.Instance.ToggleDevmenu(true);
 
             return;
         }
@@ -50,6 +49,6 @@ public class LoadScript : MonoBehaviour, INovelAction
         GameManager.dialoguepos = 0;
         GameManager.story = File.ReadAllLines(path);
         GameManager.ready = true;
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
 }

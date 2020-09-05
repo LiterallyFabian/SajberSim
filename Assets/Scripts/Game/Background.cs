@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class Background : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,11 +18,11 @@ public class Background : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "BACKGROUND|name|(clearcharacters)"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         if (GameManager.currentBackground == line[1])
-            Game.RunNext();
+            GameManager.Instance.RunNext();
         else
             StartCoroutine(SetBackground(line[1]));
         if (line.Length > 2) if (line[2] == "true") GameManager.RemoveCharacters();
@@ -39,21 +38,21 @@ public class Background : MonoBehaviour, INovelAction
     }
     private IEnumerator SetBackground(string back)
     {
-        Game.fadeimage.SetActive(true);
+        GameManager.Instance.fadeimage.SetActive(true);
         if (GameManager.backgroundHasChanged)
         {
-            Game.fadeimage.GetComponent<Animator>().Play("darken");
+            GameManager.Instance.fadeimage.GetComponent<Animator>().Play("darken");
             yield return new WaitForSeconds(0.5f);
-            Game.dl.RawImage(Game.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
-            Game.RunNext();
-            Game.fadeimage.GetComponent<Animator>().Play("Fadein");
+            GameManager.Instance.dl.RawImage(GameManager.Instance.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
+            GameManager.Instance.RunNext();
+            GameManager.Instance.fadeimage.GetComponent<Animator>().Play("Fadein");
             yield return new WaitForSeconds(0.8f);
-            Game.fadeimage.SetActive(false);
+            GameManager.Instance.fadeimage.SetActive(false);
         }
         else
         {
-            Game.dl.RawImage(Game.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
-            Game.RunNext();
+            GameManager.Instance.dl.RawImage(GameManager.Instance.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
+            GameManager.Instance.RunNext();
         }
         GameManager.currentBackground = back;
         GameManager.backgroundHasChanged = true;

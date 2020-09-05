@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class StopAudio : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -21,7 +20,7 @@ public class StopAudio : MonoBehaviour, INovelAction
             return;
         }
         StopSound(line[0].ToLower().Replace("STOP", ""));
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
     public NovelDebugInfo Working(string[] line)
     {
@@ -31,17 +30,17 @@ public class StopAudio : MonoBehaviour, INovelAction
     {
         if (source == "MUSIC")
         {
-            Game.music.GetComponent<AudioSource>().Stop();
+            GameManager.Instance.music.GetComponent<AudioSource>().Stop();
             GameManager.currentMusic = "";
         }
 
         else if (source == "SFX")
-            Game.SFX.GetComponent<AudioSource>().Stop();
+            GameManager.Instance.SFX.GetComponent<AudioSource>().Stop();
 
         else if (source == "SOUNDS")
         {
-            Game.music.GetComponent<AudioSource>().Stop();
-            Game.SFX.GetComponent<AudioSource>().Stop();
+            GameManager.Instance.music.GetComponent<AudioSource>().Stop();
+            GameManager.Instance.SFX.GetComponent<AudioSource>().Stop();
             GameManager.currentMusic = "";
         }
     }

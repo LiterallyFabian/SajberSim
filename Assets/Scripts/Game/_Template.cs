@@ -10,7 +10,6 @@ using System.IO;
 
 public class _Template : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);

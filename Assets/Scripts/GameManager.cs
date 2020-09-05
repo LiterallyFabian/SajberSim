@@ -130,18 +130,6 @@ public class GameManager : MonoBehaviour
         Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
         Action_StopAudio = HelperObj.AddComponent<StopAudio>();
         Action_Mood= HelperObj.AddComponent<Mood>();
-
-        Action_Alert.Game = this;
-        Action_Mood.Game = this;
-        Action_Background.Game = this;
-        Action_Textbox.Game = this;
-        Action_Character.Game = this;
-        Action_DelCharacter.Game = this;
-        Action_Question.Game = this;
-        Action_LoadScript.Game = this;
-        Action_Wait.Game = this;
-        Action_PlayAudio.Game = this;
-        Action_StopAudio.Game = this;
     }
     #endregion
     private void Start()

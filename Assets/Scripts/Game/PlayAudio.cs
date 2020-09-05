@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class PlayAudio : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,19 +18,18 @@ public class PlayAudio : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, $"{line[0].ToUpper()}|audio"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         Play(line);
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
     public NovelDebugInfo Working(string[] line)
     {
         NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
 
-        string path = $"{Helper.currentStoryPath}/Audio/{line[1]}.ogg";
         if (line.Length != 2) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, 2));
-        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Audio", line[1] + ".ogg"))) return NDI.Done(string.Format(Translate.Get("missingaudio"), line[1], GameManager.shortStoryPath, "Audio", line[1] + ".ogg"));
+        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Audio", line[1] + ".ogg"))) return NDI.Done(string.Format(Translate.Get("missingaudio"), line[1], Path.Combine(GameManager.shortStoryPath, "Audio", line[1] + ".ogg")));
 
         return NDI;
     }
@@ -39,9 +37,9 @@ public class PlayAudio : MonoBehaviour, INovelAction
     {
         string audioPath = "file://" + Path.Combine(Helper.currentStoryPath, "Audio", line[1] + ".ogg");
         if (line[0] == "PLAYSFX")
-            Game.dl.Ogg(Game.SFX, audioPath, true);
-        else if(GameManager.currentMusic != line[1])
-            Game.dl.Ogg(Game.music, audioPath, true);
+            GameManager.Instance.dl.Ogg(GameManager.Instance.SFX, audioPath, true);
+        else if (GameManager.currentMusic != line[1])
+            GameManager.Instance.dl.Ogg(GameManager.Instance.music, audioPath, true);
         GameManager.currentMusic = line[1];
     }
 }

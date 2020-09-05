@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
-
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -16,7 +14,7 @@ public class Character : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "CHAR|person|mood|x|y|(size)|(flip)"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         string name = "";
@@ -32,7 +30,7 @@ public class Character : MonoBehaviour, INovelAction
         if (line.Length > 5) size = size * (float)Convert.ToDouble(line[5], Language.Format);
         if (line.Length == 7) if (line[6].ToLower() == "true") flip = true;
         CreateCharacter(name.ToLower(), mood, x, y, size, flip);
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
 
     public NovelDebugInfo Working(string[] line)
@@ -92,8 +90,8 @@ public class Character : MonoBehaviour, INovelAction
             character.name = $"{name}|{mood}";
         }
         if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
-            Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
+            GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
         else
-            Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
+            GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
     }
 }

@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class Mood : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,7 +18,7 @@ public class Mood : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "MOOD|character|mood"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         string name = "";
@@ -58,11 +57,11 @@ public class Mood : MonoBehaviour, INovelAction
         if (found)
         {
             if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
-                Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
+                GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
             else
-                Game.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
+                GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
             character.name = $"{name}|{mood}";
         }
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
 }

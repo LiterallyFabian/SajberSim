@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class Question : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo debugdata = Working(line);
@@ -19,7 +18,7 @@ public class Question : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, "QUESTION|title|alt1_text|alt1_path|alt2_text|alt2_path|(altN_text|altN_path)"));
-            Game.ToggleDevmenu(true);
+            GameManager.Instance.ToggleDevmenu(true);
 
             return;
         }
@@ -27,9 +26,9 @@ public class Question : MonoBehaviour, INovelAction
         {
             string quest = line[1];
             string alt1 = line[2];
-            Game.story1 = line[3];
+            GameManager.Instance.story1 = line[3];
             string alt2 = line[4];
-            Game.story2 = line[5];
+            GameManager.Instance.story2 = line[5];
             OpenQuestion(quest, alt1, alt2);
         }
         else //More questions - dropdown menu
@@ -54,22 +53,22 @@ public class Question : MonoBehaviour, INovelAction
     }
     private void OpenQuestion(string question, string alt1, string alt2)
     {
-        Game.questionbox.SetActive(true);
-        Game.questionbox.transform.Find("Question").GetComponent<Text>().text = question;
-        Game.questionbox.transform.Find("Alt1/Text").GetComponent<Text>().text = alt1;
-        Game.questionbox.transform.Find("Alt2/Text").GetComponent<Text>().text = alt2;
+        GameManager.Instance.questionbox.SetActive(true);
+        GameManager.Instance.questionbox.transform.Find("Question").GetComponent<Text>().text = question;
+        GameManager.Instance.questionbox.transform.Find("Alt1/Text").GetComponent<Text>().text = alt1;
+        GameManager.Instance.questionbox.transform.Find("Alt2/Text").GetComponent<Text>().text = alt2;
     }
     private void OpenQuestionDD(string[] line)
     {
-        Game.dropdownMenu.SetActive(true);
-        Game.dropdownObject.GetComponent<Dropdown>().ClearOptions();
+        GameManager.Instance.dropdownMenu.SetActive(true);
+        GameManager.Instance.dropdownObject.GetComponent<Dropdown>().ClearOptions();
         List<string> options = new List<string>();
         options.Add("");
         for (int i = 2; i < line.Length; i += 2)
         {
             options.Add(line[i]);
         }
-        Game.dropdownMenu.transform.Find("Question").GetComponent<Text>().text = line[1];
-        Game.dropdownObject.GetComponent<Dropdown>().AddOptions(options);
+        GameManager.Instance.dropdownMenu.transform.Find("Question").GetComponent<Text>().text = line[1];
+        GameManager.Instance.dropdownObject.GetComponent<Dropdown>().AddOptions(options);
     }
 }

@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class Wait : MonoBehaviour, INovelAction
 {
-    public GameManager Game;
     public void Run(string[] line)
     {
         NovelDebugInfo status = Working(line);
@@ -18,7 +17,7 @@ public class Wait : MonoBehaviour, INovelAction
         {
             UnityEngine.Debug.LogWarning($"Error at line {GameManager.dialoguepos} in script {GameManager.scriptPath}: {status}");
             Helper.Alert(string.Format(Translate.Get("erroratline"), GameManager.dialoguepos, GameManager.scriptPath, string.Join("|", line), status, $"WAIT|{Translate.Get("seconds")}"));
-            Game.RunNext();
+            GameManager.Instance.RunNext();
             return;
         }
         StartCoroutine(Delay((float)Convert.ToDouble(line[1], Language.Format)));
@@ -38,6 +37,6 @@ public class Wait : MonoBehaviour, INovelAction
         GameManager.ready = false;
         yield return new WaitForSeconds(time);
         GameManager.ready = true;
-        Game.RunNext();
+        GameManager.Instance.RunNext();
     }
 }
