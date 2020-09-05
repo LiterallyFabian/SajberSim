@@ -116,6 +116,7 @@ missingcharacter=Karaktär och / eller humör hittades inte. Kanske finns det et
 missingcharacterport=Karaktärsporträtt begärdes men hittades inte. Kanske finns det ett stavfel? \nFörväntad sökväg: {0}.
 missingimage=Bild ej hittad. Kanske finns det ett stavfel? \nFörväntad sökväg: {0}.
 missingstartscript=Startskriptet kunde inte hittas. Byt namn på skriptet du vill börja romanen med till "start.txt".\n\nFörväntad sökväg: {0}.
+invalidcharacterconfig=Försökte använda karaktär med ID {0}, men karaktärskonfigurationen innehåller bara {1} karaktärer. Kom ihåg att ställa in den på {2}.
 invalidfloat={0} <b>{1}</b> är inte en giltig float (t.ex. 7.5 eller 2).
 invalidaction=En ogiltig handling hittades på rad {0} i skriptet {1}.txt.\n\n"{2}" är inte en giltig handling\n\nKom ihåg att alla handlingar skrivs i VERSALER. Om du vill kommentera dina skript ska raderna börja med //
 invalidline=Den här raden innehåller inte en giltig handling.
