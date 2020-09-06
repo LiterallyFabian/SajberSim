@@ -124,8 +124,7 @@ namespace SajberSim.Web
         public Sprite Flag(string code)
         {
             Sprite flag = Resources.Load<Sprite>($"Flags/{code.ToUpper()}@3x");
-            if (flag != null) return flag;
-            return Resources.Load<Sprite>($"Flags/unknown");
+            return flag != null ? flag : Resources.Load<Sprite>($"Flags/unknown");
         }
     }
 }
