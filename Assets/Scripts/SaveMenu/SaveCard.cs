@@ -63,7 +63,15 @@ namespace SajberSim.SaveSystem
                 }
                 else //play from ingame
                 {
-
+                    Helper.Helper.currentStoryPath = save.path;
+                    Helper.Helper.currentStoryName = data.name;
+                    Debug.Log($"Attempting to start the novel \"{data.name}\" with path {save.path}");
+                    ButtonCtrl.CreateCharacters();
+                    GameManager.storyAuthor = data.author;
+                    GameManager.storyName = data.name;
+                    GameManager.Instance.StartGame(save);
+                    Main.ToggleMenu(false);
+                    StartCoroutine(GameManager.Instance.Pause(false));
                 }
             }
             else if (!working)//story doesn't exist, delete card

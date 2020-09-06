@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
         shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
         StartGame(save);
     }
-    private void StartGame(Save save = null)
+    public void StartGame(Save save = null)
     {
         //Reset static values
         savemenuopen = false;
@@ -156,7 +156,8 @@ public class GameManager : MonoBehaviour
         textdone = false;
         scriptName = "start";
         people = ButtonCtrl.people;
-
+        RemoveCharacters();
+        ClearText();
         story = new string[0];
         Cursor.visible = true;
         AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
@@ -186,7 +187,7 @@ public class GameManager : MonoBehaviour
             background = Helper.Alert(string.Format(Translate.Get("missingstartscript"), $"{shortStoryPath}/Dialogues/start.txt"));
             Debug.LogError($"Visual Novel/Start: Starting script for story {shortStoryPath} is missing.");
         }
-        data = Manifest.Get(Helper.currentStoryPath + "/manifest.json");
+        data = Manifest.Get(Path.Combine(Helper.currentStoryPath, "manifest.json"));
         if (data.customname && !usernameEntered)
         {
             RequestName();
