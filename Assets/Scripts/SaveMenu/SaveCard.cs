@@ -47,7 +47,7 @@ namespace SajberSim.SaveSystem
         {
             if(working) //story exists
             {
-                Manifest data = Manifest.Get(save.path + "/manifest.json");
+                Manifest data = Manifest.Get(Path.Combine(save.path, "manifest.json"));
                 if (SceneManager.GetActiveScene().name != "game") //play from main
                 {
                     Helper.Helper.currentStoryPath = save.path;
@@ -69,9 +69,10 @@ namespace SajberSim.SaveSystem
             else if (!working)//story doesn't exist, delete card
             {
                 Debug.Log($"SaveCard/Delete: Deleting card {id}");
-                if (File.Exists($"{Helper.Helper.savesPath}/{id}.png")) File.Delete($"{Helper.Helper.savesPath}/{id}.png");
-                if (File.Exists($"{Helper.Helper.savesPath}/{id}.save")) File.Delete($"{Helper.Helper.savesPath}/{id}.save");
+                if (File.Exists(Path.Combine(Helper.Helper.savesPath, id + ".png"))) File.Delete(Path.Combine(Helper.Helper.savesPath, id + ".png"));
+                if (File.Exists(Path.Combine(Helper.Helper.savesPath, id + ".save"))) File.Delete(Path.Combine(Helper.Helper.savesPath, id + ".save"));
                 Main.UpdateMenu();
+                
             }
         }
         public void Overwrite()
