@@ -38,13 +38,16 @@ public class Character : MonoBehaviour, INovelAction
         ///Check length
         if (line.Length > 7 || line.Length < 5) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
 
-        ///Assign name
+        ///Try to set name on character
         _CharacterHelper CC = _CharacterHelper.TryGetNameFromLine(line[1]);
         string name = CC.name;
+        string mood = line[2];
         if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt")));
 
-        ///Check arguments 
-        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + line[2] + ".png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(GameManager.shortStoryPath, "Characters", name, line[2] + ".png")));
+        ///Check if requested image exists
+        if (!_CharacterHelper.GetPath(name, mood).success) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(GameManager.shortStoryPath, "Characters", name, mood + ".png")));
+
+        ///Check if floats are valid
         if (!Helper.IsFloat(line[3])) return NDI.Done(string.Format(Translate.Get("invalidfloat"), $"X {Translate.Get("arg_coordinate")}", line[3]));
         if (!Helper.IsFloat(line[4])) return NDI.Done(string.Format(Translate.Get("invalidfloat"), $"Y {Translate.Get("arg_coordinate")}", line[4]));
 
@@ -73,7 +76,7 @@ public class Character : MonoBehaviour, INovelAction
             character.name = $"{name}|{mood}";
             character.gameObject.tag = "character";
             character.AddComponent<SpriteRenderer>();
-            
+
 
             //sätt size + pos
             character.transform.position = new Vector3(x, y, -1f);
@@ -87,9 +90,6 @@ public class Character : MonoBehaviour, INovelAction
 
             character.name = $"{name}|{mood}";
         }
-        if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
-            GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
-        else
-            GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
+        GameManager.Instance.dl.Sprite(character, $"file://{_CharacterHelper.GetPath(name, mood).path}");
     }
 }

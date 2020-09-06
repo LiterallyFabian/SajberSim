@@ -44,11 +44,15 @@ public class Textbox : MonoBehaviour, INovelAction
 
         ///Assign name
         _CharacterHelper CC = _CharacterHelper.TryGetNameFromLine(line[1]);
-        string name = CC.name;
-        if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt")));
+        if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt"))); //characterconfig too short
 
-        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower() + "port.png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png")) && (line.Length == 3))
-            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), Path.Combine(GameManager.shortStoryPath, "Characters", name.ToLower(), "port.png")));
+        ///Done if portrait is not needed
+        if (line[0] == "T2") return NDI;
+        if (line.Length == 4) if (line[3].ToLower() == "false") return NDI;
+
+        ///Check if requested portrait exists
+        if (!_CharacterHelper.GetPath(CC.name, "port").success)
+            return NDI.Done(string.Format(Translate.Get("missingcharacterport"), Path.Combine(GameManager.shortStoryPath, "Characters", CC.name, "port.png")));
 
         return NDI;
     }
@@ -59,11 +63,8 @@ public class Textbox : MonoBehaviour, INovelAction
         GameManager.Instance.textbox.SetActive(true);
         if (port && GameManager.currentPortrait != name)
         {
-            string path = Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower() + "port.png");
-            if (File.Exists(path))
-                dl.Image(GameManager.Instance.portrait, path);
-            else
-                dl.Image(GameManager.Instance.portrait, Path.Combine(Helper.currentStoryPath, "Characters", name.ToLower(), "port.png"));
+            string path = _CharacterHelper.GetPath(name, "port").path;
+            dl.Image(GameManager.Instance.portrait, path);
             GameManager.currentPortrait = name;
         }
         nameobj.text = name;

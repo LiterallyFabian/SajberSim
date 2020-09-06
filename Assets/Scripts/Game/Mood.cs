@@ -30,11 +30,13 @@ public class Mood : MonoBehaviour, INovelAction
 
         //Start debugging:
         if (line.Length != 3) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "3"));
-        string name = "";
 
-        if (Helper.IsNum(line[1])) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
-        else name = line[1];//$"{Helper.currentStoryPath}/Characters/{name}{line[2]}.png"
-        if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + line[2] + ".png")) && !File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png"))) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png")));
+        ///Assign name
+        _CharacterHelper CC = _CharacterHelper.TryGetNameFromLine(line[1]);
+        string name = CC.name;
+        if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine(GameManager.shortStoryPath, "Characters", "characterconfig.txt")));
+
+        if (!_CharacterHelper.GetPath(name, line[2]).success) return NDI.Done(string.Format(Translate.Get("missingcharacter"), Path.Combine(Helper.currentStoryPath, "Characters", name, line[2] + ".png")));
 
         //Done
         return NDI;
@@ -54,10 +56,7 @@ public class Mood : MonoBehaviour, INovelAction
         }
         if (found)
         {
-            if (File.Exists(Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")))
-                GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name + mood + ".png")}");
-            else
-                GameManager.Instance.dl.Sprite(character, $"file://{Path.Combine(Helper.currentStoryPath, "Characters", name, mood + ".png")}");
+            GameManager.Instance.dl.Sprite(character, $"file://{_CharacterHelper.GetPath(name, mood).path}");
             character.name = $"{name}|{mood}";
         }
         GameManager.Instance.RunNext();
