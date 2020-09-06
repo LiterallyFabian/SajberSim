@@ -17,7 +17,7 @@
 	{
 		"tokens"
 		{
-			"#EditingStory"	"Redigerar en roman"
+			"#EditingStory"	"Redigerar %novel%"
 			"#LookingForStory"	"Letar efter en roman"
 			"#InMain"	"I huvudmenyn"
 			"#PlayingNovel"	"Spelar %novel%"
