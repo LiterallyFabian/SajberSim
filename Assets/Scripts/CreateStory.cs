@@ -42,6 +42,7 @@ public class CreateStory : MonoBehaviour
     public Button ButtonPublish;
     public Button ButtonQuit;
     public Button ButtonCreate;
+    public Text OfflineNotice;
 
     private Language lang;
     private Download dl;
@@ -84,7 +85,8 @@ public class CreateStory : MonoBehaviour
         ButtonDetails.interactable = true;
         ButtonEdit.interactable = true;
         ButtonVerify.interactable = true;
-        ButtonPublish.interactable = true;
+        ButtonPublish.interactable = Helper.loggedin;
+        OfflineNotice.gameObject.SetActive(!Helper.loggedin);
         ButtonPublish.gameObject.SetActive(true);
         ButtonCreate.gameObject.SetActive(false);
         BasicsMenu.transform.localScale = Vector3.zero;

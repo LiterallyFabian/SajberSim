@@ -57,7 +57,7 @@ public class CreateNew : MonoBehaviour
             Main.ButtonQuit.interactable = !hasTyped;
             Main.ButtonEdit.interactable = !hasTyped;
             Main.ButtonVerify.interactable = !hasTyped;
-            Main.ButtonPublish.interactable = !hasTyped;
+            if(Helper.loggedin) Main.ButtonPublish.interactable = !hasTyped;
             ButtonRevert.interactable = hasTyped;
             ButtonSave.interactable = hasTyped;
         }
