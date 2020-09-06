@@ -59,8 +59,6 @@ namespace SajberSim.SaveSystem
                     GameManager.storyAuthor = data.author;
                     GameManager.storyName = data.name;
                     GameManager.save = save;
-                    Achievements.Grant(Achievements.List.ACHIEVEMENT_play1);
-                    Stats.Add(Stats.List.novelsstarted);
                     StartCoroutine(main.FadeToScene("game"));
                 }
                 else //play from ingame
