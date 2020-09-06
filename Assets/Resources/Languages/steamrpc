@@ -4,7 +4,7 @@
 	{
 		"tokens"
 		{
-			"#EditingStory"	"Editing a novel"
+			"#EditNovel"	"Editing %novel%"
 			"#LookingForStory"	"Looking for a novel"
 			"#InMain"	"At the main menu"
 			"#PlayingNovel"	"Playing %novel%"

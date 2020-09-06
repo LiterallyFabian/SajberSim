@@ -96,7 +96,8 @@ public class DiscordController : MonoBehaviour
 
                 if (StartStory.creatingStory)
                 {
-                    steamkey = "#EditingStory";
+                    steamkey = "#EditNovel";
+                    steamarg = CreateStory.editName;
                     details = "Editing a story";
                     state = "" + CreateStory.editName;
                 }
@@ -142,7 +143,7 @@ public class DiscordController : MonoBehaviour
             presence.state = state;
             SteamFriends.SetRichPresence("status", details);
             SteamFriends.SetRichPresence("steam_display", steamkey);
-            if (steamkey == "#PlayingNovel") SteamFriends.SetRichPresence("novel", steamarg);
+            if (steamkey == "#PlayingNovel" || steamkey == "#EditNovel") SteamFriends.SetRichPresence("novel", steamarg);
             DiscordRpc.UpdatePresence(presence);
             DiscordRpc.RunCallbacks();
         }
