@@ -21849,6 +21849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadingbarLocal: {fileID: 1999051909}
+  EmptyfieldLocal: {fileID: 756946142}
   ProgressLocal: {fileID: 259236780}
 --- !u!1 &1283333984
 GameObject:
@@ -31820,7 +31821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 7.49}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1584792843
@@ -38904,7 +38905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -294229.28, y: -0.00012954137}
+  m_AnchoredPosition: {x: -299028.97, y: -0.00012954137}
   m_SizeDelta: {x: -14.765015, y: 481.4351}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1728018900

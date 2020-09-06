@@ -22,10 +22,10 @@ public class PianoMinigame : MonoBehaviour
 
     public int[][] premadeSequences = new int[][]
     {
-        new int[] {5,3,4,3,4,3,4,5,7,3,2,8,7,8,7,6,7,6}, // crossing field
-        new int[] {1,1,8,5,4,4,3,1,3,4,0,0,8,5,4,4,3,1,3,4,0,0,7,5,4,4,3,1,3,4} // megalovania
+       new int[] {5,3,4,3,4,3,4,5,7,3,2,8,7,8,7,6,7,6}, // crossing field
+        new int[] {1,1,8,5,4,4,3,1,3,4,0,0,8,5,4,4,3,1,3,4,0,0,7,5,4,4,3,1,3,4}, // megalovania
+        new int[] {3,4,6,4,8,8,7,3,4,5,3,7,7,6,5,4,3,4,5,3,6,7,5,4,3,3,7,6} // never gonna give you up
     };
-
 
     private void Start()
     {
@@ -61,7 +61,7 @@ public class PianoMinigame : MonoBehaviour
 
     public void PlayGame()
     {
-        if(Random.Range(0, 100) > 70)
+        if (Random.Range(0, 100) > 80)
         {
             usePremade = true;
             preMadeNo = Random.Range(0, premadeSequences.Length);

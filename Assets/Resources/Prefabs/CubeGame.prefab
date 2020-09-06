@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a473ff34b17fbf248937274b78bc3155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
   m_circleCount: 2
@@ -2806,7 +2806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294be7f9be6bc9c4ca63883fb6c5c912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameRunning: 0
   canPlay: 0
   ButtonRetry: {fileID: 8356473604377247806}
   LossText: {fileID: 6375922842430897007}
