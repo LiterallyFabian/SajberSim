@@ -85,16 +85,13 @@ namespace SajberSim.SaveSystem
         }
         public void Fill()
         {
-            if (File.Exists(save.path + "/manifest.json")) working = true;
+            if (File.Exists(Path.Combine(save.path, "manifest.json"))) working = true;
             Download dl = GameObject.Find("Helper").GetComponent<Download>();
             Title.text = save.novelname;
-            Color splashColor = Color.white;
-            ColorUtility.TryParseHtmlString($"#{save.splashcolor}", out splashColor);
-            Overlay.GetComponent<Image>().color = splashColor;
 
-            Color textColor = Colors.Colors.UnityGray;
-            ColorUtility.TryParseHtmlString($"#{save.textcolor}", out textColor);
-            Title.GetComponent<Text>().color = textColor;
+            Overlay.GetComponent<Image>().color = Colors.Colors.FromRGB(save.splashcolor);
+            Title.GetComponent<Text>().color = Colors.Colors.FromRGB(save.textcolor);
+
             string datetext = save.date.ToString("dddd, d MMMM HH:mm", Language.Culture);
             date.text = datetext.First().ToString().ToUpper() + datetext.Substring(1);
             dl.CardThumbnail(tb2, $"{Helper.Helper.savesPath}/{id}.png");
