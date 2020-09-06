@@ -141,9 +141,13 @@ public class DiscordController : MonoBehaviour
         {
             presence.details = details;
             presence.state = state;
-            SteamFriends.SetRichPresence("status", details);
-            SteamFriends.SetRichPresence("steam_display", steamkey);
-            if (steamkey == "#PlayingNovel" || steamkey == "#EditNovel") SteamFriends.SetRichPresence("novel", steamarg);
+            if (Helper.loggedin)
+            {
+                SteamFriends.SetRichPresence("status", details);
+                SteamFriends.SetRichPresence("steam_display", steamkey);
+                if (steamkey == "#PlayingNovel" || steamkey == "#EditNovel") SteamFriends.SetRichPresence("novel", steamarg);
+            }
+
             DiscordRpc.UpdatePresence(presence);
             DiscordRpc.RunCallbacks();
         }
