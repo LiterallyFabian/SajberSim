@@ -1,14 +1,8 @@
 ﻿using Steamworks;
-using Steamworks.Data;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using static SajberSim.Helper.Helper;
 
 namespace SajberSim.CardMenu
@@ -16,6 +10,7 @@ namespace SajberSim.CardMenu
     public class Stories
     {
         private static string[] storyPaths;
+
         //if the path list above needs to be updated or if it is up-to-date already
         public static bool pathUpdateNeeded = true;
 
@@ -76,6 +71,7 @@ namespace SajberSim.CardMenu
             Stories.storyPaths = fixedPaths;
             return fixedPaths;
         }
+
         /// <summary>
         /// Takes array of story paths and sorts it by data in manifest
         /// </summary>
@@ -124,8 +120,8 @@ namespace SajberSim.CardMenu
             }
             if (reverse) return ReverseArray(sortedList.ToArray());
             else return sortedList.ToArray();
-
         }
+
         private static string[] FilterNSFWFromCardPaths(List<string> storyPaths, bool remove = true) // https://i.imgur.com/Dw1l9YI.png
         {
             foreach (string path in storyPaths.ToList())
@@ -136,19 +132,32 @@ namespace SajberSim.CardMenu
             }
             return storyPaths.ToArray();
         }
+
         private static string[] FilterSearchFromCardPaths(List<string> storyPaths, string searchTerm)
         {
             searchTerm.ToLower();
             if (searchTerm == "nsfw") return FilterNSFWFromCardPaths(storyPaths, false);
             foreach (string path in storyPaths.ToList())
             {
-                Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
+                Manifest data = Manifest.Get(Path.Combine(path, "manifest.json"));
+                string localizedGenre = genres[Array.IndexOf(genresid, data.genre)];
+                string steamGenre = genresSteam[Array.IndexOf(genresid, data.genre)];
 
-                if (!storydata.name.ToLower().Contains(searchTerm) && !storydata.tags.Contains(searchTerm) && !storydata.description.ToLower().Contains(searchTerm) && !storydata.author.ToLower().Contains(searchTerm) && !storydata.genre.ToLower().Contains(searchTerm))
+                // Remove story if it doesn't match any
+                if (!data.name.ToLower().Contains(searchTerm) &&
+                    !data.tags.Contains(searchTerm) &&
+                    !data.description.ToLower().Contains(searchTerm) &&
+                    !data.author.ToLower().Contains(searchTerm) &&
+                    !data.genre.ToLower().Contains(searchTerm) &&
+                    !localizedGenre.ToLower().Contains(searchTerm) &&
+                    !steamGenre.ToLower().Contains(searchTerm))
+                {
                     storyPaths.Remove(path);
+                }
             }
             return storyPaths.ToArray();
         }
+
         /// <summary>
         /// Removes all story paths where the logged in owner not is the author
         /// </summary>
@@ -166,6 +175,7 @@ namespace SajberSim.CardMenu
             }
             return storyPaths.ToArray();
         }
+
         /// <summary>
         /// Returns names of all story folders
         /// </summary>
@@ -178,6 +188,7 @@ namespace SajberSim.CardMenu
 
             return nameList.ToArray();
         }
+
         /// <summary>
         /// Returns amount of pages needed for the preview card menu
         /// </summary>
@@ -189,6 +200,7 @@ namespace SajberSim.CardMenu
             else if (length % 6 == 0) return length / 6 - 1;
             return (length - (length % 6)) / 6;
         }
+
         /// <summary>
         /// Returns amount of cards that should be on the last page (indexed at 0)
         /// </summary>
@@ -199,6 +211,7 @@ namespace SajberSim.CardMenu
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;
         }
+
         /// <summary>
         /// Returns amount of cards in total
         /// </summary>
@@ -206,6 +219,7 @@ namespace SajberSim.CardMenu
         {
             return Manifest.GetAll(StorySearchArgs.ID, nsfw, searchTerm, where).Length;
         }
+
         /// <summary>
         /// Returns paths to all assets of specified type collected from all stories
         /// </summary>
@@ -226,12 +240,15 @@ namespace SajberSim.CardMenu
                 case "audio":
                     extension = "*.ogg";
                     break;
+
                 case "dialogues":
                     extension = "*.txt";
                     break;
+
                 case "main":
                     extension = "mainbg*.png";
                     break;
+
                 case "ports":
                     extension = "*port.png";
                     break;
@@ -250,6 +267,7 @@ namespace SajberSim.CardMenu
             }
             return assetPaths.ToArray();
         }
+
         public static string[] GetStoryAssetPaths(string folder, string path)
         {
             string[] validPaths = { "audio", "backgrounds", "characters", "dialogues", "ports" };
@@ -265,9 +283,11 @@ namespace SajberSim.CardMenu
                 case "audio":
                     extension = "*.ogg";
                     break;
+
                 case "dialogues":
                     extension = "*.txt";
                     break;
+
                 case "ports":
                     extension = "*port.png";
                     break;
@@ -282,6 +302,7 @@ namespace SajberSim.CardMenu
             return assetPaths.ToArray();
         }
     }
+
     /// <summary>
     /// Holds stats for a specific story
     /// </summary>
@@ -304,6 +325,7 @@ namespace SajberSim.CardMenu
 
         public bool hascredits = false;
         public int participants = 0;
+
         public static StoryStats Get(string path)
         {
             StoryStats stats = new StoryStats();
@@ -329,14 +351,17 @@ namespace SajberSim.CardMenu
                         if (line.Split('|').Length == 3)
                             stats.words += line.Split('|')[2].Count(f => f == ' ') + 1;
                         break;
+
                     case "BACKGROUND":
                         stats.backgroundchanges++;
                         break;
+
                     case "ALERT":
                         stats.alerts++;
                         if (line.Split('|').Length == 2)
                             stats.words += line.Split('|')[1].Count(f => f == ' ') + 1;
                         break;
+
                     case "QUESTION":
                         stats.decisions++;
                         if (line.Split('|').Length > 1)
