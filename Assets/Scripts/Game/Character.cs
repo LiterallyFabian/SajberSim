@@ -17,9 +17,7 @@ public class Character : MonoBehaviour, INovelAction
             GameManager.Instance.RunNext();
             return;
         }
-        string name = "";
-        if (int.TryParse(line[1], out int xd)) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
-        else name = line[1];
+        string name = _CharacterHelper.TryGetNameFromLine(line[1]).name;
 
         string mood = line[2];
         float x = (float)Convert.ToDouble(line[3], Language.Format);
@@ -41,7 +39,7 @@ public class Character : MonoBehaviour, INovelAction
         if (line.Length > 7 || line.Length < 5) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "5-7"));
 
         ///Assign name
-        _CharacterConfig CC = _CharacterConfig.TryGetNameFromLine(line[1]);
+        _CharacterHelper CC = _CharacterHelper.TryGetNameFromLine(line[1]);
         string name = CC.name;
         if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt")));
 

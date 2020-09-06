@@ -25,11 +25,7 @@ public class Textbox : MonoBehaviour, INovelAction
             GameManager.textdone = true;
             return;
         }
-        string name;
-        if (int.TryParse(line[1], out int x))
-            name = GameManager.people[int.Parse(line[1])].name;
-        else
-            name = line[1];
+        string name = _CharacterHelper.TryGetNameFromLine(line[1]).name;
         string text = GameManager.Instance.FillVars(line[2]);
 
         bool port = true;
@@ -47,7 +43,7 @@ public class Textbox : MonoBehaviour, INovelAction
         if (line.Length > 4 || line.Length < 3) return NDI.Done(string.Format(Translate.Get("invalidargumentlength"), line.Length, "3-4")); //Incorrect length, found LENGTH arguments but the action expects 3-4.
 
         ///Assign name
-        _CharacterConfig CC = _CharacterConfig.TryGetNameFromLine(line[1]);
+        _CharacterHelper CC = _CharacterHelper.TryGetNameFromLine(line[1]);
         string name = CC.name;
         if (!CC.success) return NDI.Done(string.Format(Translate.Get("invalidcharacterconfig"), line[1], CC.customCharacters - 1, Path.Combine("Characters", "characterconfig.txt")));
 

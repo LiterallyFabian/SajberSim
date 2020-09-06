@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class _CharacterConfig
+class _CharacterHelper
 {
     public string name;
     public int customCharacters;
     public bool success;
-    public static _CharacterConfig TryGetNameFromLine(string line)
+    public static _CharacterHelper TryGetNameFromLine(string line)
     {
-        _CharacterConfig CC = new _CharacterConfig();
+        _CharacterHelper CC = new _CharacterHelper();
         ///Check character config & assign name
         CC.customCharacters = 0;
         string configPath = Path.Combine(Helper.currentStoryPath, "Characters", "characterconfig.txt");

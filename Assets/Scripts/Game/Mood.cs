@@ -21,9 +21,7 @@ public class Mood : MonoBehaviour, INovelAction
             GameManager.Instance.RunNext();
             return;
         }
-        string name = "";
-        if (int.TryParse(line[1], out int xd)) name = GameManager.people[int.Parse(line[1])].name; //ID if possible, else name
-        else name = line[1];
+        string name = _CharacterHelper.TryGetNameFromLine(line[1]).name;
         SetMood(name.ToLower(), line[2]);
     }
     public NovelDebugInfo Working(string[] line)
