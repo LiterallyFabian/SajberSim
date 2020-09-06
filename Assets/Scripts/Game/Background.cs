@@ -42,12 +42,14 @@ public class Background : MonoBehaviour, INovelAction
         GameManager.Instance.fadeimage.SetActive(true);
         if (GameManager.backgroundHasChanged)
         {
+            GameManager.ready = false;
             GameManager.Instance.fadeimage.GetComponent<Animator>().Play("darken");
             yield return new WaitForSeconds(0.5f);
             GameManager.Instance.dl.RawImage(GameManager.Instance.background, $"file://{Path.Combine(Helper.currentStoryPath, "Backgrounds", back + ".png")}");
             GameManager.RemoveCharacters();
             GameManager.Instance.RunNext();
             GameManager.Instance.fadeimage.GetComponent<Animator>().Play("Fadein");
+            GameManager.ready = true;
             yield return new WaitForSeconds(0.8f);
             GameManager.Instance.fadeimage.SetActive(false);
         }
