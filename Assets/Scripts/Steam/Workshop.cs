@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using SajberSim.Translation;
+﻿using SajberSim.Translation;
 using SajberSim.Web;
 using Steamworks;
 using Steamworks.Ugc;
@@ -45,7 +44,6 @@ namespace SajberSim.Steam
             .InLanguage(wdata.lang)
             .WithPreviewFile(Path.Combine(wdata.dataPath, "steam.png"))
             .WithChangeLog(wdata.changenotes);
-
 
             switch (wdata.privacy)
             {
@@ -105,7 +103,8 @@ namespace SajberSim.Steam
             lastvalue = value;
 
             Workshop.publishProgress = value;
-            Debug.Log(value);
+            PublishLoadingbar.UpdateBar(value);
+            Debug.Log($"Uploading visual novel to Steam, progress: {value * 100}%");
         }
     }
 }

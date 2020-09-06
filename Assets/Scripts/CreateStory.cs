@@ -82,6 +82,7 @@ public class CreateStory : MonoBehaviour
     /// </summary>
     public void SetWindow(int window)
     {
+        PublishLoadingbar.UpdateBar(0);
         ButtonDetails.interactable = true;
         ButtonEdit.interactable = true;
         ButtonVerify.interactable = true;
