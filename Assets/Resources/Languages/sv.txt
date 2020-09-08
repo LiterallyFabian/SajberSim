@@ -26,6 +26,7 @@ debug=Felsök
 help=Hjälp
 gotit=Förstått
 delete=Radera
+recommendednovels=Rekommenderade romaner
 
 #Steam
 welcomeuser=Välkommen\n<b>{0}</b>!

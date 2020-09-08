@@ -33,7 +33,7 @@ namespace SajberSim.Web
         {
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
-                uwr.timeout = 1;
+                uwr.timeout = 2;
                 yield return uwr.SendWebRequest();
 
                 if (uwr.isNetworkError) 

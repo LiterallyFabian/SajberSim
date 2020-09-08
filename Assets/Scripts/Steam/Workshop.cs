@@ -5,6 +5,7 @@ using Steamworks.Ugc;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Debug = UnityEngine.Debug;
 
 namespace SajberSim.Steam
@@ -89,6 +90,11 @@ namespace SajberSim.Steam
         public static bool Download(ulong id)
         {
             return SteamUGC.Download(id);
+        }
+        public async static Task<Item?> GetInfo(ulong id)
+        {
+            var itemInfo = await SteamUGC.QueryFileAsync(id);
+            return itemInfo;
         }
     }
 
