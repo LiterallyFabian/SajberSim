@@ -1,4 +1,5 @@
 ﻿using SajberSim.Colors;
+using SajberSim.Steam;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,23 @@ using UnityEngine.UI;
 
 public class PublishLoadingbar : MonoBehaviour
 {
-    private static Image Loadingfield;
-    [SerializeField] private Image LoadingbarLocal;
+    [SerializeField] private Image Loadingfield;
+    [SerializeField] private Image Emptyfield;
+    [SerializeField] private Text ProgressNumber;
 
-    private static Image Emptyfield;
-    [SerializeField] private Image EmptyfieldLocal;
-
-    private static Text Progress;
-    [SerializeField] private Text ProgressLocal;
-
-    
-    private void Start()
+    private void Update()
     {
-        Loadingfield = LoadingbarLocal;
-        Progress = ProgressLocal;
-        Emptyfield = EmptyfieldLocal;
+        if (Workshop.publishProgress != 0) UpdateBar(Workshop.publishProgress);
+        if (Workshop.publishProgress > 1) Workshop.publishProgress = 0;
     }
-    public static void UpdateBar(float value)
+    public void UpdateBar(float value)
     {
-        Loadingfield.rectTransform.sizeDelta = new Vector2(value * 275, 8);
+         Loadingfield.rectTransform.sizeDelta = new Vector2(value * 275, 8);
         if (value == 1) Loadingfield.color = Colors.SfwGreen;
-        Progress.text = Math.Round(value * 100, 2) + "%";
+        ProgressNumber.text = Math.Round(value * 100, 2) + "%";
         if (value == 0)
         {
-            Progress.text = "";
+            ProgressNumber.text = "";
             Emptyfield.rectTransform.sizeDelta = new Vector2(0, 8);
         }
         else Emptyfield.rectTransform.sizeDelta = new Vector2(275, 8);

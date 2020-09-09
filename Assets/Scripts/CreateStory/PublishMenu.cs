@@ -22,6 +22,7 @@ public class PublishMenu : MonoBehaviour
     public PublishNovel NovelPublisher;
     public GameObject P_NameNotice;
     public Texture P_DefaultThumbnail;
+    public PublishLoadingbar P_Loadingbar;
     private void Start()
     {
         dl = Download.Init();

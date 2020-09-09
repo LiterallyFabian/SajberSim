@@ -109,7 +109,6 @@ namespace SajberSim.Steam
             lastvalue = value;
 
             Workshop.publishProgress = value;
-            PublishLoadingbar.UpdateBar(value);
             Debug.Log($"Uploading visual novel to Steam, progress: {value * 100}%");
         }
     }

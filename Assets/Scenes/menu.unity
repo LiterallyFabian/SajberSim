@@ -16655,7 +16655,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 410993618}
   m_HandleRect: {fileID: 410993617}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22226,7 +22226,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1273872605}
   - component: {fileID: 1273872606}
-  - component: {fileID: 1273872607}
   m_Layer: 5
   m_Name: CreateMenu
   m_TagString: Untagged
@@ -22297,21 +22296,6 @@ MonoBehaviour:
   OfflineNotice: {fileID: 1821063778}
   storyMenu: {fileID: 0}
   currentWindow: 0
---- !u!114 &1273872607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273872604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6132d2897a3124c88ffc05c74d0760, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadingbarLocal: {fileID: 1999051909}
-  EmptyfieldLocal: {fileID: 756946142}
-  ProgressLocal: {fileID: 259236780}
 --- !u!1 &1283333984
 GameObject:
   m_ObjectHideFlags: 0
@@ -30226,12 +30210,12 @@ PrefabInstance:
     - target: {fileID: 591715122870181126, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -665
+      value: -430
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181126, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -318.8
+      value: -322.66
       objectReference: {fileID: 0}
     - target: {fileID: 591715122870181126, guid: 5247818795116ef4183966c47ce37890,
         type: 3}
@@ -30447,6 +30431,7 @@ MonoBehaviour:
   NovelPublisher: {fileID: 1451188567}
   P_NameNotice: {fileID: 1345877631}
   P_DefaultThumbnail: {fileID: 2800000, guid: 3a7e2a88bc66693478467ba183390668, type: 3}
+  P_Loadingbar: {fileID: 1573476504}
 --- !u!114 &1451188567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30710,7 +30695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -463.21, y: -39.599976}
+  m_AnchoredPosition: {x: -463.21, y: -39.5}
   m_SizeDelta: {x: 318.32788, y: -143.34973}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469553139
@@ -32710,6 +32695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1573476503}
+  - component: {fileID: 1573476504}
   m_Layer: 5
   m_Name: Loadingbar
   m_TagString: Untagged
@@ -32736,9 +32722,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 7.49}
+  m_AnchoredPosition: {x: 0, y: 23}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1573476504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573476502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6132d2897a3124c88ffc05c74d0760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Loadingfield: {fileID: 1999051909}
+  Emptyfield: {fileID: 756946142}
+  ProgressNumber: {fileID: 259236780}
 --- !u!1 &1584792843
 GameObject:
   m_ObjectHideFlags: 0
@@ -39820,7 +39821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -380623.66, y: -0.00012954137}
+  m_AnchoredPosition: {x: -385423.34, y: -0.00012954137}
   m_SizeDelta: {x: -14.765015, y: 481.4351}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1728018900
@@ -53111,7 +53112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -159.16388, y: 21079.188}
+  m_AnchoredPosition: {x: 0.000030517578, y: -2347689.8}
   m_SizeDelta: {x: 300, y: 867.80786}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &591715122792385623

@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SajberSim.CardMenu;
 using SajberSim.Helper;
+using SajberSim.Steam;
 using SajberSim.Translation;
 using SajberSim.Web;
 using Steamworks;
@@ -25,7 +26,6 @@ public class CreateStory : MonoBehaviour
     public EditStats Menu_Edit;
     public DebugNovel Menu_Debug;
     public PublishMenu Menu_Publish;
-
 
 
     public GameObject ButtonGroup;
@@ -82,7 +82,8 @@ public class CreateStory : MonoBehaviour
     /// </summary>
     public void SetWindow(int window)
     {
-        PublishLoadingbar.UpdateBar(0);
+        if (Workshop.publishProgress >= 1) Workshop.publishProgress = 0;
+        Menu_Publish.P_Loadingbar.UpdateBar(0);
         ButtonDetails.interactable = true;
         ButtonEdit.interactable = true;
         ButtonVerify.interactable = true;
