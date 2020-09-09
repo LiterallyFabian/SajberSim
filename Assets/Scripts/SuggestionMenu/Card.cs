@@ -25,7 +25,7 @@ namespace SajberSim.Suggestions
         }
         private void Update()
         {
-            transform.localPosition = new Vector3(0, transform.localPosition.y);
+            transform.localPosition = new Vector3(150, transform.localPosition.y);
         }
         public async void FillData()
         {
