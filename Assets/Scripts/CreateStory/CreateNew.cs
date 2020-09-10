@@ -163,11 +163,9 @@ public class CreateNew : MonoBehaviour
             data.rating = Helper.audience[B_inputAudience.value];
             data.language = Language.ListWindowsKeys()[B_inputLanguage.value];
             data.customname = B_inputCustomName.isOn;
-            if (Helper.loggedin)
-            {
-                data.author = SteamClient.Name;
-                data.authorid = SteamClient.SteamId.ToString();
-            }
+            data.author = Helper.UsernameCache();
+            data.authorid = Helper.SteamIDCache();
+
             if (isNew) data.uploaddate = DateTime.Now;
             data.lastEdit = DateTime.Now;
 

@@ -49,7 +49,7 @@ class Vault : MonoBehaviour
         if (attempts > 30 && Helper.loggedin && UnityEngine.Random.Range(0, 3) == 0) 
         {
             string[] allstories = Manifest.GetAll();
-            Lore.text = $"Really {SteamClient.Name}, {attempts} attempts? Try playing {Manifest.Get(allstories[UnityEngine.Random.Range(0, allstories.Length-1)]).name}, I have heard it's fun!";
+            Lore.text = $"Really {Helper.UsernameCache()}, {attempts} attempts? Try playing {Manifest.Get(allstories[UnityEngine.Random.Range(0, allstories.Length-1)]).name}, I have heard it's fun!";
         }
     }
     private void Correct(string hash)
@@ -73,7 +73,13 @@ class Vault : MonoBehaviour
                 GetComponent<Animator>().enabled = true;
                 GetComponent<Animator>().Play("vaultDrop");
                 break;
+
             case "BC985B16DBDB92473DB3B49E651188B3B3813375E10B960A472D2B1410E4F6EF48C9DCB99C48465CEDFE3C34F742C283FB8B15258BD0061CBC96EE431B413200":
+                if (SceneManager.GetActiveScene().name != "menu")
+                {
+                    Error();
+                    return;
+                }
                 GameObject game = Instantiate(Resources.Load($"Prefabs/CubeGame", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
                 game.transform.localPosition = new Vector3(0, -50, 0);
                 CloseVault();

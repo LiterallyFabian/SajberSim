@@ -64,20 +64,20 @@ namespace SajberSim.Steam
             {
                 wdata.st.Stop();
                 if (wdata.id == -1)
-                    Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds, result.FileId));
+                    Helper.Helper.Alert(string.Format(Translate.Get("publishsuccess"), Helper.Helper.UsernameCache(), wdata.title, wdata.st.ElapsedMilliseconds, result.FileId));
                 else
-                    Helper.Helper.Alert(string.Format(Translate.Get("updatesuccess"), SteamClient.Name, wdata.title, wdata.st.ElapsedMilliseconds));
+                    Helper.Helper.Alert(string.Format(Translate.Get("updatesuccess"), Helper.Helper.UsernameCache(), wdata.title, wdata.st.ElapsedMilliseconds));
                 Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
 
                 Stats.Add(Stats.List.novelspublished);
 
                 //send the link on discord if it's public
-                if (wdata.privacy == Privacy.Public && wdata.id == -1) Webhook.Stats($"{SteamClient.Name} uploaded a new visual novel: \"{wdata.title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
+                if (wdata.privacy == Privacy.Public && wdata.id == -1) Webhook.Stats($"{Helper.Helper.UsernameCache()} uploaded a new visual novel: \"{wdata.title}\"!\nhttps://steamcommunity.com/sharedfiles/filedetails/?id={result.FileId}");
 
                 string manifestPath = Path.Combine(wdata.originalPath, "manifest.json");
                 Manifest data = Manifest.Get(manifestPath);
                 data.authorid = $"{SteamClient.SteamId}";
-                data.author = SteamClient.Name;
+                data.author = Helper.Helper.UsernameCache();
                 data.id = result.FileId.ToString();
                 Manifest.Write(manifestPath, data);
             }
