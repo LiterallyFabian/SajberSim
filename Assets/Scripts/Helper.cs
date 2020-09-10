@@ -131,8 +131,16 @@ namespace SajberSim.Helper
                 savesPath = Path.Combine(Application.persistentDataPath, "Saves");
                 templatePath = Path.Combine(Application.dataPath, "NovelTemplate");
                 if (loggedin)
-                    steamPath = SteamApps.AppInstallDir().Replace($@"common{Path.DirectorySeparatorChar}SajberSim", $@"workshop{Path.DirectorySeparatorChar}content{Path.DirectorySeparatorChar}{AppID}");
-                if (!Directory.Exists(steamPath) && loggedin) Directory.CreateDirectory(steamPath);
+                {
+                    string path = SteamApps.AppInstallDir().Replace($@"common{Path.DirectorySeparatorChar}SajberSim", $@"workshop{Path.DirectorySeparatorChar}content{Path.DirectorySeparatorChar}{AppID}");
+                    steamPath = path;
+                    PlayerPrefs.SetString("steampathcache", path);
+                    if (!Directory.Exists(steamPath)) Directory.CreateDirectory(steamPath);
+                }
+                else if (!loggedin)
+                {
+                    steamPath = PlayerPrefs.GetString("steampathcache", "");
+                }
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
                 Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");

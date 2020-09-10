@@ -29,6 +29,7 @@ namespace SajberSim.Suggestions
         }
         public async void FillData()
         {
+            if (!Helper.Helper.loggedin) return;
             var itemInfo = await SteamUGC.QueryFileAsync(id);
             Title.text = itemInfo?.Title;
             Description.text = itemInfo?.Description;

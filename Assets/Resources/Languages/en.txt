@@ -31,7 +31,7 @@ recommendednovels=Recommended novels
 welcomeuser=Welcome\n<b>{0}</b>!
 goodbyeuser=Goodbye\n<b>{0}</b>!
 offline=Offline
-noconnection=SajberSim could not connect to Steam. Try launching the application from your Steam library or restart your computer.\n\nWhile offline you are still able to play and create visual novels, but you need to be online to publish or play stories from the Workshop.
+noconnection=SajberSim could not connect to Steam. Try launching the application from your Steam library or restart your computer.\n\nWhile offline you are still able to play and create visual novels, but you need to be online to publish or download novels from the Workshop.
 publishsuccess=Congratulations {0}, <b>{1}</b> was successfully uploaded to the Steam Workshop!  It took {2}ms, and your file ID is {3}.\n\nThanks for contributing to the SajberSim community <3
 publishfail=Something went wrong while publishing your Visual Novel. Try again or contact support if the problem persists.\n\nError message from Steam: {0}
 updatesuccess=Congratulations {0}, <b>{1}</b> was successfully updated on the Steam Workshop! It took {2} ms. 
@@ -197,7 +197,7 @@ vaulterror3=Seriously?
 vaulterror4=Hmm, I don't recognize that code...
 vaulterror5=Oh.. that's like... totally wrong!
 vaulterror6=No matching lock found.
-vaulterror7=Keep in mind that some codes does not work offline.
+vaulterror7=Keep in mind that some codes does not work offline. 
 vaulterror8=Maybe try "piano"?
 vaultdownload=Novel code activated!
 

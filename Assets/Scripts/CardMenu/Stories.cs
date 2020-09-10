@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEngine;
 using static SajberSim.Helper.Helper;
+
 
 namespace SajberSim.CardMenu
 {
@@ -26,8 +28,9 @@ namespace SajberSim.CardMenu
         public static string[] GetAllStoryPaths(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All, bool forceUpdate = false)
         {
             if (!pathUpdateNeeded && !forceUpdate) return Stories.storyPaths;
-            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+            if (steamPath == "" && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             List<string> storyPaths = new List<string>();
+            if (steamPath == "") Debug.LogWarning("Stories/GetAllPaths: Steam path could not be found, and novels from there will therefore not be included.");
             //This is what I call "The tired" ~
             //update, apparently the 5 line method i had here before wasn't the problem. oh well goodnight
             if (where == StorySearchPaths.Workshop)
@@ -47,14 +50,14 @@ namespace SajberSim.CardMenu
             {
                 storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
                 storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
-                if (loggedin)
+                if (steamPath != "")
                     storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
             else if (where == StorySearchPaths.Own)
             {
                 storyPaths.AddRange(Directory.GetDirectories(customPath).ToList());
                 storyPaths.AddRange(Directory.GetDirectories(localPath).ToList());
-                if (loggedin)
+                if (steamPath != "")
                     storyPaths.AddRange(Directory.GetDirectories(steamPath).ToList());
             }
 
@@ -181,7 +184,7 @@ namespace SajberSim.CardMenu
         /// </summary>
         public static string[] GetAllStoryNames(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+            if (steamPath == "" && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             List<string> nameList = new List<string>();
             foreach (string path in GetAllStoryPaths(args, nsfw, searchTerm, where))
                 nameList.Add(new DirectoryInfo(path).Name);
@@ -194,7 +197,7 @@ namespace SajberSim.CardMenu
         /// </summary>
         public static int GetCardPages(StorySearchArgs args = StorySearchArgs.ID, bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+            if (steamPath == "" && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             int length = Manifest.GetAll(args, nsfw, searchTerm, where).Length;
             if (length <= 6) return 0;
             else if (length % 6 == 0) return length / 6 - 1;
@@ -206,7 +209,7 @@ namespace SajberSim.CardMenu
         /// </summary>
         public static int GetLeftoverCardAmount(bool nsfw = true, string searchTerm = "", StorySearchPaths where = StorySearchPaths.All)
         {
-            if (!loggedin && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
+            if (steamPath == "" && where != StorySearchPaths.Own) where = StorySearchPaths.NoWorkshop;
             int n = Manifest.GetAll(StorySearchArgs.ID, nsfw, searchTerm, where).Length % 6;
             if (n == 0) return 6; //there shouldn't be 0 cards on the last page
             else return n;

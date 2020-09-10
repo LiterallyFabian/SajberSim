@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SajberSim.Helper;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class ToggleButton : MonoBehaviour
     public Animator Menu;
     public GameObject Icon;
     private bool isOpen = false;
+    public void Update()
+    {
+        gameObject.GetComponent<Button>().interactable = Helper.loggedin;
+    }
     public void Toggle()
     {
         isOpen = !isOpen;

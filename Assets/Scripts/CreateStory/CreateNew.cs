@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using SajberSim.CardMenu;
+﻿using SajberSim.CardMenu;
 using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Translation;
 using SajberSim.Web;
-using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,10 +31,10 @@ public class CreateNew : MonoBehaviour
     public Button ButtonSave;
     public Button ButtonRevert;
     public bool hasEdited;
-    static readonly char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+    private static readonly char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         dl = Download.Init();
 
@@ -44,11 +42,6 @@ public class CreateNew : MonoBehaviour
         SetNSFW();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Type(bool hasTyped)
     {
         hasEdited = hasTyped;
@@ -57,7 +50,7 @@ public class CreateNew : MonoBehaviour
             Main.ButtonQuit.interactable = !hasTyped;
             Main.ButtonEdit.interactable = !hasTyped;
             Main.ButtonVerify.interactable = !hasTyped;
-            if(Helper.loggedin) Main.ButtonPublish.interactable = !hasTyped;
+            if (Helper.loggedin) Main.ButtonPublish.interactable = !hasTyped;
             ButtonRevert.interactable = hasTyped;
             ButtonSave.interactable = hasTyped;
         }
@@ -66,27 +59,31 @@ public class CreateNew : MonoBehaviour
             Main.ButtonCreate.interactable = B_inputName.text != "";
         }
     }
+
     public void UpdateTags(string input)
     {
-        if(input == "") B_TagsTitle.text = string.Format(Translate.Get("xtags"), 0);
+        if (input == "") B_TagsTitle.text = string.Format(Translate.Get("xtags"), 0);
         else B_TagsTitle.text = string.Format(Translate.Get("xtags"), input.Split(',').Length);
     }
+
     public void SetNSFW()
     {
         B_AudienceTitle.text = B_inputAudience.value == 0 ? Translate.Get("audiencesfw") : Translate.Get("audiencensfw");
     }
+
     public void SetDropDowns()
     {
-        if(dl == null) dl = Download.Init();
+        if (dl == null) dl = Download.Init();
         B_inputGenre.AddOptions(Helper.genres.ToList());
         B_inputAudience.AddOptions(Helper.audience.ToList());
 
         List<Dropdown.OptionData> dropdownList = new List<Dropdown.OptionData>();
         foreach (Language lang in Language.Languages.Values)
             dropdownList.Add(new Dropdown.OptionData(lang.localized_name, dl.Flag(lang.iso_code)));
-            
+
         B_inputLanguage.AddOptions(dropdownList);
     }
+
     /// <summary>
     /// Create a basics menu for when a novel already exists and set the data
     /// </summary>
@@ -116,6 +113,7 @@ public class CreateNew : MonoBehaviour
         }
         Type(false);
     }
+
     /// <summary>
     /// UPDATE or SAVE all data in manifest with details from details fields
     /// </summary>
@@ -142,7 +140,6 @@ public class CreateNew : MonoBehaviour
                 {
                     Helper.CopyDirectory(Helper.templatePath, destPath);
                 }
-
 
                 CreateStory.editPath = destPath;
                 CreateStory.editName = B_inputName.text;
@@ -184,6 +181,7 @@ public class CreateNew : MonoBehaviour
         }
         Type(false);
     }
+
     public void ResetFields()
     {
         B_inputGenre.SetValueWithoutNotify(0);
@@ -194,7 +192,8 @@ public class CreateNew : MonoBehaviour
         B_inputTags.text = "";
         Type(false);
     }
-    IEnumerator B_SetStatus(string text)
+
+    private IEnumerator B_SetStatus(string text)
     {
         B_Status.text = text;
         yield return new WaitForSeconds(3);
