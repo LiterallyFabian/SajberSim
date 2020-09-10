@@ -21,26 +21,16 @@ using Debug = UnityEngine.Debug;
 /// </summary>
 public class ButtonCtrl : MonoBehaviour
 {
-    public GameObject CreationMenu;
-    public GameObject OverwriteAlert;
-    public Text OverwriteTitle;
-    private string overwritetext;
     public GameObject Logo;
-    public GameObject Modding;
-    public GameObject CreditsButton;
     public GameObject SaveLoadMenu;
     public GameObject SettingsMenu;
-    public Button DebugButton;
     public GameObject BehindSettings;
     public static Person[] people = new Person[4];
     public GameObject fadeimage;
     public AudioSource music;
     public static string charpath;
 
-    public Download dl;
-
-    public GameObject PauseMenuGame;
-    public GameObject SettingsMenuGame;
+    private Download dl;
 
     private void OnEnable()
     {
@@ -90,6 +80,7 @@ public class ButtonCtrl : MonoBehaviour
         }
     }
 
+    //Called from profile picture
     public void OpenSteamProfile()
     {
         if (Helper.loggedin)
@@ -100,24 +91,7 @@ public class ButtonCtrl : MonoBehaviour
                 SteamFriends.OpenUserOverlay(SteamClient.SteamId, "steamid");
         }
     }
-
-    public void StartNew() //Just checks if a new story should be started
-    {
-        //if (PlayerPrefs.GetString("story", "none") != "none")
-        //{
-        //    //story found
-        //    OverwriteAlert.transform.localScale = Vector3.one;
-        //}
-        //else
-        StartNewConfirmed();
-    }
-
-    public void StartNewConfirmed() //confirmed that user wants to start a new
-    {
-        OverwriteAlert.transform.localScale = Vector3.zero;
-        GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>().OpenMenu(false);
-    }
-
+    //Called from ButtonFind
     public void OpenWorkshop()
     {
         if (!Helper.loggedin)
@@ -127,13 +101,6 @@ public class ButtonCtrl : MonoBehaviour
         }
         Helper.Alert(Translate.Get("openedworkshop"));
         Process.Start($@"steam://openurl/https://steamcommunity.com/app/1353530/workshop/");
-    }
-
-    public void CreateNovel()
-    {
-        //WorkshopItemUpdate createNewItemUsingGivenFolder = new WorkshopItemUpdate();
-        //createNewItemUsingGivenFolder.ContentPath = @"H:\School code stuff\CyberSim\CyberSim\Assets\Story\OpenHouse";
-        //((SteamWorkshopPopupUpload)uMyGUI_PopupManager.Instance.ShowPopup("steam_ugc_upload")).UploadUI.SetItemData(createNewItemUsingGivenFolder);
     }
 
     public static void CreateCharacters()
@@ -169,35 +136,16 @@ public class ButtonCtrl : MonoBehaviour
         }
     }
 
-    public void Continue() //just opens everything SAVED
-    {
-        Manifest data = Manifest.Get($"{Application.dataPath}/Story/{PlayerPrefs.GetString("story")}/manifest.json");
-        StartStory.storymenuOpen = false;
-        GameManager.storyAuthor = data.author;
-        GameManager.storyName = data.name;
-        LoadCharacters();
-        StartCoroutine(FadeToScene("game"));
-    }
-
     public void OpenMenu(GameObject menu) //opens a menu, like settings or modding
     {
         menu.SetActive(true);
         BehindSettings.SetActive(true);
     }
 
-    public void GoBack()
-    {
-        SettingsMenuGame.SetActive(false);
-    }
-
     public void CloseSettings() //closes all menus
     {
         BehindSettings.SetActive(false);
-        Modding.SetActive(false);
-        PauseMenuGame.SetActive(false);
-        SettingsMenuGame.SetActive(false);
         SaveLoadMenu.GetComponent<SaveMenu>().ToggleMenu(false);
-        OverwriteAlert.transform.localScale = Vector3.zero;
         GameManager.paused = false;
     }
 
@@ -206,7 +154,7 @@ public class ButtonCtrl : MonoBehaviour
         Application.Quit();
     }
 
-    public void ResetAll() //fucking nukes all the stats like the US during 1945
+    public void ResetAll()
     {
         PlayerPrefs.DeleteAll();
     }
@@ -250,30 +198,10 @@ public class ButtonCtrl : MonoBehaviour
         }
     }
 
-    /*public void Debug()
-    {
-        StoryDebugger.CreateLog();
-        StartCoroutine(ToggleDebug());
-    }*/
-
     public void OpenSettings()
     {
         GameObject x = Instantiate(SettingsMenu, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>()) as GameObject;
         x.transform.localPosition = Vector3.zero;
-    }
-
-    public void GAMEOpenSettings()
-    {
-        PauseMenuGame.SetActive(false);
-        SettingsMenuGame.SetActive(true);
-        GameManager.paused = true;
-    }
-
-    private IEnumerator ToggleDebug() //disables the button for 2 seconds to avoid doubleclicks
-    {
-        DebugButton.interactable = false;
-        yield return new WaitForSeconds(2f);
-        DebugButton.interactable = true;
     }
 
     public void StartScene(string scene) //seems like i couldn't start coroutines with buttons

@@ -1,12 +1,10 @@
 ﻿using SajberSim.Colors;
 using SajberSim.Steam;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+
+#pragma warning disable CS0649
 
 public class PublishLoadingbar : MonoBehaviour
 {
@@ -19,9 +17,10 @@ public class PublishLoadingbar : MonoBehaviour
         if (Workshop.publishProgress != 0) UpdateBar(Workshop.publishProgress);
         if (Workshop.publishProgress > 1) Workshop.publishProgress = 0;
     }
+
     public void UpdateBar(float value)
     {
-         Loadingfield.rectTransform.sizeDelta = new Vector2(value * 275, 8);
+        Loadingfield.rectTransform.sizeDelta = new Vector2(value * 275, 8);
         if (value == 1) Loadingfield.color = Colors.SfwGreen;
         ProgressNumber.text = Math.Round(value * 100, 2) + "%";
         if (value == 0)
