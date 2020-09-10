@@ -93,6 +93,48 @@ namespace SajberSim.Helper
             Gigabyte
         }
 
+        /// <summary>
+        /// List of all PlayerPrefs used in the game, to have descriptions and avoid typos.
+        /// </summary>
+        public enum Prefs
+        {
+            /// <summary> Two-letter code for selected language </summary>
+            language,
+
+            /// <summary> Cached username on Steam </summary>
+            usernamecache,
+
+            /// <summary> Cached ID on Steam </summary>
+            steamidcache,
+
+            /// <summary> Cached path to Steam workshop </summary>
+            steampathcache,
+
+            /// <summary> Bool, whether NSFW should be shown in the browser </summary>
+            nsfw,
+
+            /// <summary> Int, index of sorting option that should be used in the browser </summary>
+            sorting,
+
+            /// <summary> Int, high score shown in piano minigame </summary>
+            pianostreak,
+
+            /// <summary> Float, seconds of delay between each letter in-game </summary>
+            delay,
+
+            /// <summary> Float, audio multiplier between 0-1</summary>
+            volume,
+
+            /// <summary> Bool, whether UwU mode should be used </summary>
+            uwu,
+
+            /// <summary> Bool, whether the in-game dev menu is open </summary>
+            devmenu,
+
+            /// <summary> Int, speed of the credits </summary>
+            creditspeed
+        }
+
         public static GameObject Alert(string text, string buttonText = null)
         {
             string size = "Small";
@@ -134,12 +176,12 @@ namespace SajberSim.Helper
                 {
                     string path = SteamApps.AppInstallDir().Replace($@"common{Path.DirectorySeparatorChar}SajberSim", $@"workshop{Path.DirectorySeparatorChar}content{Path.DirectorySeparatorChar}{AppID}");
                     steamPath = path;
-                    PlayerPrefs.SetString("steampathcache", path);
+                    PlayerPrefs.SetString(Prefs.steampathcache.ToString(), path);
                     if (!Directory.Exists(steamPath)) Directory.CreateDirectory(steamPath);
                 }
                 else if (!loggedin)
                 {
-                    steamPath = PlayerPrefs.GetString("steampathcache", "");
+                    steamPath = PlayerPrefs.GetString(Prefs.steampathcache.ToString(), "");
                 }
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);

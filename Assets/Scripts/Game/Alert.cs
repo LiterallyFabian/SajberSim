@@ -1,12 +1,8 @@
 ﻿using SajberSim.Helper;
 using SajberSim.Translation;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 public class Alert : MonoBehaviour, INovelAction
 {
@@ -22,6 +18,7 @@ public class Alert : MonoBehaviour, INovelAction
         }
         StartCoroutine(SpawnAlert(line[1]));
     }
+
     public NovelDebugInfo Working(string[] line)
     {
         NovelDebugInfo NDI = new NovelDebugInfo(line, GameManager.dialoguepos);
@@ -30,6 +27,7 @@ public class Alert : MonoBehaviour, INovelAction
 
         return NDI;
     }
+
     private IEnumerator SpawnAlert(string target) //ID 0
     {
         GameManager.textdone = false;
@@ -39,7 +37,7 @@ public class Alert : MonoBehaviour, INovelAction
         for (int i = 1; i < target.Length; i++)
         {
             written = written + target[i];
-            yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
+            yield return new WaitForSeconds(PlayerPrefs.GetFloat(Prefs.delay.ToString(), 0.04f));
             if (GameManager.textdone) //avbryt och skriv hela
             {
                 GameManager.Instance.alert.text = target;
@@ -52,4 +50,3 @@ public class Alert : MonoBehaviour, INovelAction
         GameManager.textdone = true;
     }
 }
-

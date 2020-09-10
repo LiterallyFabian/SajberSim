@@ -1,28 +1,27 @@
-﻿using JetBrains.Annotations;
-using SajberSim.Colors;
+﻿using SajberSim.Colors;
 using SajberSim.Helper;
-using SajberSim.Steam;
-using SajberSim.Story;
 using SajberSim.Web;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 public class Credits : MonoBehaviour
 {
     private Camera cam;
     private Transform canvas;
+
     // Fade stuff
     public GameObject fadeimage;
+
     public bool fadestarted;
     public GameObject music;
 
     // Assets in the scene
     public Text Roles;
+
     public Text People;
     public GameObject Message;
     public GameObject Logo;
@@ -32,19 +31,21 @@ public class Credits : MonoBehaviour
 
     // Variables
     private string[] creditsraw;
+
     public static string storypath;
     private Download dl;
     private float speed = 50;
     private bool messagefound = false;
+
     private void Start()
     {
         Time.timeScale = 1;
-        speed = PlayerPrefs.GetFloat("creditspeed", 50);
+        speed = PlayerPrefs.GetFloat(Prefs.creditspeed.ToString(), 50);
         canvas = GameObject.Find("Canvas").transform;
         cam = Camera.main;
         dl = Download.Init();
         string creditsPath = Path.Combine(storypath, "credits.txt");
-        
+
         if (!File.Exists(creditsPath))
         {
             Debug.LogError($"No credits found for {storypath}. Continuing with default.");
@@ -53,6 +54,7 @@ public class Credits : MonoBehaviour
         creditsraw = File.ReadAllLines(creditsPath);
         SetCredits();
     }
+
     private void SetCredits()
     {
         bool rolesfound = false;
@@ -60,18 +62,15 @@ public class Credits : MonoBehaviour
         string people = "";
         int lines = 0;
 
-        if(File.Exists(Path.Combine(storypath, "logo.png"))) 
+        if (File.Exists(Path.Combine(storypath, "logo.png")))
             dl.Image(Logo, Path.Combine(storypath, "logo.png"));
 
-        foreach(string line in creditsraw)
+        foreach (string line in creditsraw)
         {
             if (line.ToLower().StartsWith("background|"))
                 dl.Image(Background, Path.Combine(storypath, "Backgrounds", $"{line.ToLower().Replace("background|", "")}.png"));
-
-
             else if (line.ToLower().StartsWith("music|") && line.Split('|').Length > 1)//$"{storypath}/Audio/{line.Split('|')[1]}.ogg"
                 dl.Ogg(music, Path.Combine(storypath, "Audio", line.Split('|')[1] + ".ogg"), true);
-
             else if (line.ToLower().StartsWith("color|"))
             {
                 Color textColor = Colors.FromRGB($"#{line.ToLower().Replace("color|", "").Replace("#", "")}");
@@ -84,7 +83,6 @@ public class Credits : MonoBehaviour
                 messagefound = true;
                 Message.GetComponent<Text>().text = line.Split('|')[1];
             }
-
             else if (line != "") // Roles / people found
             {
                 if (line.StartsWith("-"))
@@ -114,6 +112,7 @@ public class Credits : MonoBehaviour
         Roles.text = roles;
         if (!messagefound) Message.GetComponent<Text>().text = "";
     }
+
     private void Update()
     {
         CreditHolder.transform.position += Vector3.up * speed * Time.deltaTime;
@@ -126,6 +125,7 @@ public class Credits : MonoBehaviour
         if (Input.GetKeyDown("escape"))
             StartCoroutine(LeaveCredits());
     }
+
     public IEnumerator LeaveCredits()
     {
         if (!fadestarted)

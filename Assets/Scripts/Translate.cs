@@ -1,24 +1,26 @@
 ﻿using SajberSim.Web;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using UnityEngine;
-using UnityEngine.UI;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 namespace SajberSim.Translation
 {
-    class Translate
+    internal class Translate
     {
         public static string lang = Get2LetterISOCodeFromSystemLanguage().ToLower();
+
         /// <summary>
         /// Languages supported in the game. can be selected from settings
         /// </summary>
         public static string[] languages = { "en", "sv" };
+
         /// <summary>
         /// Dictionary with words on selected language
         /// Example: Translate.Fields["word"]
         /// </summary>
         public static Dictionary<String, String> Fields { get; private set; }
+
         /// <summary>
         /// Fall-back ictionary with words on english
         /// </summary>
@@ -31,11 +33,12 @@ namespace SajberSim.Translation
         {
             LoadLanguage();
         }
+
         public static string Get(string id, string location = "a script")
         {
             if (Fields.ContainsKey(id))
                 return Fields[id];
-            else if(EnglishFields.ContainsKey(id))
+            else if (EnglishFields.ContainsKey(id))
             {
                 Debug.LogWarning($"Translation/Get: Could not find translation for \"{id}\" in language {lang.ToUpper()}, falling back on English.");
                 return EnglishFields[id];
@@ -56,7 +59,7 @@ namespace SajberSim.Translation
             if (Fields == null) Fields = new Dictionary<string, string>();
             if (EnglishFields == null) EnglishFields = new Dictionary<string, string>();
 
-            if (PlayerPrefs.GetString("language", "none") != "none") lang = PlayerPrefs.GetString("language");
+            if (PlayerPrefs.GetString(Prefs.language.ToString(), "none") != "none") lang = PlayerPrefs.GetString(Prefs.language.ToString());
 
             var textAsset = Resources.Load($@"Languages/{lang}");
             if (textAsset == null)
@@ -80,6 +83,7 @@ namespace SajberSim.Translation
             }
             if (lang != "en") LoadFallback();
         }
+
         private static void LoadFallback()
         {
             string allTexts = (Resources.Load(@"Languages/en") as TextAsset).text;
@@ -160,6 +164,5 @@ namespace SajberSim.Translation
             //		Debug.Log ("Lang: " + res);
             return res;
         }
-
     }
 }

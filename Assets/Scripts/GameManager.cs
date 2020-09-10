@@ -1,30 +1,21 @@
-﻿using System;
+﻿using SajberSim.Chararcter;
+using SajberSim.Colors;
+using SajberSim.Helper;
+using SajberSim.SaveSystem;
+using SajberSim.Steam;
+using SajberSim.Translation;
+using SajberSim.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Networking;
 using System.Text.RegularExpressions;
-using System.Linq;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 using UnityEngine.Analytics;
-using System.Globalization;
-using SajberSim.Web;
-using SajberSim.Chararcter;
-using System.Runtime.CompilerServices;
-using SajberSim.Steam;
-using SajberSim.Helper;
-using SajberSim.Colors;
-using SajberSim.Translation;
-using System.Reflection;
-using Steamworks;
-using System.Runtime.Remoting.Messaging;
-using SajberSim.SaveSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
-/// <summary>
-/// Needs a huge rewrite, but yeah this script runs the entire visual novel scene
-/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static bool ready = true; // If the game is ready to go to the next line (eg delays, downloads)
@@ -35,8 +26,10 @@ public class GameManager : MonoBehaviour
     public GameObject nameInput;
 
     public static GameManager Instance;
+
     //Textbox
     public GameObject textbox;
+
     public GameObject portrait;
     public Text comment; //The normal text
     public Text nametag; //The nametag
@@ -45,10 +38,12 @@ public class GameManager : MonoBehaviour
 
     //Alert
     public GameObject alertbox;
+
     public Text alert;
 
     //UI
     public GameObject background;
+
     public GameObject music;
     public GameObject uwuwarning;
     public GameObject fadeimage;
@@ -60,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     //Dropdown
     public Text dropdownQ;
+
     public GameObject dropdownObject;
     public GameObject dropdownMenu;
     public GameObject dropdownItemBackground;
@@ -67,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     //Question
     public GameObject questionbox;
+
     public GameObject qbutton1;
     public GameObject qbutton2;
     public Text question;
@@ -79,12 +76,10 @@ public class GameManager : MonoBehaviour
     private bool settingsopen = false;
     public static bool paused = false;
     public GameObject behindButton;
-    
+
     public static string[] story;
     public Coroutine co;
     public static Person[] people;
-    
-
 
     public Manifest data;
     public static Save save = null;
@@ -102,6 +97,7 @@ public class GameManager : MonoBehaviour
     public static string currentMusic;
 
     #region Actions
+
     public GameObject HelperObj;
     public Download dl;
     private Alert Action_Alert;
@@ -129,9 +125,11 @@ public class GameManager : MonoBehaviour
         Action_Wait = HelperObj.AddComponent<Wait>();
         Action_PlayAudio = HelperObj.AddComponent<PlayAudio>();
         Action_StopAudio = HelperObj.AddComponent<StopAudio>();
-        Action_Mood= HelperObj.AddComponent<Mood>();
+        Action_Mood = HelperObj.AddComponent<Mood>();
     }
-    #endregion
+
+    #endregion Actions
+
     private void Start()
     {
         Instance = this;
@@ -139,6 +137,7 @@ public class GameManager : MonoBehaviour
         shortStoryPath = new DirectoryInfo(Helper.currentStoryPath).Name;
         StartGame(save);
     }
+
     public void StartGame(Save save = null)
     {
         //Reset static values
@@ -160,15 +159,15 @@ public class GameManager : MonoBehaviour
         ClearText();
         story = new string[0];
         Cursor.visible = true;
-        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f);
+        AudioListener.volume = PlayerPrefs.GetFloat(Prefs.volume.ToString(), 1f);
 
         if (save != null)
         {
             Debug.Log($"GameManager/StartGame: Trying to load savefile {save.novelname}");
             scriptName = save.script;
             dialoguepos = save.line;
-            if(save.music != "") Action_PlayAudio.Run($"PLAYMUSIC|{save.music}".Split('|'));
-            if(save.background != "") Action_Background.Run($"BACKGROUND|{save.background}|true".Split('|'));
+            if (save.music != "") Action_PlayAudio.Run($"PLAYMUSIC|{save.music}".Split('|'));
+            if (save.background != "") Action_Background.Run($"BACKGROUND|{save.background}|true".Split('|'));
             foreach (PersonSave person in save.characters)
                 Action_Character.Run($"CHAR|{person.name}|{person.mood}|{person.x}|{person.y}|{person.size}|{person.flipped}".Split('|'));
             ready = true;
@@ -206,7 +205,7 @@ public class GameManager : MonoBehaviour
             ToggleDevmenu();
         }
         if (story.Length == 0) return;
-        if (PlayerPrefs.GetInt("uwu", 0) == 1) uwuwarning.SetActive(true);
+        if (PlayerPrefs.GetInt(Prefs.uwu.ToString(), 0) == 1) uwuwarning.SetActive(true);
         else uwuwarning.SetActive(false);
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || story[dialoguepos] == "" || story[dialoguepos].StartsWith("//")) && !paused)
         {
@@ -223,38 +222,40 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(Pause(true));
             }
-            else if(paused && settingsopen)
+            else if (paused && settingsopen)
             {
                 GameObject.Find("Canvas/Settings").GetComponent<Settings>().CloseMenu();
                 settingsopen = false;
             }
             else if (paused && savemenuopen)
             {
-                if(GameObject.Find("Canvas/SaveLoadMenu"))
-                GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().ToggleMenu(false);
+                if (GameObject.Find("Canvas/SaveLoadMenu"))
+                    GameObject.Find("Canvas/SaveLoadMenu").GetComponent<SaveMenu>().ToggleMenu(false);
                 settingsopen = false;
             }
-            else if(paused && !settingsopen && !savemenuopen)
+            else if (paused && !settingsopen && !savemenuopen)
             {
                 StartCoroutine(Pause(false));
             }
         }
         if (data.customname && !usernameEntered && Input.GetKeyDown(KeyCode.Return)) SetName();
     }
+
     public void ToggleDevmenu(bool forceopen = false)
     {
-        if (PlayerPrefs.GetInt("devmenu", 0) == 0 || forceopen)
+        if (PlayerPrefs.GetInt(Prefs.devmenu.ToString(), 0) == 0 || forceopen)
         {
             fadeimage.SetActive(false);
-            PlayerPrefs.SetInt("devmenu", 1);
+            PlayerPrefs.SetInt(Prefs.devmenu.ToString(), 1);
             GameObject.Find("/Canvas/dev").transform.localScale = Vector3.one;
         }
         else
         {
-            PlayerPrefs.SetInt("devmenu", 0);
+            PlayerPrefs.SetInt(Prefs.devmenu.ToString(), 0);
             GameObject.Find("/Canvas/dev").transform.localScale = Vector3.zero;
         }
     }
+
     public void RunNext()
     {
         if (!ready || story.Length == 0) return;
@@ -267,7 +268,6 @@ public class GameManager : MonoBehaviour
             dialoguepos++;
             RunNext();
         }
-
         else if (line[0] == "T" || line[0] == "T2") //textbox
         {
             dialoguepos++;
@@ -336,7 +336,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     #region Characters
 
     public static void RemoveCharacters() //used in setup too
@@ -346,14 +345,16 @@ public class GameManager : MonoBehaviour
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
     }
+
     public void RemoveCharactersWrap() //Only used for editor assignments as they can't run static methods
     {
         RemoveCharacters();
     }
-    #endregion
+
+    #endregion Characters
 
     #region Text
-    
+
     public string FillVars(string text) //Changes {1.name} to the name of person 1, and {0.nick} to the nickname of 0 etc
     {
         MatchCollection matches = Regex.Matches(text, @"{(\d+)\.(\w+)}"); //Matches {1.name} with "1" & "name" as a group
@@ -367,7 +368,7 @@ public class GameManager : MonoBehaviour
             if (match.Groups[2].Value == "nick")
                 replace = people[int.Parse(match.Groups[1].Value)].nick;
 
-            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter 
+            text = new Regex("{(\\d+)\\.(\\w+)}").Replace(text, replace, 1); //Byter
         }
         if (!text.Contains("{") && !text.Contains("\\n")) return text;
         text = text.Replace("\\n", Environment.NewLine);
@@ -379,6 +380,7 @@ public class GameManager : MonoBehaviour
         text = text.Replace("{name}", username);
         return text;
     }
+
     private void ClearText()
     {
         textbox.SetActive(false);
@@ -394,20 +396,26 @@ public class GameManager : MonoBehaviour
         alt2t.text = "";
     }
 
-    #endregion
+    #endregion Text
 
     #region Questions
+
     public void AnswerQuestion(int id)
     {
         Stats.Add(Stats.List.decisionsmade);
         string[] stories = { story1, story2 };
         Action_LoadScript.Load(stories[id - 1]);
+
         #region openhouse
+
         if (Helper.currentStoryName == "OpenHouse") // Made to get data about a campaign for https://cybergymnasiet.se/
             Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", stories[id - 1] } });
+
         #endregion openhouse
+
         questionbox.SetActive(false);
     }
+
     public void AnswerQuestionDD(int select)
     {
         Stats.Add(Stats.List.decisionsmade);
@@ -417,18 +425,22 @@ public class GameManager : MonoBehaviour
         {
             options.Add(line[i]);
         }
+
         #region openhouse
-        if(Helper.currentStoryName == "OpenHouse") // Made to get data about a campaign for https://cybergymnasiet.se/
-            Analytics.CustomEvent("program_picked", new Dictionary<string, object> {{ "program", options[select-1] }});
+
+        if (Helper.currentStoryName == "OpenHouse") // Made to get data about a campaign for https://cybergymnasiet.se/
+            Analytics.CustomEvent("program_picked", new Dictionary<string, object> { { "program", options[select - 1] } });
+
         #endregion openhouse
-        Action_LoadScript.Load(options[select-1]);
+
+        Action_LoadScript.Load(options[select - 1]);
         dropdownMenu.SetActive(false);
     }
 
-    #endregion
-
+    #endregion Questions
 
     #region UI
+
     public void RequestName()
     {
         usernameNeeded = true;
@@ -436,10 +448,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         fadeimage.GetComponent<Image>().color = Color.black;
     }
+
     public void GameContinue()
     {
         StartCoroutine(Pause(false));
     }
+
     public IEnumerator Pause(bool n)
     {
         fadeimage.SetActive(false);
@@ -454,15 +468,16 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = timeScaleCache;
         }
-        
+
         yield return new WaitForEndOfFrame();
-        
+
         pausemenu.SetActive(n);
         //fadeimage.SetActive(false);
         behindButton.SetActive(n);
         GameObject settings = GameObject.Find("Canvas/Settings");
         if (settings != null) settings.GetComponent<Settings>().CloseMenu();
     }
+
     public void OpenSettings()
     {
         settingsopen = true;
@@ -470,11 +485,13 @@ public class GameManager : MonoBehaviour
         x.transform.localPosition = Vector3.zero;
         x.name = "Settings";
     }
+
     public void SettingsQuit()
     {
         StartCoroutine(GoToMain());
     }
-    IEnumerator GoToMain()
+
+    private IEnumerator GoToMain()
     {
         fadeimage.SetActive(true);
         fadeimage.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
@@ -483,11 +500,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("menu");
     }
+
     public IEnumerator StartCredits(bool addStats = true) //Avslutar & återställer spelet och startar credits
     {
         StartCoroutine(FadeOut(music.GetComponent<AudioSource>(), 1.3f, 0));
         Credits.storypath = Helper.currentStoryPath;
-        
+
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
         fadeimage.GetComponent<Animator>().Play("darken");
         yield return new WaitForSeconds(0.5f);
@@ -497,6 +515,7 @@ public class GameManager : MonoBehaviour
         else
             SceneManager.LoadScene("menu");
     }
+
     public static IEnumerator FadeOut(AudioSource audioSource, float duration, float targetVolume)
     {
         float currentTime = 0;
@@ -510,6 +529,7 @@ public class GameManager : MonoBehaviour
         }
         yield break;
     }
+
     public void SetStoryFromDev(string story)
     {
         if (!File.Exists(Path.Combine(Helper.currentStoryPath, "Dialogues", story + ".txt"))) return;
@@ -517,6 +537,7 @@ public class GameManager : MonoBehaviour
         Action_LoadScript.Run($"LOADSCRIPT|{story}".Split('|'));
         RemoveCharacters();
     }
+
     public void SetName()
     {
         InputField input = nameInput.transform.Find("InputField").GetComponent<InputField>();
@@ -525,10 +546,11 @@ public class GameManager : MonoBehaviour
         username = input.text;
         usernameEntered = true;
         Time.timeScale = 1;
-        if(username == "Fabina") Achievements.Grant(Achievements.List.ACHIEVEMENT_imfabina);
+        if (username == "Fabina") Achievements.Grant(Achievements.List.ACHIEVEMENT_imfabina);
         Achievements.Grant(Achievements.List.ACHIEVEMENT_setname);
         Destroy(nameInput);
     }
+
     private void UpdateDesign()
     {
         StoryDesign design = StoryDesign.Get();
@@ -562,15 +584,18 @@ public class GameManager : MonoBehaviour
         nametag.color = nameColor;
         nametagPort.color = nameColor;
     }
-    #endregion
+
+    #endregion UI
 
     #region Saving
+
     public IEnumerator SaveInfo() //just shows the user that the game got saved. simple huh?
     {
         saveinfo.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         saveinfo.SetActive(false);
     }
+
     public Save Save(int id)
     {
         bool newCard = false;
@@ -616,5 +641,6 @@ public class GameManager : MonoBehaviour
         SajberSim.SaveSystem.Save.Create(file, id, newCard);
         return file;
     }
-    #endregion
+
+    #endregion Saving
 }

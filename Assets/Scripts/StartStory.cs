@@ -1,25 +1,15 @@
-﻿using System;
-using System.Threading;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Linq;
-using System.IO;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.UI;
-using Newtonsoft.Json;
+﻿using SajberSim.CardMenu;
 using SajberSim.Helper;
-using SajberSim.Web;
-using SajberSim.Translation;
-using System.Diagnostics.Eventing.Reader;
-using System.Globalization;
 using SajberSim.Steam;
-using SajberSim.Colors;
-using SajberSim.CardMenu;
+using SajberSim.Translation;
+using SajberSim.Web;
+using System.Collections;
 using System.Diagnostics;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 /// <summary>
 /// Puts all downloaded thumbnails in the story menu
@@ -31,8 +21,7 @@ public class StartStory : MonoBehaviour
     public GameObject CloseButtonBehind;
     public Dropdown sortWay;
 
-    
-    Helper.StorySearchArgs sortArgs;
+    private Helper.StorySearchArgs sortArgs;
     public Download dl;
 
     private int page = 0; //current page in story card menu, starting at 0
@@ -42,12 +31,9 @@ public class StartStory : MonoBehaviour
     public static bool storymenuOpen = false;
     public static bool creatingStory = false;
     private string searchTerm = "";
-    
-
-        
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         storymenuOpen = false;
         if (PlayerPrefs.GetInt("nsfw", 0) == 0) nsfw = false;
@@ -62,14 +48,16 @@ public class StartStory : MonoBehaviour
 
         UpdatePreviewCards();
     }
+
     public void SetSearchPath(int n)
     {
-        switch(n)
+        switch (n)
         {
             case 0: searchPath = Helper.StorySearchPaths.All; break;
             case 1: searchPath = Helper.StorySearchPaths.Own; break;
         }
     }
+
     /// <summary>
     /// Change the toggle & value if own novels only should be shown
     /// </summary>
@@ -82,30 +70,33 @@ public class StartStory : MonoBehaviour
         Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
+
     public void UserUpdateNsfw(bool n)
     {
         if (n)
         {
-            PlayerPrefs.SetInt("nsfw", 1);
+            PlayerPrefs.SetInt(Prefs.nsfw.ToString(), 1);
             nsfw = true;
         }
         else
         {
-            PlayerPrefs.SetInt("nsfw", 0);
+            PlayerPrefs.SetInt(Prefs.nsfw.ToString(), 0);
             nsfw = false;
-            if(page != 0) ResetPage();
+            if (page != 0) ResetPage();
         }
         Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
+
     public void UserUpdateSort(int n)
     {
         sortArgs = (Helper.StorySearchArgs)n;
         Debug.Log($"Sorting arguments changed: {sortArgs}");
-        PlayerPrefs.SetInt("sorting", n);
+        PlayerPrefs.SetInt(Prefs.sorting.ToString(), n);
         Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
+
     public void UserUpdateSearch(string search) //runs at lost focus or enter
     {
         Debug.Log($"Search term changed: {search}");
@@ -114,6 +105,7 @@ public class StartStory : MonoBehaviour
         Stories.pathUpdateNeeded = true;
         UpdatePreviewCards();
     }
+
     public void UserEditSearch(string search) //runs every single letter
     {
         if (search == "")
@@ -126,7 +118,7 @@ public class StartStory : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!detailsOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseMenu();
@@ -134,6 +126,7 @@ public class StartStory : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
                 DeleteDetails();
     }
+
     public void UpdatePreviewCards()
     {
         Stopwatch st = new Stopwatch();
@@ -146,7 +139,7 @@ public class StartStory : MonoBehaviour
         int cardPages = Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath) + 1;
         for (int i = page * 6; i < page * 6 + 6; i++)
         {
-            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = string.Format(Translate.Get("page"), page+1, cardPages);
+            GameObject.Find("Canvas/StoryChoice/Pageinfo").GetComponent<Text>().text = string.Format(Translate.Get("page"), page + 1, cardPages);
             if (manifests.Length == i) return; //cancel if story doesn't exist, else set all variables
             Manifest storydata = Manifest.Get(manifests[i]);
             if (storydata != null)
@@ -159,11 +152,12 @@ public class StartStory : MonoBehaviour
         st.Stop();
         Debug.Log($"StoryMenu/Update: Cards updated. Took {st.ElapsedMilliseconds}ms to execute.");
     }
+
     private void UpdateNoNovelNotice(int novels)
     {
         if (novels == 0)
         {
-            if(searchPath == Helper.StorySearchPaths.Own)
+            if (searchPath == Helper.StorySearchPaths.Own)
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = string.Format(Translate.Get("noownnovelsfound"), Translate.Get("ownnoveltoggle"));
             else if (searchPath == Helper.StorySearchPaths.All && searchTerm == "")
                 GameObject.Find("Canvas/StoryChoice/NoNovelsNotice/Text").GetComponent<Text>().text = string.Format(Translate.Get("nonovelsfound"), Translate.Get("createnew"));
@@ -173,12 +167,13 @@ public class StartStory : MonoBehaviour
         }
         else GameObject.Find("Canvas/StoryChoice/NoNovelsNotice").transform.localScale = Vector3.zero;
     }
+
     public GameObject CreateCard(string storyPath, Manifest data, Vector3 pos, string parent = "Canvas/StoryChoice")
     {
         //if (GameObject.Find($"Canvas/StoryChoice/Card {data.name}")) Destroy(GameObject.Find($"Canvas/StoryChoice/Card {data.name}").gameObject);
 
         //spawn, place and resize
-        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject; 
+        GameObject menu = Instantiate(StoryCardTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find(parent).GetComponent<Transform>()) as GameObject;
         menu.transform.localPosition = pos;
         menu.name = $"Card {data.name}";
 
@@ -187,6 +182,7 @@ public class StartStory : MonoBehaviour
         cardDetails.SetData(data, storyPath);
         return menu;
     }
+
     public void DeleteDetails()
     {
         GameObject card = GameObject.FindGameObjectWithTag("DetailsCard");
@@ -195,11 +191,13 @@ public class StartStory : MonoBehaviour
         StartCoroutine(DelCard(card));
         detailsOpen = false;
     }
+
     public static IEnumerator DelCard(GameObject card)
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(card);
     }
+
     public void ChangePage(int change)
     {
         int pages = Stories.GetCardPages(sortArgs, nsfw, searchTerm, searchPath);
@@ -214,12 +212,14 @@ public class StartStory : MonoBehaviour
         else page += change;
         UpdatePreviewCards();
     }
+
     private void ResetPage()
     {
         ClearPreviewCards();
         page = 0;
         UpdatePreviewCards();
     }
+
     public void ClearPreviewCards()
     {
         Debug.Log("StoryMenu/Clear: Request to delete preview cards");
@@ -227,6 +227,7 @@ public class StartStory : MonoBehaviour
         foreach (GameObject card in cards)
             Destroy(card);
     }
+
     public void OpenMenu(bool own = false)
     {
         if (own) SetOwnToggle(true);
@@ -235,6 +236,7 @@ public class StartStory : MonoBehaviour
         CloseButtonBehind.SetActive(true);
         storymenuOpen = true;
     }
+
     public void CloseMenu()
     {
         GameObject.Find("Canvas/StoryChoice").GetComponent<Animator>().Play("closeStorymenu");

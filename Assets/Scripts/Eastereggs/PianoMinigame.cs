@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Color = UnityEngine.Color;
 using Image = UnityEngine.UI.Image;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 public class PianoMinigame : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class PianoMinigame : MonoBehaviour
         }
         if (sequence.Count == currentPos)
         {
-            if (PlayerPrefs.GetInt("pianostreak", 0) < currentPos) PlayerPrefs.SetInt("pianostreak", currentPos);
+            if (PlayerPrefs.GetInt(Prefs.pianostreak.ToString(), 0) < currentPos) PlayerPrefs.SetInt("pianostreak", currentPos);
             if (currentPos == 20) Achievements.Grant(Achievements.List.ACHIEVEMENT_20piano);
             StartCoroutine(RunSequence());
         }

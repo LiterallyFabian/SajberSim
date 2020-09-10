@@ -1,12 +1,11 @@
-﻿using SajberSim.Chararcter;
-using SajberSim.Helper;
+﻿using SajberSim.Helper;
 using SajberSim.Translation;
 using SajberSim.Web;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 public class Textbox : MonoBehaviour, INovelAction
 {
@@ -56,6 +55,7 @@ public class Textbox : MonoBehaviour, INovelAction
 
         return NDI;
     }
+
     private IEnumerator SpawnTextBox(string name, string target, bool port) //ID 0
     {
         ChangeTextboxType(port);
@@ -69,14 +69,14 @@ public class Textbox : MonoBehaviour, INovelAction
         }
         nameobj.text = name;
 
-        if (PlayerPrefs.GetFloat("delay", 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
+        if (PlayerPrefs.GetFloat(Prefs.delay.ToString(), 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
         {
             string written = target[0].ToString(); //written = det som står hittills
 
             for (int i = 1; i < target.Length; i++)
             {
                 written = written + target[i];
-                yield return new WaitForSeconds(PlayerPrefs.GetFloat("delay", 0.04f));
+                yield return new WaitForSeconds(PlayerPrefs.GetFloat(Prefs.delay.ToString(), 0.04f));
                 if (GameManager.textdone) //avbryt och skriv hela
                 {
                     textobj.text = target;
@@ -89,6 +89,7 @@ public class Textbox : MonoBehaviour, INovelAction
         textobj.text = target;
         GameManager.textdone = true;
     }
+
     private void ChangeTextboxType(bool portrait)
     {
         if (portrait)

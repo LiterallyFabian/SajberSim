@@ -15,6 +15,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+using Prefs = SajberSim.Helper.Helper.Prefs;
 
 /// <summary>
 /// Controls buttons on the main menu
@@ -41,8 +42,8 @@ public class ButtonCtrl : MonoBehaviour
                 SteamClient.Init(Helper.AppID);
                 Helper.loggedin = true;
                 Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
-                PlayerPrefs.SetString("usernamecache", SteamClient.Name);
-                PlayerPrefs.SetString("steamidcache", SteamClient.SteamId.ToString());
+                PlayerPrefs.SetString(Prefs.usernamecache.ToString(), SteamClient.Name);
+                PlayerPrefs.SetString(Prefs.steamidcache.ToString(), SteamClient.SteamId.ToString());
             }
             catch (System.Exception e)
             {
@@ -91,6 +92,7 @@ public class ButtonCtrl : MonoBehaviour
                 SteamFriends.OpenUserOverlay(SteamClient.SteamId, "steamid");
         }
     }
+
     //Called from ButtonFind
     public void OpenWorkshop()
     {
