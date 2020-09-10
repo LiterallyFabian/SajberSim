@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SajberSim.Story;
-using SajberSim.Translation;
+﻿using SajberSim.Translation;
 using Steamworks;
-using UnityEngine;
-using UnityEngine.UI;
-using System.IO.Compression;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.SceneManagement;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace SajberSim.Helper
 {
@@ -24,11 +14,15 @@ namespace SajberSim.Helper
     {
         // genres translated
         public static string[] genres;
+
         public static string[] privacysettings;
+
         // genres as how they are in the steamworks backend
         public static string[] genresSteam = new string[] { "Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Magic", "Mystery", "Romance", "Sci-fi", "Slice of life", "Supernatural", "Other" };
+
         // genres in manifest
         public static string[] genresid = new string[] { "action", "adventure", "comedy", "drama", "fantasy", "horror", "magic", "mystery", "romance", "scifi", "sliceoflife", "supernatural", "other" };
+
         public static string[] audience = new string[] { "Everyone", "Questionable", "Mature" };
         public const uint AppID = 1353530;
         public static bool loggedin = false;
@@ -55,6 +49,7 @@ namespace SajberSim.Helper
             {4, new Vector3(330, -230, 1)},
             {5, new Vector3(660, -230, 1)}
         };
+
         public static Dictionary<int, Vector3> SavePositions = new Dictionary<int, Vector3>()
         {
             {0, new Vector3(-310, 195, 1)},
@@ -67,6 +62,7 @@ namespace SajberSim.Helper
             {7, new Vector3(0, -195, 1)},
             {8, new Vector3(310, -195, 1)},
         };
+
         public enum StorySearchArgs
         {
             Alphabetical,
@@ -79,6 +75,7 @@ namespace SajberSim.Helper
             LastModified,
             ID
         }
+
         public enum StorySearchPaths
         {
             All, //all stories
@@ -87,6 +84,7 @@ namespace SajberSim.Helper
             Local, //only official stories
             Own //only custom stories
         }
+
         public enum DataSize
         {
             Byte,
@@ -94,6 +92,7 @@ namespace SajberSim.Helper
             Megabyte,
             Gigabyte
         }
+
         public static GameObject Alert(string text, string buttonText = null)
         {
             string size = "Small";
@@ -105,7 +104,9 @@ namespace SajberSim.Helper
             alert.transform.localPosition = Vector3.zero;
             return alert;
         }
+
         private static bool _filledlist = false;
+
         private void Start()
         {
             if (!_filledlist)
@@ -135,7 +136,7 @@ namespace SajberSim.Helper
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
                 Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
-            } 
+            }
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (SceneManager.GetActiveScene().name == "menu")
             {
@@ -143,6 +144,7 @@ namespace SajberSim.Helper
                 FindObjectsOfType<CreateNew>()[0].SetDropDowns();
             }
         }
+
         /// <summary>
         /// Checks if input is an int or not
         /// </summary>
@@ -151,51 +153,30 @@ namespace SajberSim.Helper
             if (int.TryParse(input, out int n)) return true;
             else return false;
         }
-       
-        //public static string GetManifestPath(string storyID, StorySearchPaths where)
-        //{
-        //    string dir;
-        //    switch (where)
-        //    {
-        //        case StorySearchPaths.Local:
-        //            dir = localPath;
-        //            break;
-        //        case StorySearchPaths.Workshop:
-        //            if (loggedin) dir = steamPath;
-        //            else dir = localPath;
-        //            break;
-        //        case StorySearchPaths.Own:
-        //            dir = customPath;
-        //            break;
-        //        default:
-        //            dir = localPath;
-        //            break;
-        //    }
-        //    string path = $"{dir}/{storyID}";
-        //    if (File.Exists(path))
-        //        return path;
-        //    else
-        //    {
-        //        Debug.LogError($"Helper: Tried getting manifest path {storyID} which does not exist ({path}, search argument {where.ToString()})");
-        //        return null;
-        //    }
-        //}
-        public static string UsernameCache()
-        {
-            if (loggedin) return SteamClient.Name;
-            else return PlayerPrefs.GetString("usernamecache", "User");
-        }
+
+        /// <summary>
+        /// Gets Steam username if logged in, else a cached or default name
+        /// </summary>
+        public static string UsernameCache() => loggedin ? SteamClient.Name : PlayerPrefs.GetString("usernamecache", "User");
+
+        /// <summary>
+        /// Gets Steam ID if logged in, else a cached or default ID
+        /// </summary>
+        public static string SteamIDCache() => loggedin ? SteamClient.SteamId.ToString() : PlayerPrefs.GetString("steamidcache", "-1");
+
         public static string[] ReverseArray(string[] arr)
         {
             Array.Reverse(arr);
             return arr;
         }
+
         public static List<string> ReverseList(List<string> list)
         {
             list.Reverse();
             return list;
         }
-        public static void CreateLogfile()
+
+        public static void CreateLogfile() //needs testing
         {
             if (Application.isEditor) return;
             DateTime now = DateTime.Now;
@@ -206,6 +187,7 @@ namespace SajberSim.Helper
             System.IO.Directory.CreateDirectory(Path.Combine(Application.dataPath, "Logs"));
             System.IO.File.Copy(sourceFile, destFile, true);
         }
+
         /// <summary>
         /// Appends argument on game directory (*/SajberSim_Data/)
         /// </summary>
@@ -258,6 +240,7 @@ namespace SajberSim.Helper
 
             return result;
         }
+
         /// <summary>
         /// Converts an int to a bool
         /// </summary>
@@ -266,6 +249,7 @@ namespace SajberSim.Helper
             if (n == 1) return true;
             else return false;
         }
+
         /// <summary>
         /// Converts a bool to 0 or 1
         /// </summary>
@@ -273,7 +257,7 @@ namespace SajberSim.Helper
         {
             return n ? 1 : 0;
         }
-     
+
         /// <summary>
         /// Checks if input is a float value
         /// </summary>
@@ -289,16 +273,19 @@ namespace SajberSim.Helper
             }
             return true;
         }
+
         public static bool GetBoolFromPrefs(string key, int def)
         {
             if (PlayerPrefs.GetInt(key, def) == 1) return true;
             else return false;
         }
+
         public static void SetPrefsFromBool(string key, bool b)
         {
             if (b) PlayerPrefs.SetInt(key, 1);
             else PlayerPrefs.SetInt(key, 0);
         }
+
         /// <summary>
         /// Modifies the brightness of a color
         /// </summary>
@@ -309,6 +296,7 @@ namespace SajberSim.Helper
             color.a = 1;
             return color;
         }
+
         /// <summary>
         /// Calculates the total size of a directory
         /// </summary>
@@ -331,6 +319,7 @@ namespace SajberSim.Helper
             }
             return size;
         }
+
         public static double BytesTo(long bytes, DataSize size)
         {
             switch (size)
@@ -342,6 +331,7 @@ namespace SajberSim.Helper
             }
             return 0;
         }
+
         public static string UwUTranslator(string text)
         {
             if (PlayerPrefs.GetInt("uwu", 0) == 0) return text;
@@ -357,6 +347,7 @@ namespace SajberSim.Helper
             }
             return text;
         }
+
         public static string FormatNumber(int num)
         {
             if (num >= 100000)
@@ -367,6 +358,7 @@ namespace SajberSim.Helper
             }
             return num.ToString("#,0");
         }
+
         public static void CopyDirectory(string source, string dest)
         {
             Directory.CreateDirectory(dest);
@@ -380,26 +372,30 @@ namespace SajberSim.Helper
         }
     }
 }
+
 /// <summary>
 /// Used to store path and corresponding search pattern for Helper.SortArrayBy.
 /// </summary>
-class StorySort
+internal class StorySort
 {
     public string thepath;
     public string argstring;
     public int argint;
     public long arglong;
+
     public StorySort(string path, string arg)
     {
         this.thepath = path;
         this.argstring = arg;
     }
+
     public StorySort(string path, int arg)
     {
         this.thepath = path;
         this.argint = arg;
     }
-    // only giving a path will set argint to the latest modification date 
+
+    // only giving a path will set argint to the latest modification date
     public StorySort(string path)
     {
         thepath = path;

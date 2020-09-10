@@ -52,6 +52,7 @@ public class ButtonCtrl : MonoBehaviour
                 Helper.loggedin = true;
                 Debug.Log($"Steam: Connected to {SteamClient.Name} (ID: {SteamClient.SteamId})");
                 PlayerPrefs.SetString("usernamecache", SteamClient.Name);
+                PlayerPrefs.SetString("steamidcache", SteamClient.SteamId.ToString());
             }
             catch (System.Exception e)
             {
@@ -77,7 +78,7 @@ public class ButtonCtrl : MonoBehaviour
         //Set login if you are logged in
         if (Helper.loggedin)
         {
-            loginstatus.text = string.Format(Translate.Get("welcomeuser"), SteamClient.Name);
+            loginstatus.text = string.Format(Translate.Get("welcomeuser"), Helper.UsernameCache());
             dl.Image(GameObject.Find("Canvas/ProfilePictureFrame/ProfilePicture"), SteamAPI.GetProfile($"{SteamClient.SteamId}").Avatarmedium);
             Manifest.FixSteamID();
         }
