@@ -27,7 +27,9 @@ class Vault : MonoBehaviour
         attempts++;
         // Why are the codes hashed you might ask? Well, since you're reading this I don't think I have to explain
         // tbf tho, these are not anything secret but mostly used for unlisted novels
+        // while you are here, try the code "piano" or check this epic video
         // https://www.youtube.com/watch?v=9InoLZ-ErQU
+
         string code = input.text.ToLower().Hash();
         string[] correctHashes = { "50DF67917FFEEE1506C3E7619A02E794CD965320C7412A12708D09266F12BC4F3E1564DDF53AB9E943A93C648C726F3A14BA4032C3A49922E4B264FC5EC88F28", "BC985B16DBDB92473DB3B49E651188B3B3813375E10B960A472D2B1410E4F6EF48C9DCB99C48465CEDFE3C34F742C283FB8B15258BD0061CBC96EE431B413200" };
         if (correctHashes.Contains(code)) Correct(code);
@@ -43,7 +45,7 @@ class Vault : MonoBehaviour
         Debug.Log($"Vault: {input.text} wasn't a code, how sad!");
         StartCoroutine(ResetField());
         Lore.color = Colors.NsfwRed;
-        Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 8)}");
+        Lore.text = Translate.Get($"vaulterror{UnityEngine.Random.Range(0, 9)}");
         if (attempts > 30 && Helper.loggedin && UnityEngine.Random.Range(0, 3) == 0) 
         {
             string[] allstories = Manifest.GetAll();
