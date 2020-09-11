@@ -40,7 +40,7 @@ namespace SajberSim.Steam
             item = item.WithTitle(wdata.title)
             .WithDescription(wdata.description)
             .WithTag(wdata.genre)
-            .WithTag("Mature")
+            .WithTag(wdata.rating)
             .WithContent(wdata.dataPath)
             .InLanguage(wdata.lang)
             .WithPreviewFile(Path.Combine(wdata.dataPath, "steam.png"))

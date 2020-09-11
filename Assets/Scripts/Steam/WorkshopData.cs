@@ -17,7 +17,7 @@ namespace SajberSim.Steam
         public string lang;
         public string changenotes;
         public Workshop.Privacy privacy;
-        public Workshop.Rating rating;
+        public string rating;
         public Stopwatch st;
         public string originalPath;
         public long id = -1;

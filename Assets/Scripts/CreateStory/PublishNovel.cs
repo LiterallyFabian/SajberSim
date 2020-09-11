@@ -82,9 +82,9 @@ public class PublishNovel : MonoBehaviour
             };
             switch (data.rating)
             {
-                case "mature": wdata.rating = Workshop.Rating.Mature; break;
-                case "questionable": wdata.rating = Workshop.Rating.Questionable; break;
-                default: wdata.rating = Workshop.Rating.Everyone; break;
+                case "mature": wdata.rating = "Mature"; break;
+                case "questionable": wdata.rating = "Questionable"; break;
+                default: wdata.rating = "Everyone"; break;
             }
             switch (Menu_Publish.P_Privacy.value)
             {
