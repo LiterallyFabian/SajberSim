@@ -59,7 +59,8 @@ public class ButtonCtrl : MonoBehaviour
         Cursor.visible = true;
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;
         SetLogin();
-        //Stats.ShowAll();
+        if (Helper.currentStoryID != "-1" && Helper.currentStoryDone) Instantiate(Resources.Load($"Prefabs/RatePlayedNovel", typeof(GameObject)), Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas").GetComponent<Transform>());
+        Helper.currentStoryDone = false;
     }
 
     private void SetLogin()

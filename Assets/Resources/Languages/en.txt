@@ -25,7 +25,13 @@ close=Close
 help=Help
 gotit=Got it
 delete=Delete
+sure!=Sure!
+later=Later
 recommendednovels=Recommended novels
+
+#Rate novel finished
+rateplayednoveltitle=Rate finished novel
+rateplayednovel=You just finished {0}! Please leave a review on the Workshop to let others what you thought of it!
 
 #Steam
 welcomeuser=Welcome\n<b>{0}</b>!

@@ -27,7 +27,12 @@ help=Hjälp
 gotit=Förstått
 delete=Radera
 recommendednovels=Rekommenderade romaner
+sure!=Visst!
+later=Senare
 
+#Rate novel finished
+rateplayednoveltitle=Betygsätt roman
+rateplayednovel=Du har precis avslutat {0}! Lämna gärna en recension på Steams Workshop för att informera andra vad du tyckte om den!
 #Steam
 welcomeuser=Välkommen\n<b>{0}</b>!
 goodbyeuser=Hejdå\n<b>{0}</b>!

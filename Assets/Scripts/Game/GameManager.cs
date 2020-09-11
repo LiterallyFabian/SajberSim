@@ -191,6 +191,7 @@ public class GameManager : MonoBehaviour
         {
             RequestName();
         }
+        Helper.currentStoryID = data.id;
         UnityEngine.Debug.Log($"Entered visual novel. Details:\nName: {Helper.currentStoryName}\nPath: {Helper.currentStoryPath}");
         UpdateDesign();
         RunNext();
@@ -505,7 +506,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(FadeOut(music.GetComponent<AudioSource>(), 1.3f, 0));
         Credits.storypath = Helper.currentStoryPath;
-
+        Helper.currentStoryDone = true;
         fadeimage.SetActive(true); //Open image that will fade (starts at opacity 0%)
         fadeimage.GetComponent<Animator>().Play("darken");
         yield return new WaitForSeconds(0.5f);

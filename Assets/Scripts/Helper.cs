@@ -32,6 +32,8 @@ namespace SajberSim.Helper
         public static string steamPath = "";
         public static string currentStoryPath = "";
         public static string currentStoryName = "";
+        public static string currentStoryID = "-1";
+        public static bool currentStoryDone = false;
         public static string savesPath = "";
         public static string templatePath = "";
 
