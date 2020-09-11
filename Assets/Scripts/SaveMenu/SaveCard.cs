@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.IO;
 using UnityEditor;
+using SajberSim.Chararcter;
 
 namespace SajberSim.SaveSystem
 {
@@ -54,7 +55,6 @@ namespace SajberSim.SaveSystem
                     Helper.Helper.currentStoryName = data.name;
                     Debug.Log($"Attempting to start the novel \"{data.name}\" with path {save.path}");
                     ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-                    ButtonCtrl.CreateCharacters();
                     StartStory.storymenuOpen = false;
                     GameManager.storyAuthor = data.author;
                     GameManager.storyName = data.name;
@@ -66,7 +66,6 @@ namespace SajberSim.SaveSystem
                     Helper.Helper.currentStoryPath = save.path;
                     Helper.Helper.currentStoryName = data.name;
                     Debug.Log($"Attempting to start the novel \"{data.name}\" with path {save.path}");
-                    ButtonCtrl.CreateCharacters();
                     GameManager.storyAuthor = data.author;
                     GameManager.storyName = data.name;
                     GameManager.Instance.StartGame(save);

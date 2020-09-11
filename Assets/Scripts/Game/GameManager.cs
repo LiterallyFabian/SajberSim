@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         ready = true;
         textdone = false;
         scriptName = "start";
-        people = ButtonCtrl.people;
+        people = Person.Assign();
         RemoveCharacters();
         ClearText();
         story = new string[0];

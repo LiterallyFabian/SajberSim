@@ -1,4 +1,5 @@
 ﻿using SajberSim.CardMenu;
+using SajberSim.Chararcter;
 using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Steam;
@@ -92,7 +93,7 @@ public class StoryCard : MonoBehaviour
         Helper.currentStoryName = data.name;
         Debug.Log($"Attempting to start the novel \"{data.name}\" with path {storyPath}");
         ButtonCtrl main = GameObject.Find("ButtonCtrl").GetComponent<ButtonCtrl>();
-        ButtonCtrl.CreateCharacters();
+        Person.Assign();
         StartStory.storymenuOpen = false;
         GameManager.storyAuthor = data.author;
         GameManager.storyName = data.name;

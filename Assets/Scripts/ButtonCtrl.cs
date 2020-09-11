@@ -26,7 +26,6 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject SaveLoadMenu;
     public GameObject SettingsMenu;
     public GameObject BehindSettings;
-    public static Person[] people = new Person[4];
     public GameObject fadeimage;
     public AudioSource music;
     public static string charpath;
@@ -103,39 +102,6 @@ public class ButtonCtrl : MonoBehaviour
         }
         Helper.Alert(Translate.Get("openedworkshop"));
         Process.Start($@"steam://openurl/https://steamcommunity.com/app/1353530/workshop/");
-    }
-
-    public static void CreateCharacters()
-    {
-        System.Random rnd = new System.Random();
-        string configPath = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
-        if (!File.Exists(configPath)) return;
-        string[] config = File.ReadAllLines(configPath);
-
-        people = new Person[config.Length]; //change size to amount of ppl
-        PlayerPrefs.SetInt("characters", config.Length); //amount of characters
-
-        for (int i = 0; i < config.Length; i++) //fill array from file
-            people[i] = new Person(config[i].Split(',')[0], config[i].Split(',')[1], i);
-
-        people = people.OrderBy(x => rnd.Next()).ToArray(); //randomize array
-
-        for (int i = 0; i < people.Length; i++) //sparar ID i playerpref
-            PlayerPrefs.SetInt($"character{i}", people[i].ID);
-    }
-
-    private void LoadCharacters() //Loads characters from playerprefs
-    {
-        string path = $"{Helper.currentStoryPath}/Characters/characterconfig.txt";
-        if (!File.Exists(path)) return;
-        string[] config = File.ReadAllLines(path);
-        people = new Person[PlayerPrefs.GetInt("characters", 1)];
-
-        for (int i = 0; i < people.Length; i++) //fill array from save
-        {
-            int tempID = PlayerPrefs.GetInt($"character{i}", 0);
-            people[i] = new Person(config[tempID].Split(',')[0], config[tempID].Split(',')[1], i);
-        }
     }
 
     public void OpenMenu(GameObject menu) //opens a menu, like settings or modding

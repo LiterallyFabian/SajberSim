@@ -1,4 +1,5 @@
-﻿using SajberSim.Helper;
+﻿using SajberSim.Chararcter;
+using SajberSim.Helper;
 using SajberSim.Translation;
 using System;
 using System.Collections.Generic;
@@ -111,8 +112,7 @@ public class NovelDebugger : MonoBehaviour
     {
         Helper.currentStoryPath = path;
         GameManager.shortStoryPath = new DirectoryInfo(path).Name;
-        ButtonCtrl.CreateCharacters();
-        GameManager.people = ButtonCtrl.people;
+        GameManager.people = Person.Assign();
     }
     private void ResetVariables()
     {
