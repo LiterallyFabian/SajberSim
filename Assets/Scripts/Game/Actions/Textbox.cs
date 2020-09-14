@@ -58,16 +58,13 @@ public class Textbox : MonoBehaviour, INovelAction
 
     private IEnumerator SpawnTextBox(string name, string target, bool port) //ID 0
     {
-        ChangeTextboxType(port);
-        Download dl = GameObject.Find("Helper").GetComponent<Download>();
-        GameManager.Instance.textbox.SetActive(true);
-        if (port && GameManager.currentPortrait != name)
-        {
-            string path = _CharacterHelper.GetPath(name, "port").path;
-            dl.Image(GameManager.Instance.portrait, path);
-            GameManager.currentPortrait = name;
-        }
-        nameobj.text = name;
+        //Enable the right one
+        SajberSim.Game.Objects.Textbox TB = GameManager.Instance.TextboxPort;
+        if(!port) TB = GameManager.Instance.TextboxNoPort;
+        TB.SetActive(true);
+
+        TB.Set(name, _CharacterHelper.GetPath(name, "port").path, port);
+        
 
         if (PlayerPrefs.GetFloat(Prefs.delay.ToString(), 0.04f) > 0.001f) //ifall man stängt av typing speed är denna onödig
         {
@@ -79,30 +76,14 @@ public class Textbox : MonoBehaviour, INovelAction
                 yield return new WaitForSeconds(PlayerPrefs.GetFloat(Prefs.delay.ToString(), 0.04f));
                 if (GameManager.textdone) //avbryt och skriv hela
                 {
-                    textobj.text = target;
+                    TB.Comment.text = target;
                     GameManager.textdone = true;
                     break;
                 }
-                textobj.text = written;
+                TB.Comment.text = written;
             }
         }
-        textobj.text = target;
+        TB.Comment.text = target;
         GameManager.textdone = true;
-    }
-
-    private void ChangeTextboxType(bool portrait)
-    {
-        if (portrait)
-        {
-            textobj = GameManager.Instance.commentPort;
-            nameobj = GameManager.Instance.nametagPort;
-            GameManager.Instance.portrait.transform.localScale = Vector3.one;
-        }
-        else
-        {
-            textobj = GameManager.Instance.comment;
-            nameobj = GameManager.Instance.nametag;
-            GameManager.Instance.portrait.transform.localScale = Vector3.zero;
-        }
     }
 }

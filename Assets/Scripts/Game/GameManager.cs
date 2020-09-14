@@ -1,5 +1,6 @@
 ﻿using SajberSim.Chararcter;
 using SajberSim.Colors;
+using SajberSim.Objects;
 using SajberSim.Helper;
 using SajberSim.SaveSystem;
 using SajberSim.Steam;
@@ -27,14 +28,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    //Textbox
-    public GameObject textbox;
-
-    public GameObject portrait;
-    public Text comment; //The normal text
-    public Text nametag; //The nametag
-    public Text commentPort; //The normal text
-    public Text nametagPort; //The nametag
+    public SajberSim.Objects.Textbox TextboxPort;
+    public SajberSim.Objects.Textbox TextboxNoPort;
 
     //Alert
     public GameObject alertbox;
@@ -384,13 +379,11 @@ public class GameManager : MonoBehaviour
 
     private void ClearText()
     {
-        textbox.SetActive(false);
+        TextboxPort.SetActive(false);
+        TextboxNoPort.SetActive(false);
+
         alertbox.SetActive(false);
         questionbox.SetActive(false);
-        commentPort.text = "";
-        comment.text = "";
-        nametag.text = "";
-        nametagPort.text = "";
         alert.text = "";
         question.text = "";
         alt1t.text = "";
@@ -559,13 +552,14 @@ public class GameManager : MonoBehaviour
         if (File.Exists(textboxpath))
         {
             Debug.Log($"Found textbox at path {textboxpath} and will try to update...");
-            dl.Image(textbox, "file://" + textboxpath);
+            dl.Image(TextboxPort.gameObject, "file://" + textboxpath);
+            dl.Image(TextboxNoPort.gameObject, "file://" + textboxpath);
             dl.Image(alertbox, "file://" + textboxpath);
         }
 
         Color textColor = Colors.FromRGB(design.textcolor);
-        commentPort.color = textColor;
-        comment.color = textColor;
+        TextboxPort.Comment.color = textColor;
+        TextboxNoPort.Comment.color = textColor;
         dropdownQ.color = textColor;
         question.color = textColor;
         alert.color = textColor;
@@ -582,8 +576,8 @@ public class GameManager : MonoBehaviour
         alt2t.color = buttonTextColor;
 
         Color nameColor = Colors.FromRGB(design.namecolor);
-        nametag.color = nameColor;
-        nametagPort.color = nameColor;
+        TextboxPort.Nametag.color = nameColor;
+        TextboxNoPort.Nametag.color = nameColor;
     }
 
     #endregion UI
