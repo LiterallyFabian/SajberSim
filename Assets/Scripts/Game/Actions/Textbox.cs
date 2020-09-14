@@ -59,7 +59,7 @@ public class Textbox : MonoBehaviour, INovelAction
     private IEnumerator SpawnTextBox(string name, string target, bool port) //ID 0
     {
         //Enable the right one
-        SajberSim.Game.Objects.Textbox TB = GameManager.Instance.TextboxPort;
+        SajberSim.Objects.Textbox TB = GameManager.Instance.TextboxPort;
         if(!port) TB = GameManager.Instance.TextboxNoPort;
         TB.SetActive(true);
 
