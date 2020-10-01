@@ -32,6 +32,8 @@ public class StoryCard : MonoBehaviour
     public DetailsCard detailsCard;
     public GameObject detailsTemplate;
     public StoryStats stats;
+    public GameObject ColorOverlayObject;
+    public GameObject DemoNotice;
 
     void Start()
     {
@@ -48,6 +50,7 @@ public class StoryCard : MonoBehaviour
         if (data == null) return;
         myNovel = storyPath.Contains($"SajberSim_Data{Path.DirectorySeparatorChar}MyStories") || (Application.isEditor && storyPath.Contains("MyStories"));
         if (data.authorid == Helper.SteamIDCache()) myNovel = true;
+        if (Demo.isDemo) myNovel = false;
     }
     public void SetData(Manifest storyData, string path)
     {
@@ -85,7 +88,29 @@ public class StoryCard : MonoBehaviour
             Flag.sprite = dl.Flag(Language.Languages[data.language].iso_code);
         }
         catch { }
-        
+        UpdateDemoStatus();
+    }
+    private void UpdateDemoStatus()
+    {
+        if (Demo.isDemo)
+        {
+            bool included = false;
+            foreach (Demo.DemoNovel n in Demo.allowedNovels)
+            {
+                if (data.id == n.id && data.authorid == n.by)
+                {
+                    included = true;
+                    break;
+                }
+            }
+            if (!included)
+            {
+                Destroy(ColorOverlayObject.GetComponent<CardOverlay>());
+                Destroy(ColorOverlayObject.GetComponent<EventTrigger>());
+                ColorOverlayObject.GetComponent<Image>().color = Colors.AlmostSolid;
+                DemoNotice.SetActive(true);
+            }
+        }
     }
     public void Play() 
     { 

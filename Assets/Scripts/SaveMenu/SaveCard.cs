@@ -31,6 +31,11 @@ namespace SajberSim.SaveSystem
         public Save save;
         public SaveMenu Main;
         private bool working = false;
+        private Manifest data;
+
+
+        public GameObject ColorOverlayObject;
+        public GameObject DemoNotice;
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
@@ -48,7 +53,6 @@ namespace SajberSim.SaveSystem
         {
             if(working) //story exists
             {
-                Manifest data = Manifest.Get(Path.Combine(save.path, "manifest.json"));
                 if (SceneManager.GetActiveScene().name != "game") //play from main
                 {
                     Helper.Helper.currentStoryPath = save.path;
@@ -102,6 +106,31 @@ namespace SajberSim.SaveSystem
             date.text = datetext.First().ToString().ToUpper() + datetext.Substring(1);
             dl.CardThumbnail(tb2, $"{Helper.Helper.savesPath}/{id}.png");
             if (!working) tb2.color = Color.red;
+            data = Manifest.Get(Path.Combine(save.path, "manifest.json"));
+            UpdateDemoStatus();
+        }
+        private void UpdateDemoStatus()
+        {
+            if (Demo.isDemo)
+            {
+                bool included = false;
+                foreach (Demo.DemoNovel n in Demo.allowedNovels)
+                {
+                    if (data.id == n.id && data.authorid == n.by)
+                    {
+                        included = true;
+                        break;
+                    }
+                }
+                if (!included)
+                {
+                    
+                    Destroy(ColorOverlayObject.GetComponent<EventTrigger>());
+                    ColorOverlayObject.transform.localScale = Vector3.one;
+                    DemoNotice.SetActive(true);
+                    Destroy(this);
+                }
+            }
         }
     }
 }

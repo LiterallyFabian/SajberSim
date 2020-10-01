@@ -33,6 +33,7 @@ later=Senare
 #Rate novel finished
 rateplayednoveltitle=Betygsätt roman
 rateplayednovel=Du har precis avslutat {0}! Lämna gärna en recension på Steams Workshop för att informera andra vad du tyckte om den!
+
 #Steam
 welcomeuser=Välkommen\n<b>{0}</b>!
 goodbyeuser=Hejdå\n<b>{0}</b>!
@@ -251,6 +252,7 @@ nonovelsfound=Inga visuella romaner kunde hittas! Tryck på "{0}" knappen ovan f
 nonovelsfoundsearch=Dessa sökfilter matchar inga installerade romaner. Testa sök på något annat, eller ladda ner några från Steam!
 noownnovelsfound=Du har inga visuella romaner som matchar dessa sökfilter. Du kan visa alla romaner genom att avmarkera "{0}" ovan.
 namepromt=Vänligen fyll i ditt namn.
+demopromt=Inte tillgänglig i demo
 
 #Genres
 genre=Genre

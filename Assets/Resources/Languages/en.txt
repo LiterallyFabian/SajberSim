@@ -249,6 +249,7 @@ nonovelsfound=No visual novels could be found! Create your own using the "{0}" b
 nonovelsfoundsearch=Your search doesn't match any visual novels. Try searching for something else, or download some from the Steam Workshop!
 noownnovelsfound=You don't have any visual novels matching these search results. You can view all novels by unchecking the "{0}" toggle above.
 namepromt=Please enter your name.
+demopromt=Not available in demo
 
 #Genres
 genre=Genre

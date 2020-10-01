@@ -27,7 +27,6 @@ namespace SajberSim.Web
             GameObject[] list = GameObject.FindGameObjectsWithTag("Download");
             if(list != null && list.Length > 0) return list[0].GetComponent<Download>();
             return new GameObject().AddComponent<Download>();
-                
         }
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {

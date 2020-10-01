@@ -32,6 +32,8 @@ public class StartStory : MonoBehaviour
     public static bool creatingStory = false;
     private string searchTerm = "";
 
+    public Button Button_NewNovel;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -47,6 +49,7 @@ public class StartStory : MonoBehaviour
         sortWay.SetValueWithoutNotify(PlayerPrefs.GetInt("sorting", 0));
 
         UpdatePreviewCards();
+        if (Demo.isDemo) Button_NewNovel.interactable = false;
     }
 
     public void SetSearchPath(int n)

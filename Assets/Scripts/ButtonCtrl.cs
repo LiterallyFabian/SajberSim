@@ -55,6 +55,7 @@ public class ButtonCtrl : MonoBehaviour
 
     public void Start()
     {
+        if (Demo.isDemo) GameObject.Find("Canvas/ButtonFind").GetComponent<Button>().interactable = false;
         dl = Download.Init();
         Cursor.visible = true;
         GameObject.Find("Canvas/Version").GetComponent<Text>().text = 'v' + Application.version;

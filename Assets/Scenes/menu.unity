@@ -13762,7 +13762,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 410993618}
   m_HandleRect: {fileID: 410993617}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14014,6 +14014,7 @@ GameObject:
   - component: {fileID: 863821250}
   - component: {fileID: 863821251}
   - component: {fileID: 863821252}
+  - component: {fileID: 863821253}
   m_Layer: 5
   m_Name: logo
   m_TagString: Untagged
@@ -14262,6 +14263,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511f448b12cfcc04391be00b39962b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &863821253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863821243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866cf09debf0f184fa4a8c35e0a1008e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logoObj: {fileID: 863821245}
+  defaultlogo: {fileID: 21300000, guid: 969ad671cd511aa4d86c2e97af9f170b, type: 3}
+  afklogo: {fileID: 21300000, guid: 9fe0cc4dacf0d5240a7cabfcfcc5dd97, type: 3}
+  demologo: {fileID: 21300000, guid: 2ae91b9c78ddf5a44b9fa81688d6c7bb, type: 3}
 --- !u!1 &864819048
 GameObject:
   m_ObjectHideFlags: 0
@@ -26437,6 +26454,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486286746}
   m_CullTransparentMesh: 0
+--- !u!114 &1490664054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3135627379047702909, guid: caf23664603c25f42a6648e365d4a82f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1378468388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1499128148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34513,7 +34542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -431980.3, y: -0.00012954137}
+  m_AnchoredPosition: {x: -473257.62, y: -0.00012954137}
   m_SizeDelta: {x: -14.765015, y: 481.4351}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1728018900
@@ -40198,6 +40227,7 @@ MonoBehaviour:
   sortWay: {fileID: 1330237966}
   dl: {fileID: 0}
   nsfw: 0
+  Button_NewNovel: {fileID: 1490664054}
 --- !u!95 &1834734307
 Animator:
   serializedVersion: 3
@@ -41224,7 +41254,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1964023514}
   - component: {fileID: 1964023513}
-  - component: {fileID: 1964023515}
   m_Layer: 0
   m_Name: Eastereggs
   m_TagString: Untagged
@@ -41261,20 +41290,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1964023515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1964023512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2e3e69bb1b8424e9cec0c17ba1d581, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logoObj: {fileID: 863821245}
-  afklogo: {fileID: 21300000, guid: 9fe0cc4dacf0d5240a7cabfcfcc5dd97, type: 3}
 --- !u!1 &1971063803
 GameObject:
   m_ObjectHideFlags: 0
@@ -47197,7 +47212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -7650695.5}
+  m_AnchoredPosition: {x: -159.16391, y: -9934336}
   m_SizeDelta: {x: 300, y: 867.80786}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &591715122792385623
