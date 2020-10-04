@@ -188,7 +188,9 @@ namespace SajberSim.Helper
                 if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                 if (!Directory.Exists(customPath)) Directory.CreateDirectory(customPath);
                 Debug.Log($"Helper: Loaded all static data. Found {genres.Length} genres: {string.Join(", ", genres)}");
+                File.WriteAllText(Path.Combine(Application.temporaryCachePath, "readme.txt"), "Hi! This is just a quick description in what this folder contains.\n\nlastGame.png\nScreenshot taken when pressed Esc in-game. Only saved locally, and is used for thumbnails when you save your game.\n\nupload/\nCopy of visual novels you choose to publish to Steam.\nThe difference between here is that these folders are cleared from files not used in your novel.\n\n\n- Fabina <3");
             }
+
             AudioListener.volume = PlayerPrefs.GetFloat("volume", 1f); //sets volume to player value
             if (SceneManager.GetActiveScene().name == "menu")
             {
