@@ -1,17 +1,13 @@
-﻿using SajberSim.CardMenu;
+﻿#pragma warning disable CS0162 // Unreachable code detected
+
+using SajberSim.CardMenu;
 using SajberSim.Chararcter;
 using SajberSim.Colors;
 using SajberSim.Helper;
 using SajberSim.Steam;
 using SajberSim.Web;
-using Steamworks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -35,23 +31,25 @@ public class StoryCard : MonoBehaviour
     public GameObject ColorOverlayObject;
     public GameObject DemoNotice;
 
-    void Start()
+    private void Start()
     {
         storyManager = GameObject.Find("Canvas/StoryChoice").GetComponent<StartStory>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
+
     private void CheckOwnerStatus()
     {
         if (data == null) return;
-        myNovel = storyPath.Contains($"SajberSim_Data{Path.DirectorySeparatorChar}MyStories") || (Application.isEditor && storyPath.Contains("MyStories"));
+        myNovel = storyPath.Contains($"SajberSim_Data{Path.DirectorySeparatorChar}MyNovels") || (Application.isEditor && storyPath.Contains("MyNovels"));
         if (data.authorid == Helper.SteamIDCache()) myNovel = true;
+
         if (Demo.isDemo) myNovel = false;
     }
+
     public void SetData(Manifest storyData, string path)
     {
         stats = StoryStats.Get(path);
@@ -76,7 +74,7 @@ public class StoryCard : MonoBehaviour
             NSFW.color = new Color(0, 0, 0, 0); //hide
             Paper.transform.localPosition = new Vector3(Paper.transform.localPosition.x, 47, 0);
         }
-        else if (data.nsfw) // easier to read than just an else 
+        else if (data.nsfw) // easier to read than just an else
         {
             NSFW.color = textColor; //show
             Paper.transform.localPosition = new Vector3(Paper.transform.localPosition.x, 57, 0);
@@ -90,6 +88,7 @@ public class StoryCard : MonoBehaviour
         catch { }
         UpdateDemoStatus();
     }
+
     private void UpdateDemoStatus()
     {
         if (Demo.isDemo)
@@ -112,8 +111,9 @@ public class StoryCard : MonoBehaviour
             }
         }
     }
-    public void Play() 
-    { 
+
+    public void Play()
+    {
         Helper.currentStoryPath = storyPath;
         Helper.currentStoryName = data.name;
         Debug.Log($"Attempting to start the novel \"{data.name}\" with path {storyPath}");
@@ -126,6 +126,7 @@ public class StoryCard : MonoBehaviour
         Stats.Add(Stats.List.novelsstarted);
         StartCoroutine(main.FadeToScene("game"));
     }
+
     public void Details()
     {
         GameObject details = Instantiate(detailsTemplate, Vector3.zero, new Quaternion(0, 0, 0, 0), GameObject.Find("Canvas/StoryChoice").GetComponent<Transform>()) as GameObject;
@@ -135,6 +136,7 @@ public class StoryCard : MonoBehaviour
         details.GetComponent<DetailsCard>().data = data;
         details.GetComponent<DetailsCard>().UpdateDetails(Thumbnail);
     }
+
     public void Edit()
     {
         CreateStory createManager = GameObject.Find("Canvas/CreateMenu").GetComponent<CreateStory>();

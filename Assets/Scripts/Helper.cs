@@ -170,7 +170,7 @@ namespace SajberSim.Helper
                     Translate.Get("supernatural"),
                     Translate.Get("other") };
                 privacysettings = new string[] { Translate.Get("privacy_public"), Translate.Get("privacy_friends"), Translate.Get("privacy_private") };
-                customPath = Path.Combine(Application.dataPath, "MyStories");
+                customPath = Path.Combine(Application.dataPath, "MyNovels");
                 localPath = Path.Combine(Application.dataPath, "Story");
                 savesPath = Path.Combine(Application.persistentDataPath, "Saves");
                 templatePath = Path.Combine(Application.dataPath, "NovelTemplate");

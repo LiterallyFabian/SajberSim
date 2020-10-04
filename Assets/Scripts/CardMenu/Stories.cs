@@ -171,7 +171,7 @@ namespace SajberSim.CardMenu
                 Manifest storydata = Manifest.Get(Path.Combine(path, "manifest.json"));
                 if (storydata != null)
                 {
-                    if (storydata.author != UsernameCache() && storydata.authorid != $"{SteamIDCache()}" && !path.Contains("MyStories")) storyPaths.Remove(path);
+                    if (storydata.author != UsernameCache() && storydata.authorid != $"{SteamIDCache()}" && !path.Contains("MyNovels")) storyPaths.Remove(path);
                 }
                 else
                     storyPaths.Remove(path);
