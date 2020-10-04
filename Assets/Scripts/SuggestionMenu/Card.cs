@@ -1,4 +1,5 @@
 ﻿using SajberSim.Steam;
+using SajberSim.Translation;
 using SajberSim.Web;
 using Steamworks;
 using Steamworks.Ugc;
@@ -6,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -30,7 +32,13 @@ namespace SajberSim.Suggestions
         public async void FillData()
         {
             if (!Helper.Helper.loggedin) return;
+
             var itemInfo = await SteamUGC.QueryFileAsync(id);
+            if (itemInfo?.PreviewImageUrl.Length == 0)
+            {
+                SetError();
+                return;
+            }
             Title.text = itemInfo?.Title;
             Description.text = itemInfo?.Description;
             dl.RawImage(Thumbnail.gameObject, itemInfo?.PreviewImageUrl);
@@ -38,6 +46,11 @@ namespace SajberSim.Suggestions
         public void OpenInSteam()
         {
             Process.Start($@"steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id={id}");
+        }
+        private void SetError()
+        {
+            Title.text = "Error";
+            Description.text = Translate.Get("recommendednovelerror");
         }
     }
 

@@ -28,6 +28,7 @@ delete=Delete
 sure!=Sure!
 later=Later
 recommendednovels=Recommended novels
+recommendednovelerror=Something went wrong when trying to download the information about this visual novel. It might have been deleted, sorry (｡•́︿•̀｡)
 
 #Rate novel finished
 rateplayednoveltitle=Rate finished novel

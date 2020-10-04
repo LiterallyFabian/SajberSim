@@ -26,9 +26,10 @@ debug=Felsök
 help=Hjälp
 gotit=Förstått
 delete=Radera
-recommendednovels=Rekommenderade romaner
 sure!=Visst!
 later=Senare
+recommendednovels=Rekommenderade romaner
+recommendednovelerror=Något gick fel när vi försökte ladda ner informationen om den här visuella romanen. Det kan ha raderats, tyvärr (｡•́︿•̀｡)
 
 #Rate novel finished
 rateplayednoveltitle=Betygsätt roman

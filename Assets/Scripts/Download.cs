@@ -30,6 +30,7 @@ namespace SajberSim.Web
         }
         private IEnumerator UpdateItem(GameObject item, string path, ItemType type)
         {
+            //Debug.Log(path);
             using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path, nonReadable))
             {
                 uwr.timeout = 2;
