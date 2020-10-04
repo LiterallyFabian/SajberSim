@@ -132,7 +132,7 @@ public class CreateNew : MonoBehaviour
                 //NO template
                 if (!Directory.Exists(Helper.templatePath))
                 {
-                    Helper.Alert($"Visual novel template could not be found, it have most likely been removed. Your new novel will be saved without a template.\n\nTo reset the template, enter code \"TEMPLATE\" in Fabinas vault.");
+                    Helper.Alert(Translate.Get("notemplatewarning"));
                     Directory.CreateDirectory(destPath);
                 }
                 //template

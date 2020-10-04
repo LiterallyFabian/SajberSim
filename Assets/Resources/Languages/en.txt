@@ -79,6 +79,7 @@ words=Words
 backcolor=Background color
 deletenovel=Are you sure you want to delete "{0}"? This can not be undone and you will not be able to retrieve the novel unless you have it backed up.
 deletingnovel=Visual novel "{0}" will be deleted in 60 seconds. Close game to cancel.
+notemplatewarning=Visual novel template could not be found, it have most likely been removed. Your new novel will be saved without a template.\n\nTo reset the template, reinstall the game or enter code \"TEMPLATE\" in Fabinas vault to download a copy of it.
 
 #Creation titles / descriptions
 detailsdescription=Here you can see and edit the basic details for {0}. The name and description does not have to be the same as on Steam.

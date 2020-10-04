@@ -82,6 +82,7 @@ backcolor=Bakgrundsfärg
 words=Ord
 deletenovel=Är du säker på att du vill ta bort "{0}"? Detta kan inte ångras och du kommer inte att kunna få tillbaka romanen om du inte har säkerhetskopierat den.
 deletingnovel=Visuella romanen "{0}" kommer raderas om 60 sekunder. Stäng spelet för att avbryta.
+notemplatewarning=Mall för visuella romaner kunde inte hittas, den har sannolikt tagits bort. Din nya roman kommer sparas utan en mall.\n\nFör att återställa mallen, ominstallera spelet eller skriv in koden "TEMPLATE" i Fabinas valv för att ladda ner en kopia av den.
 
 #Creation titles / descriptions
 editstats=Redigera & statistik
